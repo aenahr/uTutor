@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">uTutor</string>
+    <string name="sansSerifLight">sans-serif-light</string>
+    <string name="setAppointment">Set an Appointment</string>
+</resources>

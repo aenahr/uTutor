@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="5dp">
+
+    <TextView
+        android:id="@+id/appointmentTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/setAppointment"
+        android:fontFamily="@string/sansSerifLight"
+        android:textSize="25dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"/>
+
+    <RelativeLayout
+        android:id="@+id/fill_appointment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/appointmentTitle"
+        >
+
+        <TextView
+            android:id="@+id/tutorName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Tutor Name"
+            android:layout_marginTop="32dp"
+            android:textSize="25dp"
+            android:fontFamily="sans-serif-black"/>
+
+        <EditText
+            android:id="@+id/userInputTutorName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="Insert tutor name..."
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="30dp"
+            android:textSize="20dp"
+            android:background="@drawable/edit_text_background"
+            android:padding="5dp"
+            android:layout_marginRight="30dp"
+            />
+
+        <TextView
+            android:id="@+id/tuteeName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Tutee Name"
+            android:layout_marginTop="82dp"
+            android:textSize="25dp"
+            android:fontFamily="sans-serif-black"/>
+
+        <EditText
+            android:id="@+id/userInputTuteeName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="Insert tutee name..."
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="80dp"
+            android:textSize="20dp"
+            android:background="@drawable/edit_text_background"
+            android:padding="5dp"
+            android:layout_marginRight="28dp"
+            />
+
+        <TextView
+            android:id="@+id/date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Date"
+            android:layout_marginTop="132dp"
+            android:textSize="25dp"
+            android:fontFamily="sans-serif-black"/>
+
+        <TextView
+            android:id="@+id/dateOutput"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="Output of date shown here"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="130dp"
+            android:textSize="20dp"
+            android:background="@drawable/edit_text_background"
+            android:padding="5dp"
+            android:layout_marginRight="70dp"
+            />
+
+        <Button
+            android:id="@+id/dateInput"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="..."
+            />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+
+
+        <Button
+            android:id="@+id/walkInButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/button_round"
+            android:layout_marginBottom="5dp"
+            android:text="Start"
+            android:textColor="@color/white"
+            android:visibility="invisible"
+            android:layout_centerHorizontal="true"
+            android:layout_alignParentBottom="true"/>
+
+        <Button
+            android:id="@+id/setAppointmentButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/button_round"
+            android:layout_marginBottom="5dp"
+            android:text="Set Appointment"
+            android:textColor="@color/white"
+            android:visibility="visible"
+            android:layout_centerHorizontal="true"
+            android:layout_alignParentBottom="true"/>
+    </RelativeLayout>
+</RelativeLayout>
