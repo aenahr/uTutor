@@ -1,6 +1,6 @@
 # uTutor
 
-CECS 491 Senior Project.
+CECS 491 Senior Project. 2017-18 Academic Year.
 
 ### What is uTutor?
 
@@ -31,8 +31,8 @@ If you are having any issues in the application or with installing, please conta
 
 ## Authors
 
-* **Shahar Janjua**
-* **Lance McVicar**
-* **Aenah Ramones**
-* **Nishant Saxena**
-* **Henry Tran**
+**Shahar Janjua**
+**Lance McVicar**
+**Aenah Ramones**
+**Nishant Saxena**
+**Henry Tran**
