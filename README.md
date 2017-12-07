@@ -25,10 +25,14 @@ What things you need to install the software and how to install them
 ### Support
 
 What things you need to install the software and how to install them
-* [Dropwizard](http://www.dropwizard.io/1.0.2/docs/) - The web framework used
-* [Maven](https://maven.apache.org/) - Dependency Management
-* [ROME](https://rometools.github.io/rome/) - Used to generate RSS Feeds
+* [Google APIs](https://developers.google.com/apis-explorer/#p/) - Needed for Google Maps
+* [AWS](https://aws.amazon.com) - Used for Hosting
+* [SendBird API](https://sendbird.com) - Used for in-app comunication 
 
 ## Authors
 
-* **Billie Thompson** - *Initial work* - [PurpleBooth](https://github.com/PurpleBooth)
+* **Shahar Janjua**
+* **Lance McVicar**
+* **Aenah Ramones**
+* **Nishant Saxena**
+* **Henry Tran**
