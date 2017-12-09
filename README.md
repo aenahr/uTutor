@@ -1,10 +1,10 @@
 # uTutor
 
-CECS 491 Senior Project. 2017-18 Academic Year.
+CECS 491 Senior Project. CSULB 2017-18 Academic Year.
 
 ### What is uTutor?
 
-uTutor is a mobile application that connects users to tutors. Users are required to create an account to access the application's special features which include searching for nearby tutors based on location, messaging others with our unique in-app chat system, or even becoming a tutor yourself! Schedule an appointment or save a desired tutor with the press of a button. Be taught by other users near you and select a public or private destination of your choice! View upcoming and past appointments, save your favorite tutors, and read and write reviews after your session is over. uTutor has everything for your learning needs!
+uTutor is a mobile application that connects users to tutors. Users are required to create an account to access the application's special features which include searching for nearby tutors based on your current location, messaging others with our unique in-app chat system, or even becoming a tutor yourself! Schedule an appointment or save a desired tutor with the press of a button. Be taught by other users near you and select the public or private destination of your choice. View upcoming and past appointments, track your favorite tutors, and read and write reviews after your session is over. uTutor has everything for your learning needs!
 
 This application is only available on Android devices.
 
