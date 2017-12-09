@@ -8,8 +8,11 @@ What things you need to install the software and how to install them
 
 ### Features
 
-* *User Account Creation*: First time users will be prompted to create an account with uTutor. View, edit, and share profiles with others! 
-* *Scheduled Appointments with Tutors*: Users will be able to 
+* *Unique Account Creation*: First time users will be prompted to create an account with uTutor. View, edit, and share profiles with others! 
+* *Scheduled Appointments with Tutors*: Users will be able to visit a Tutor's Profile page and schedule an appointment. Set a date, time and location for scheduled meetings - choose from public cafes, libraries, or even universities!
+* *Schedule Manager*: Manage all current, upcoming, and past schedules with our in-app schedule manager. Have the option to cancel or rescheudle with past tutors!
+* *Favorite Tutors*: Save your favorite tutors with a click of a button. See all your favorited tutors on one page!
+* *Search For The Tutor That is Right for You*: uTutor's main goal is to pair you with the perfect tutor. Search for a tutor based on where you live, what you want to be taught in, and even by a Tutor's ratings! We have a list and map feature available.
 * *Walk-In Tutors*: Users do not need to schedule appointments to be tutored! uTutor has a special feature, that allows tutors to work at any time with the walk-in feature; users can search the map for nearby, availble tutors.
 * *Customer Support*: uTutor is a new and growing community. Common questions are answered in our FAQ page, but users can also contact us inside the application.
 
