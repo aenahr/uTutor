@@ -4,7 +4,9 @@ CECS 491 Senior Project. 2017-18 Academic Year.
 
 ### What is uTutor?
 
-What things you need to install the software and how to install them
+uTutor is a mobile application that connects users to tutors. Users are required to create an account to access the application's special features which include searching for nearby tutors based on location, messaging others with our unique in-app chat system, or even becoming a tutor yourself! Schedule an appointment or save a desired tutor with the press of a button. Be taught by other users near you and select a public or private destination of your choice! View upcoming and past appointments, save your favorite tutors, and read and write reviews after your session is over. uTutor has everything for your learning needs!
+
+This application is only available on Android devices.
 
 ### Features
 
@@ -12,7 +14,7 @@ What things you need to install the software and how to install them
 * *Scheduled Appointments with Tutors*: Users will be able to visit a Tutor's Profile page and schedule an appointment. Set a date, time and location for scheduled meetings - choose from public cafes, libraries, or even universities!
 * *Schedule Manager*: Manage all current, upcoming, and past schedules with our in-app schedule manager. Have the option to cancel or rescheudle with past tutors!
 * *Favorite Tutors*: Save your favorite tutors with a click of a button. See all your favorited tutors on one page!
-* *Search For The Tutor That is Right for You*: uTutor's main goal is to pair you with the perfect tutor. Search for a tutor based on where you live, what you want to be taught in, and even by a Tutor's ratings! We have a list and map feature available.
+* *Search for the Perfect Tutor*: uTutor's main goal is to pair you with tutors that's right for you. Search for a tutor based on where you live, what you want to be taught in, and even by a Tutor's ratings! We have a list and map feature available.
 * *Walk-In Tutors*: Users do not need to schedule appointments to be tutored! uTutor has a special feature, that allows tutors to work at any time with the walk-in feature; users can search the map for nearby, availble tutors.
 * *Customer Support*: uTutor is a new and growing community. Common questions are answered in our FAQ page, but users can also contact us inside the application.
 
