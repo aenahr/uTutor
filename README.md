@@ -27,7 +27,7 @@ uTutor is available only to android users who have Android 5.1 (Lollipop) or abo
 uTutor's SQL database is hosted by Amazon Web Services and utilizes a variety of APIs:
 * [Google APIs](https://developers.google.com/apis-explorer/#p/) - Needed for Google Maps
 * [AWS](https://aws.amazon.com) - Used for Hosting
-* [SendBird API](https://sendbird.com) - Used for in-app comunication 
+* [SendBird API](https://sendbird.com) - Used for in-app communication 
 
 ### How do I contribute?
 
