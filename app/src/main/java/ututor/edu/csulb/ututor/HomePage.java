@@ -36,7 +36,7 @@ public class HomePage extends AppCompatActivity {
         setContentView(R.layout.appointment_creation);
 
         myCalendar = Calendar.getInstance();
-        edittext = (EditText) findViewById(R.id.Birthday);
+        //edittext = (EditText) findViewById(R.id.Birthday);
 
     }
 

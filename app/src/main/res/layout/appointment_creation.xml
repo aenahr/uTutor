@@ -23,19 +23,19 @@
         >
 
         <TextView
-            android:id="@+id/tutorName"
+            android:id="@+id/tutorEmail"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Tutor Name"
+            android:text="Tutor Email"
             android:layout_marginTop="32dp"
             android:textSize="25dp"
             android:fontFamily="sans-serif-black"/>
 
         <EditText
-            android:id="@+id/userInputTutorName"
+            android:id="@+id/userInputTutorEmail"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:hint="Insert tutor name..."
+            android:hint="Insert tutor email..."
             android:layout_alignParentRight="true"
             android:layout_marginTop="30dp"
             android:textSize="20dp"
@@ -45,10 +45,10 @@
             />
 
         <TextView
-            android:id="@+id/tuteeName"
+            android:id="@+id/tuteeEmail"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Tutee Name"
+            android:text="Tutee Email"
             android:layout_marginTop="82dp"
             android:textSize="25dp"
             android:fontFamily="sans-serif-black"/>
@@ -57,7 +57,7 @@
             android:id="@+id/userInputTuteeName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:hint="Insert tutee name..."
+            android:hint="Insert tutee email..."
             android:layout_alignParentRight="true"
             android:layout_marginTop="80dp"
             android:textSize="20dp"
@@ -92,7 +92,15 @@
             android:id="@+id/dateInput"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:minHeight="30dp"
+            android:minWidth="50dp"
+            android:textSize="20dp"
+            android:textColor="@color/white"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="10dp"
+            android:background="@color/colorPrimary"
             android:text="..."
+
             />
 
     </RelativeLayout>
