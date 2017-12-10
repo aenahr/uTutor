@@ -12,7 +12,7 @@ This application is only available on Android devices.
 
 * *Unique Account Creation*: First time users will be prompted to create an account with uTutor. View, edit, and share profiles with others! 
 * *Scheduled Appointments with Tutors*: Users will be able to visit a Tutor's Profile page and schedule an appointment. Set a date, time and location for scheduled meetings - choose from public cafes, libraries, or even universities!
-* *Schedule Manager*: Manage all current, upcoming, and past schedules with our in-app schedule manager. Have the option to cancel or rescheudle with past tutors!
+* *Schedule Manager*: Manage all current, upcoming, and past schedules with our in-app schedule manager. Have the option to cancel or reschedule with past tutors!
 * *Favorite Tutors*: Save your favorite tutors with a click of a button. See all your favorited tutors on one page!
 * *Search for the Perfect Tutor*: uTutor's main goal is to pair you with tutors that's right for you. Search for a tutor based on where you live, what you want to be taught in, and even by a Tutor's ratings! We have a list and map feature available.
 * *Walk-In Tutors*: Users do not need to schedule appointments to be tutored! uTutor has a special feature, that allows tutors to work at any time with the walk-in feature; users can search the map for nearby, availble tutors.
@@ -20,7 +20,7 @@ This application is only available on Android devices.
 
 ### Installation
 
-uTutor is available only to android users who have Android 5.1 (Lollipop) or above. Installation is available by forking this repository and opening project file in Android Studio; must have Android Studio Version 3.0.0 to correctly sync with gradle. Download will be available through the Google Playstore soon.
+uTutor is available only to android users who have Android 5.1 (Lollipop) or above. Installation is available by forking this repository and opening project file in Android Studio; must have Android Studio Version 3.0.0 to correctly sync with gradle. Download will be available through the Google PlayStore soon.
 
 ### What are the components?
 
