@@ -81,6 +81,6 @@
             android:layout_below="@id/etUniversity"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="20dp"
-            android:text="Done"/>
+            android:text="Register"/>
     </RelativeLayout>
 </ScrollView>
