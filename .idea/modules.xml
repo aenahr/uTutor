@@ -3,10 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://C:\Users\vorte_000\AndroidStudioProjects\uTutor\app\app.iml" filepath="C:\Users\vorte_000\AndroidStudioProjects\uTutor\app\app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/uTutor.iml" filepath="$PROJECT_DIR$/uTutor.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/uTutor.iml" filepath="$PROJECT_DIR$/.idea/uTutor.iml" />
-      <module fileurl="file://C:\Users\vorte_000\AndroidStudioProjects\uTutor\uTutor.iml" filepath="C:\Users\vorte_000\AndroidStudioProjects\uTutor\uTutor.iml" />
     </modules>
   </component>
 </project>

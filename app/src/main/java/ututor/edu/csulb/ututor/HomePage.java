@@ -33,14 +33,12 @@ public class HomePage extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.appointment_creation);
+        setContentView(R.layout.activity_login);
 
         myCalendar = Calendar.getInstance();
         //edittext = (EditText) findViewById(R.id.Birthday);
 
     }
-
-
 
     private void updateLabel() {
         String myFormat = "MM/dd/yy"; //In which you need put here
@@ -49,3 +47,16 @@ public class HomePage extends AppCompatActivity {
         edittext.setText(sdf.format(myCalendar.getTime()));
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+

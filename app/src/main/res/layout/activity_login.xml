@@ -51,7 +51,7 @@
             android:inputType="textEmailAddress"
             android:padding="10dp"
             android:singleLine="true"
-            android:text="@string/prompt_email" />
+            android:hint="@string/prompt_email" />
 
         <EditText
             android:id="@+id/password"
@@ -66,7 +66,7 @@
             android:padding="10dp"
             android:ems="10"
             android:inputType="textPassword"
-            android:text="@string/prompt_password" />
+            android:hint="@string/prompt_password" />
 
         <TextView
             android:id="@+id/textView2"
