@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/fillApointment"
+    android:id="@+id/fillWalkIn"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fillViewport="true">
@@ -10,6 +10,15 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
+
+        <TextView
+            android:id="@+id/titleWalkIn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Walk-In Appointment"
+            android:layout_centerHorizontal="true"
+            android:textSize="30dp"/>
 
 
         <TextView
@@ -177,39 +186,18 @@
             android:textColor="@color/white"
             android:textSize="20dp" />
 
-        <TextView
-            android:id="@+id/sendMessage"
+
+        <Button
+            android:id="@+id/setWalkIn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/location"
             android:layout_marginTop="15dp"
-            android:fontFamily="sans-serif-black"
-            android:text="Send Message"
-            android:textSize="25dp" />
-
-        <EditText
-            android:id="@+id/editSendMessage"
-            android:layout_width="match_parent"
-            android:layout_height="285dp"
-            android:layout_below="@+id/sendMessage"
-            android:layout_margin="5dp"
-            android:background="@drawable/edit_text_background"
-            android:gravity="top|left"
-            android:hint="click to edit time..."
-            android:inputType="textMultiLine"
-            android:maxLength="150"
-            android:scrollbars="vertical" />
-
-        <Button
-            android:id="@+id/setAppointmentButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/editSendMessage"
             android:layout_centerHorizontal="true"
             android:background="@drawable/button_round"
-            android:text="Set Appointment"
+            android:text="Start"
             android:textColor="@color/white"
-            android:visibility="visible" />
+            android:visibility="visible"/>
 
     </RelativeLayout>
 

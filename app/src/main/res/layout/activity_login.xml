@@ -73,7 +73,7 @@
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
             android:text="Login"
-            android:textSize="30sp"
+            android:textSize="30dp"
             android:textStyle="bold"
             android:textColor="@color/colorLightPrimary"
             android:visibility="visible"
@@ -95,11 +95,11 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/password"
             android:layout_marginTop="50dp"
-            android:background="@color/colorLightPrimary"
-            android:layout_alignParentRight="true"
-            android:layout_marginLeft="20dp"
+            android:layout_marginLeft="275dp"
+            android:textColor="@color/colorLightPrimary"
             android:text="@string/rememberme"
-            android:textSize="12sp" />
+            android:textSize="20dp"
+            />
 
         <CheckedTextView
             android:id="@+id/forgotpassword"
@@ -110,6 +110,7 @@
             android:layout_alignParentStart="true"
             android:layout_margin="20dp"
             android:textStyle="bold"
+            android:textSize="20dp"
             android:textColor="@color/colorLightPrimary"
             android:text="Forgot your Password?" />
 
