@@ -139,7 +139,7 @@
             android:layout_marginTop="50dp"
             android:layout_centerHorizontal="true"
             android:background="@drawable/button_round"
-            android:text="Start Time"
+            android:text="End Time"
             android:padding="20dp"
             android:textColor="@color/white"
             android:visibility="visible"/>

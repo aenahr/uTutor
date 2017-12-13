@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="ututor.edu.csulb.ututor.SearchMap">
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="insert tutor here..."
+        android:layout_marginLeft="10dp"
+        android:drawableLeft="@drawable/search_icon"/>
+
+    <Button
+        android:id="@+id/filterOption"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Filter"
+        android:layout_toLeftOf="@+id/view"
+        android:background="@color/colorPrimary"
+        android:textColor="@color/colorLightPrimary"
+        />
+
+    <Button
+        android:id="@+id/search"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Search"
+        android:layout_toLeftOf="@+id/filterOption"
+        android:background="@color/colorPrimary"
+        android:textColor="@color/colorLightPrimary"/>
+
+    <Button
+        android:id="@+id/view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignRight="@+id/map"
+        android:onClick="onClick_ECS"
+        android:text="View"
+        android:background="@color/colorPrimary"
+        android:textColor="@color/colorLightPrimary"
+        />
+
+    <fragment
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/map"
+        android:layout_below="@+id/view"
+        android:name="com.google.android.gms.maps.MapFragment"
+        />
+
+
+</RelativeLayout>
