@@ -1,12 +1,17 @@
 package ututor.edu.csulb.ututor;
 
 import android.app.DatePickerDialog;
+import android.content.Intent;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -16,6 +21,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.FrameLayout;
 import android.widget.Toast;
 
 public class HomePage extends AppCompatActivity
@@ -31,14 +37,6 @@ public class HomePage extends AppCompatActivity
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -68,34 +66,40 @@ public class HomePage extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
-            Toast.makeText(getApplicationContext(), "Camera" , Toast.LENGTH_SHORT).show();
-
-        } else if (id == R.id.nav_gallery) {
-
-            Toast.makeText(getApplicationContext(), "Gallery" , Toast.LENGTH_SHORT).show();
+        Fragment fragment = null;
 
 
-        } else if (id == R.id.nav_slideshow) {
 
-            Toast.makeText(getApplicationContext(), "SlideShow" , Toast.LENGTH_SHORT).show();
+        if (id == R.id.nav_home) {
+            startActivity(new Intent(HomePage.this, HomePage.class));
+        } else if (id == R.id.nav_login) {
+            Toast.makeText(getApplicationContext(), "LogIn" , Toast.LENGTH_SHORT).show();
+            fragment = new LogIn();
+
+        } else if (id == R.id.nav_userProfile) {
+            Toast.makeText(getApplicationContext(), "User Profile" , Toast.LENGTH_SHORT).show();
+            fragment = new GenericProfile();
+
+        } else if (id == R.id.nav_searchList) {
+            Toast.makeText(getApplicationContext(), "Search List" , Toast.LENGTH_SHORT).show();
+        } else if (id == R.id.nav_searchMap) {
+            Toast.makeText(getApplicationContext(), "Search Map" , Toast.LENGTH_SHORT).show();
+            fragment = new SearchMap();
+
+        } else if (id == R.id.nav_appointmentSchedule) {
+            Toast.makeText(getApplicationContext(), "Schedule Appointment" , Toast.LENGTH_SHORT).show();
+            fragment = new GeneralAppointment();
+
+        } else if (id == R.id.nav_registration) {
+            Toast.makeText(getApplicationContext(), "Registration" , Toast.LENGTH_SHORT).show();
+        }
+        if (fragment != null) {
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            fragmentManager.beginTransaction().replace(R.id.mainFrame, fragment).commit();
 
 
-        } else if (id == R.id.nav_manage) {
-
-            Toast.makeText(getApplicationContext(), "Manage" , Toast.LENGTH_SHORT).show();
-
-
-        } else if (id == R.id.nav_share) {
-            Toast.makeText(getApplicationContext(), "Share" , Toast.LENGTH_SHORT).show();
-
-
-        } else if (id == R.id.nav_send) {
-
-            Toast.makeText(getApplicationContext(), "Send" , Toast.LENGTH_SHORT).show();
-
-
+        } else {
+            Log.e("MainActivity", "Error in creating fragment");
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

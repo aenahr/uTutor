@@ -4,25 +4,23 @@
     android:id="@+id/fillWalkIn"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fillViewport="true">
-
-
+    android:fillViewport="true"
+    android:background="@color/colorPrimary">
     <RelativeLayout
         android:id="@+id/fillWalkInRelative"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-
-
         <TextView
             android:id="@+id/titleWalkIn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Walk-In Appointment"
             android:layout_centerHorizontal="true"
-            android:textSize="30dp"
+            android:textSize="25dp"
             android:textStyle="bold"
             android:fontFamily="sans-serif-black"
             android:layout_marginTop="15dp"
+            android:textColor="@color/colorLightPrimary"
             />
 
         <TextView
@@ -31,24 +29,26 @@
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif-black"
             android:text="Tutor Email"
-            android:textSize="26dp"
+            android:textSize="20dp"
             android:layout_below="@+id/titleWalkIn"
-            android:layout_marginTop="100dp"
-            android:layout_marginLeft="50dp"/>
+            android:layout_marginTop="50dp"
+            android:layout_marginLeft="50dp"
+            android:textColor="@color/colorLightPrimary"/>
 
         <TextView
             android:id="@+id/generateTutorEmail"
-            android:layout_width="200dp"
+            android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:text="test@gmail.com"
+            android:textColor="@color/colorLightPrimary"
             android:fontFamily="sans-serif"
-            android:textSize="20dp"
+            android:textSize="15dp"
             android:layout_below="@id/titleWalkIn"
             android:padding="5dp"
             android:background="@drawable/edit_text_background"
             android:layout_alignTop="@+id/tutorEmail"
             android:layout_toRightOf="@+id/tutorEmail"
-            android:layout_marginLeft="50dp"
+            android:layout_marginLeft="25dp"
             android:textAlignment="center"
             />
 
@@ -57,26 +57,29 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif-black"
+            android:textColor="@color/colorLightPrimary"
             android:text="Tutuee Email"
-            android:textSize="26dp"
+            android:textSize="20dp"
             android:layout_below="@+id/tutorEmail"
             android:layout_marginTop="10dp"
             android:layout_marginLeft="50dp"/>
 
         <EditText
             android:id="@+id/inputTuteeEmail"
-            android:layout_width="200dp"
+            android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:hint="insert tutee email..."
+            android:textColorHint="@color/colorLightPrimary"
             android:textStyle="italic"
+            android:textColor="@color/colorLightPrimary"
             android:padding="5dp"
             android:background="@drawable/edit_text_background"
             android:fontFamily="sans-serif"
-            android:textSize="20dp"
+            android:textSize="15dp"
             android:layout_below="@id/tutorEmail"
             android:layout_alignTop="@+id/tuteeEmail"
             android:layout_toRightOf="@+id/tuteeEmail"
-            android:layout_marginLeft="32dp"
+            android:layout_marginLeft="10dp"
             android:textAlignment="center"
             />
 
@@ -85,25 +88,27 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif-black"
+            android:textColor="@color/colorLightPrimary"
             android:text="Date"
-            android:textSize="26dp"
+            android:textSize="20dp"
             android:layout_below="@+id/tuteeEmail"
             android:layout_marginTop="10dp"
             android:layout_marginLeft="50dp"/>
 
         <TextView
             android:id="@+id/generateDate"
-            android:layout_width="200dp"
+            android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:text="12-19-2017"
+            android:textColor="@color/colorLightPrimary"
             android:fontFamily="sans-serif"
-            android:textSize="20dp"
+            android:textSize="15dp"
             android:layout_below="@id/tuteeEmail"
             android:padding="5dp"
             android:background="@drawable/edit_text_background"
             android:layout_alignTop="@+id/titleDate"
             android:layout_toRightOf="@+id/tutorEmail"
-            android:layout_marginLeft="50dp"
+            android:layout_marginLeft="25dp"
             android:textAlignment="center"
             />
 
@@ -114,6 +119,7 @@
             android:fontFamily="sans-serif-black"
             android:text="Location"
             android:textSize="26dp"
+            android:textColor="@color/colorLightPrimary"
             android:layout_below="@+id/tuteeEmail"
             android:layout_marginTop="75dp"
             android:layout_centerHorizontal="true"/>
@@ -139,7 +145,7 @@
             android:layout_marginTop="50dp"
             android:layout_centerHorizontal="true"
             android:background="@drawable/button_round"
-            android:text="End Time"
+            android:text="Start Time"
             android:padding="20dp"
             android:textColor="@color/white"
             android:visibility="visible"/>

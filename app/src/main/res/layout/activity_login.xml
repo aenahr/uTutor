@@ -1,25 +1,16 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorPrimary"
-    android:gravity="center_horizontal">
-
-    <!-- Login progress -->
-
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
+    android:orientation="vertical">
         <Button
             android:id="@+id/bSignUpButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_alignParentStart="true"
-            android:padding="30dp"
+            android:padding="10dp"
             android:layout_margin="40dp"
             android:background="@color/colorLightPrimary"
             android:text="@string/action_sign_up"
@@ -29,7 +20,7 @@
             android:id="@+id/bSignInButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="30dp"
+            android:padding="10dp"
             android:layout_alignParentBottom="true"
             android:layout_margin="40dp"
             android:layout_alignParentEnd="true"
@@ -51,7 +42,8 @@
             android:inputType="textEmailAddress"
             android:padding="10dp"
             android:singleLine="true"
-            android:text="@string/prompt_email" />
+            android:hint="@string/prompt_email"
+            />
 
         <EditText
             android:id="@+id/password"
@@ -66,7 +58,7 @@
             android:padding="10dp"
             android:ems="10"
             android:inputType="textPassword"
-            android:text="@string/prompt_password" />
+            android:hint="@string/prompt_password" />
 
         <TextView
             android:id="@+id/textView2"
@@ -74,8 +66,8 @@
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
-            android:text="Login"
-            android:textSize="30dp"
+            android:text="uTutor Login"
+            android:textSize="40dp"
             android:textStyle="bold"
             android:textColor="@color/colorLightPrimary"
             android:visibility="visible"
@@ -83,13 +75,17 @@
 
         <ImageView
             android:id="@+id/logo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
             android:layout_below="@+id/textView2"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="17dp"
             android:adjustViewBounds="true"
-            app:srcCompat="@mipmap/ic_launcher" />
+            android:maxWidth="250dp"
+            android:maxHeight="250dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ututorlogo"
+            />
 
         <RadioButton
             android:id="@+id/rememberme"
@@ -101,7 +97,7 @@
             android:layout_alignParentEnd="true"
             android:textColor="@color/colorLightPrimary"
             android:text="@string/rememberme"
-            android:textSize="20dp"
+            android:textSize="15dp"
             />
 
         <CheckedTextView
@@ -112,11 +108,8 @@
             android:layout_alignBottom="@+id/rememberme"
             android:layout_alignParentStart="true"
             android:layout_margin="20dp"
-            android:textStyle="bold"
-            android:textSize="20dp"
+            android:textSize="15dp"
             android:textColor="@color/colorLightPrimary"
             android:text="Forgot your Password?" />
+</RelativeLayout>
 
-    </RelativeLayout>
-
-</LinearLayout>
