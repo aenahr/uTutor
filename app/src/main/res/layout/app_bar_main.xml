@@ -22,7 +22,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Toolbar Title"
-                android:src="@drawable/ic_menu_gallery"
+                android:src="@drawable/ututorlogo"
+                android:adjustViewBounds="true"
+                android:scaleX=".75"
+                android:scaleY=".75"
                 android:layout_gravity="center"
                 android:id="@+id/toolbar_title" />
         </android.support.v7.widget.Toolbar>

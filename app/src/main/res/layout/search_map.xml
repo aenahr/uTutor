@@ -10,6 +10,7 @@
             android:layout_height="wrap_content"
             android:hint="insert tutor here..."
             android:textColor="@color/colorLightPrimary"
+            android:textColorHint="@color/colorLightPrimary"
             android:drawableLeft="@drawable/search_icon"/>
         <Button
             android:id="@+id/search"
