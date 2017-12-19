@@ -4,10 +4,12 @@
     android:id="@+id/fillApointment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fillViewport="true">
+    android:fillViewport="true"
+    android:background="@color/colorLightPrimary">
 
 
     <RelativeLayout
+        android:id="@+id/fillAppointmentRelative"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -26,10 +28,10 @@
             android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:layout_marginRight="30dp"
+            android:layout_marginRight="20dp"
             android:layout_marginTop="30dp"
             android:background="@drawable/edit_text_background"
-            android:hint="Insert tutor email..."
+            android:text="test@gmail.com"
             android:padding="5dp"
             android:textAlignment="center"
             android:textSize="20dp" />
@@ -40,7 +42,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="82dp"
             android:fontFamily="sans-serif-black"
-            android:text="Tutee Email"
+            android:text="Your Email"
             android:textSize="25dp" />
 
         <EditText
@@ -48,10 +50,10 @@
             android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:layout_marginRight="28dp"
+            android:layout_marginRight="20dp"
             android:layout_marginTop="80dp"
             android:background="@drawable/edit_text_background"
-            android:hint="Insert tutee email..."
+            android:hint="Insert your email..."
             android:padding="5dp"
             android:textAlignment="center"
             android:textSize="20dp" />
@@ -67,13 +69,15 @@
 
         <TextView
             android:id="@+id/dateOutput"
-            android:layout_width="wrap_content"
+            android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_marginRight="70dp"
             android:layout_marginTop="130dp"
             android:background="@drawable/edit_text_background"
-            android:hint="Output of date shown here"
+            android:text="Date output..."
+            android:textAlignment="center"
+            android:textStyle="italic"
             android:padding="5dp"
             android:textSize="20dp" />
 
@@ -108,7 +112,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_below="@+id/date"
-            android:layout_marginRight="30dp"
+            android:layout_marginRight="20dp"
             android:layout_marginTop="18dp"
             android:background="@drawable/edit_text_background"
             android:hint="click to edit time..."
@@ -120,7 +124,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/timeStart"
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="23dp"
             android:fontFamily="sans-serif-black"
             android:text="Time End"
             android:textSize="25dp" />
@@ -131,7 +135,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_below="@+id/editTimeStart"
-            android:layout_marginRight="30dp"
+            android:layout_marginRight="20dp"
             android:layout_marginTop="18dp"
             android:background="@drawable/edit_text_background"
             android:hint="click to edit time..."
@@ -151,14 +155,16 @@
 
         <TextView
             android:id="@+id/locationOutput"
-            android:layout_width="wrap_content"
+            android:layout_width="180dp"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_below="@+id/editTimeEnd"
             android:layout_marginRight="70dp"
             android:layout_marginTop="15dp"
             android:background="@drawable/edit_text_background"
-            android:hint="Output of location shown here"
+            android:text="Location output..."
+            android:textAlignment="center"
+            android:textStyle="italic"
             android:padding="5dp"
             android:textSize="20dp" />
 

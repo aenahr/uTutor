@@ -1,16 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView
-
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/colorLightPrimary">
 
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         tools:layout_editor_absoluteX="8dp"
         tools:layout_editor_absoluteY="8dp"
         android:layout_marginTop="20dp">
@@ -21,7 +20,8 @@
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:text="Sign up"
-            android:textSize="30sp"
+            android:textStyle="bold"
+            android:textSize="35sp"
             android:typeface="sans" />
         <EditText
             android:id="@+id/etEmail"
@@ -33,6 +33,8 @@
             android:layout_marginTop="12dp"
             android:ems="10"
             android:hint="Email"
+            android:drawableLeft="@drawable/icon_email"
+            android:drawablePadding="10dp"
             android:inputType="text|textEmailAddress"
             android:singleLine="true" />
 
@@ -46,7 +48,9 @@
             android:layout_marginTop="6dp"
             android:ems="10"
             android:hint="Password"
-            android:inputType="text|numberPassword"
+            android:drawableLeft="@drawable/icon_password"
+            android:drawablePadding="10dp"
+            android:inputType="textPassword"
             android:singleLine="true" />
 
         <EditText
@@ -59,7 +63,9 @@
             android:layout_marginTop="6dp"
             android:ems="10"
             android:hint="Confirm Password"
-            android:inputType="text|numberPassword"
+            android:inputType="textPassword"
+            android:drawableLeft="@drawable/icon_password"
+            android:drawablePadding="10dp"
             android:singleLine="true" />
         <EditText
             android:id="@+id/etUniversity"
@@ -71,15 +77,18 @@
             android:layout_marginTop="6dp"
             android:ems="10"
             android:hint="University (Optional)"
-            android:inputType="text|numberPassword"
+            android:drawableLeft="@drawable/icon_school"
+            android:drawablePadding="10dp"
             android:singleLine="true" />
         <Button
-            android:id="@+id/button2"
+            android:id="@+id/register"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_below="@id/etUniversity"
             android:layout_centerHorizontal="true"
+            android:background="@color/colorPrimary"
+            android:textColor="@color/colorLightPrimary"
             android:layout_marginTop="20dp"
             android:text="Register"/>
     </RelativeLayout>
