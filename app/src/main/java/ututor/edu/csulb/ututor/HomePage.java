@@ -66,10 +66,6 @@ public class HomePage extends AppCompatActivity
 
         if (id == R.id.nav_home) {
             startActivity(new Intent(HomePage.this, HomePage.class));
-        } else if (id == R.id.nav_login) {
-            Toast.makeText(getApplicationContext(), "LogIn" , Toast.LENGTH_SHORT).show();
-            fragment = new LogIn();
-
         } else if (id == R.id.nav_userProfile) {
             Toast.makeText(getApplicationContext(), "User Profile" , Toast.LENGTH_SHORT).show();
             fragment = new GenericProfile();
