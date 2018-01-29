@@ -36,6 +36,10 @@
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
 
+        <activity android:name=".Registration"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+
 
         <meta-data
             android:name="com.google.android.gms.version"
