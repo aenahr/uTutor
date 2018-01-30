@@ -10,18 +10,22 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:layout_editor_absoluteX="8dp"
-        tools:layout_editor_absoluteY="8dp"
-        >
+        tools:layout_editor_absoluteY="8dp">
 
-        <ImageView
+        <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/back_arrow"
-            android:scaleX="1"
-            android:scaleY="1"/>
+            android:id="@+id/backButton"
+            android:text="Back"
+            android:textSize="20dp"
+            android:textColor="@color/colorPrimaryDark"
+            android:background="@android:color/transparent"
+            android:drawableLeft="@drawable/back_arrow"/>
+
 
         <TextView
             android:id="@+id/tvSignUp"
+            android:layout_below="@+id/backButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
@@ -86,6 +90,18 @@
             android:drawableLeft="@drawable/icon_school"
             android:drawablePadding="10dp"
             android:singleLine="true" />
+
+
+        <TextView
+            android:id="@+id/alert"
+            android:layout_below="@+id/etUniversity"
+            android:layout_centerHorizontal="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/reddish"
+            android:text="Passwords do no match. Please try again."
+            android:visibility="invisible"/>
+
         <Button
             android:id="@+id/register"
             android:layout_width="wrap_content"
@@ -95,7 +111,8 @@
             android:layout_centerHorizontal="true"
             android:background="@color/colorPrimary"
             android:textColor="@color/colorLightPrimary"
-            android:layout_marginTop="20dp"
-            android:text="Register"/>
+            android:layout_marginTop="30dp"
+            android:text="Register"
+            android:onClick="registerUser"/>
     </RelativeLayout>
 </ScrollView>

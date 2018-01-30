@@ -81,9 +81,6 @@ public class HomePage extends AppCompatActivity
             Toast.makeText(getApplicationContext(), "Schedule Appointment" , Toast.LENGTH_SHORT).show();
             fragment = new GeneralAppointment();
 
-        } else if (id == R.id.nav_registration) {
-            Toast.makeText(getApplicationContext(), "Registration" , Toast.LENGTH_SHORT).show();
-            fragment = new Registration();
         }
         if (fragment != null) {
             FragmentManager fragmentManager = getSupportFragmentManager();

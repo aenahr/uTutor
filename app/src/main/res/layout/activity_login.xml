@@ -83,8 +83,8 @@
             android:src="@drawable/ututorlogo"
             />
 
-        <RadioButton
-            android:id="@+id/rememberme"
+        <CheckBox
+            android:id="@+id/rememberMe"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/password"
@@ -100,8 +100,8 @@
             android:id="@+id/forgotpassword"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBaseline="@+id/rememberme"
-            android:layout_alignBottom="@+id/rememberme"
+            android:layout_alignBaseline="@+id/rememberMe"
+            android:layout_alignBottom="@+id/rememberMe"
             android:layout_alignParentStart="true"
             android:layout_margin="20dp"
             android:textSize="15dp"
@@ -118,6 +118,7 @@
         android:layout_below="@+id/forgotpassword"
         android:layout_marginTop="20dp"
         android:layout_centerHorizontal="true"
+        android:onClick="byPassLogIn"
 
         />
 
