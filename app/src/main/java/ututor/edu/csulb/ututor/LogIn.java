@@ -1,17 +1,18 @@
 package ututor.edu.csulb.ututor;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.view.animation.DecelerateInterpolator;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -25,6 +26,9 @@ public class LogIn extends AppCompatActivity {
     public String email;
     public String password;
     public CheckBox mRemember;
+    public ImageView mLogo;
+    public TextView mTitle;
+    public TextView mForgot;
 
 
 
@@ -40,6 +44,25 @@ public class LogIn extends AppCompatActivity {
         mSignIn = (Button) findViewById(R.id.bSignInButton);
         mSignUp = (Button) findViewById(R.id.bSignUpButton);
         mRemember = (CheckBox) findViewById(R.id.rememberMe);
+        mLogo = (ImageView) findViewById(R.id.logo);
+        mTitle = (TextView) findViewById(R.id.titleLogo);
+        mForgot = (TextView) findViewById(R.id.forgotPassword);
+
+        Animation expandIn = AnimationUtils.loadAnimation(this, R.anim.expand);
+        Animation fadeIn = new AlphaAnimation(0, 1);
+        fadeIn.setInterpolator(new DecelerateInterpolator()); //add this
+        fadeIn.setDuration(1500);
+
+        // start loading animation
+        mLogo.startAnimation(expandIn);
+        mEmail.setAnimation(fadeIn);
+        mPassword.setAnimation(fadeIn);
+        mSignIn.setAnimation(fadeIn);
+        mSignUp.setAnimation(fadeIn);
+        mTitle.setAnimation(fadeIn);
+        mRemember.setAnimation(fadeIn);
+        mForgot.setAnimation(fadeIn);
+
 
         //load shared preferences
         SharedPreferences sp = getSharedPreferences("TEAM_ANDROID", MODE_PRIVATE);
