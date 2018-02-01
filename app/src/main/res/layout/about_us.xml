@@ -9,7 +9,8 @@ android:background="@color/colorLightPrimary">
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:layout_centerInParent="true">
 
     <TextView
         android:id="@+id/aboutus_id"
@@ -20,16 +21,17 @@ android:background="@color/colorLightPrimary">
         android:gravity="center_horizontal"
         android:textColor="@color/colorPrimaryDark"
         android:textSize="35dp" />
+
     <TextView
         android:id="@+id/Story_id"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/aboutus_id"
         android:layout_marginTop="10dp"
-        android:text="Story goes here"
-        android:textSize="20dp"
         android:gravity="center_horizontal"
-        android:textColor="@color/colorPrimaryDark"/>
+        android:text="@string/Story"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="20sp" />
     <TextView
         android:id="@+id/Memeber_id"
         android:layout_width="match_parent"
@@ -37,13 +39,13 @@ android:background="@color/colorLightPrimary">
         android:layout_below="@+id/Story_id"
         android:layout_marginTop="10dp"
         android:text="Team Members:"
-        android:textSize="20dp"
+        android:textSize="20sp"
         android:textColor="@color/colorPrimaryDark"/>
     <TextView
         android:id="@+id/contactus"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/Henry_id"
+        android:layout_below="@+id/Aenah_id"
         android:layout_marginTop="10dp"
         android:text="Contact us:"
         android:textSize="20dp"
@@ -54,38 +56,44 @@ android:background="@color/colorLightPrimary">
 
     <Button
         android:id="@+id/Henry_id"
-        android:layout_width="wrap_content"
+        android:layout_width="190dp"
         android:layout_height="wrap_content"
         android:layout_below="@+id/Memeber_id"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="5dp"
+        android:layout_centerVertical="true"
+        android:drawableTop="@mipmap/ic_henry"
         android:text="Henry" />
     <Button
         android:id="@+id/Nishant_id"
-        android:layout_width="wrap_content"
+        android:layout_width="190dp"
         android:layout_height="wrap_content"
         android:layout_below="@+id/Memeber_id"
         android:layout_marginStart="5dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="5dp"
         android:layout_toRightOf="@+id/Henry_id"
-        android:text="Nishant" />
+        android:text="Nishant"
+        android:drawableTop="@mipmap/ic_nishant" />
     <Button
         android:id="@+id/Aenah_id"
-        android:layout_width="wrap_content"
+        android:layout_width="190dp"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/Memeber_id"
+        android:layout_below="@+id/Henry_id"
         android:layout_marginStart="5dp"
-        android:layout_marginTop="10dp"
-        android:layout_toRightOf="@+id/Nishant_id"
-        android:text="Aenah" />
+        android:layout_marginTop="5dp"
+        android:text="Aenah"
+        android:drawableTop="@mipmap/ic_aenah"/>
+
     <Button
         android:id="@+id/Lance_id"
-        android:layout_width="wrap_content"
+        android:layout_width="190dp"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/Memeber_id"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="10dp"
-        android:layout_toRightOf="@+id/Aenah_id"
+        android:layout_alignBaseline="@+id/Aenah_id"
+        android:layout_alignBottom="@+id/Aenah_id"
+        android:layout_toEndOf="@+id/Aenah_id"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="5dp"
+        android:drawableTop="@mipmap/ic_lance"
         android:text="Lance" />
     <Button
         android:id="@+id/contactemail"
@@ -105,6 +113,8 @@ android:background="@color/colorLightPrimary">
         android:layout_marginTop="10dp"
         android:layout_toRightOf="@+id/contactemail"
         android:text="Phone Number" />
+
+
 
 
 </RelativeLayout>

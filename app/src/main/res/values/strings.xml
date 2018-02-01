@@ -17,6 +17,7 @@
     <string name="error_invalid_email">Invalid Email</string>
     <string name="error_invalid_password">Invalid Password</string>
     <string name="error_incorrect_password">Invalid Password</string>
+    <string name="Story">We are Computer Science students who made this app as our senior project. uTutor helps people meet Tutors and gives them the ability to view each other\'s profiles and people can see the ratings of Tutors before meeting them.</string>
     <string-array name="SearchResults">
         <item> Available now Harrison Wells  Physics</item>
         <item>     Offline    Barry Allen Criminal Justice </item>
