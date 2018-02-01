@@ -95,29 +95,8 @@ public class FAQ extends Fragment {
             @Override
             public boolean onChildClick(ExpandableListView parent, View v,
                                         int groupPosition, int childPosition, long id) {
-                // TODO Auto-generated method stub
 
-                if(listDataHeader.get(groupPosition).equals("1. Where can I go to find nutritional facts on specific ingredients?")){
-                    Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://nutritionfacts.org"));
-                    startActivity(browserIntent);
-                }
 
-                if(listDataHeader.get(groupPosition).equals("2. How do I report an issue within the app?")){
-                    Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:202-555-0177"));
-                    startActivity(intent);
-
-                }
-
-                if(listDataHeader.get(groupPosition).equals("3. Where do all these recipes come from?")){
-                    Intent devIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://developer.edamam.com"));
-                    startActivity(devIntent);
-                }
-
-                if(listDataHeader.get(groupPosition).equals("8. Can I interchange grams for cups?")){
-                    Intent convertIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.convertunits.com/from/grams/to/cups"));
-                    startActivity(convertIntent);
-
-                }
                 return false;
             }
         });
@@ -131,6 +110,28 @@ public class FAQ extends Fragment {
 
                     if(v.getText().toString().equals(empty)){
                         listAdapter.refreshValues();
+
+//                        if(listDataHeader.get(groupPosition).equals("1. Where can I go to find nutritional facts on specific ingredients?")){
+//                            Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://nutritionfacts.org"));
+//                            startActivity(browserIntent);
+//                        }
+//
+//                        if(listDataHeader.get(groupPosition).equals("2. How do I report an issue within the app?")){
+//                            Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:202-555-0177"));
+//                            startActivity(intent);
+//
+//                        }
+//
+//                        if(listDataHeader.get(groupPosition).equals("3. Where do all these recipes come from?")){
+//                            Intent devIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://developer.edamam.com"));
+//                            startActivity(devIntent);
+//                        }
+//
+//                        if(listDataHeader.get(groupPosition).equals("8. Can I interchange grams for cups?")){
+//                            Intent convertIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.convertunits.com/from/grams/to/cups"));
+//                            startActivity(convertIntent);
+//
+//                        }
                     }
                     else{
                         boolean qFound = listAdapter.filterData(v.getText().toString());
@@ -166,56 +167,56 @@ public class FAQ extends Fragment {
         listDataChild = new HashMap<String, List<String>>();
 
         // Adding head data
-        listDataHeader.add("1. Where can I go to find nutritional facts on specific ingredients?");
+        listDataHeader.add("1. How can I schedule an appointment with a Tutor?");
         listDataHeader.add("2. How do I report an issue within the app?");
-        listDataHeader.add("3. Where do all these recipes come from?");
-        listDataHeader.add("4. Can I add my own recipe?");
-        listDataHeader.add("5. Are there organic/vegan/etc. recipes?");
+        listDataHeader.add("3. Where can I find more info on uTutor?");
+        listDataHeader.add("4. Can I become a tutor?");
+        listDataHeader.add("5. Can you search by subject and/or location?");
         listDataHeader.add("6. When was this app created?");
-        listDataHeader.add("7. Do you have any tips/footnotes on how to cook the food?");
-        listDataHeader.add("8. Can I interchange grams for cups?");
-        listDataHeader.add("9. Are recipes separated by genre?");
-        listDataHeader.add("10. Who are the creators of Munchies?");
-        listDataHeader.add("11. Can we share recipes with friends?");
-        listDataHeader.add("12. Do I need to log in to access Munchies?");
+        listDataHeader.add("7. How can I see my list of upcoming appointments?");
+        listDataHeader.add("8. How can I favorite a tutor?");
+        listDataHeader.add("9. Do you have an iOS version of uTutor?");
+        listDataHeader.add("10. Who are the creators of uTutor?");
+        listDataHeader.add("11. Can we refer friends to this app?");
+        listDataHeader.add("12. Do I need to log in to access uTutor?");
 
 
         // Adding child data
         List<String> qOneAns = new ArrayList<String>();
-        qOneAns.add("A: Unfortunately, we currently do not support nutritional facts but click this answer to learn more."); // https://nutritionfacts.org
+        qOneAns.add("A: Navigate to the Search section of our app and enter your tutor's name and/or subject. Access their profile and you will have the ability to toggle the Schedule an Appointment Button.");
 
         List<String> qTwoAns = new ArrayList<String>();
-        qTwoAns.add("A: Contact us by clicking this answer, and you can call us regarding this issue so we can fix it.");
+        qTwoAns.add("A: Navigate to the About Us section of our app and contact us via email or phone. We will get to you as soon as possible!");
 
         List<String> qThreeAns = new ArrayList<String>();
-        qThreeAns.add("A: Our recipes come from Edamam; click here to be taken to the developer site!");
+        qThreeAns.add("A: Click here to be directed to our GitHub repo, User Manual and Developer Guide.");
 
         List<String> qFourAns = new ArrayList<String>();
-        qFourAns.add("A: This feature is coming soon!");
+        qFourAns.add("A: Yes! On our application's navigation menu, select Become a Tutor and follow the steps.");
 
         List<String> qFiveAns = new ArrayList<String>();
-        qFiveAns.add("A: This feature is coming soon!");
+        qFiveAns.add("A: Yes, type the keyword in our search bar.");
 
         List<String> qSixAns = new ArrayList<String>();
         qSixAns.add("A: This application was created on December 8, 2017.");
 
         List<String> qSevenAns = new ArrayList<String>();
-        qSevenAns.add("A: This feature is coming soon; we will be adding a notes section for those interested in writing down notes.");
+        qSevenAns.add("A: Navigate to the Appointment Manager of our app and you can see a list of past and upcoming appointments.");
 
         List<String> qEightAns = new ArrayList<String>();
-        qEightAns.add("A: We do not support this feature for now, but please click here to taken to a conversion calculator."); //https://www.convertunits.com/from/grams/to/cups
+        qEightAns.add("A: Navigate to a user's profile page and select Favorite. Find a list of favorite tutors in our Favorite Tutors section of our app.");
 
         List<String> qNineAns = new ArrayList<String>();
-        qNineAns.add("A: Unfortunately, we do not support this feature.");
+        qNineAns.add("A: As of now, we currently do not support iOS devices. Please check back in a few months for updates.");
 
         List<String> qTenAns = new ArrayList<String>();
-        qTenAns.add("A: Alex, Chris, Mari and Aenah!");
+        qTenAns.add("A: Henry, Nishant, Lance and Aenah!");
 
         List<String> qElevenAns = new ArrayList<String>();
         qElevenAns.add("A: We currently do not support this feature but check back in a couple of months!");
 
         List<String> qTwelveAns = new ArrayList<String>();
-        qTwelveAns.add("A: Yes, you must create an account before accessing Munchies.");
+        qTwelveAns.add("A: Yes, you must create an account before accessing uTutor.");
 
 
         listDataChild.put(listDataHeader.get(0), qOneAns);

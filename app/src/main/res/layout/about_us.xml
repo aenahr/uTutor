@@ -69,14 +69,13 @@ android:background="@color/colorLightPrimary">
         android:layout_marginTop="10dp"
         android:layout_toRightOf="@+id/Henry_id"
         android:text="Nishant" />
+
     <Button
         android:id="@+id/Aenah_id"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/Memeber_id"
-        android:layout_marginStart="5dp"
-        android:layout_marginTop="10dp"
-        android:layout_toRightOf="@+id/Nishant_id"
+        android:layout_above="@+id/contactus"
+        android:layout_alignStart="@+id/contactnumber"
         android:text="Aenah" />
     <Button
         android:id="@+id/Lance_id"

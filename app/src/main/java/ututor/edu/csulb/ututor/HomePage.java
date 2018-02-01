@@ -94,20 +94,28 @@ public class HomePage extends AppCompatActivity
             isVisible = false;
             Toast.makeText(getApplicationContext(), "Search List" , Toast.LENGTH_SHORT).show();
             fragment = new SearchList();
-        } else if (id == R.id.nav_searchMap) {
+        } else if (id == R.id.nav_Favorites) {
             isVisible = false;
-            Toast.makeText(getApplicationContext(), "Search Map" , Toast.LENGTH_SHORT).show();
-            fragment = new SearchMap();
+            Toast.makeText(getApplicationContext(), "Favorites" , Toast.LENGTH_SHORT).show();
+            //fragment = new SearchMap();
 
-        } else if (id == R.id.nav_appointmentSchedule) {
+        } else if (id == R.id.nav_appointmentManager) {
             isVisible = false;
-            Toast.makeText(getApplicationContext(), "Schedule Appointment" , Toast.LENGTH_SHORT).show();
-            fragment = new GeneralAppointment();
+            Toast.makeText(getApplicationContext(), "Appointment Manager" , Toast.LENGTH_SHORT).show();
+            //fragment = new GeneralAppointment();
 
         } else if (id == R.id.nav_faq) {
             isVisible = false;
-            Toast.makeText(getApplicationContext(), "FAQ" , Toast.LENGTH_SHORT).show();
             fragment = new FAQ();
+
+        } else if (id == R.id.nav_aboutUs) {
+            isVisible = false;
+            fragment = new AboutUs();
+
+        } else if (id == R.id.nav_becomeTutor) {
+            isVisible = false;
+
+            //fragment = new BecomeTutor();
 
         }
         if (fragment != null) {
