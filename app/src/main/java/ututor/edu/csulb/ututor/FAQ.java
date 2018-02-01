@@ -76,6 +76,7 @@ public class FAQ extends Fragment {
         expListView.setAdapter(listAdapter);
         listAdapter.setFinalValues();
 
+
         // Listview Group click listener
         expListView.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
 
@@ -96,7 +97,12 @@ public class FAQ extends Fragment {
             public boolean onChildClick(ExpandableListView parent, View v,
                                         int groupPosition, int childPosition, long id) {
 
-
+                for(int i = 0; i < totalSize; i++){
+                    if(listDataHeader.get(i).equals("3. Where can I find more info on uTutor?")){
+                        Intent devIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/aenahr/uTutor"));
+                        startActivity(devIntent);
+                    }
+                }
                 return false;
             }
         });
@@ -111,27 +117,7 @@ public class FAQ extends Fragment {
                     if(v.getText().toString().equals(empty)){
                         listAdapter.refreshValues();
 
-//                        if(listDataHeader.get(groupPosition).equals("1. Where can I go to find nutritional facts on specific ingredients?")){
-//                            Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://nutritionfacts.org"));
-//                            startActivity(browserIntent);
-//                        }
-//
-//                        if(listDataHeader.get(groupPosition).equals("2. How do I report an issue within the app?")){
-//                            Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:202-555-0177"));
-//                            startActivity(intent);
-//
-//                        }
-//
-//                        if(listDataHeader.get(groupPosition).equals("3. Where do all these recipes come from?")){
-//                            Intent devIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://developer.edamam.com"));
-//                            startActivity(devIntent);
-//                        }
-//
-//                        if(listDataHeader.get(groupPosition).equals("8. Can I interchange grams for cups?")){
-//                            Intent convertIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.convertunits.com/from/grams/to/cups"));
-//                            startActivity(convertIntent);
-//
-//                        }
+
                     }
                     else{
                         boolean qFound = listAdapter.filterData(v.getText().toString());
@@ -190,6 +176,8 @@ public class FAQ extends Fragment {
 
         List<String> qThreeAns = new ArrayList<String>();
         qThreeAns.add("A: Click here to be directed to our GitHub repo, User Manual and Developer Guide.");
+
+
 
         List<String> qFourAns = new ArrayList<String>();
         qFourAns.add("A: Yes! On our application's navigation menu, select Become a Tutor and follow the steps.");

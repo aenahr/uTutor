@@ -46,7 +46,7 @@ public class LogIn extends AppCompatActivity {
         mRemember = (CheckBox) findViewById(R.id.rememberMe);
         mLogo = (ImageView) findViewById(R.id.logo);
         mTitle = (TextView) findViewById(R.id.titleLogo);
-        mForgot = (TextView) findViewById(R.id.forgotPassword);
+        //mForgot = (TextView) findViewById(R.id.forgotPassword);
 
         Animation expandIn = AnimationUtils.loadAnimation(this, R.anim.expand);
         Animation fadeIn = new AlphaAnimation(0, 1);
@@ -61,7 +61,7 @@ public class LogIn extends AppCompatActivity {
         mSignUp.setAnimation(fadeIn);
         mTitle.setAnimation(fadeIn);
         mRemember.setAnimation(fadeIn);
-        mForgot.setAnimation(fadeIn);
+        //mForgot.setAnimation(fadeIn);
 
 
         //load shared preferences
