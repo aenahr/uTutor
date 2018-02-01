@@ -74,7 +74,10 @@ public class Registration extends AppCompatActivity {
 
 
         }
+    }
 
+    @Override
+    public void onBackPressed() {
 
     }
 

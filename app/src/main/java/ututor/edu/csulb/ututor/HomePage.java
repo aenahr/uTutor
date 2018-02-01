@@ -20,6 +20,7 @@ public class HomePage extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     NavigationView navigationView;
+    boolean isVisible = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,7 +50,14 @@ public class HomePage extends AppCompatActivity
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-            super.onBackPressed();
+            //super.onBackPressed();
+            if(isVisible == false){
+                isVisible = true;
+                startActivity(new Intent(HomePage.this, HomePage.class));
+            }
+            else{
+                //nothing
+            }
         }
     }
 
@@ -59,30 +67,59 @@ public class HomePage extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
+        int storedID = 0;
 
         Fragment fragment = null;
+
+        Fragment currentFragment = getSupportFragmentManager().findFragmentById(R.id.mainFrame);
+
 
 
 
         if (id == R.id.nav_home) {
-            startActivity(new Intent(HomePage.this, HomePage.class));
+            if(isVisible == false){
+                isVisible = true;
+
+                startActivity(new Intent(HomePage.this, HomePage.class));
+            }
+            else{
+                //nothing
+            }
+
         } else if (id == R.id.nav_userProfile) {
-            Toast.makeText(getApplicationContext(), "User Profile" , Toast.LENGTH_SHORT).show();
+            isVisible = false;
             fragment = new GenericProfile();
 
         } else if (id == R.id.nav_searchList) {
+            isVisible = false;
             Toast.makeText(getApplicationContext(), "Search List" , Toast.LENGTH_SHORT).show();
             fragment = new SearchList();
-        } else if (id == R.id.nav_searchMap) {
-            Toast.makeText(getApplicationContext(), "Search Map" , Toast.LENGTH_SHORT).show();
-            fragment = new SearchMap();
+        } else if (id == R.id.nav_Favorites) {
+            isVisible = false;
+            Toast.makeText(getApplicationContext(), "Favorites" , Toast.LENGTH_SHORT).show();
+            //fragment = new SearchMap();
 
-        } else if (id == R.id.nav_appointmentSchedule) {
-            Toast.makeText(getApplicationContext(), "Schedule Appointment" , Toast.LENGTH_SHORT).show();
-            fragment = new GeneralAppointment();
+        } else if (id == R.id.nav_appointmentManager) {
+            isVisible = false;
+            Toast.makeText(getApplicationContext(), "Appointment Manager" , Toast.LENGTH_SHORT).show();
+            //fragment = new GeneralAppointment();
+
+        } else if (id == R.id.nav_faq) {
+            isVisible = false;
+            fragment = new FAQ();
+
+        } else if (id == R.id.nav_aboutUs) {
+            isVisible = false;
+            fragment = new AboutUs();
+
+        } else if (id == R.id.nav_becomeTutor) {
+            isVisible = false;
+
+            //fragment = new BecomeTutor();
 
         }
         if (fragment != null) {
+
             FragmentManager fragmentManager = getSupportFragmentManager();
             fragmentManager.beginTransaction().replace(R.id.mainFrame, fragment).commit();
 
@@ -95,4 +132,6 @@ public class HomePage extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
+
 }
