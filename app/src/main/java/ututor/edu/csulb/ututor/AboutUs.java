@@ -29,7 +29,7 @@ public class AboutUs extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         super.onCreateView(inflater, container, savedInstanceState);
-        View rootView = inflater.inflate(R.layout.search_list, container, false);
+        View rootView = inflater.inflate(R.layout.about_us, container, false);
         /* Henry button to go Henry profile */
         henry = (Button) rootView.findViewById(R.id.Henry_id);
         henry.setOnClickListener(new View.OnClickListener(){
@@ -86,7 +86,7 @@ public class AboutUs extends Fragment {
 
     protected void sendEmail() {
         Log.i("Send email", "");
-        String[] TO = {""};
+        String[] TO = {"ututor.project@gmail.com"};
         String[] CC = {""};
         Intent emailIntent = new Intent(Intent.ACTION_SEND);
 
@@ -96,6 +96,7 @@ public class AboutUs extends Fragment {
         emailIntent.putExtra(Intent.EXTRA_CC, CC);
         emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Your subject");
         emailIntent.putExtra(Intent.EXTRA_TEXT, "Email message goes here");
+        startActivity(emailIntent);
 
         try {
             startActivity(Intent.createChooser(emailIntent, "Send mail..."));
