@@ -42,7 +42,7 @@ android:background="@color/colorLightPrimary">
         android:textSize="20sp"
         android:textColor="@color/colorPrimaryDark"/>
     <TextView
-        android:id="@+id/contactus"
+        android:id="@+id/contactUs"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/Aenah_id"
@@ -63,6 +63,7 @@ android:background="@color/colorLightPrimary">
         android:layout_marginTop="5dp"
         android:layout_centerVertical="true"
         android:drawableTop="@mipmap/ic_henry"
+        android:background="@android:color/transparent"
         android:text="Henry" />
     <Button
         android:id="@+id/Nishant_id"
@@ -73,6 +74,7 @@ android:background="@color/colorLightPrimary">
         android:layout_marginTop="5dp"
         android:layout_toRightOf="@+id/Henry_id"
         android:text="Nishant"
+        android:background="@android:color/transparent"
         android:drawableTop="@mipmap/ic_nishant" />
     <Button
         android:id="@+id/Aenah_id"
@@ -82,6 +84,7 @@ android:background="@color/colorLightPrimary">
         android:layout_marginStart="5dp"
         android:layout_marginTop="5dp"
         android:text="Aenah"
+        android:background="@android:color/transparent"
         android:drawableTop="@mipmap/ic_aenah"/>
 
     <Button
@@ -93,30 +96,30 @@ android:background="@color/colorLightPrimary">
         android:layout_toEndOf="@+id/Aenah_id"
         android:layout_marginStart="5dp"
         android:layout_marginTop="5dp"
+        android:background="@android:color/transparent"
         android:drawableTop="@mipmap/ic_lance"
         android:text="Lance" />
-    <Button
-        android:id="@+id/contactemail"
+
+    <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/contactus"
-        android:layout_marginStart="80dp"
-        android:layout_marginTop="10dp"
+        android:layout_below="@+id/contactUs"
+        android:layout_centerHorizontal="true">
 
-        android:text="Email" />
-    <Button
-        android:id="@+id/contactnumber"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/contactus"
-        android:layout_marginStart="30dp"
-        android:layout_marginTop="10dp"
-        android:layout_toRightOf="@+id/contactemail"
-        android:text="Phone Number" />
-
-
+        <Button
+            android:id="@+id/contactEmail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Email Us" />
+        <Button
+            android:id="@+id/contactnumber"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/contactEmail"
+            android:text="Call Us" />
 
 
+    </RelativeLayout>
 </RelativeLayout>
 
 </ScrollView>
