@@ -33,6 +33,8 @@ uTutor's SQL database is hosted by Amazon Web Services and utilizes a variety of
 
 The source code for the project is located at github; please click [here](https://github.com/aenahr/uTutor) to access the code. The code is organized in Android Studio's format. Within the java folder, all java files are packaged as: ututor.edu.csulb.ututor. Furthermore, all resources, including .xml, values and images, are stored in the res folder under java.
 
+Our Developer Guide and User Manual can be accessed at: https://sites.google.com/site/ututormanual/
+
 ### Support
 
 If you are having any issues in the application or with installing, please contact us at: ututor.project@gmail.com
