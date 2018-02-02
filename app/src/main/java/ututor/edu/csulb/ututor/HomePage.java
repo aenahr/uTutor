@@ -18,6 +18,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -35,6 +36,7 @@ public class HomePage extends AppCompatActivity
     public TextView hName;
     public TextView hEmail;
     public ImageView hProfilePic;
+    public Button mWork;
 
 
     @Override
@@ -45,6 +47,15 @@ public class HomePage extends AppCompatActivity
 
         Intent i = getIntent();
         currentUser = (User)i.getSerializableExtra("currentUser");
+        mWork = (Button) findViewById(R.id.workButton);
+
+        //check if the person is a tutor or not
+        if( !currentUser.isTutor){
+            mWork.setVisibility(View.INVISIBLE);
+        }else{
+            mWork.setVisibility(View.VISIBLE);
+        }
+
 
         // Navigation Drawer Code
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -87,6 +98,7 @@ public class HomePage extends AppCompatActivity
         String bit = currentUser.getProfilePic();
         Bitmap b = StringToBitMap(bit);
         hProfilePic.setImageBitmap(b);
+
 
 
     }
@@ -166,7 +178,10 @@ public class HomePage extends AppCompatActivity
             isVisible = false;
 
             //fragment = new BecomeTutor();
-
+        } else if (id == R.id.nav_SignOut) {
+            Toast.makeText(getApplicationContext(), "Signed Out." , Toast.LENGTH_SHORT).show();
+            startActivity(new Intent(HomePage.this, LogIn.class));
+            finish();
         }
         if (fragment != null) {
 

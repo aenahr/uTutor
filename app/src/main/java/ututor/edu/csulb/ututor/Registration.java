@@ -27,6 +27,7 @@ public class Registration extends AppCompatActivity {
     EditText mPasswordConfirm;
     EditText mUniversity;
     TextView mAlertPassWord;
+    TextView mAlertInput;
     Button imgBack;
     public User currentUser;
 
@@ -44,6 +45,7 @@ public class Registration extends AppCompatActivity {
         mFirst = (EditText) findViewById(R.id.etFirst);
         mLast = (EditText) findViewById(R.id.etLast);
         mAlertPassWord = (TextView) findViewById(R.id.alert);
+        mAlertInput = (TextView) findViewById(R.id.alertInput);
 
         imgBack = (Button) findViewById(R.id.backButton);
 
@@ -62,8 +64,13 @@ public class Registration extends AppCompatActivity {
     }
 
     public void registerUser(View view){
+        //to prevent overlap errors, set both errors invisible first
+        mAlertPassWord.setVisibility(View.INVISIBLE);
+        mAlertInput.setVisibility(View.INVISIBLE);
 
-        if( mPassword.getText().toString().equals(mPasswordConfirm.getText().toString()) ){
+        boolean validRegistration = testForNull();
+
+        if( mPassword.getText().toString().equals(mPasswordConfirm.getText().toString()) && validRegistration == true){
 
             //create new user in database and inout all values
 
@@ -88,21 +95,41 @@ public class Registration extends AppCompatActivity {
             Intent i = new Intent(Registration.this, HomePage.class);
             i.putExtra("currentUser", currentUser);
             startActivity(i);
+        } else if(validRegistration == false){
+
+            mAlertInput.setVisibility(View.VISIBLE);
+            Animation shake = AnimationUtils.loadAnimation(Registration.this, R.anim.shake);
+            mAlertInput.startAnimation(shake);
+
         }
         else{
 
             mAlertPassWord.setVisibility(View.VISIBLE);
             Animation shake = AnimationUtils.loadAnimation(Registration.this, R.anim.shake);
             mAlertPassWord.startAnimation(shake);
-            Toast.makeText(Registration.this, "Pass: " + mPassword.getText().toString() + ", Confirm: " + mPasswordConfirm.getText().toString(), Toast.LENGTH_LONG).show();
-
-
-
         }
+    }
+
+    /**
+     * Method that tests if all required fields are inputted
+     * @return
+     */
+    public boolean testForNull(){
+        if(mEmail.getText().toString().equals("")){ return false;}
+        if(mFirst.getText().toString().equals("")){ return false; }
+        if(mLast.getText().toString().equals("")){ return false;}
+        if(mPassword.getText().toString().equals("")){ return false; }
+        if(mPasswordConfirm.getText().toString().equals("")){ return false; }
+
+        //returns true if all requirements are met
+        return true;
     }
 
     @Override
     public void onBackPressed() {
+        // finish this activity and go back to log in
+        startActivity(new Intent(Registration.this, LogIn.class));
+        finish();
 
     }
 

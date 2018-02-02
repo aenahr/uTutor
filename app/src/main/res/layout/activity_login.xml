@@ -84,15 +84,28 @@
             android:src="@drawable/ututorlogo"
             />
 
+    <TextView
+        android:id="@+id/alertPassword"
+        android:layout_below="@+id/password"
+        android:layout_centerHorizontal="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/reddish"
+        android:layout_marginTop="10dp"
+        android:text="Required fields are not met. Please try again."
+        android:visibility="invisible"/>
+
         <CheckBox
             android:id="@+id/rememberMe"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/password"
-            android:layout_marginTop="25dp"
+            android:layout_marginTop="35dp"
             android:textColor="@color/colorLightPrimary"
-            android:text="@string/rememberme"
-            android:textSize="15dp"
+            android:text="@string/rememberMe"
+            android:fontFamily="sans-serif-light"
+            android:textSize="20dp"
+            android:gravity="center"
             android:layout_centerHorizontal="true"
             />
 

@@ -130,6 +130,16 @@
             android:text="Passwords do no match. Please try again."
             android:visibility="invisible"/>
 
+        <TextView
+            android:id="@+id/alertInput"
+            android:layout_below="@+id/etUniversity"
+            android:layout_centerHorizontal="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/reddish"
+            android:text="Required fields are not met. Please try again."
+            android:visibility="invisible"/>
+
         <Button
             android:id="@+id/register"
             android:layout_width="wrap_content"
