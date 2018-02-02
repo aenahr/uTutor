@@ -66,14 +66,14 @@ public class AboutUs extends Fragment {
         c_number = (Button) rootView.findViewById(R.id.contactnumber);
         c_number.setOnClickListener(new View.OnClickListener(){
             public void onClick(View view) {
-                Intent callIntent = new Intent(Intent.ACTION_CALL);
+                Intent callIntent = new Intent(Intent.ACTION_DIAL);
                 callIntent.setData(Uri.parse("tel:0377778888"));
                 startActivity(callIntent);
             }
 
         });
 
-        c_email = (Button) rootView.findViewById(R.id.contactemail);
+        c_email = (Button) rootView.findViewById(R.id.contactEmail);
         c_email.setOnClickListener(new View.OnClickListener(){
             public void onClick(View view) {
                 sendEmail();
@@ -85,6 +85,8 @@ public class AboutUs extends Fragment {
     }
 
     protected void sendEmail() {
+
+
         Log.i("Send email", "");
         String[] TO = {"ututor.project@gmail.com"};
         String[] CC = {""};
@@ -100,8 +102,6 @@ public class AboutUs extends Fragment {
 
         try {
             startActivity(Intent.createChooser(emailIntent, "Send mail..."));
-            getActivity().finish();
-            Log.i("Finished sending email", "");
         } catch (android.content.ActivityNotFoundException ex) {
             Toast.makeText(getActivity(), "There is no email client installed.", Toast.LENGTH_SHORT).show();
         }

@@ -1,12 +1,16 @@
 package ututor.edu.csulb.ututor;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
+import android.util.Base64;
 import android.util.Log;
+import android.view.Menu;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -14,13 +18,24 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.gson.Gson;
 
 public class HomePage extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     NavigationView navigationView;
     boolean isVisible = true;
+    User currentUser;
+
+    // navigation bar changes
+    public TextView hName;
+    public TextView hEmail;
+    public ImageView hProfilePic;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +43,10 @@ public class HomePage extends AppCompatActivity
         setContentView(R.layout.activity_main);
 
 
+        Intent i = getIntent();
+        currentUser = (User)i.getSerializableExtra("currentUser");
+
+        // Navigation Drawer Code
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
@@ -39,9 +58,37 @@ public class HomePage extends AppCompatActivity
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
+        // Changing navigation bar values
+        hName = (TextView) findViewById(R.id.hName);
+        hEmail = (TextView) findViewById(R.id.hEmail);
+        hProfilePic = (ImageView) findViewById(R.id.hProfilePic);
+
 
         navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        View headerView = navigationView.getHeaderView(0);
+        Menu menu = navigationView.getMenu();
+
+        // Changing navigation bar values
+        hName = (TextView) headerView.findViewById(R.id.hName);
+        hEmail = (TextView) headerView.findViewById(R.id.hEmail);
+        hProfilePic = (ImageView) headerView.findViewById(R.id.hProfilePic);
+        if(currentUser.isTutor){
+
+            MenuItem menuTutor = menu.findItem(R.id.nav_becomeTutor);
+            menuTutor.setVisible(false);
+
+        }
+
+        hName.setText(currentUser.getFirstName() +  " " + currentUser.getLastName());
+        hEmail.setText(currentUser.getEmail());
+
+        String bit = currentUser.getProfilePic();
+        Bitmap b = StringToBitMap(bit);
+        hProfilePic.setImageBitmap(b);
+
+
     }
 
     @Override
@@ -53,10 +100,13 @@ public class HomePage extends AppCompatActivity
             //super.onBackPressed();
             if(isVisible == false){
                 isVisible = true;
-                startActivity(new Intent(HomePage.this, HomePage.class));
+                // send user info to HomePage
+                Intent i = new Intent(HomePage.this, HomePage.class);
+                i.putExtra("currentUser", currentUser);
+                startActivity(i);
             }
             else{
-                //nothing
+
             }
         }
     }
@@ -71,16 +121,16 @@ public class HomePage extends AppCompatActivity
 
         Fragment fragment = null;
 
-        Fragment currentFragment = getSupportFragmentManager().findFragmentById(R.id.mainFrame);
-
-
-
-
         if (id == R.id.nav_home) {
             if(isVisible == false){
                 isVisible = true;
 
-                startActivity(new Intent(HomePage.this, HomePage.class));
+                //startActivity(new Intent(HomePage.this, HomePage.class));
+
+                // send user info to HomePage
+                Intent i = new Intent(HomePage.this, HomePage.class);
+                i.putExtra("currentUser", currentUser);
+                startActivity(i);
             }
             else{
                 //nothing
@@ -131,6 +181,18 @@ public class HomePage extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    public Bitmap StringToBitMap(String encodedString) {
+        try {
+            byte[] encodeByte = Base64.decode(encodedString, Base64.DEFAULT);
+            Bitmap bitmap = BitmapFactory.decodeByteArray(encodeByte, 0,
+                    encodeByte.length);
+            return bitmap;
+        } catch (Exception e) {
+            e.getMessage();
+            return null;
+        }
     }
 
 

@@ -47,12 +47,40 @@
             android:drawablePadding="10dp"
             android:inputType="text|textEmailAddress"
             android:singleLine="true" />
+        <EditText
+            android:id="@+id/etFirst"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/etEmail"
+            android:layout_marginStart="22dp"
+            android:layout_marginEnd="22dp"
+            android:layout_marginTop="12dp"
+            android:ems="10"
+            android:hint="First Name"
+            android:drawableLeft="@drawable/ic_action_name"
+            android:drawablePadding="10dp"
+            android:inputType="text"
+            android:singleLine="true" />
+        <EditText
+            android:id="@+id/etLast"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/etFirst"
+            android:layout_marginStart="22dp"
+            android:layout_marginEnd="22dp"
+            android:layout_marginTop="12dp"
+            android:ems="10"
+            android:hint="Last Name"
+            android:drawableLeft="@drawable/ic_action_name"
+            android:drawablePadding="10dp"
+            android:inputType="text"
+            android:singleLine="true" />
 
         <EditText
             android:id="@+id/etPassword"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@id/etEmail"
+            android:layout_below="@id/etLast"
             android:layout_marginStart="22dp"
             android:layout_marginEnd="22dp"
             android:layout_marginTop="6dp"

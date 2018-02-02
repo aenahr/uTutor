@@ -2,8 +2,13 @@ package ututor.edu.csulb.ututor;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Base64;
 import android.view.View;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
@@ -16,8 +21,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.InputStream;
+import java.io.Serializable;
 
-public class LogIn extends AppCompatActivity {
+
+public class LogIn extends AppCompatActivity{
 
     public EditText mEmail;
     public EditText mPassword;
@@ -31,13 +41,10 @@ public class LogIn extends AppCompatActivity {
     public TextView mForgot;
 
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
 
         mEmail = (EditText) findViewById(R.id.email);
         mPassword = (EditText) findViewById(R.id.password);
@@ -64,7 +71,7 @@ public class LogIn extends AppCompatActivity {
         //mForgot.setAnimation(fadeIn);
 
 
-        //load shared preferences
+        //load shared preferences to check if Remember Me was clicked
         SharedPreferences sp = getSharedPreferences("TEAM_ANDROID", MODE_PRIVATE);
         SharedPreferences.Editor editor = sp.edit();
         boolean checkSaved = sp.getBoolean("isSaved", false);
@@ -102,20 +109,50 @@ public class LogIn extends AppCompatActivity {
 
                 // validate email & password, so access database
 
-                // store to shared preferences if remember me is checked
+                // if remember me is selected
+                if(mRemember.isChecked()){
+                    Toast.makeText(LogIn.this, "Saving log-in info", Toast.LENGTH_LONG).show();
+                    String sEmail = mEmail.getText().toString();
+                    String sPass = mPassword.getText().toString();
+
+                    SharedPreferences pref = getApplicationContext().getSharedPreferences("TEAM_ANDROID", MODE_PRIVATE);
+                    SharedPreferences.Editor editor = pref.edit();
+
+                    editor.putBoolean("isSaved", true);
+
+                    editor.putString("Email", sEmail);
+                    editor.putString("Password", sPass);
+
+                    editor.commit();
+                }
+                else{
+
+                    SharedPreferences pref = getApplicationContext().getSharedPreferences("TEAM_ANDROID", MODE_PRIVATE);
+                    SharedPreferences.Editor editor = pref.edit();
+                    editor.clear();
+                    editor.apply();
+
+                }
 
 
-                // notify user of success
-                Toast.makeText(LogIn.this, "Going to home page", Toast.LENGTH_LONG).show();
+                //upload server info about User to the User class
+                // get info from Database and set them to the User class
+                // for now, I've just set random values
+                User cUser = new User();
+                cUser.setEmail(mEmail.getText().toString());
+                cUser.setTutor(true);
+                //cUser.setFirstName(String);
+                //cUser.setLastName(String);
+                Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.ututorlogo); // drawable to bitmap
+                cUser.setProfilePic(bitmap);
+
+                // send user info to HomePage
+                Intent i = new Intent(LogIn.this, HomePage.class);
+                i.putExtra("currentUser", cUser);
+                startActivity(i);
 
             }
         });
-
-
-    }
-
-
-    public void forgotPassword(View view){
 
 
     }
@@ -125,7 +162,12 @@ public class LogIn extends AppCompatActivity {
 
         //validate username and email
 
-        // check if remember me is selected
+
+        //set random variables
+        mEmail.setText("aenah.ramones@gmail.com");
+        mPassword.setText("1234");
+
+        // if remember me is selected
         if(mRemember.isChecked()){
             Toast.makeText(LogIn.this, "Saving log-in info", Toast.LENGTH_LONG).show();
             String sEmail = mEmail.getText().toString();
@@ -150,9 +192,20 @@ public class LogIn extends AppCompatActivity {
 
         }
 
-        // load homepage
-        startActivity(new Intent(LogIn.this, HomePage.class));
-        finish();
+        //upload server info about User to the User class
+        User cUser = new User();
+        cUser.setEmail(mEmail.getText().toString());
+        cUser.setTutor(true);
+        cUser.setFirstName("Aenah");
+        cUser.setLastName("Ramones");
+
+        Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.ututorlogo); // drawable to bitmap
+        cUser.setProfilePic(bitmap);
+
+        // send user info to HomePage
+        Intent i = new Intent(LogIn.this, HomePage.class);
+        i.putExtra("currentUser", cUser);
+        startActivity(i);
 
 
     }
