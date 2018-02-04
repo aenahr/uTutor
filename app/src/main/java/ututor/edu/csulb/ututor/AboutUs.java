@@ -96,8 +96,8 @@ public class AboutUs extends Fragment {
         emailIntent.setType("text/plain");
         emailIntent.putExtra(Intent.EXTRA_EMAIL, TO);
         emailIntent.putExtra(Intent.EXTRA_CC, CC);
-        emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Your subject");
-        emailIntent.putExtra(Intent.EXTRA_TEXT, "Email message goes here");
+        emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Enter Subject");
+        emailIntent.putExtra(Intent.EXTRA_TEXT, "Enter message here....");
         startActivity(emailIntent);
 
         try {
