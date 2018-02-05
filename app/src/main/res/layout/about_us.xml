@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+xmlns:android="http://schemas.android.com/apk/res/android"
+android:id="@+id/fillApointment"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+android:fillViewport="true"
+android:background="@color/colorLightPrimary">
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_centerInParent="true">
+
+    <TextView
+        android:id="@+id/aboutus_id"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:text="About us"
+        android:gravity="center_horizontal"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="35dp" />
+
+    <TextView
+        android:id="@+id/Story_id"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/aboutus_id"
+        android:layout_marginTop="10dp"
+        android:gravity="center_horizontal"
+        android:text="@string/Story"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="20sp" />
+    <TextView
+        android:id="@+id/Memeber_id"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/Story_id"
+        android:layout_marginTop="10dp"
+        android:text="Team Members:"
+        android:textSize="20sp"
+        android:textColor="@color/colorPrimaryDark"/>
+    <TextView
+        android:id="@+id/contactUs"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/Aenah_id"
+        android:layout_marginTop="10dp"
+        android:text="Contact us:"
+        android:textSize="20sp"
+        android:layout_centerHorizontal="true"
+        android:gravity="center_horizontal"
+        android:textColor="@color/colorPrimaryDark">
+    </TextView>
+
+    <Button
+        android:id="@+id/Henry_id"
+        android:layout_width="190dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/Memeber_id"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="5dp"
+        android:layout_centerVertical="true"
+        android:drawableTop="@mipmap/ic_henry"
+        android:background="@android:color/transparent"
+        android:text="Henry" />
+    <Button
+        android:id="@+id/Nishant_id"
+        android:layout_width="190dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/Memeber_id"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="5dp"
+        android:layout_toRightOf="@+id/Henry_id"
+        android:text="Nishant"
+        android:background="@android:color/transparent"
+        android:drawableTop="@mipmap/ic_nishant" />
+    <Button
+        android:id="@+id/Aenah_id"
+        android:layout_width="190dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/Henry_id"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="5dp"
+        android:text="Aenah"
+        android:background="@android:color/transparent"
+        android:drawableTop="@mipmap/ic_aenah"/>
+
+    <Button
+        android:id="@+id/Lance_id"
+        android:layout_width="190dp"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/Aenah_id"
+        android:layout_alignBottom="@+id/Aenah_id"
+        android:layout_toEndOf="@+id/Aenah_id"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="5dp"
+        android:background="@android:color/transparent"
+        android:drawableTop="@mipmap/ic_lance"
+        android:text="Lance" />
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/contactUs"
+        android:layout_centerHorizontal="true">
+
+        <Button
+            android:id="@+id/contactEmail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Email Us" />
+        <Button
+            android:id="@+id/contactnumber"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/contactEmail"
+            android:text="Call Us" />
+
+
+    </RelativeLayout>
+</RelativeLayout>
+
+</ScrollView>

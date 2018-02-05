@@ -1,55 +1,138 @@
 package ututor.edu.csulb.ututor;
 
-import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.view.LayoutInflater;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
-/**
- * Created by aenah on 12/18/17.
- */
 
-public class Registration extends Fragment {
+
+public class Registration extends AppCompatActivity {
 
     Button changeLayout;
-    EditText userInput;
+    EditText mEmail;
+    EditText mFirst;
+    EditText mLast;
+    EditText mPassword;
+    EditText mPasswordConfirm;
+    EditText mUniversity;
+    TextView mAlertPassWord;
+    TextView mAlertInput;
+    Button imgBack;
+    public User currentUser;
 
-    public Registration() {
-    }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_sign_up);
 
-        super.onCreateView(inflater, container, savedInstanceState);
-        View rootView = inflater.inflate(R.layout.activity_sign_up, container, false);
+        mEmail = (EditText) findViewById(R.id.etEmail);
+        changeLayout = (Button) findViewById(R.id.register);
+        mUniversity = (EditText) findViewById(R.id.etUniversity);
+        mPassword = (EditText) findViewById(R.id.etPassword);
+        mPasswordConfirm = (EditText) findViewById(R.id.etConfirmPassword);
+        mFirst = (EditText) findViewById(R.id.etFirst);
+        mLast = (EditText) findViewById(R.id.etLast);
+        mAlertPassWord = (TextView) findViewById(R.id.alert);
+        mAlertInput = (TextView) findViewById(R.id.alertInput);
 
-        userInput = (EditText) rootView.findViewById(R.id.etEmail);
+        imgBack = (Button) findViewById(R.id.backButton);
 
-        changeLayout = (Button) rootView.findViewById(R.id.register);
-        changeLayout.setOnClickListener(new View.OnClickListener() {
+        imgBack.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
+            public void onClick(View v) {
 
-                // get user input
-                String value = userInput.getText().toString();
+                // finish this activity and go back to log in
+                startActivity(new Intent(Registration.this, LogIn.class));
+                finish();
 
-                // notify user of success
-                Toast.makeText(getActivity(), "Registration complete! Welcome, " + value + "!", Toast.LENGTH_LONG).show();
 
-                //go to homepage of app
-                Intent i = new Intent(getActivity(), HomePage.class);
-                startActivity(i);
-                ((Activity) getActivity()).overridePendingTransition(0,0);
             }
         });
 
-
-        return rootView;
     }
+
+    public void registerUser(View view){
+        //to prevent overlap errors, set both errors invisible first
+        mAlertPassWord.setVisibility(View.INVISIBLE);
+        mAlertInput.setVisibility(View.INVISIBLE);
+
+        boolean validRegistration = testForNull();
+
+        if( mPassword.getText().toString().equals(mPasswordConfirm.getText().toString()) && validRegistration == true){
+
+            //create new user in database and inout all values
+
+            //create User
+            currentUser = new User();
+            currentUser.setFirstName(mFirst.getText().toString());
+            currentUser.setLastName(mLast.getText().toString());
+            currentUser.setEmail(mEmail.getText().toString());
+            if( mUniversity.getText().toString().equals(null)){ //if user did not input anything
+                currentUser.setUniversity("None");
+            }else {
+                currentUser.setUniversity(mUniversity.getText().toString());
+            }
+            Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.ututorlogo); // drawable to bitmap
+            currentUser.setProfilePic(bitmap);
+
+
+            // notify user of success
+            Toast.makeText(Registration.this, "Registration complete! Welcome, " + mFirst.getText().toString() + "!", Toast.LENGTH_LONG).show();
+
+            // send user info to HomePage
+            Intent i = new Intent(Registration.this, HomePage.class);
+            i.putExtra("currentUser", currentUser);
+            startActivity(i);
+        } else if(validRegistration == false){
+
+            mAlertInput.setVisibility(View.VISIBLE);
+            Animation shake = AnimationUtils.loadAnimation(Registration.this, R.anim.shake);
+            mAlertInput.startAnimation(shake);
+
+        }
+        else{
+
+            mAlertPassWord.setVisibility(View.VISIBLE);
+            Animation shake = AnimationUtils.loadAnimation(Registration.this, R.anim.shake);
+            mAlertPassWord.startAnimation(shake);
+        }
+    }
+
+    /**
+     * Method that tests if all required fields are inputted
+     * @return
+     */
+    public boolean testForNull(){
+        if(mEmail.getText().toString().equals("")){ return false;}
+        if(mFirst.getText().toString().equals("")){ return false; }
+        if(mLast.getText().toString().equals("")){ return false;}
+        if(mPassword.getText().toString().equals("")){ return false; }
+        if(mPasswordConfirm.getText().toString().equals("")){ return false; }
+
+        //returns true if all requirements are met
+        return true;
+    }
+
+    @Override
+    public void onBackPressed() {
+        // finish this activity and go back to log in
+        startActivity(new Intent(Registration.this, LogIn.class));
+        finish();
+
+    }
+
+
+
 }

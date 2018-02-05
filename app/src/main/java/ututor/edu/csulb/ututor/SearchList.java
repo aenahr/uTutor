@@ -22,12 +22,12 @@ public class SearchList extends Fragment {
         ListView listview =(ListView) rootView .findViewById(R.id.listViewTutor);
 
         //EDITED Code
-        String[] items = new String[] {"Aenah Ramones", "Nishant Saxena", "Lance McVicar", "Henry Tran", "Shahar Juana", "Chris P. Bacon", "Al Bino", "Bill Board", "Brock Lee", "Crystal Ball", "Ella Vader", "Donald Duck", "Filet Minyon", "Bend Dover", "Elmo's World"};
+        String[] items = new String[] {"Aenah Ramones", "Nishant Saxena", "Lance McVicar", "Henry Tran", "Shahar Janjua", "Chris P. Bacon", "Al Bino", "Bill Board", "Brock Lee", "Crystal Ball", "Ella Vader", "Donald Duck", "Filet Minyon", "Bend Dover", "Elmo's World"};
 
         ArrayAdapter<String> adapter =
                 new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, items);
-
         listview.setAdapter(adapter);
+
         return rootView;
     }
 
