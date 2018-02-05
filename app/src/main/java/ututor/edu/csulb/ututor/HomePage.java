@@ -25,6 +25,8 @@ import android.widget.Toast;
 
 import com.google.gson.Gson;
 
+import org.json.JSONObject;
+
 public class HomePage extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -99,6 +101,19 @@ public class HomePage extends AppCompatActivity
         Bitmap b = StringToBitMap(bit);
         hProfilePic.setImageBitmap(b);
 
+        mWork.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View view) {
+
+                JSONParser herp = new JSONParser();
+                JSONObject o = herp.makeHttpRequest("derp", "POST");
+                Toast.makeText(getApplicationContext(), "Herp" + o , Toast.LENGTH_SHORT).show();
+
+
+
+
+            }
+        });
+
 
 
     }
@@ -158,13 +173,11 @@ public class HomePage extends AppCompatActivity
             fragment = new SearchList();
         } else if (id == R.id.nav_Favorites) {
             isVisible = false;
-            Toast.makeText(getApplicationContext(), "Favorites" , Toast.LENGTH_SHORT).show();
-            //fragment = new SearchMap();
+            fragment = new Favorites();
 
         } else if (id == R.id.nav_appointmentManager) {
             isVisible = false;
-            Toast.makeText(getApplicationContext(), "Appointment Manager" , Toast.LENGTH_SHORT).show();
-            //fragment = new GeneralAppointment();
+            fragment = new AppointmentManager();
 
         } else if (id == R.id.nav_faq) {
             isVisible = false;
