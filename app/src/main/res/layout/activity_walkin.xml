@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorLightPrimary"
+    android:orientation="vertical">
+
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/titleWalkIn"
+        android:text="Walk-In Session"
+        android:textSize="50dp"
+        android:fontFamily="sans-serif-light"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="50dp"/>
+
+    <TextView
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:text="You are now available to other users for walk-in tutoring!"
+        android:textSize="25dp"
+        android:layout_centerHorizontal="true"
+        android:gravity="center"
+        android:id="@+id/subTitle"
+        android:layout_below="@+id/titleWalkIn"/>
+
+    <Button
+        android:id="@+id/addWalkIn"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif-light"
+        android:text="New Walk-In Session"
+        android:textSize="20dp"
+        android:layout_marginBottom="10dp"
+        android:background="@color/colorPrimary"
+        android:textColor="@color/colorLightPrimary"
+        android:layout_below="@+id/subTitle"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="75dp"/>
+
+
+</RelativeLayout>

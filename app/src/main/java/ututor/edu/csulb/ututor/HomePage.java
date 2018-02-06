@@ -41,6 +41,7 @@ public class HomePage extends AppCompatActivity
     public Button mWork;
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -91,7 +92,10 @@ public class HomePage extends AppCompatActivity
 
             MenuItem menuTutor = menu.findItem(R.id.nav_becomeTutor);
             menuTutor.setVisible(false);
-
+        }
+        else{
+            MenuItem menuWork = menu.findItem(R.id.nav_work);
+            menuWork.setVisible(false);
         }
 
         hName.setText(currentUser.getFirstName() +  " " + currentUser.getLastName());
@@ -104,17 +108,16 @@ public class HomePage extends AppCompatActivity
         mWork.setOnClickListener(new View.OnClickListener(){
             public void onClick(View view) {
 
-                JSONParser herp = new JSONParser();
-                JSONObject o = herp.makeHttpRequest("derp", "POST");
-                Toast.makeText(getApplicationContext(), "Herp" + o , Toast.LENGTH_SHORT).show();
+//                JSONParser herp = new JSONParser();
+//                JSONObject o = herp.makeHttpRequest("derp", "POST");
+//                Toast.makeText(getApplicationContext(), "Herp" + o , Toast.LENGTH_SHORT).show();
 
-
-
-
+                Intent i = new Intent(HomePage.this, HomePage.class);
+                i.putExtra("currentUser", currentUser);
+                startActivity(i);
+                finish();
             }
         });
-
-
 
     }
 
@@ -189,6 +192,11 @@ public class HomePage extends AppCompatActivity
 
         } else if (id == R.id.nav_becomeTutor) {
             isVisible = false;
+            // send user info to HomePage
+            Intent i = new Intent(HomePage.this, BecomeATutor.class);
+            i.putExtra("currentUser", currentUser);
+            startActivity(i);
+            //finish();
 
             //fragment = new BecomeTutor();
         } else if (id == R.id.nav_SignOut) {
