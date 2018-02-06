@@ -38,7 +38,9 @@ public class JSONParser{
                 URL url = new URL("http://25.85.175.237/jsonTest.php");
                 urlConnection = (HttpURLConnection) url.openConnection();
                 urlConnection.setRequestMethod("POST");
-                InputStreamReader isr = new InputStreamReader(urlConnection.getInputStream());
+                InputStream is = urlConnection.getInputStream();
+                InputStreamReader isr = new InputStreamReader(is);
+                //InputStreamReader isr = new InputStreamReader(urlConnection.getInputStream());
                 BufferedReader in = new BufferedReader(isr);
                 String inputLine;
                 StringBuffer response = new StringBuffer();
