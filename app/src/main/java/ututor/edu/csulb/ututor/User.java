@@ -10,11 +10,10 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 public class User implements Serializable{
-
+    public String uID;
     public String uFirst;
     public String uLast;
     public String uEmail;
-    public String uID;
     public String uUniversity;
     public String uProfilePicture;
     public boolean isTutor = false;
