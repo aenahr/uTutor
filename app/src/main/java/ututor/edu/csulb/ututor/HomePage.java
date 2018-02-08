@@ -20,8 +20,11 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.view.LayoutInflater;
 
 import com.google.gson.Gson;
 
@@ -39,6 +42,11 @@ public class HomePage extends AppCompatActivity
     public TextView hEmail;
     public ImageView hProfilePic;
     public Button mWork;
+    public LinearLayout mprofile;
+    public LinearLayout mfavorite;
+    public LinearLayout search;
+    public LinearLayout appoiment;
+
 
 
     @Override
@@ -108,15 +116,42 @@ public class HomePage extends AppCompatActivity
                 JSONObject o = herp.makeHttpRequest("derp", "POST");
                 Toast.makeText(getApplicationContext(), "Herp" + o , Toast.LENGTH_SHORT).show();
 
+            }
+        });
 
-
+        mprofile = (LinearLayout)findViewById(R.id.cardProfile);
+        mprofile.setOnClickListener(new View.OnClickListener()
+        {
+            public void onClick(View view) {
 
             }
         });
 
+        mfavorite = (LinearLayout)findViewById(R.id.cardFavorite);
+        mfavorite.setOnClickListener(new View.OnClickListener()
+        {
+            public void onClick(View view) {
 
+            }
+        });
+
+        search = (LinearLayout)findViewById(R.id.cardSearch);
+        search.setOnClickListener(new View.OnClickListener()
+        {
+            public void onClick(View view) {
+//
+            }
+        });
+
+        appoiment = (LinearLayout)findViewById(R.id.cardAppointment);
+        appoiment.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View view) {
+
+            }
+        });
 
     }
+
 
     @Override
     public void onBackPressed() {
@@ -169,7 +204,9 @@ public class HomePage extends AppCompatActivity
 
         } else if (id == R.id.nav_searchList) {
             isVisible = false;
-            Toast.makeText(getApplicationContext(), "Search List" , Toast.LENGTH_SHORT).show();
+
+            Toast.makeText(getApplicationContext(), ""+item , Toast.LENGTH_SHORT).show();
+//            Toast.makeText(getApplicationContext(), "Search List" , Toast.LENGTH_SHORT).show();
             fragment = new SearchList();
         } else if (id == R.id.nav_Favorites) {
             isVisible = false;
