@@ -110,11 +110,6 @@ public class HomePage extends AppCompatActivity
 
         mWork.setOnClickListener(new View.OnClickListener(){
             public void onClick(View view) {
-
-//                JSONParser herp = new JSONParser();
-//                JSONObject o = herp.makeHttpRequest("derp", "POST");
-//                Toast.makeText(getApplicationContext(), "Herp" + o , Toast.LENGTH_SHORT).show();
-
                 Intent i = new Intent(HomePage.this, HomePage.class);
                 i.putExtra("currentUser", currentUser);
                 startActivity(i);
