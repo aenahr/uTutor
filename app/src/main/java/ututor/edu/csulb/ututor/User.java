@@ -17,12 +17,25 @@ public class User implements Serializable{
     public String uUniversity;
     public String uProfilePicture;
     public boolean isTutor = false;
+    public boolean walkIn = false;
     public ArrayList<Integer> ratings = null;
     public ArrayList<String> favorites = null;
-    public ArrayList<String> appointments = null;
+    public ArrayList<Appointment> appointments = new ArrayList<Appointment>();
 
     public User(){
 
+    }
+
+    public boolean getWalkIn(){ return walkIn;}
+
+    public void setWalkIn(boolean b){
+        walkIn = b;
+    }
+
+    public ArrayList<Appointment> getAppointments(){ return appointments;}
+
+    public void addNewAppointment(Appointment a){
+        appointments.add(a);
     }
 
     public String getFirstName(){
