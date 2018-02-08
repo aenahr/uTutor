@@ -125,7 +125,7 @@ public class HomePage extends AppCompatActivity
             public void onClick(View view) {
                 JSONObject herp = null;
                 try {
-                    herp = new JSONParser().execute("Herp").get();
+                    herp = new JSONParser().execute("login.php" , "Name" , "Lance" , "Email" , "Lance@lance.com").get();
                     Toast.makeText(getApplicationContext(), "Herp: " + herp.toString() , Toast.LENGTH_SHORT).show();
 
                 } catch (InterruptedException e) {

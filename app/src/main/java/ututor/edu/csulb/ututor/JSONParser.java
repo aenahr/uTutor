@@ -33,6 +33,7 @@ public class JSONParser extends AsyncTask<String, Void, JSONObject>{
         // Making HTTP request
 
         try {
+
             URL url = new URL("http://25.85.175.237/jsonTest.php");
             urlConnection = (HttpURLConnection) url.openConnection();
             // check for request method
