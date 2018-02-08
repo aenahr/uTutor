@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    android:background="@color/colorLightPrimary">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <Button
+            android:id="@+id/workButton"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-light"
+            android:text="Apply Now"
+            android:textSize="20dp"
+            android:background="@color/colorPrimary"
+            android:textColor="@color/colorLightPrimary"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="475dp"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/backButton"
+            android:text="Back"
+            android:textSize="20dp"
+            android:textColor="@color/colorPrimaryDark"
+            android:background="@android:color/transparent"
+            android:drawableLeft="@drawable/back_arrow"/>
+
+        <TextView
+            android:id="@+id/titleBecomeTutor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Become a Tutor"
+            android:fontFamily="sans-serif-light"
+            android:textSize="50dp"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/backButton"
+            android:layout_marginTop="25dp"/>
+
+        <ImageView
+            android:id="@+id/logo"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_below="@+id/titleBecomeTutor"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="17dp"
+            android:adjustViewBounds="true"
+            android:maxWidth="250dp"
+            android:maxHeight="250dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ututorlogo"
+
+            />
+
+        <TextView
+            android:id="@+id/whyTutor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Why be a tutor?"
+            android:textSize="25dp"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/logo"
+            android:layout_marginTop="10dp"/>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/whyTutor"
+            android:id="@+id/featuresAbove"
+            android:layout_marginTop="25dp"
+            android:layout_centerHorizontal="true">
+
+            <Button
+                android:id="@+id/button1"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:text="Teach fellow tutors"
+                android:textStyle="bold"
+                android:textColor="@color/colorPrimaryDark"
+                android:layout_marginRight="25dp"
+                android:background="@android:color/transparent"
+
+                android:clickable="false"/>
+            <Button
+                android:id="@+id/button2"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/button1"
+                android:textStyle="bold"
+                android:textColor="@color/colorPrimaryDark"
+                android:text="Work on the Fly"
+                android:background="@android:color/transparent"
+                android:clickable="false"/>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/featuresAbove"
+            android:id="@+id/featuresBelow"
+            android:layout_marginTop="15dp"
+            android:layout_centerHorizontal="true"
+            >
+
+            <Button
+                android:id="@+id/button3"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:text="Set convenient work hours"
+                android:textStyle="bold"
+                android:textColor="@color/colorPrimaryDark"
+                android:layout_marginRight="25dp"
+                android:background="@android:color/transparent"
+                android:clickable="false"/>
+            <Button
+                android:id="@+id/button4"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/button3"
+                android:text="Be search on the Tutor Network"
+                android:textStyle="bold"
+                android:textColor="@color/colorPrimaryDark"
+                android:background="@android:color/transparent"
+                android:clickable="false"/>
+        </RelativeLayout>
+    </RelativeLayout>
+</ScrollView>

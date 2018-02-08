@@ -20,15 +20,14 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.view.LayoutInflater;
 
 import com.google.gson.Gson;
 
 import org.json.JSONObject;
+
+import java.util.concurrent.ExecutionException;
 
 public class HomePage extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -42,10 +41,7 @@ public class HomePage extends AppCompatActivity
     public TextView hEmail;
     public ImageView hProfilePic;
     public Button mWork;
-    public LinearLayout mprofile;
-    public LinearLayout mfavorite;
-    public LinearLayout search;
-    public LinearLayout appoiment;
+    public Button bTestJSON;
 
 
 
@@ -58,7 +54,7 @@ public class HomePage extends AppCompatActivity
         Intent i = getIntent();
         currentUser = (User)i.getSerializableExtra("currentUser");
         mWork = (Button) findViewById(R.id.workButton);
-
+        bTestJSON = (Button) findViewById(R.id.testButton);
         //check if the person is a tutor or not
         if( !currentUser.isTutor){
             mWork.setVisibility(View.INVISIBLE);
@@ -99,7 +95,10 @@ public class HomePage extends AppCompatActivity
 
             MenuItem menuTutor = menu.findItem(R.id.nav_becomeTutor);
             menuTutor.setVisible(false);
-
+        }
+        else{
+            MenuItem menuWork = menu.findItem(R.id.nav_work);
+            menuWork.setVisible(false);
         }
 
         hName.setText(currentUser.getFirstName() +  " " + currentUser.getLastName());
@@ -112,46 +111,31 @@ public class HomePage extends AppCompatActivity
         mWork.setOnClickListener(new View.OnClickListener(){
             public void onClick(View view) {
 
-                JSONParser herp = new JSONParser();
-                JSONObject o = herp.makeHttpRequest("derp", "POST");
-                Toast.makeText(getApplicationContext(), "Herp" + o , Toast.LENGTH_SHORT).show();
+//                JSONParser herp = new JSONParser();
+//                JSONObject o = herp.makeHttpRequest("derp", "POST");
+//                Toast.makeText(getApplicationContext(), "Herp" + o , Toast.LENGTH_SHORT).show();
 
+                Intent i = new Intent(HomePage.this, HomePage.class);
+                i.putExtra("currentUser", currentUser);
+                startActivity(i);
+                finish();
             }
         });
-
-        mprofile = (LinearLayout)findViewById(R.id.cardProfile);
-        mprofile.setOnClickListener(new View.OnClickListener()
-        {
+        bTestJSON.setOnClickListener(new View.OnClickListener(){
             public void onClick(View view) {
+                JSONObject herp = null;
+                try {
+                    herp = new JSONParser().execute("Herp").get();
+                    Toast.makeText(getApplicationContext(), "Herp: " + herp.toString() , Toast.LENGTH_SHORT).show();
 
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                } catch (ExecutionException e) {
+                    e.printStackTrace();
+                }
             }
         });
-
-        mfavorite = (LinearLayout)findViewById(R.id.cardFavorite);
-        mfavorite.setOnClickListener(new View.OnClickListener()
-        {
-            public void onClick(View view) {
-
-            }
-        });
-
-        search = (LinearLayout)findViewById(R.id.cardSearch);
-        search.setOnClickListener(new View.OnClickListener()
-        {
-            public void onClick(View view) {
-//
-            }
-        });
-
-        appoiment = (LinearLayout)findViewById(R.id.cardAppointment);
-        appoiment.setOnClickListener(new View.OnClickListener(){
-            public void onClick(View view) {
-
-            }
-        });
-
     }
-
 
     @Override
     public void onBackPressed() {
@@ -204,9 +188,7 @@ public class HomePage extends AppCompatActivity
 
         } else if (id == R.id.nav_searchList) {
             isVisible = false;
-
-            Toast.makeText(getApplicationContext(), ""+item , Toast.LENGTH_SHORT).show();
-//            Toast.makeText(getApplicationContext(), "Search List" , Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), "Search List" , Toast.LENGTH_SHORT).show();
             fragment = new SearchList();
         } else if (id == R.id.nav_Favorites) {
             isVisible = false;
@@ -226,6 +208,11 @@ public class HomePage extends AppCompatActivity
 
         } else if (id == R.id.nav_becomeTutor) {
             isVisible = false;
+            // send user info to HomePage
+            Intent i = new Intent(HomePage.this, BecomeATutor.class);
+            i.putExtra("currentUser", currentUser);
+            startActivity(i);
+            //finish();
 
             //fragment = new BecomeTutor();
         } else if (id == R.id.nav_SignOut) {
