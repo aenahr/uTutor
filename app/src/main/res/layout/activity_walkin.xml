@@ -42,5 +42,16 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="75dp"/>
 
-
+    <Button
+        android:id="@+id/endWalkIn"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif-light"
+        android:text="End Walk-In Session"
+        android:textSize="20dp"
+        android:background="@color/colorPrimary"
+        android:textColor="@color/colorLightPrimary"
+        android:layout_below="@+id/addWalkIn"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="125dp"/>
 </RelativeLayout>
