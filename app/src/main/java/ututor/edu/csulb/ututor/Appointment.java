@@ -11,10 +11,13 @@ public class Appointment implements Serializable{
     String tutor; // email format
     String tutee; //email format
     long lengthOfAppointment; // this is in seconds...convert as needed
+    String typeOfAppointment = "none"; // OPTIONS ARE: PENDING, UPCOMING, PAST, WALKIN, NULL
 
     public Appointment(){
 
     }
+
+    public String getTypeOfAppointment(){ return typeOfAppointment;}
 
     public Calendar getDate(){ return dateOfAppointment;}
 
@@ -29,6 +32,15 @@ public class Appointment implements Serializable{
     public String getTutee(){ return tutee;}
 
     public long getLengthOfAppointment(){return lengthOfAppointment;}
+
+    public void setTypeOfAppointment(String s){
+        if (s.equals("PENDING") || s.equals("UPCOMING") || s.equals("PAST") || s.equals("WALKIN")) { // must be valid type
+            typeOfAppointment = s;
+        }
+        else{
+            typeOfAppointment = "NULL";
+        }
+    }
 
     public void setDateOfAppointment(Calendar c){
         dateOfAppointment = c;

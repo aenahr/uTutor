@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.view.ContextThemeWrapper;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -20,6 +22,7 @@ public class WalkInSession extends AppCompatActivity {
     boolean begin = false; // time tracking has not started yet
     Calendar start; // timestamp of when tutor presses start time
     Calendar end; // timestamp of when tutor presses end time
+    long seconds;
 
     TextView userEmail; // auto-generated email given from user class
     TextView currentDate; // gets the date when tutor pressed new walk in
@@ -32,6 +35,10 @@ public class WalkInSession extends AppCompatActivity {
 
         Intent i = getIntent();
         currentUser = (User)i.getSerializableExtra("currentUser");
+        //confirm new appointment added in user
+        if( i.getExtras().getInt("session") == 2){
+            Toast.makeText(getApplicationContext(), "New Walk-In Session Created." , Toast.LENGTH_SHORT).show();
+        }
 
         buttonTime = (Button) findViewById(R.id.buttonWalk);
         userEmail = (TextView) findViewById(R.id.generateTutorEmail);
@@ -50,8 +57,10 @@ public class WalkInSession extends AppCompatActivity {
         int day = dayDate.get(Calendar.DAY_OF_MONTH);
 
         // get current date and present it to user
-        String formatDate = String.format("%d-%02d-%02d", year, month, day);
+        final String formatDate = String.format("%d-%02d-%02d", year, month, day);
         currentDate.setText(formatDate);
+
+        // TODO get user's location
 
         buttonTime.setOnClickListener(new View.OnClickListener(){
             public void onClick(View view) {
@@ -85,31 +94,67 @@ public class WalkInSession extends AppCompatActivity {
                     int second = end.get(Calendar.SECOND);
 
                     // length of time that has passed
-                    long seconds = (end.getTimeInMillis() - start.getTimeInMillis()) / 1000;
+                    seconds = (end.getTimeInMillis() - start.getTimeInMillis()) / 1000;
 
-                    // TODO alert dialog confirmation to accept new walk-in session.. add time elapsed
+                    // alert dialog to delete/add new session
+                    String timeElapsed = "Time Elapsed: " + (seconds/3600) + " hrs " + ((seconds/60)%60) + " mins " + (seconds%60) + " secs";
+                    AlertDialog.Builder confirmAdd = new AlertDialog.Builder(new ContextThemeWrapper(WalkInSession.this, R.style.DialogPadding));
 
-                    // create new Appointment to store in User
-                    Appointment wiAppointment = new Appointment();
-                    wiAppointment.setDateOfAppointment(dayDate);
-                    wiAppointment.setStartTime(start);
-                    wiAppointment.setEndTime(end);
-                    wiAppointment.setLengthOfAppointment(seconds);
-                    wiAppointment.setTutee(inputTutee.getText().toString());
-                    wiAppointment.setTutor(currentUser.getEmail());
-                    //wiAppointment.setLocation("herp");
-                    // TODO get user's lat long and somehow convert to address then convert to string
+                    TextView myMsg = new TextView(WalkInSession.this);
+                    myMsg.setText("Are you sure you would like to add new session?\n\n" +
+                            "Date: " + formatDate + "\n" +
+                            "Tutor: " + currentUser.getEmail() + "\n" +
+                            "Tutee: " + inputTutee.getText().toString() + "\n" +
+                            timeElapsed + "\n\n" +
+                            "Pressing no will create a new session and delete the current one./");
+                    myMsg.setGravity(Gravity.CENTER_HORIZONTAL);
+                    confirmAdd.setView(myMsg);
+                    confirmAdd.setCancelable(true);
+                    confirmAdd.setTitle("Confirm new Walk-In Session:");
+                    confirmAdd.setIcon(R.drawable.warning_icon);
+                    confirmAdd.setPositiveButton(
+                            "Yes",
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    // create new Appointment to store in User
+                                    Appointment wiAppointment = new Appointment();
+                                    wiAppointment.setDateOfAppointment(dayDate);
+                                    wiAppointment.setStartTime(start);
+                                    wiAppointment.setEndTime(end);
+                                    wiAppointment.setLengthOfAppointment(seconds);
+                                    wiAppointment.setTutee(inputTutee.getText().toString());
+                                    wiAppointment.setTutor(currentUser.getEmail());
+                                    wiAppointment.setTypeOfAppointment("WALKIN");
+                                    //wiAppointment.setLocation("herp");
+                                    // TODO get user's lat long and somehow convert to address then convert to string
 
-                    currentUser.addNewAppointment(wiAppointment);
+                                    // adding appointment to user class
+                                    currentUser.addNewAppointment(wiAppointment);
 
-                    // TODO refresh database?
 
+                                    // Go back to main activity
+                                    Intent i = new Intent(WalkInSession.this, WalkInActivity.class);
+                                    i.putExtra("currentUser", currentUser);
+                                    i.putExtra("session", 1);
+                                    startActivity(i);
+                                    finish();
+                                }
+                            });
 
-                    // Go back to main activity
-                    Intent i = new Intent(WalkInSession.this, WalkInActivity.class);
-                    i.putExtra("currentUser", currentUser);
-                    startActivity(i);
-                    finish();
+                    confirmAdd.setNegativeButton(
+                            "No",
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    Intent i = new Intent(WalkInSession.this, WalkInSession.class);
+                                    i.putExtra("currentUser", currentUser);
+                                    i.putExtra("session", 2);
+                                    startActivity(i);
+                                    finish();
+                                }
+                            });
+
+                    AlertDialog alert11 = confirmAdd.create();
+                    alert11.show();
 
                 }
 
