@@ -20,6 +20,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -40,7 +41,12 @@ public class HomePage extends AppCompatActivity
     public ImageView hProfilePic;
     public Button mWork;
 
-
+    // card layouts
+    Menu menu;
+    LinearLayout cardSearch;
+    LinearLayout cardAppointment;
+    LinearLayout cardFavorites;
+    LinearLayout cardProfile;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,7 +88,7 @@ public class HomePage extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         View headerView = navigationView.getHeaderView(0);
-        Menu menu = navigationView.getMenu();
+        menu = navigationView.getMenu();
 
         // Changing navigation bar values
         hName = (TextView) headerView.findViewById(R.id.hName);
@@ -116,6 +122,40 @@ public class HomePage extends AppCompatActivity
                 i.putExtra("currentUser", currentUser);
                 startActivity(i);
                 finish();
+            }
+        });
+
+        // make card layouts clickable
+        cardSearch = (LinearLayout) findViewById(R.id.cardSearch);
+        cardAppointment = (LinearLayout) findViewById(R.id.cardAppointment);
+        cardFavorites = (LinearLayout) findViewById(R.id.cardFavorite);
+        cardProfile = (LinearLayout) findViewById(R.id.cardProfile);
+
+        cardSearch.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View view) {
+                MenuItem item = menu.findItem(R.id.nav_searchList);
+                onNavigationItemSelected(item);
+            }
+        });
+
+        cardAppointment.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View view) {
+                MenuItem item = menu.findItem(R.id.nav_appointmentManager);
+                onNavigationItemSelected(item);
+            }
+        });
+
+        cardFavorites.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View view) {
+                MenuItem item = menu.findItem(R.id.nav_Favorites);
+                onNavigationItemSelected(item);
+            }
+        });
+
+        cardProfile.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View view) {
+                MenuItem item = menu.findItem(R.id.nav_userProfile);
+                onNavigationItemSelected(item);
             }
         });
 

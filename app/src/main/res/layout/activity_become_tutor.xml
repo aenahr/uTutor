@@ -21,7 +21,7 @@
             android:background="@color/colorPrimary"
             android:textColor="@color/colorLightPrimary"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="475dp"/>
+            android:layout_marginTop="500dp"/>
 
         <Button
             android:layout_width="wrap_content"
@@ -42,7 +42,7 @@
             android:textSize="50dp"
             android:layout_centerHorizontal="true"
             android:layout_below="@+id/backButton"
-            android:layout_marginTop="25dp"/>
+            android:layout_marginTop="50dp"/>
 
         <ImageView
             android:id="@+id/logo"

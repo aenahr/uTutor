@@ -30,6 +30,9 @@ public class WalkInActivity extends AppCompatActivity {
         newSession = (Button) findViewById(R.id.addWalkIn);
         endSession = (Button) findViewById(R.id.endWalkIn);
 
+        // TODO set availability of walk-in to database
+        currentUser.setWalkIn(true); // is available for walk-in
+
         newSession.setOnClickListener(new View.OnClickListener(){
             public void onClick(View view) {
                 Intent i = new Intent(WalkInActivity.this, WalkInSession.class);
