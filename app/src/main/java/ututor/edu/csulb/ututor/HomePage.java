@@ -112,7 +112,7 @@ public class HomePage extends AppCompatActivity
 //                JSONObject o = herp.makeHttpRequest("derp", "POST");
 //                Toast.makeText(getApplicationContext(), "Herp" + o , Toast.LENGTH_SHORT).show();
 
-                Intent i = new Intent(HomePage.this, HomePage.class);
+                Intent i = new Intent(HomePage.this, WalkInActivity.class);
                 i.putExtra("currentUser", currentUser);
                 startActivity(i);
                 finish();
