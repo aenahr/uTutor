@@ -20,9 +20,13 @@ public class User implements Serializable{
     public boolean walkIn = false;
     public ArrayList<Integer> ratings = null;
     public ArrayList<String> favorites = null;
-    public ArrayList<Appointment> appointments = new ArrayList<Appointment>();
+    public ArrayList<Appointment> appointments;
+    public ArrayList<String> subjectsTaught;
 
     public User(){
+
+        appointments = new ArrayList<Appointment>();
+        subjectsTaught = new ArrayList<String>();
 
     }
 

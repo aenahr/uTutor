@@ -14,13 +14,6 @@ import java.util.List;
 
 public class AppointmentManager extends Fragment {
 
-    ExpandableListAdapter listAdapter;
-    ExpandableListView expListView;
-    List<String> listDataHeader;
-    HashMap<String, List<String>> listDataChild;
-    EditText iSearch;
-    String empty = "";
-    int totalSize;
 
     public AppointmentManager() {
     }

@@ -244,6 +244,11 @@ public class HomePage extends AppCompatActivity
             startActivity(new Intent(HomePage.this, LogIn.class));
             finish();
         }
+        else if( id == R.id.nav_work){
+            isVisible = false;
+            fragment = new WorkManager();
+        }
+
         if (fragment != null) {
 
             FragmentManager fragmentManager = getSupportFragmentManager();
