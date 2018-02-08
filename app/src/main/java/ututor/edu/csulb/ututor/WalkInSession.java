@@ -68,18 +68,37 @@ public class WalkInSession extends AppCompatActivity {
                     //set text of button to "end time"
                     buttonTime.setText("End Time");
 
+
                     // start tutoring time
-                    startTime = new SimpleDateFormat("yyyyMMdd_HHmmss").format(Calendar.getInstance().getTime());
-                    Toast.makeText(getApplicationContext(), startTime , Toast.LENGTH_SHORT).show();
+                    start = Calendar.getInstance();
+                    int year = start.get(Calendar.YEAR);
+                    int month = start.get(Calendar.MONTH) + 1; // Note: zero based!
+                    int day = start.get(Calendar.DAY_OF_MONTH);
+                    int hour = start.get(Calendar.HOUR_OF_DAY);
+                    int minute = start.get(Calendar.MINUTE);
+                    int second = start.get(Calendar.SECOND);
+
+                    String formatDate = String.format("%d-%02d-%02d %02d:%02d:%02d", year, month, day, hour, minute, second);
+                    Toast.makeText(getApplicationContext(), formatDate , Toast.LENGTH_SHORT).show();
 
                 }
                 else{ //this is our end time
-
-                    endTime = new SimpleDateFormat("yyyyMMdd_HHmmss").format(Calendar.getInstance().getTime());
+                    // end tutoring time
+                    end = Calendar.getInstance();
+                    int year = end.get(Calendar.YEAR);
+                    int month = end.get(Calendar.MONTH) + 1; // Note: zero based!
+                    int day = end.get(Calendar.DAY_OF_MONTH);
+                    int hour = end.get(Calendar.HOUR_OF_DAY);
+                    int minute = end.get(Calendar.MINUTE);
+                    int second = end.get(Calendar.SECOND);
                     Toast.makeText(getApplicationContext(), endTime , Toast.LENGTH_SHORT).show();
-                    Intent i = new Intent(WalkInSession.this, WalkInActivity.class);
-                    i.putExtra("currentUser", currentUser);
-                    startActivity(i);
+
+                    String formatDate = String.format("%d-%02d-%02d %02d:%02d:%02d", year, month, day, hour, minute, second);
+                    Toast.makeText(getApplicationContext(), formatDate , Toast.LENGTH_SHORT).show();
+
+//                    Intent i = new Intent(WalkInSession.this, WalkInActivity.class);
+//                    i.putExtra("currentUser", currentUser);
+//                    startActivity(i);
 
                 }
 

@@ -27,8 +27,6 @@ import com.google.gson.Gson;
 
 import org.json.JSONObject;
 
-import java.util.concurrent.ExecutionException;
-
 public class HomePage extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -41,7 +39,6 @@ public class HomePage extends AppCompatActivity
     public TextView hEmail;
     public ImageView hProfilePic;
     public Button mWork;
-    public Button bTestJSON;
 
 
 
@@ -54,7 +51,7 @@ public class HomePage extends AppCompatActivity
         Intent i = getIntent();
         currentUser = (User)i.getSerializableExtra("currentUser");
         mWork = (Button) findViewById(R.id.workButton);
-        bTestJSON = (Button) findViewById(R.id.testButton);
+
         //check if the person is a tutor or not
         if( !currentUser.isTutor){
             mWork.setVisibility(View.INVISIBLE);
@@ -110,26 +107,18 @@ public class HomePage extends AppCompatActivity
 
         mWork.setOnClickListener(new View.OnClickListener(){
             public void onClick(View view) {
+
+//                JSONParser herp = new JSONParser();
+//                JSONObject o = herp.makeHttpRequest("derp", "POST");
+//                Toast.makeText(getApplicationContext(), "Herp" + o , Toast.LENGTH_SHORT).show();
+
                 Intent i = new Intent(HomePage.this, HomePage.class);
                 i.putExtra("currentUser", currentUser);
                 startActivity(i);
                 finish();
             }
         });
-        bTestJSON.setOnClickListener(new View.OnClickListener(){
-            public void onClick(View view) {
-                JSONObject herp = null;
-                try {
-                    herp = new JSONParser().execute("login.php" , "Name" , "Lance" , "Email" , "Lance@lance.com").get();
-                    Toast.makeText(getApplicationContext(), "Herp: " + herp.toString() , Toast.LENGTH_SHORT).show();
 
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                } catch (ExecutionException e) {
-                    e.printStackTrace();
-                }
-            }
-        });
     }
 
     @Override
