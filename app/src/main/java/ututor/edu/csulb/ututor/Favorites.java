@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ExpandableListView;
 import android.widget.ListView;
@@ -15,13 +16,9 @@ import java.util.List;
 
 public class Favorites extends Fragment {
 
-    ExpandableListAdapter listAdapter;
-    ExpandableListView expListView;
-    List<String> listDataHeader;
-    HashMap<String, List<String>> listDataChild;
-    EditText iSearch;
-    String empty = "";
-    int totalSize;
+    public Button add_fav;
+    public Button edit_fav;
+
 
     public Favorites() {
     }
@@ -38,6 +35,20 @@ public class Favorites extends Fragment {
         ArrayAdapter<String> adapter =
                 new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, items);
         listview.setAdapter(adapter);
+
+        add_fav = (Button)rootView.findViewById(R.id.addFav);
+        add_fav.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+
+            }
+        });
+
+        edit_fav = (Button) rootView.findViewById(R.id.editFav);
+        edit_fav.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+
+            }
+        });
 
         return rootView;
     }
