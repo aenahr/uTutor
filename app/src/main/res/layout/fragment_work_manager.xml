@@ -6,5 +6,108 @@
     android:orientation="vertical"
     android:background="@color/colorLightPrimary" >
 
+    <TextView
+        android:id="@+id/titleWork"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="WORK MANAGER"
+        android:layout_centerHorizontal="true"
+        android:fontFamily="sans-serif-light"
+        android:textSize="35dp"
+        android:gravity="center"
+        android:layout_marginTop="15dp"
+        android:textColor="@color/colorPrimaryDark"/>
+    <TextView
+        android:id="@+id/tSubjectTaught"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Subjects Taught"
+        android:textColor="@color/colorPrimaryDark"
+        android:layout_marginTop="20dp"
+        android:textStyle="bold"
+        android:textSize="20dp"
+        android:layout_marginLeft="10dp"
+        android:layout_below="@+id/titleWork"/>
+
+    <RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="vertical"
+        android:id="@+id/subjects"
+        android:layout_below="@+id/tSubjectTaught"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_width="match_parent"
+        android:background="@drawable/regular_border"
+        android:layout_height="200dp" >
+        <Spinner
+            android:id="@+id/wSpinner"
+            android:layout_width="300dp"
+            android:layout_marginTop="5dp"
+            android:layout_height="50dp"
+            android:layout_marginRight="5dp">
+        </Spinner>
+        <Button
+            android:id="@+id/addBtn"
+            android:text="Add"
+            android:layout_toRightOf="@+id/wSpinner"
+            android:layout_marginRight="5dp"
+            android:layout_marginTop="5dp"
+            android:textSize="19dp"
+            android:fontFamily="@string/sansSerifLight"
+            android:textColor="@color/white"
+            android:layout_width="85dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/button_border"/>
+        <ListView
+            android:id="@+id/wList"
+            android:layout_below="@+id/wSpinner"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:drawSelectorOnTop="false"
+            />
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/tWorkHours"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Work Hours"
+        android:textColor="@color/colorPrimaryDark"
+        android:textStyle="bold"
+        android:textSize="20dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="40dp"
+        android:layout_below="@+id/subjects"/>
+
+    <RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="vertical"
+        android:layout_below="@+id/tWorkHours"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_width="match_parent"
+        android:background="@drawable/regular_border"
+        android:layout_height="200dp" >
+
+        <Button
+            android:id="@+id/wAddWorkHour"
+            android:text="Add New Work Hour"
+            android:layout_marginRight="5dp"
+            android:layout_marginLeft="5dp"
+            android:fontFamily="sans-serif-light"
+            android:layout_marginTop="5dp"
+            android:textSize="22dp"
+            android:textColor="@color/white"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/button_border"/>
+        <ListView
+            android:id="@+id/wWorkList"
+            android:layout_below="@+id/wAddWorkHour"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:drawSelectorOnTop="false"
+            />
+    </RelativeLayout>
 
 </RelativeLayout>

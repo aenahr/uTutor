@@ -30,6 +30,8 @@ public class User implements Serializable{
 
     }
 
+    public ArrayList<String> getSubjectsTaught(){ return subjectsTaught;}
+
     public boolean getWalkIn(){ return walkIn;}
 
     public void setWalkIn(boolean b){
@@ -64,6 +66,10 @@ public class User implements Serializable{
 
     public boolean isTutor(){
         return isTutor;
+    }
+
+    public void setSubjectsTaught(ArrayList<String> newSubjects){
+        subjectsTaught = newSubjects;
     }
 
     public void setTutor(boolean b){

@@ -194,8 +194,7 @@ public class HomePage extends AppCompatActivity
         if (id == R.id.nav_home) {
             if(isVisible == false){
                 isVisible = true;
-
-                //startActivity(new Intent(HomePage.this, HomePage.class));
+                setClickable();
 
                 // send user info to HomePage
                 Intent i = new Intent(HomePage.this, HomePage.class);
@@ -207,26 +206,31 @@ public class HomePage extends AppCompatActivity
             }
 
         } else if (id == R.id.nav_userProfile) {
+            setUnclickable();
             isVisible = false;
             fragment = new GenericProfile();
 
         } else if (id == R.id.nav_searchList) {
+            setUnclickable();
             isVisible = false;
-            Toast.makeText(getApplicationContext(), "Search List" , Toast.LENGTH_SHORT).show();
             fragment = new SearchList();
         } else if (id == R.id.nav_Favorites) {
+            setUnclickable();
             isVisible = false;
             fragment = new Favorites();
 
         } else if (id == R.id.nav_appointmentManager) {
+            setUnclickable();
             isVisible = false;
             fragment = new AppointmentManager();
 
         } else if (id == R.id.nav_faq) {
+            setUnclickable();
             isVisible = false;
             fragment = new FAQ();
 
         } else if (id == R.id.nav_aboutUs) {
+            setUnclickable();
             isVisible = false;
             fragment = new AboutUs();
 
@@ -236,15 +240,14 @@ public class HomePage extends AppCompatActivity
             Intent i = new Intent(HomePage.this, BecomeATutor.class);
             i.putExtra("currentUser", currentUser);
             startActivity(i);
-            //finish();
 
-            //fragment = new BecomeTutor();
         } else if (id == R.id.nav_SignOut) {
             Toast.makeText(getApplicationContext(), "Signed Out." , Toast.LENGTH_SHORT).show();
             startActivity(new Intent(HomePage.this, LogIn.class));
             finish();
         }
         else if( id == R.id.nav_work){
+            setUnclickable();
             isVisible = false;
             fragment = new WorkManager();
         }
@@ -274,6 +277,30 @@ public class HomePage extends AppCompatActivity
             e.getMessage();
             return null;
         }
+    }
+
+    public void setUnclickable(){
+
+        // set home page buttons as unclickable
+        cardSearch.setClickable(false);
+        cardProfile.setClickable(false);
+        cardFavorites.setClickable(false);
+        cardAppointment.setClickable(false);
+
+        mWork.setClickable(false);
+
+    }
+
+    public void setClickable(){
+
+        // set home page buttons as unclickable
+        cardSearch.setClickable(true);
+        cardProfile.setClickable(true);
+        cardFavorites.setClickable(true);
+        cardAppointment.setClickable(true);
+
+        mWork.setClickable(true);
+
     }
 
 
