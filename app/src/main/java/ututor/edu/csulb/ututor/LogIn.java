@@ -28,7 +28,7 @@ import java.io.InputStream;
 import java.io.Serializable;
 
 
-public class LogIn extends AppCompatActivity{
+public class LogIn extends AppCompatActivity {
 
     public EditText mEmail;
     public EditText mPassword;
@@ -41,6 +41,10 @@ public class LogIn extends AppCompatActivity{
     public TextView mTitle;
     public TextView mForgot;
     public TextView mAlert;
+    TextView mAlertDatabase;
+
+    //temp
+    String tempPassword = "yes";
 
 
     @Override
@@ -56,6 +60,7 @@ public class LogIn extends AppCompatActivity{
         mLogo = (ImageView) findViewById(R.id.logo);
         mTitle = (TextView) findViewById(R.id.titleLogo);
         mAlert = (TextView) findViewById(R.id.alertPassword);
+        mAlertDatabase = (TextView) findViewById(R.id.alertDatabase);
         //mForgot = (TextView) findViewById(R.id.forgotPassword);
 
         Animation expandIn = AnimationUtils.loadAnimation(this, R.anim.expand);
@@ -79,7 +84,7 @@ public class LogIn extends AppCompatActivity{
         SharedPreferences.Editor editor = sp.edit();
         boolean checkSaved = sp.getBoolean("isSaved", false);
 
-        if(checkSaved == true){
+        if (checkSaved == true) {
             String insertEmail = sp.getString("Email", null);
             String insertPassword = sp.getString("Password", null);
 
@@ -87,7 +92,6 @@ public class LogIn extends AppCompatActivity{
             mPassword.setText(insertPassword);
             mRemember.setChecked(true);
         }
-
 
 
         mSignUp.setOnClickListener(new View.OnClickListener() {
@@ -103,21 +107,22 @@ public class LogIn extends AppCompatActivity{
         mSignIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // first set alert invisible
+                // set alerts invisible to avoid clashing
                 mAlert.setVisibility(View.INVISIBLE);
+                mAlertDatabase.setVisibility(View.INVISIBLE);
 
-                // validate email & password, so access database
-                String databasePassword = "yes";
+                // TODO validate email and password match in database
+                boolean validDatabase = testDatabaseMatch();
 
-                if(mEmail.getText().toString().equals("")){ // if email is blank
+                if (mEmail.getText().toString().equals("")) { // if email is blank
                     mAlert.setVisibility(View.VISIBLE);
                     Animation shake = AnimationUtils.loadAnimation(LogIn.this, R.anim.shake);
                     mAlert.startAnimation(shake);
 
-                } else if(mPassword.getText().toString().equals(databasePassword)){
+                } else if (validDatabase) {
 
                     // if remember me is selected
-                    if(mRemember.isChecked()){
+                    if (mRemember.isChecked()) {
                         String sEmail = mEmail.getText().toString();
                         String sPass = mPassword.getText().toString();
 
@@ -127,8 +132,7 @@ public class LogIn extends AppCompatActivity{
                         editor.putString("Email", sEmail);
                         editor.putString("Password", sPass);
                         editor.commit();
-                    }
-                    else{
+                    } else {
 
                         SharedPreferences pref = getApplicationContext().getSharedPreferences("TEAM_ANDROID", MODE_PRIVATE);
                         SharedPreferences.Editor editor = pref.edit();
@@ -154,36 +158,45 @@ public class LogIn extends AppCompatActivity{
                     startActivity(i);
                     finish();
 
-                }
-                else{ // password is wrong, give user notification.
-                    mAlert.setVisibility(View.VISIBLE);
+                } else { // password is wrong, give user notification.
+                    mAlertDatabase.setVisibility(View.VISIBLE);
                     Animation shake = AnimationUtils.loadAnimation(LogIn.this, R.anim.shake);
-                    mAlert.startAnimation(shake);
+                    mAlertDatabase.startAnimation(shake);
                 }
-
-
             }
+
         });
 
 
     }
 
+    public boolean testDatabaseMatch() {
+        // TODO check if email and password match in database
+
+        if(mPassword.getText().toString().equals(tempPassword)){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
 
     /**
      * Temporary Skip button until database is created
+     *
      * @param view
      */
-    public void byPassLogIn(View view){
+    public void byPassLogIn(View view) {
 
         //validate username and email in the database
 
 
         // TEMPORARY - set random variables
-        mEmail.setText("aenah.ramones@gmail.com");
-        mPassword.setText("1234");
+        mEmail.setText("test@test.com");
+        mPassword.setText("yes");
 
         // if remember me is selected
-        if(mRemember.isChecked()){
+        if (mRemember.isChecked()) {
             String sEmail = mEmail.getText().toString();
             String sPass = mPassword.getText().toString();
 
@@ -193,8 +206,7 @@ public class LogIn extends AppCompatActivity{
             editor.putString("Email", sEmail);
             editor.putString("Password", sPass);
             editor.commit();
-        }
-        else{
+        } else {
             SharedPreferences pref = getApplicationContext().getSharedPreferences("TEAM_ANDROID", MODE_PRIVATE);
             SharedPreferences.Editor editor = pref.edit();
             editor.clear();
@@ -206,8 +218,8 @@ public class LogIn extends AppCompatActivity{
         User cUser = new User();
         cUser.setEmail(mEmail.getText().toString());
         cUser.setTutor(false);
-        cUser.setFirstName("Aenah");
-        cUser.setLastName("Ramones");
+        cUser.setFirstName("Testy");
+        cUser.setLastName("Test");
 
         Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.ututorlogo); // drawable to bitmap
         cUser.setProfilePic(bitmap);
@@ -217,8 +229,6 @@ public class LogIn extends AppCompatActivity{
         i.putExtra("currentUser", cUser);
         startActivity(i);
         finish();
-
-
     }
 }
 

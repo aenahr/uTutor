@@ -33,4 +33,5 @@ dependencies {
     compile 'com.android.support:cardview-v7:26.1.0'
     compile 'com.google.code.gson:gson:2.7'
     compile 'com.android.support:recyclerview-v7:26.1.0'
+    compile 'com.github.wdullaer:MaterialDateTimePicker:v3.5.1'
 }

@@ -4,4 +4,33 @@
     android:layout_height="fill_parent"
     android:orientation="vertical"
     android:background="@color/colorPrimaryDark" >
+    <Button
+        android:id="@+id/addFav"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Add"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="65dp"
+        android:textColor="@color/colorLightPrimary"
+        android:background="@color/colorPrimary"
+        />
+    <Button
+        android:id="@+id/editFav"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Edit"
+        android:layout_toRightOf="@id/addFav"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="75dp"
+        android:background="@color/colorPrimary"
+        android:textColor="@color/colorLightPrimary"
+        />
+    <ListView
+        android:id="@+id/listViewFavorite"
+        android:layout_width="wrap_content"
+        android:layout_height="630dp"
+        android:layout_below="@+id/addFav"
+        android:layout_marginTop="10dp"
+        android:background="@color/colorLightPrimary"
+        android:scrollbars="horizontal|vertical" />
 </RelativeLayout>

@@ -9,9 +9,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-
 
 public class WalkInActivity extends AppCompatActivity {
 
@@ -26,9 +23,18 @@ public class WalkInActivity extends AppCompatActivity {
 
         Intent i = getIntent();
         currentUser = (User)i.getSerializableExtra("currentUser");
+        //confirm new appointment added in user
+        if( i.getExtras().getInt("session") == 1){
+            Toast.makeText(getApplicationContext(), "New Walk-In Session Added!" , Toast.LENGTH_SHORT).show();
+        }
 
         newSession = (Button) findViewById(R.id.addWalkIn);
         endSession = (Button) findViewById(R.id.endWalkIn);
+
+        // TODO set availability of walk-in to database
+        currentUser.setWalkIn(true); // is available for walk-in
+
+        // get new number of Appointments
 
         newSession.setOnClickListener(new View.OnClickListener(){
             public void onClick(View view) {
@@ -40,8 +46,22 @@ public class WalkInActivity extends AppCompatActivity {
         });
 
 
+        endSession.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View view) {
 
+                // exiting walk-in availability section
+                currentUser.setWalkIn(false);
 
+                // TODO update database with all new appointments made
+
+                // redirect to homepage
+                Intent i = new Intent(WalkInActivity.this, HomePage.class);
+                i.putExtra("currentUser", currentUser);
+                startActivity(i);
+                finish();
+
+            }
+        });
 
     }
 

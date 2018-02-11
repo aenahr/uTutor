@@ -24,4 +24,7 @@
         <item> Available now Cisco Ramon  Mechanical Engineering</item>
         <item>     Online    Catlin Snow  Biology</item>
     </string-array>
+
+    <!-- For Work Manager !-->
+    <string name="subject_prompt">Select Subject</string>
 </resources>

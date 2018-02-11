@@ -20,6 +20,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -40,7 +41,12 @@ public class HomePage extends AppCompatActivity
     public ImageView hProfilePic;
     public Button mWork;
 
-
+    // card layouts
+    Menu menu;
+    LinearLayout cardSearch;
+    LinearLayout cardAppointment;
+    LinearLayout cardFavorites;
+    LinearLayout cardProfile;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,7 +88,7 @@ public class HomePage extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         View headerView = navigationView.getHeaderView(0);
-        Menu menu = navigationView.getMenu();
+        menu = navigationView.getMenu();
 
         // Changing navigation bar values
         hName = (TextView) headerView.findViewById(R.id.hName);
@@ -116,6 +122,40 @@ public class HomePage extends AppCompatActivity
                 i.putExtra("currentUser", currentUser);
                 startActivity(i);
                 finish();
+            }
+        });
+
+        // make card layouts clickable
+        cardSearch = (LinearLayout) findViewById(R.id.cardSearch);
+        cardAppointment = (LinearLayout) findViewById(R.id.cardAppointment);
+        cardFavorites = (LinearLayout) findViewById(R.id.cardFavorite);
+        cardProfile = (LinearLayout) findViewById(R.id.cardProfile);
+
+        cardSearch.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View view) {
+                MenuItem item = menu.findItem(R.id.nav_searchList);
+                onNavigationItemSelected(item);
+            }
+        });
+
+        cardAppointment.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View view) {
+                MenuItem item = menu.findItem(R.id.nav_appointmentManager);
+                onNavigationItemSelected(item);
+            }
+        });
+
+        cardFavorites.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View view) {
+                MenuItem item = menu.findItem(R.id.nav_Favorites);
+                onNavigationItemSelected(item);
+            }
+        });
+
+        cardProfile.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View view) {
+                MenuItem item = menu.findItem(R.id.nav_userProfile);
+                onNavigationItemSelected(item);
             }
         });
 
@@ -154,8 +194,7 @@ public class HomePage extends AppCompatActivity
         if (id == R.id.nav_home) {
             if(isVisible == false){
                 isVisible = true;
-
-                //startActivity(new Intent(HomePage.this, HomePage.class));
+                setClickable();
 
                 // send user info to HomePage
                 Intent i = new Intent(HomePage.this, HomePage.class);
@@ -167,26 +206,31 @@ public class HomePage extends AppCompatActivity
             }
 
         } else if (id == R.id.nav_userProfile) {
+            setUnclickable();
             isVisible = false;
             fragment = new GenericProfile();
 
         } else if (id == R.id.nav_searchList) {
+            setUnclickable();
             isVisible = false;
-            Toast.makeText(getApplicationContext(), "Search List" , Toast.LENGTH_SHORT).show();
             fragment = new SearchList();
         } else if (id == R.id.nav_Favorites) {
+            setUnclickable();
             isVisible = false;
             fragment = new Favorites();
 
         } else if (id == R.id.nav_appointmentManager) {
+            setUnclickable();
             isVisible = false;
             fragment = new AppointmentManager();
 
         } else if (id == R.id.nav_faq) {
+            setUnclickable();
             isVisible = false;
             fragment = new FAQ();
 
         } else if (id == R.id.nav_aboutUs) {
+            setUnclickable();
             isVisible = false;
             fragment = new AboutUs();
 
@@ -196,14 +240,18 @@ public class HomePage extends AppCompatActivity
             Intent i = new Intent(HomePage.this, BecomeATutor.class);
             i.putExtra("currentUser", currentUser);
             startActivity(i);
-            //finish();
 
-            //fragment = new BecomeTutor();
         } else if (id == R.id.nav_SignOut) {
             Toast.makeText(getApplicationContext(), "Signed Out." , Toast.LENGTH_SHORT).show();
             startActivity(new Intent(HomePage.this, LogIn.class));
             finish();
         }
+        else if( id == R.id.nav_work){
+            setUnclickable();
+            isVisible = false;
+            fragment = new WorkManager();
+        }
+
         if (fragment != null) {
 
             FragmentManager fragmentManager = getSupportFragmentManager();
@@ -229,6 +277,30 @@ public class HomePage extends AppCompatActivity
             e.getMessage();
             return null;
         }
+    }
+
+    public void setUnclickable(){
+
+        // set home page buttons as unclickable
+        cardSearch.setClickable(false);
+        cardProfile.setClickable(false);
+        cardFavorites.setClickable(false);
+        cardAppointment.setClickable(false);
+
+        mWork.setClickable(false);
+
+    }
+
+    public void setClickable(){
+
+        // set home page buttons as unclickable
+        cardSearch.setClickable(true);
+        cardProfile.setClickable(true);
+        cardFavorites.setClickable(true);
+        cardAppointment.setClickable(true);
+
+        mWork.setClickable(true);
+
     }
 
 

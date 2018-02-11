@@ -9,6 +9,8 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
         tools:layout_editor_absoluteX="8dp"
         tools:layout_editor_absoluteY="8dp">
 
@@ -138,6 +140,16 @@
             android:layout_height="wrap_content"
             android:textColor="@color/reddish"
             android:text="Required fields are not met. Please try again."
+            android:visibility="invisible"/>
+
+        <TextView
+            android:id="@+id/alertEmail"
+            android:layout_below="@+id/etUniversity"
+            android:layout_centerHorizontal="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/reddish"
+            android:text="Email already used and/or invalid. Please try another."
             android:visibility="invisible"/>
 
         <Button

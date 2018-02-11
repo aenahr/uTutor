@@ -28,6 +28,7 @@ public class Registration extends AppCompatActivity {
     EditText mUniversity;
     TextView mAlertPassWord;
     TextView mAlertInput;
+    TextView mAlertEmail;
     Button imgBack;
     public User currentUser;
 
@@ -46,6 +47,8 @@ public class Registration extends AppCompatActivity {
         mLast = (EditText) findViewById(R.id.etLast);
         mAlertPassWord = (TextView) findViewById(R.id.alert);
         mAlertInput = (TextView) findViewById(R.id.alertInput);
+        mAlertEmail = (TextView) findViewById(R.id.alertEmail);
+
 
         imgBack = (Button) findViewById(R.id.backButton);
 
@@ -56,32 +59,36 @@ public class Registration extends AppCompatActivity {
                 // finish this activity and go back to log in
                 startActivity(new Intent(Registration.this, LogIn.class));
                 finish();
-
-
             }
         });
 
     }
 
     public void registerUser(View view){
-        //to prevent overlap errors, set both errors invisible first
+        //to prevent overlap errors, set ALL errors invisible first
         mAlertPassWord.setVisibility(View.INVISIBLE);
         mAlertInput.setVisibility(View.INVISIBLE);
+        mAlertEmail.setVisibility(View.INVISIBLE);
 
         boolean validRegistration = testForNull();
+        boolean validEmail = true;
 
-        if( mPassword.getText().toString().equals(mPasswordConfirm.getText().toString()) && validRegistration == true){
 
-            //create new user in database and inout all values
+        if (mPassword.getText().toString().equals(mPasswordConfirm.getText().toString()) && validRegistration == true && validEmail == true) {
+            /////////////
+            /// PROCESS OF CREATING NEW USER IN DATABASE
+            ////////////
+
+            // TODO add new user to database
 
             //create User
             currentUser = new User();
             currentUser.setFirstName(mFirst.getText().toString());
             currentUser.setLastName(mLast.getText().toString());
             currentUser.setEmail(mEmail.getText().toString());
-            if( mUniversity.getText().toString().equals(null)){ //if user did not input anything
+            if (mUniversity.getText().toString().equals(null)) { //if user did not input anything
                 currentUser.setUniversity("None");
-            }else {
+            } else {
                 currentUser.setUniversity(mUniversity.getText().toString());
             }
             Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.ututorlogo); // drawable to bitmap
@@ -95,15 +102,17 @@ public class Registration extends AppCompatActivity {
             Intent i = new Intent(Registration.this, HomePage.class);
             i.putExtra("currentUser", currentUser);
             startActivity(i);
-        } else if(validRegistration == false){
+        } else if (validEmail == false) { // Email already in database
+            mAlertEmail.setVisibility(View.VISIBLE);
+            Animation shake = AnimationUtils.loadAnimation(Registration.this, R.anim.shake);
+            mAlertEmail.startAnimation(shake);
+        } else if (validRegistration == false) { //required fields not filled
 
             mAlertInput.setVisibility(View.VISIBLE);
             Animation shake = AnimationUtils.loadAnimation(Registration.this, R.anim.shake);
             mAlertInput.startAnimation(shake);
 
-        }
-        else{
-
+        } else { //password does not match
             mAlertPassWord.setVisibility(View.VISIBLE);
             Animation shake = AnimationUtils.loadAnimation(Registration.this, R.anim.shake);
             mAlertPassWord.startAnimation(shake);
@@ -122,6 +131,12 @@ public class Registration extends AppCompatActivity {
         if(mPasswordConfirm.getText().toString().equals("")){ return false; }
 
         //returns true if all requirements are met
+        return true;
+    }
+
+    public boolean testForEmail(){
+        // TODO check if the email is already in database
+
         return true;
     }
 
