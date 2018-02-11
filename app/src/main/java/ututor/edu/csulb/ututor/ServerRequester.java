@@ -16,13 +16,13 @@ import java.util.concurrent.ExecutionException;
 import android.os.AsyncTask;
 import android.util.Log;
 
-public class JSONParser extends AsyncTask<String, Void, JSONObject>{
+public class ServerRequester extends AsyncTask<String, Void, JSONObject>{
 
     static InputStream is = null;
     static JSONObject jObj = null;
 
     // constructor
-    public JSONParser() {
+    public ServerRequester() {
 
     }
     @Override
