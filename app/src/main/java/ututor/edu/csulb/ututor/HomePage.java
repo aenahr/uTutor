@@ -215,7 +215,7 @@ public class HomePage extends AppCompatActivity
         } else if (id == R.id.nav_userProfile) {
             setUnclickable();
             isVisible = false;
-            fragment = new GenericProfile();
+            fragment = new MyProfile();
 
         } else if (id == R.id.nav_searchList) {
             setUnclickable();
