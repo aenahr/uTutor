@@ -20,9 +20,8 @@ import android.util.Log;
 
 /**
  * Primary AsyncTask class that handles server requests
- * Default constructor uses the default hostname and protocol
- * Ex. http://google.com/  has a protocol of http and a hostname of google.com
- * Constructor with a String parameter sets the URL
+ * Input will consist of Strings which will be translated to Page Names and Request variables
+ * Output will be in the form of a JSON object containing information that the server returned
  */
 public class ServerRequester extends AsyncTask<String, Void, JSONObject> {
     private final String serverurl;
@@ -117,8 +116,8 @@ public class ServerRequester extends AsyncTask<String, Void, JSONObject> {
             urlConnection = (HttpURLConnection) url.openConnection();
             urlConnection.setRequestMethod(method);
             urlConnection.setRequestProperty("token",param[1]);
-            for (int i = 2; i < param.length; i++) {
-
+            for (int i = 2; i < param.length; i=+2) {
+                urlConnection.setRequestProperty(param[i],param[i+1]);
             }
             //Connection is actually made here, any response is thrown into the reader
             BufferedReader in = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));

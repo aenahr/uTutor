@@ -28,6 +28,8 @@ import com.google.gson.Gson;
 
 import org.json.JSONObject;
 
+import java.util.concurrent.ExecutionException;
+
 public class HomePage extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -113,10 +115,15 @@ public class HomePage extends AppCompatActivity
 
         mWork.setOnClickListener(new View.OnClickListener(){
             public void onClick(View view) {
+                try {
+                    JSONObject response = new ServerRequester().execute("login.php", "bleh","email","lance@lance.lance").get();
+                    Toast.makeText(getApplicationContext(), "Response: " + response.toString() , Toast.LENGTH_SHORT).show();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                } catch (ExecutionException e) {
+                    e.printStackTrace();
+                }
 
-//                JSONParser herp = new JSONParser();
-//                JSONObject o = herp.makeHttpRequest("derp", "POST");
-//                Toast.makeText(getApplicationContext(), "Herp" + o , Toast.LENGTH_SHORT).show();
 
                 Intent i = new Intent(HomePage.this, HomePage.class);
                 i.putExtra("currentUser", currentUser);
