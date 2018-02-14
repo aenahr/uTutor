@@ -81,7 +81,6 @@ public class Registration extends AppCompatActivity {
             /// PROCESS OF CREATING NEW USER IN DATABASE
             ////////////
 
-            // TODO add new user to database
             JSONObject response = null;
             try {
                 response = new ServerRequester().execute("register.php", "whatever",
