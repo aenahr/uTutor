@@ -69,6 +69,10 @@ public class WorkHourPicker extends AppCompatActivity implements com.wdullaer.ma
 
         cancelChanges = (Button) findViewById(R.id.backButton);
         saveChanges = (Button) findViewById(R.id.finishButton);
+        bAddStartTime = (Button) findViewById(R.id.bAddStartTime);
+        bAddEndTime = (Button) findViewById(R.id.bAddEndTime);
+        displayStart = (TextView) findViewById(R.id.displayStart);
+        displayEnd = (TextView) findViewById(R.id.displayEnd);
 
         // initialize Buttons
         initializeButtons();
@@ -80,29 +84,28 @@ public class WorkHourPicker extends AppCompatActivity implements com.wdullaer.ma
         startTime.set(Calendar.MINUTE,0);
         startTime.set(Calendar.SECOND,0);
         startTime.set(Calendar.MILLISECOND,0);
+//        startString = String.format("%02d:%02d", startTime.HOUR_OF_DAY, startTime.MINUTE);
+//        Toast.makeText(getApplicationContext(), startString , Toast.LENGTH_SHORT).show();
+//        displayStart.setText(startString);
 
         endTime = Calendar.getInstance();
         endTime.set(Calendar.HOUR_OF_DAY,0);
         endTime.set(Calendar.MINUTE,0);
         endTime.set(Calendar.SECOND,0);
         endTime.set(Calendar.MILLISECOND,0);
+//        endString = String.format("%02d:%02d", endTime.HOUR_OF_DAY, endTime.MINUTE);
+//        displayEnd.setText(endString);
 
 //
 //        // alert dialog to delete/add new session
 //        String timeElapsed = "Time Elapsed: " + (seconds/3600) + " hrs " + ((seconds/60)%60) + " mins " + (seconds%60) + " secs";
 
-        bAddStartTime = (Button) findViewById(R.id.bAddStartTime);
-        bAddEndTime = (Button) findViewById(R.id.bAddEndTime);
-        displayStart = (TextView) findViewById(R.id.displayStart);
-        displayEnd = (TextView) findViewById(R.id.displayEnd);
-
 
         bAddStartTime.setOnClickListener(new View.OnClickListener(){
             public void onClick(View view) {
-                Calendar currentTime = Calendar.getInstance();
                 com.wdullaer.materialdatetimepicker.time.TimePickerDialog timePickerDialog = com.wdullaer.materialdatetimepicker.time.TimePickerDialog.newInstance(WorkHourPicker.this,
-                        currentTime.get(Calendar.HOUR_OF_DAY),
-                        currentTime.get(Calendar.MINUTE),
+                        startTime.get(startTime.HOUR_OF_DAY),
+                        startTime.get(startTime.MINUTE),
                         true);
                 timePickerDialog.setTitle("TimePicker");
                 timePickerDialog.show(getFragmentManager(), "TimePicker");
@@ -113,10 +116,10 @@ public class WorkHourPicker extends AppCompatActivity implements com.wdullaer.ma
 
         bAddEndTime.setOnClickListener(new View.OnClickListener(){
             public void onClick(View view) {
-                Calendar currentTime = Calendar.getInstance();
+
                 com.wdullaer.materialdatetimepicker.time.TimePickerDialog timePickerDialog = com.wdullaer.materialdatetimepicker.time.TimePickerDialog.newInstance(WorkHourPicker.this,
-                        currentTime.get(Calendar.HOUR_OF_DAY),
-                        currentTime.get(Calendar.MINUTE),
+                        endTime.get(endTime.HOUR_OF_DAY),
+                        endTime.get(endTime.MINUTE),
                         true);
                 timePickerDialog.setTitle("TimePicker");
                 timePickerDialog.show(getFragmentManager(), "TimePicker");
@@ -140,6 +143,9 @@ public class WorkHourPicker extends AppCompatActivity implements com.wdullaer.ma
                 if(seconds <= 0){
                     // try again
                     Toast.makeText(getApplicationContext(), "Invalid time. Please try again." , Toast.LENGTH_SHORT).show();
+                }
+                else if(checkForNullDays() == false){
+                    Toast.makeText(getApplicationContext(), "Invalid days. Please try again." , Toast.LENGTH_SHORT).show();
                 }else{
 
                     //checks for days
@@ -333,5 +339,14 @@ public class WorkHourPicker extends AppCompatActivity implements com.wdullaer.ma
                 });
         AlertDialog alert = builder.create();
         alert.show();
+    }
+
+    public boolean checkForNullDays(){
+        if(sMonday == 0 && sTuesday == 0 && sTuesday == 0 && sThursday == 0 && sFriday == 0 && sSaturday == 0 && sSunday == 0){
+            return false;
+        }
+        else{
+            return true;
+        }
     }
 }
