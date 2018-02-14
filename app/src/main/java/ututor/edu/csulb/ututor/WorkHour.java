@@ -1,14 +1,46 @@
 package ututor.edu.csulb.ututor;
 
 
+
 public class WorkHour {
-    public boolean MONDAY = false;
-    public boolean TUESDAY = false;
-    public boolean WEDNESDAY = false;
-    public boolean THURSDAY = false;
-    public boolean FRIDAY = false;
-    public boolean SATURDAY = false;
-    public boolean SUNDAY = false;
+    public boolean MONDAY;
+    public boolean TUESDAY;
+    public boolean WEDNESDAY;
+    public boolean THURSDAY;
+    public boolean FRIDAY;
+    public boolean SATURDAY;
+    public boolean SUNDAY;
+
+    String sMonday;
+    String sTuesday;
+    String sWednesday;
+    String sThursday;
+    String sFriday;
+    String sSaturday;
+    String sSunday;
+
+    public WorkHour(){
+        sMonday = "";
+        sTuesday = "";
+        sWednesday = "";
+        sThursday = "";
+        sFriday = "";
+        sSaturday = "";
+        sSunday = "";
+
+        MONDAY = false;
+        TUESDAY = false;
+        WEDNESDAY = false;
+        THURSDAY = false;
+        FRIDAY = false;
+        SATURDAY = false;
+        SUNDAY = false;
+    }
+
+    public void setMONDAY(boolean b){
+        MONDAY =b;
+    }
+
 
 
 }
