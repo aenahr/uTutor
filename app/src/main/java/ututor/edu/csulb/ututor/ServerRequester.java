@@ -73,7 +73,7 @@ public class ServerRequester extends AsyncTask<String, Void, JSONObject> {
      *                    or
      *                    https://192.158.3.355/
      * @param meth        Method of the request, case insensitive
-     *                    Expects an usable method such as:
+     *                    Expects usable method such as:
      *                    POST, GET, HEAD, OPTIONS, PUT, DELETE, or TRACE
      */
     public ServerRequester(String hostaddress, String meth) {

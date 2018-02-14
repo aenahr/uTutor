@@ -125,12 +125,10 @@ public class HomePage extends AppCompatActivity
         bTest.setOnClickListener(new View.OnClickListener(){
             public void onClick(View view) {
                 try {
-                    System.out.println("You Clicked It");
                     //JSONObject response = new ServerRequester().execute("login.php", "bleh","email","lance@lance.lance").get();
                     String UsersEmail = "what@what.what";
                     String UsersPassword = "1853794613";
                     JSONObject response = new ServerRequester().execute("register.php", "whatever" , "email",UsersEmail , "password" , UsersPassword).get();
-                    System.out.println("Returned Response: " + response.toString());
                     Toast.makeText(getApplicationContext(), "Response: " + response.toString() , Toast.LENGTH_SHORT).show();
                 } catch (InterruptedException e) {
                     e.printStackTrace();
