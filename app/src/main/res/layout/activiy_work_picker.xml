@@ -36,7 +36,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:id="@+id/finishButton"
-            android:text="Done"
+            android:text="Add"
             android:textSize="20dp"
             android:textColor="@color/colorPrimaryDark"
             android:background="@android:color/transparent"/>
@@ -53,7 +53,7 @@
         android:textColor="@color/colorPrimaryDark"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="5dp"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="55dp"
         android:layout_below="@+id/topWork"/>
 
     <RelativeLayout
@@ -71,7 +71,7 @@
             android:layout_height="wrap_content"
             android:text="Mon"
             android:textColor="@color/white"
-            android:background="@drawable/button_border"/>
+            android:background="@color/colorPrimary"/>
         <Button
             android:id="@+id/wTuesday"
             android:layout_width="50dp"
@@ -80,8 +80,7 @@
             android:layout_height="wrap_content"
             android:text="Tue"
             android:textColor="@color/white"
-            android:background="@drawable/button_border"/>
-
+            android:background="@color/colorPrimary"/>
         <Button
             android:id="@+id/wWednesday"
             android:layout_width="50dp"
@@ -90,8 +89,7 @@
             android:layout_height="wrap_content"
             android:text="Wed"
             android:textColor="@color/white"
-            android:background="@drawable/button_border"/>
-
+            android:background="@color/colorPrimary"/>
         <Button
             android:id="@+id/wThursday"
             android:layout_width="50dp"
@@ -100,8 +98,7 @@
             android:layout_height="wrap_content"
             android:text="Thu"
             android:textColor="@color/white"
-            android:background="@drawable/button_border"/>
-
+            android:background="@color/colorPrimary"/>
         <Button
             android:id="@+id/wFriday"
             android:layout_width="50dp"
@@ -110,8 +107,7 @@
             android:layout_height="wrap_content"
             android:text="Fri"
             android:textColor="@color/white"
-            android:background="@drawable/button_border"/>
-
+            android:background="@color/colorPrimary"/>
         <Button
             android:id="@+id/wSaturday"
             android:layout_width="50dp"
@@ -120,8 +116,7 @@
             android:layout_height="wrap_content"
             android:text="Sat"
             android:textColor="@color/white"
-            android:background="@drawable/button_border"/>
-
+            android:background="@color/colorPrimary"/>
         <Button
             android:id="@+id/wSunday"
             android:layout_width="50dp"
@@ -130,8 +125,7 @@
             android:layout_height="wrap_content"
             android:text="Sun"
             android:textColor="@color/white"
-            android:background="@drawable/button_border"/>
-    </RelativeLayout>
+            android:background="@color/colorPrimary"/>    </RelativeLayout>
 
     <TextView
         android:id="@+id/tTimes"
@@ -145,5 +139,59 @@
         android:layout_marginBottom="5dp"
         android:layout_marginTop="15dp"
         android:layout_below="@+id/middleWork"/>
+
+    <RelativeLayout
+        android:id="@+id/start"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center|top"
+        android:layout_below="@+id/tTimes">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/displayStart"
+            android:text="00:00"
+            android:textSize="40dp"
+            android:layout_marginRight="20dp"
+            android:fontFamily="sans-serif-light"/>
+
+        <Button
+            android:id="@+id/bAddStartTime"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/displayStart"
+            android:text="Add Start Time"
+            android:layout_marginTop="7dp"
+            android:textColor="@color/white"
+            android:background="@drawable/button_border"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/displayEnd"
+            android:text="00:00"
+            android:textSize="40dp"
+            android:layout_marginRight="20dp"
+            android:layout_below="@+id/displayStart"
+            android:layout_marginTop="20dp"
+            android:fontFamily="sans-serif-light"/>
+
+        <Button
+            android:id="@+id/bAddEndTime"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/displayStart"
+            android:text="Add End Time"
+            android:layout_below="@+id/bAddStartTime"
+            android:layout_marginTop="22dp"
+            android:textColor="@color/white"
+            android:background="@drawable/button_border"/>
+
+
+    </RelativeLayout>
+
+
+
 
 </RelativeLayout>
