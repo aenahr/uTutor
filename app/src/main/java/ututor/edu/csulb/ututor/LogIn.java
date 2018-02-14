@@ -209,7 +209,6 @@ public class LogIn extends AppCompatActivity {
             SharedPreferences.Editor editor = pref.edit();
             editor.clear();
             editor.apply();
-
         }
 
         //upload server info about User to the User class

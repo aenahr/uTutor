@@ -162,12 +162,6 @@ public class Registration extends AppCompatActivity {
         return true;
     }
 
-    public boolean testForEmail() {
-        // TODO check if the email is already in database
-
-        return true;
-    }
-
     @Override
     public void onBackPressed() {
         // finish this activity and go back to log in
