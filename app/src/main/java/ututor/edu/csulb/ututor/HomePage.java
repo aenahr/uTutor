@@ -36,6 +36,9 @@ public class HomePage extends AppCompatActivity
     NavigationView navigationView;
     boolean isVisible = true;
     User currentUser;
+    // when other activities want to navigate back to a specific fragment page
+    String uploadPage;
+
 
     // navigation bar changes
     public TextView hName;
@@ -58,6 +61,8 @@ public class HomePage extends AppCompatActivity
 
         Intent i = getIntent();
         currentUser = (User)i.getSerializableExtra("currentUser");
+        uploadPage = i.getExtras().getString("uploadPage");
+
         mWork = (Button) findViewById(R.id.workButton);
         bTest = (Button) findViewById(R.id.testButton); //DELETE WHEN DONE TESTING
         bTest.setVisibility(View.VISIBLE);
@@ -93,7 +98,7 @@ public class HomePage extends AppCompatActivity
         View headerView = navigationView.getHeaderView(0);
         menu = navigationView.getMenu();
 
-        // Changing navigation bar values
+        // Changing navigation bar values depending if tutor or not
         hName = (TextView) headerView.findViewById(R.id.hName);
         hEmail = (TextView) headerView.findViewById(R.id.hEmail);
         hProfilePic = (ImageView) headerView.findViewById(R.id.hProfilePic);
@@ -171,6 +176,14 @@ public class HomePage extends AppCompatActivity
                 onNavigationItemSelected(item);
             }
         });
+
+        // check if needed to navigate to a frag
+        if(uploadPage != null){
+            if (uploadPage.equals("workManager")) {
+                MenuItem item = menu.findItem(R.id.nav_work);
+                onNavigationItemSelected(item);
+            }
+        }
 
     }
 

@@ -11,7 +11,7 @@ public class Appointment implements Serializable{
     String tutor; // email format
     String tutee; //email format
     long lengthOfAppointment; // this is in seconds...convert as needed
-    String typeOfAppointment = "none"; // OPTIONS ARE: PENDING, UPCOMING, PAST, WALKIN, NULL
+    String typeOfAppointment; // OPTIONS ARE: PENDING, UPCOMING, PAST, WALKIN, NULL
     // PENDING: needs confirmation from tutor
     // UPCOMING: confirmed by tutor and awaiting time
     // PAST: completed
@@ -19,7 +19,7 @@ public class Appointment implements Serializable{
     // NULL: invalid or empty appointment
 
     public Appointment(){
-
+        typeOfAppointment = "none";
     }
 
     public String getTypeOfAppointment(){ return typeOfAppointment;}

@@ -129,7 +129,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/reddish"
-            android:text="Passwords do no match. Please try again."
+            android:text="Passwords do not match. Please try again."
             android:visibility="invisible"/>
 
         <TextView

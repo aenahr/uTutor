@@ -1,8 +1,9 @@
 package ututor.edu.csulb.ututor;
 
 
+import java.io.Serializable;
 
-public class WorkHour {
+public class WorkHour implements Serializable{
     public boolean MONDAY;
     public boolean TUESDAY;
     public boolean WEDNESDAY;
@@ -11,22 +12,12 @@ public class WorkHour {
     public boolean SATURDAY;
     public boolean SUNDAY;
 
-    String sMonday;
-    String sTuesday;
-    String sWednesday;
-    String sThursday;
-    String sFriday;
-    String sSaturday;
-    String sSunday;
+    String startTime;
+    String endTime;
 
     public WorkHour(){
-        sMonday = "";
-        sTuesday = "";
-        sWednesday = "";
-        sThursday = "";
-        sFriday = "";
-        sSaturday = "";
-        sSunday = "";
+        startTime = "";
+        endTime = "";
 
         MONDAY = false;
         TUESDAY = false;
@@ -37,8 +28,67 @@ public class WorkHour {
         SUNDAY = false;
     }
 
+    public void setStartTime(String s){ startTime = s;}
+
+    public void setEndTime(String s){ endTime = s;}
+
     public void setMONDAY(boolean b){
         MONDAY =b;
+    }
+
+    public void setTUESDAY(boolean b){TUESDAY =b;}
+
+    public void setWEDNESDAY(boolean b){
+        WEDNESDAY =b;
+    }
+
+    public void setTHURSDAY(boolean b){
+        THURSDAY =b;
+    }
+
+    public void setFRIDAY(boolean b){
+        FRIDAY =b;
+    }
+
+    public void setSATURDAY(boolean b){
+        SATURDAY =b;
+    }
+
+    public void setSUNDAY(boolean b){
+        SUNDAY =b;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder fullString = new StringBuilder("Day(s): ");
+        if(SUNDAY == true){
+            fullString.append("Su");
+        }
+        if(MONDAY == true){
+            fullString.append("Mo");
+        }
+        if(TUESDAY == true){
+            fullString.append("Tu");
+        }
+        if(WEDNESDAY == true){
+            fullString.append("We");
+        }
+        if(THURSDAY == true){
+            fullString.append("Th");
+        }
+        if(FRIDAY == true){
+            fullString.append("Fr");
+        }
+        if(SATURDAY == true){
+            fullString.append("Sa");
+        }
+
+        fullString.append("     Time: ");
+
+        fullString.append(startTime + " - ");
+        fullString.append(endTime);
+
+        return fullString.toString();
     }
 
 
