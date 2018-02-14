@@ -42,6 +42,7 @@ public class HomePage extends AppCompatActivity
     public TextView hEmail;
     public ImageView hProfilePic;
     public Button mWork;
+    public Button bTest;
 
     // card layouts
     Menu menu;
@@ -55,11 +56,11 @@ public class HomePage extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
         Intent i = getIntent();
         currentUser = (User)i.getSerializableExtra("currentUser");
         mWork = (Button) findViewById(R.id.workButton);
-
+        bTest = (Button) findViewById(R.id.testButton); //DELETE WHEN DONE TESTING
+        bTest.setVisibility(View.VISIBLE);
         //check if the person is a tutor or not
         if( !currentUser.isTutor){
             mWork.setVisibility(View.INVISIBLE);
@@ -115,20 +116,27 @@ public class HomePage extends AppCompatActivity
 
         mWork.setOnClickListener(new View.OnClickListener(){
             public void onClick(View view) {
+                Intent i = new Intent(HomePage.this, HomePage.class);
+                i.putExtra("currentUser", currentUser);
+                startActivity(i);
+                finish();
+            }
+        });
+        bTest.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View view) {
                 try {
-                    JSONObject response = new ServerRequester().execute("login.php", "bleh","email","lance@lance.lance").get();
+                    System.out.println("You Clicked It");
+                    //JSONObject response = new ServerRequester().execute("login.php", "bleh","email","lance@lance.lance").get();
+                    String UsersEmail = "what@what.what";
+                    String UsersPassword = "1853794613";
+                    JSONObject response = new ServerRequester().execute("register.php", "whatever" , "email",UsersEmail , "password" , UsersPassword).get();
+                    System.out.println("Returned Response: " + response.toString());
                     Toast.makeText(getApplicationContext(), "Response: " + response.toString() , Toast.LENGTH_SHORT).show();
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 } catch (ExecutionException e) {
                     e.printStackTrace();
                 }
-
-
-                Intent i = new Intent(HomePage.this, HomePage.class);
-                i.putExtra("currentUser", currentUser);
-                startActivity(i);
-                finish();
             }
         });
 
@@ -295,6 +303,7 @@ public class HomePage extends AppCompatActivity
         cardAppointment.setClickable(false);
 
         mWork.setClickable(false);
+        bTest.setClickable(false);//DELETE WHEN DONE TESTING
 
     }
 
@@ -307,7 +316,7 @@ public class HomePage extends AppCompatActivity
         cardAppointment.setClickable(true);
 
         mWork.setClickable(true);
-
+        bTest.setClickable(true);//DELETE WHEN DONE TESTING
     }
 
 
