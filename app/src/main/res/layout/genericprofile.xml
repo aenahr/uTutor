@@ -106,10 +106,12 @@
             android:paddingLeft="25dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-            <ImageView
+            <ImageButton
+                android:id="@+id/star"
                 android:layout_width="36dp"
                 android:layout_height="36dp"
-                android:src="@drawable/ic_star_border_black_24dp"/>
+                android:src="@drawable/ic_star_border_black_24dp"
+                android:onClick="onToggleStar"/>
             <TextView
                 android:id="@+id/Favorite"
                 android:textStyle="bold"
@@ -118,6 +120,25 @@
                 android:layout_height="wrap_content"
                 android:paddingLeft="20dp"
                 android:text="Favorite"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_marginTop="1dp"
+            android:orientation="horizontal"
+            android:paddingLeft="25dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:src="@drawable/ic_rate_review"/>
+            <TextView
+                android:id="@+id/rate_user"
+                android:textStyle="bold"
+                android:layout_gravity="center_vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="20dp"
+                android:text="Rate User"/>
         </LinearLayout>
 
         <LinearLayout
@@ -138,6 +159,26 @@
                 android:layout_height="wrap_content"
                 android:paddingLeft="20dp"
                 android:text="Read Reviews"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_marginTop="1dp"
+            android:orientation="horizontal"
+            android:paddingLeft="25dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:src="@mipmap/ic_schedule_appoint"/>
+            <TextView
+                android:id="@+id/schedule_appoint"
+                android:textStyle="bold"
+                android:layout_gravity="center_vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="20dp"
+                android:text="Schedule Appointment"/>
+
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>
