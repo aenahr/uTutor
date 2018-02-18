@@ -118,9 +118,7 @@ public class LogIn extends AppCompatActivity {
                     mAlert.setVisibility(View.VISIBLE);
                     Animation shake = AnimationUtils.loadAnimation(LogIn.this, R.anim.shake);
                     mAlert.startAnimation(shake);
-
                 } else if (validDatabase) {
-
                     // if remember me is selected
                     if (mRemember.isChecked()) {
                         String sEmail = mEmail.getText().toString();
@@ -211,7 +209,6 @@ public class LogIn extends AppCompatActivity {
             SharedPreferences.Editor editor = pref.edit();
             editor.clear();
             editor.apply();
-
         }
 
         //upload server info about User to the User class

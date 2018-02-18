@@ -16,21 +16,28 @@ public class User implements Serializable{
     public String uEmail;
     public String uUniversity;
     public String uProfilePicture;
-    public boolean isTutor = false;
-    public boolean walkIn = false;
+    public boolean isTutor;
+    public boolean walkIn;
     public ArrayList<Integer> ratings = null;
     public ArrayList<String> favorites = null;
     public ArrayList<Appointment> appointments;
     public ArrayList<String> subjectsTaught;
+    public ArrayList<WorkHour> workHours;
 
     public User(){
 
+        isTutor = false;
+        walkIn = false;
         appointments = new ArrayList<Appointment>();
         subjectsTaught = new ArrayList<String>();
+        workHours = new ArrayList<WorkHour>();
+
 
     }
 
     public ArrayList<String> getSubjectsTaught(){ return subjectsTaught;}
+
+    public ArrayList<WorkHour> getWorkHours(){ return workHours;}
 
     public boolean getWalkIn(){ return walkIn;}
 
@@ -66,6 +73,10 @@ public class User implements Serializable{
 
     public boolean isTutor(){
         return isTutor;
+    }
+
+    public void addNewHour(WorkHour newHour){
+        workHours.add(newHour);
     }
 
     public void setSubjectsTaught(ArrayList<String> newSubjects){

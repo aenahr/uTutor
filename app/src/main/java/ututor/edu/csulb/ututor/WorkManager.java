@@ -34,15 +34,15 @@ public class WorkManager extends Fragment implements AdapterView.OnItemSelectedL
     Spinner mSpinner;
 
     /////
-    // List View variables for subjects
+    // List View variables for Work Hours
     /////
-//    ListView mWorkListView;
-//    //LIST OF ARRAY STRINGS WHICH WILL SERVE AS LIST ITEMS
-//    ArrayList<String> mSubjectItems;
-//    //DEFINING A STRING ADAPTER WHICH WILL HANDLE THE DATA OF THE LISTVIEW
-//    ArrayAdapter<String> mSubjectAdapter;
-//    //RECORDING HOW MANY TIMES THE BUTTON HAS BEEN CLICKED
-//    Button addSubjectItem;
+    ListView mWorkListView;
+    //LIST OF ARRAY STRINGS WHICH WILL SERVE AS LIST ITEMS
+    ArrayList<String> mWorkItems;
+    //DEFINING A STRING ADAPTER WHICH WILL HANDLE THE DATA OF THE LISTVIEW
+    ArrayAdapter<String> mWorkAdapter;
+    //RECORDING HOW MANY TIMES THE BUTTON HAS BEEN CLICKED
+    ArrayList<WorkHour> tempWorkItems;
 
 
     /////
@@ -56,6 +56,7 @@ public class WorkManager extends Fragment implements AdapterView.OnItemSelectedL
     //RECORDING HOW MANY TIMES THE BUTTON HAS BEEN CLICKED
     Button addSubjectItem;
     Button addWorkHour;
+
 
     // TODO find out when to refresh database to update Work Times
 
@@ -72,12 +73,29 @@ public class WorkManager extends Fragment implements AdapterView.OnItemSelectedL
         currentUser = (User)i.getSerializableExtra("currentUser");
         //Toast.makeText(getActivity(), currentUser.getFirstName(), Toast.LENGTH_SHORT).show();
 
-        // initialize objects
+        // work hours from current User
+        tempWorkItems = currentUser.getWorkHours();
+        mWorkItems = new ArrayList<String>();
+
+        if(tempWorkItems.isEmpty()){
+        }
+        else{
+            for(int k = 0; k < tempWorkItems.size(); k++){ // add all the work hours to array that will be inserted into adapter
+                mWorkItems.add(tempWorkItems.get(k).toString());
+            }
+        }
+        // initialize subjects objects
         mSubjectListView = (ListView) rootView.findViewById(R.id.wList);
         mSpinner = (Spinner) rootView.findViewById(R.id.wSpinner);
         mTitle = (TextView) rootView.findViewById(R.id.titleWork);
         addSubjectItem = (Button) rootView.findViewById(R.id.addBtn);
+
+
+        // initialize work objects
         addWorkHour = (Button) rootView.findViewById(R.id.wAddWorkHour);
+        mWorkListView = (ListView) rootView.findViewById(R.id.wWorkList);
+        mWorkAdapter = new ArrayAdapter<String>(getActivity().getBaseContext(), android.R.layout.simple_list_item_1, mWorkItems);
+        mWorkListView.setAdapter(mWorkAdapter);
 
         // link local arraylist to currentUser's arraylist
         mSubjectItems = currentUser.getSubjectsTaught();
@@ -124,8 +142,23 @@ public class WorkManager extends Fragment implements AdapterView.OnItemSelectedL
             public void onItemClick(AdapterView<?> a, View v, int position,
                                     long id) {
                 // remove from list
+
+                Toast.makeText(getActivity(), mSubjectItems.get(position) + " deleted.", Toast.LENGTH_SHORT).show();
                 mSubjectItems.remove(position);
                 mSubjectAdapter.notifyDataSetChanged();
+            }
+        });
+
+        mWorkListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> a, View v, int position,
+                                    long id) {
+                // remove from list
+                mWorkItems.remove(position);
+                tempWorkItems.remove(position);
+                mWorkAdapter.notifyDataSetChanged();
+
+                Toast.makeText(getActivity(), "Work Hour successfully deleted.", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -136,8 +169,12 @@ public class WorkManager extends Fragment implements AdapterView.OnItemSelectedL
         addWorkHour.setOnClickListener(new View.OnClickListener(){
             public void onClick(View view) {
 
-                Intent intent = new Intent(getActivity(), WorkHourPicker.class);
-                startActivity(intent);
+//                Intent intent = new Intent(getActivity(), WorkHourPicker.class);
+//                startActivity(intent);
+
+                Intent i = new Intent(getActivity(), WorkHourPicker.class);
+                i.putExtra("currentUser", currentUser);
+                startActivity(i);
             }
         });
 

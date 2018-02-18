@@ -36,12 +36,16 @@ public class HomePage extends AppCompatActivity
     NavigationView navigationView;
     boolean isVisible = true;
     User currentUser;
+    // when other activities want to navigate back to a specific fragment page
+    String uploadPage;
+
 
     // navigation bar changes
     public TextView hName;
     public TextView hEmail;
     public ImageView hProfilePic;
     public Button mWork;
+    public Button bTest;
 
     // card layouts
     Menu menu;
@@ -55,11 +59,13 @@ public class HomePage extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
         Intent i = getIntent();
         currentUser = (User)i.getSerializableExtra("currentUser");
-        mWork = (Button) findViewById(R.id.workButton);
+        uploadPage = i.getExtras().getString("uploadPage");
 
+        mWork = (Button) findViewById(R.id.workButton);
+        bTest = (Button) findViewById(R.id.testButton); //DELETE WHEN DONE TESTING
+        bTest.setVisibility(View.VISIBLE);
         //check if the person is a tutor or not
         if( !currentUser.isTutor){
             mWork.setVisibility(View.INVISIBLE);
@@ -92,7 +98,7 @@ public class HomePage extends AppCompatActivity
         View headerView = navigationView.getHeaderView(0);
         menu = navigationView.getMenu();
 
-        // Changing navigation bar values
+        // Changing navigation bar values depending if tutor or not
         hName = (TextView) headerView.findViewById(R.id.hName);
         hEmail = (TextView) headerView.findViewById(R.id.hEmail);
         hProfilePic = (ImageView) headerView.findViewById(R.id.hProfilePic);
@@ -115,20 +121,25 @@ public class HomePage extends AppCompatActivity
 
         mWork.setOnClickListener(new View.OnClickListener(){
             public void onClick(View view) {
+                Intent i = new Intent(HomePage.this, WalkInActivity.class);
+                i.putExtra("currentUser", currentUser);
+                startActivity(i);
+                finish();
+            }
+        });
+        bTest.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View view) {
                 try {
-                    JSONObject response = new ServerRequester().execute("login.php", "bleh","email","lance@lance.lance").get();
+                    //JSONObject response = new ServerRequester().execute("getUser.php", "bleh","email","lance@lance.lance").get();
+                    String UsersEmail = "what@what.what";
+                    String UsersPassword = "1853794613";
+                    JSONObject response = new ServerRequester().execute("register.php", "whatever" , "email",UsersEmail , "password" , UsersPassword).get();
                     Toast.makeText(getApplicationContext(), "Response: " + response.toString() , Toast.LENGTH_SHORT).show();
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 } catch (ExecutionException e) {
                     e.printStackTrace();
                 }
-
-
-                Intent i = new Intent(HomePage.this, HomePage.class);
-                i.putExtra("currentUser", currentUser);
-                startActivity(i);
-                finish();
             }
         });
 
@@ -165,6 +176,14 @@ public class HomePage extends AppCompatActivity
                 onNavigationItemSelected(item);
             }
         });
+
+        // check if needed to navigate to a frag
+        if(uploadPage != null){
+            if (uploadPage.equals("workManager")) {
+                MenuItem item = menu.findItem(R.id.nav_work);
+                onNavigationItemSelected(item);
+            }
+        }
 
     }
 
@@ -215,7 +234,7 @@ public class HomePage extends AppCompatActivity
         } else if (id == R.id.nav_userProfile) {
             setUnclickable();
             isVisible = false;
-            fragment = new GenericProfile();
+            fragment = new MyProfile();
 
         } else if (id == R.id.nav_searchList) {
             setUnclickable();
@@ -295,6 +314,7 @@ public class HomePage extends AppCompatActivity
         cardAppointment.setClickable(false);
 
         mWork.setClickable(false);
+        bTest.setClickable(false);//DELETE WHEN DONE TESTING
 
     }
 
@@ -307,7 +327,7 @@ public class HomePage extends AppCompatActivity
         cardAppointment.setClickable(true);
 
         mWork.setClickable(true);
-
+        bTest.setClickable(true);//DELETE WHEN DONE TESTING
     }
 
 

@@ -1,6 +1,11 @@
 package ututor.edu.csulb.ututor;
 
+import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.DataOutputStream;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -15,6 +20,7 @@ import org.json.JSONObject;
 import java.net.URL;
 import java.util.concurrent.ExecutionException;
 
+import android.content.ContentValues;
 import android.os.AsyncTask;
 import android.util.Log;
 
@@ -67,7 +73,7 @@ public class ServerRequester extends AsyncTask<String, Void, JSONObject> {
      *                    or
      *                    https://192.158.3.355/
      * @param meth        Method of the request, case insensitive
-     *                    Expects an usable method such as:
+     *                    Expects usable method such as:
      *                    POST, GET, HEAD, OPTIONS, PUT, DELETE, or TRACE
      */
     public ServerRequester(String hostaddress, String meth) {
@@ -98,44 +104,66 @@ public class ServerRequester extends AsyncTask<String, Void, JSONObject> {
     @Override
     protected JSONObject doInBackground(String... param) {
         HttpURLConnection urlConnection = null;
-        JSONObject jsonResponse = new JSONObject();
+        JSONObject jsonResponse = null;
         try {
             //Check if there is at least 2 String
+
             if (param.length < 2) {
                 jsonResponse.accumulate("Error", "1");
                 return jsonResponse;
             }
             //Check if there is an odd number of parameters
-            if(param.length % 2==1){
-                jsonResponse.accumulate("Error","1");
+            if (param.length % 2 == 1) {
+                jsonResponse.accumulate("Error", "1");
                 return jsonResponse;
             }
             //Appends the pagename to the server url, full URL is formed here
-            URL url = new URL(serverurl+param[0]);
+            URL url = new URL(serverurl + param[0]);
             //Opens the connection to the URL, does not actually connect
-            urlConnection = (HttpURLConnection) url.openConnection();
-            urlConnection.setRequestMethod(method);
-            urlConnection.setRequestProperty("token",param[1]);
-            for (int i = 2; i < param.length; i=+2) {
-                urlConnection.setRequestProperty(param[i],param[i+1]);
+            System.out.println("Full URL: " + url.toString());
+            StringBuilder parameters = new StringBuilder();
+            parameters.append("token=" + param[1]);
+            for (int i = 2; i < param.length; i += 2) {
+                parameters.append("&" + param[i] + "=" + param[i + 1]);
             }
+            String request = parameters.toString();
+            System.out.println("Request: " + request);
+            urlConnection = (HttpURLConnection) url.openConnection();
+            System.out.println("Connection Opened");
+            urlConnection.setRequestMethod(method);
+            urlConnection.setDoInput(true);
+            urlConnection.setDoOutput(true);
+            urlConnection.setRequestProperty("Accept-Charset", "UTF-8");
+            urlConnection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+            OutputStreamWriter write = new OutputStreamWriter(urlConnection.getOutputStream());
+            write.write(request);
+            write.flush();
+            write.close();
+
             //Connection is actually made here, any response is thrown into the reader
             BufferedReader in = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
             String inputLine;
             StringBuilder response = new StringBuilder();
             //Response from server terminates when a null value is read
             while ((inputLine = in.readLine()) != null) {
+                System.out.println(inputLine);
                 response.append(inputLine);
             }
-            //Closes the Input Stream
+            //TODO Get a better solution than deleting the Square Brackets from both ends of the JSON
+            if (response.charAt(0) == '[') {
+                response.deleteCharAt(0);
+            }
+            if (response.charAt(response.length() - 1) ==']') {
+                response.deleteCharAt(response.length() - 1);
+            }            //Closes the Input Stream
             in.close();
             //Creates the JSON object from the response that the server gave
+            System.out.println("FINAL Response: " + response.toString());
             jsonResponse = new JSONObject(response.toString());
-
-
-        }catch (JSONException e) {
+            System.out.println("FINAL JSON: " + jsonResponse.toString());
+        } catch (JSONException e) {
             e.printStackTrace();
-        }catch (IOException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         } finally {
             //Closes the connection to the server (Might not be necessary)
@@ -144,6 +172,7 @@ public class ServerRequester extends AsyncTask<String, Void, JSONObject> {
         //Returns the final JSON response
         return jsonResponse;
     }
+
     //TODO Check if necessary
     @Override
     protected void onPostExecute(JSONObject jsonObject) {

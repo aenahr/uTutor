@@ -182,7 +182,7 @@ public class WalkInSession extends AppCompatActivity {
             AlertDialog alert = builder.create();
             alert.show();
         }
-
-
     }
+
+
 }
