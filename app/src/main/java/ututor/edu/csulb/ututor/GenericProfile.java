@@ -24,6 +24,7 @@ public class GenericProfile extends AppCompatActivity {
     ImageButton star_button;
     TextView schedule_appointment;
     TextView rate_user;
+    boolean click = true;
 
 
     @Override
@@ -55,8 +56,16 @@ public class GenericProfile extends AppCompatActivity {
 
         star_button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
-                favorite = (TextView) findViewById(R.id.Favorite);
-                favorite.setTextColor(0xffffff00);
+                if (click) {
+                    favorite = (TextView) findViewById(R.id.Favorite);
+                    favorite.setTextColor(0xffffff00);
+                    click=false;
+                }else
+                {
+                    favorite.setTextColor(212121);
+                    click =true;
+                }
+
             }
         });
 
