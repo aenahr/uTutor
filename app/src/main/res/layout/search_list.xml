@@ -7,9 +7,9 @@
     android:background="@color/colorPrimary"
     android:gravity="center_horizontal">
 
-    <ListView
-        android:id="@+id/listViewTutor"
-        android:layout_width="wrap_content"
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycler_view"
+        android:layout_width="match_parent"
         android:layout_height="630dp"
         android:layout_below="@+id/userInputTutor"
         android:background="@color/colorLightPrimary"
