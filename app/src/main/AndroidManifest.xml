@@ -63,6 +63,7 @@
             android:theme="@style/AppTheme.NoActionBar"
             android:screenOrientation="landscape">
         </activity>
+        <activity android:name=".SearchList" />
 
 
         <meta-data
