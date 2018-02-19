@@ -40,7 +40,6 @@
             android:textSize="20dp"
             android:textColor="@color/colorPrimaryDark"
             android:background="@android:color/transparent"/>
-
     </RelativeLayout>
 
     <TextView
@@ -65,7 +64,7 @@
 
         <Button
             android:id="@+id/wMonday"
-            android:layout_width="50dp"
+            android:layout_width="45dp"
             android:layout_marginRight="5dp"
             android:layout_marginLeft="7dp"
             android:layout_height="wrap_content"
@@ -74,7 +73,7 @@
             android:background="@color/colorPrimary"/>
         <Button
             android:id="@+id/wTuesday"
-            android:layout_width="50dp"
+            android:layout_width="45dp"
             android:layout_marginRight="5dp"
             android:layout_toRightOf="@+id/wMonday"
             android:layout_height="wrap_content"
@@ -83,7 +82,7 @@
             android:background="@color/colorPrimary"/>
         <Button
             android:id="@+id/wWednesday"
-            android:layout_width="50dp"
+            android:layout_width="45dp"
             android:layout_marginRight="5dp"
             android:layout_toRightOf="@+id/wTuesday"
             android:layout_height="wrap_content"
@@ -92,7 +91,7 @@
             android:background="@color/colorPrimary"/>
         <Button
             android:id="@+id/wThursday"
-            android:layout_width="50dp"
+            android:layout_width="45dp"
             android:layout_marginRight="5dp"
             android:layout_toRightOf="@+id/wWednesday"
             android:layout_height="wrap_content"
@@ -101,7 +100,7 @@
             android:background="@color/colorPrimary"/>
         <Button
             android:id="@+id/wFriday"
-            android:layout_width="50dp"
+            android:layout_width="45dp"
             android:layout_marginRight="5dp"
             android:layout_toRightOf="@+id/wThursday"
             android:layout_height="wrap_content"
@@ -110,7 +109,7 @@
             android:background="@color/colorPrimary"/>
         <Button
             android:id="@+id/wSaturday"
-            android:layout_width="50dp"
+            android:layout_width="45dp"
             android:layout_marginRight="5dp"
             android:layout_toRightOf="@+id/wFriday"
             android:layout_height="wrap_content"
@@ -119,13 +118,13 @@
             android:background="@color/colorPrimary"/>
         <Button
             android:id="@+id/wSunday"
-            android:layout_width="50dp"
+            android:layout_width="45dp"
             android:layout_marginRight="5dp"
             android:layout_toRightOf="@+id/wSaturday"
             android:layout_height="wrap_content"
             android:text="Sun"
             android:textColor="@color/white"
-            android:background="@color/colorPrimary"/>    </RelativeLayout>
+            android:background="@color/colorPrimary"/></RelativeLayout>
 
     <TextView
         android:id="@+id/tTimes"
@@ -137,7 +136,7 @@
         android:textColor="@color/colorPrimaryDark"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="5dp"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="35dp"
         android:layout_below="@+id/middleWork"/>
 
     <RelativeLayout

@@ -121,7 +121,7 @@ public class HomePage extends AppCompatActivity
 
         mWork.setOnClickListener(new View.OnClickListener(){
             public void onClick(View view) {
-                Intent i = new Intent(HomePage.this, HomePage.class);
+                Intent i = new Intent(HomePage.this, WalkInActivity.class);
                 i.putExtra("currentUser", currentUser);
                 startActivity(i);
                 finish();

@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
@@ -20,7 +21,10 @@ public class GenericProfile extends AppCompatActivity {
     TextView favorite;
     TextView message;
     TextView readreview;
-    RatingBar ratebar;
+    ImageButton star_button;
+    TextView schedule_appointment;
+    TextView rate_user;
+    boolean click = true;
 
 
     @Override
@@ -31,9 +35,11 @@ public class GenericProfile extends AppCompatActivity {
 
         user_name = (TextView) findViewById(R.id.userName);
         biography = (TextView) findViewById(R.id.Biography);
-        favorite = (TextView) findViewById(R.id.Favorite);
+        star_button = (ImageButton) findViewById(R.id.star);
         message = (TextView) findViewById(R.id.Message);
         readreview = (TextView) findViewById(R.id.ReadReview);
+        schedule_appointment = (TextView)findViewById(R.id.rate_user);
+        rate_user = (TextView)findViewById(R.id.rate_user);
 
 
         user_name.setOnClickListener(new View.OnClickListener() {
@@ -48,13 +54,34 @@ public class GenericProfile extends AppCompatActivity {
             }
         });
 
-        favorite.setOnClickListener(new View.OnClickListener() {
+        star_button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
+                if (click) {
+                    favorite = (TextView) findViewById(R.id.Favorite);
+                    favorite.setTextColor(0xffffff00);
+                    click=false;
+                }else
+                {
+                    favorite.setTextColor(212121);
+                    click =true;
+                }
 
             }
         });
 
         readreview.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+
+            }
+        });
+
+        rate_user.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+
+            }
+        });
+
+        schedule_appointment.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
 
             }

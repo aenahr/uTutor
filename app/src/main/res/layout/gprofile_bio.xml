@@ -1,6 +1,205 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/fillApointment"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    android:background="@color/colorLightPrimary">
 
-</android.support.constraint.ConstraintLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true">
+
+
+
+        <ImageView
+            android:id="@+id/gbio_user"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignTop="@+id/gbio_username"
+            android:layout_marginTop="13dp"
+            android:src="@drawable/user1" />
+
+        <TextView
+            android:id="@+id/gbio_username"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignStart="@+id/gbio_occupation"
+            android:layout_marginTop="13dp"
+            android:text="Username"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="25dp" />
+
+        <EditText
+            android:id="@+id/gbio_occupation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/gbio_username"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_toRightOf="@id/gbio_user"
+            android:hint="Occupation"
+            android:inputType="text"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="20dp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/gbio_major"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/gbio_occupation"
+            android:layout_alignBottom="@+id/gbio_occupation"
+            android:layout_marginStart="18dp"
+            android:layout_toEndOf="@+id/gbio_username"
+            android:hint="Major "
+            android:inputType="text"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="20dp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/gbio_mobile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignStart="@+id/gbio_occupation"
+            android:layout_below="@+id/gbio_occupation"
+            android:layout_marginTop="15dp"
+            android:hint="Mobile:"
+            android:inputType="phone"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="20dp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/gbio_email"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignStart="@+id/gbio_mobile"
+            android:layout_below="@+id/gbio_mobile"
+            android:layout_marginTop="10dp"
+            android:hint="Email"
+            android:inputType="textEmailAddress"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="20dp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/gteach_exp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/gbio_email"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="10dp"
+            android:text="Teaching Experience: "
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="20dp"
+            android:textStyle="bold" />
+
+        <RelativeLayout
+            android:id="@+id/relativeLayout2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+
+            android:layout_below="@+id/gteach_exp"
+            android:layout_marginTop="10dp">
+
+            <EditText
+                android:id="@+id/gtex_exp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:hint="your teaching experience"
+                android:inputType="textLongMessage"
+                android:textSize="15dp" />
+
+            <TextView
+                android:id="@+id/gpro_education"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/gtex_exp"
+                android:layout_marginTop="10dp"
+                android:layout_marginStart="10dp"
+                android:text="Education:"
+                android:textSize="20dp"
+                android:textStyle="bold" />
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/gpro_education"
+                android:layout_alignParentStart="true"
+                android:hint="Education"
+                android:inputType="textMultiLine"/>
+
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/gpro_emp_history"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/relativeLayout2"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="10dp"
+            android:text="Employment history: "
+            android:textSize="20dp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/edit_textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/gpro_emp_history"
+            android:layout_marginTop="12dp"
+            android:hint="employee history"
+            android:inputType="textMultiLine"/>
+
+        <TextView
+            android:id="@+id/gpro_preferrence"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/edit_textView2"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:text="Preferrence:"
+            android:textSize="20dp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/edit_textView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/gpro_preferrence"
+            android:layout_marginTop="10dp"
+            android:hint="Preferrence"
+            android:inputType="textMultiLine"/>
+
+        <Button
+            android:id="@+id/OK_gprofile_bio"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_toEndOf="@+id/edit_textView3"
+            android:text="OK"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="15dp" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/edit_textView3"
+            android:layout_toEndOf="@+id/gbio_mobile"
+            android:text="Cancel"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="15dp" />
+
+
+    </RelativeLayout>
+</ScrollView>
