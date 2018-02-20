@@ -22,10 +22,14 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.io.Serializable;
+import java.util.concurrent.ExecutionException;
 
 
 public class LogIn extends AppCompatActivity {
@@ -112,72 +116,71 @@ public class LogIn extends AppCompatActivity {
                 mAlertDatabase.setVisibility(View.INVISIBLE);
 
                 // TODO validate email and password match in database
-                boolean validDatabase = testDatabaseMatch();
-
                 if (mEmail.getText().toString().equals("")) { // if email is blank
                     mAlert.setVisibility(View.VISIBLE);
                     Animation shake = AnimationUtils.loadAnimation(LogIn.this, R.anim.shake);
                     mAlert.startAnimation(shake);
-                } else if (validDatabase) {
-                    // if remember me is selected
-                    if (mRemember.isChecked()) {
-                        String sEmail = mEmail.getText().toString();
-                        String sPass = mPassword.getText().toString();
 
-                        SharedPreferences pref = getApplicationContext().getSharedPreferences("TEAM_ANDROID", MODE_PRIVATE);
-                        SharedPreferences.Editor editor = pref.edit();
-                        editor.putBoolean("isSaved", true);
-                        editor.putString("Email", sEmail);
-                        editor.putString("Password", sPass);
-                        editor.commit();
-                    } else {
+                } else{
+                    try {
+                        System.out.println("Sending Login Request");
+                        JSONObject response = new ServerRequester().execute("login.php", "whatever", "email", mEmail.getText().toString(), "password", mPassword.getText().toString()).get();
+                        System.out.println("Recieved Login Response");
+                        System.out.println(response.toString());
+                        // if remember me is selected
+                        if (mRemember.isChecked()) {
+                            String sEmail = mEmail.getText().toString();
+                            String sPass = mPassword.getText().toString();
 
-                        SharedPreferences pref = getApplicationContext().getSharedPreferences("TEAM_ANDROID", MODE_PRIVATE);
-                        SharedPreferences.Editor editor = pref.edit();
-                        editor.clear();
-                        editor.apply();
+                            SharedPreferences pref = getApplicationContext().getSharedPreferences("TEAM_ANDROID", MODE_PRIVATE);
+                            SharedPreferences.Editor editor = pref.edit();
+                            editor.putBoolean("isSaved", true);
+                            editor.putString("Email", sEmail);
+                            editor.putString("Password", sPass);
+                            editor.commit();
+                        } else {
 
+                            SharedPreferences pref = getApplicationContext().getSharedPreferences("TEAM_ANDROID", MODE_PRIVATE);
+                            SharedPreferences.Editor editor = pref.edit();
+                            editor.clear();
+                            editor.apply();
+                        }
+
+                        //upload server info about User to the User class
+                        // get info from Database and set them to the User class
+                        // for now, I've just set random values
+                        User cUser = new User();
+                        cUser.setEmail(response.get("email").toString());
+                        if (response.get("isTutor").toString().equals("true")) {
+                            cUser.setTutor(true);
+                        }else if(response.get("isTutor").toString().equals("false")){
+                            cUser.setTutor(false);
+                        }else{
+                            //ya messed up kiddo
+                            System.out.println("YA MESSED UP KIDDO");
+                        }
+                        cUser.setFirstName("[First Name]");
+                        cUser.setLastName("[Last Name]");
+                        Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.ututorlogo); // drawable to bitmap
+                        cUser.setProfilePic(bitmap);
+
+                        // send user info to HomePage
+                        Intent i = new Intent(LogIn.this, HomePage.class);
+                        i.putExtra("currentUser", cUser);
+                        startActivity(i);
+                        finish();
+
+                    } catch (InterruptedException e) {
+                    } catch (ExecutionException e) {
+                        e.printStackTrace();
+                    } catch (JSONException e) {
+                        e.printStackTrace();
                     }
 
-                    //upload server info about User to the User class
-                    // get info from Database and set them to the User class
-                    // for now, I've just set random values
-                    User cUser = new User();
-                    cUser.setEmail(mEmail.getText().toString());
-                    cUser.setTutor(true);
-                    cUser.setFirstName("[First Name]");
-                    cUser.setLastName("[Last Name]");
-                    Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.ututorlogo); // drawable to bitmap
-                    cUser.setProfilePic(bitmap);
-
-                    // send user info to HomePage
-                    Intent i = new Intent(LogIn.this, HomePage.class);
-                    i.putExtra("currentUser", cUser);
-                    startActivity(i);
-                    finish();
-
-                } else { // password is wrong, give user notification.
-                    mAlertDatabase.setVisibility(View.VISIBLE);
-                    Animation shake = AnimationUtils.loadAnimation(LogIn.this, R.anim.shake);
-                    mAlertDatabase.startAnimation(shake);
                 }
             }
-
         });
-
-
     }
-
-    public boolean testDatabaseMatch() {
-        // TODO check if email and password match in database
-
-        if(mPassword.getText().toString().equals(tempPassword)){
-            return true;
-        }else{
-            return false;
-        }
-    }
-
 
     /**
      * Temporary Skip button until database is created
@@ -209,6 +212,7 @@ public class LogIn extends AppCompatActivity {
             SharedPreferences.Editor editor = pref.edit();
             editor.clear();
             editor.apply();
+
         }
 
         //upload server info about User to the User class

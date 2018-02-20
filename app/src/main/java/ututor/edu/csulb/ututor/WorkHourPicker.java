@@ -84,17 +84,16 @@ public class WorkHourPicker extends AppCompatActivity implements com.wdullaer.ma
         startTime.set(Calendar.MINUTE,0);
         startTime.set(Calendar.SECOND,0);
         startTime.set(Calendar.MILLISECOND,0);
-//        startString = String.format("%02d:%02d", startTime.HOUR_OF_DAY, startTime.MINUTE);
-//        Toast.makeText(getApplicationContext(), startString , Toast.LENGTH_SHORT).show();
-//        displayStart.setText(startString);
+        startString = String.format("%02d:%02d", startTime.get(Calendar.HOUR_OF_DAY), startTime.get(Calendar.MINUTE));
+        displayStart.setText(startString);
 
         endTime = Calendar.getInstance();
         endTime.set(Calendar.HOUR_OF_DAY,0);
         endTime.set(Calendar.MINUTE,0);
         endTime.set(Calendar.SECOND,0);
         endTime.set(Calendar.MILLISECOND,0);
-//        endString = String.format("%02d:%02d", endTime.HOUR_OF_DAY, endTime.MINUTE);
-//        displayEnd.setText(endString);
+        endString = String.format("%02d:%02d", endTime.get(Calendar.HOUR_OF_DAY), endTime.get(Calendar.MINUTE));
+        displayEnd.setText(endString);
 
 //
 //        // alert dialog to delete/add new session

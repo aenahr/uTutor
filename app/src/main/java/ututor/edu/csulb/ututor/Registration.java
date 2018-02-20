@@ -80,10 +80,9 @@ public class Registration extends AppCompatActivity {
             /////////////
             /// PROCESS OF CREATING NEW USER IN DATABASE
             ////////////
-
             JSONObject response = null;
             try {
-                response = new ServerRequester().execute("register.php", "whatever",
+                response = new ServerRequester("http://172.20.10.2/").execute("register.php", "whatever",
                         "email", mEmail.getText().toString(),
                         "password", mPassword.getText().toString(),
                         "firstname", mFirst.getText().toString(),
