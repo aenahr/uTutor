@@ -221,6 +221,8 @@ public class LogIn extends AppCompatActivity {
         cUser.setTutor(false);
         cUser.setFirstName("Testy");
         cUser.setLastName("Test");
+        double num = 3.5;
+        cUser.setRating((float)num);
 
         Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.ututorlogo); // drawable to bitmap
         cUser.setProfilePic(bitmap);

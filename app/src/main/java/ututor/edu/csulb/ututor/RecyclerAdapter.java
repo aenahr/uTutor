@@ -13,7 +13,7 @@ import java.util.ArrayList;
 
 public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHolder> {
 
-    private ArrayList<newItem> Data;
+    private ArrayList<NewItem> Data;
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         public ImageView itemImage;
@@ -39,7 +39,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
         }
     } //end of class ViewHolder
 
-    public RecyclerAdapter(ArrayList<newItem> DataList) {
+    public RecyclerAdapter(ArrayList<NewItem> DataList) {
         Data = DataList;
     }
 
@@ -53,7 +53,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int i) {
-        newItem currentItem = Data.get(i);
+        NewItem currentItem = Data.get(i);
         holder.itemImage.setImageResource(currentItem.getImage());
         holder.itemTitle.setText(currentItem.getText1());
         holder.itemDetail.setText(currentItem.getText2());
@@ -65,7 +65,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
         return Data.size();
     }
 
-    public void filterList(ArrayList<newItem> filteredList)
+    public void filterList(ArrayList<NewItem> filteredList)
     {
         Data = filteredList;
         notifyDataSetChanged();

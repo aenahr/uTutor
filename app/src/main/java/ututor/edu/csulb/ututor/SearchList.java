@@ -18,8 +18,7 @@ public class SearchList extends Fragment {
 
     public SearchList() {
     }
-    private ArrayList<newItem> DataList;
-
+    private ArrayList<NewItem> DataList;
     private RecyclerView recyclerView;
     private RecyclerView.LayoutManager layoutManager;
     private RecyclerAdapter adapter;
@@ -60,10 +59,14 @@ public class SearchList extends Fragment {
         return rootView;
     }
 
+    /**
+     * This method filters entries
+     * @param text
+     */
     private void filter(String text) {
-        ArrayList<newItem> filteredList = new ArrayList<>();
+        ArrayList<NewItem> filteredList = new ArrayList<>();
 
-        for (newItem item : DataList) {
+        for (NewItem item : DataList) {
             if (item.getText1().toLowerCase().contains(text.toLowerCase())) {
                 filteredList.add(item);
             }
@@ -74,14 +77,14 @@ public class SearchList extends Fragment {
 
     private void CreateDataList() {
         DataList = new ArrayList<>();
-        DataList.add(new newItem(R.drawable.search_icon, "Aenah Ramones", "Computer Science"));
-        DataList.add(new newItem(R.drawable.search_icon, "Nishant Saxena", "Computer Science"));
-        DataList.add(new newItem(R.drawable.search_icon, "Lance McVicar", "Computer Science"));
-        DataList.add(new newItem(R.drawable.search_icon, "Henry Tran", "Line 2"));
-        DataList.add(new newItem(R.drawable.search_icon, "Shahar Janjua", "Line 2"));
-        DataList.add(new newItem(R.drawable.search_icon, "Chris P. Bacon", "Line 2"));
-        DataList.add(new newItem(R.drawable.search_icon, "Ella Vader", "Line 2"));
-        DataList.add(new newItem(R.drawable.search_icon, "Bend Dover", "Line 2"));
-        DataList.add(new newItem(R.drawable.search_icon, "Al Bino", "Line 2"));
+        DataList.add(new NewItem(R.drawable.search_icon, "Aenah Ramones", "Computer Science"));
+        DataList.add(new NewItem(R.drawable.search_icon, "Nishant Saxena", "Computer Science"));
+        DataList.add(new NewItem(R.drawable.search_icon, "Lance McVicar", "Computer Science"));
+        DataList.add(new NewItem(R.drawable.search_icon, "Henry Tran", "Line 2"));
+        DataList.add(new NewItem(R.drawable.search_icon, "Shahar Janjua", "Line 2"));
+        DataList.add(new NewItem(R.drawable.bacon, "Chris P. Bacon", "Line 2"));
+        DataList.add(new NewItem(R.drawable.search_icon, "Ella Vader", "Line 2"));
+        DataList.add(new NewItem(R.drawable.search_icon, "Bend Dover", "Line 2"));
+        DataList.add(new NewItem(R.drawable.search_icon, "Al Bino", "Line 2"));
     }
 }

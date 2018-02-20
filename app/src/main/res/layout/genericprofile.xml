@@ -21,7 +21,7 @@
         android:layout_width="match_parent"
         android:layout_height="330dp">
         <LinearLayout
-            android:background="@color/colorAccent"
+            android:background="@color/colorPrimary"
             android:layout_width="match_parent"
             android:layout_height="280dp"
             android:orientation="vertical">
@@ -71,10 +71,12 @@
         android:orientation="vertical"
         android:layout_gravity="center">
         <LinearLayout
+            android:id="@+id/gprofile_cardBio"
             android:orientation="horizontal"
             android:paddingLeft="25dp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:clickable="true">
             <ImageView
                 android:layout_width="36dp"
                 android:layout_height="36dp"
@@ -89,8 +91,10 @@
                 android:text="Biography"/>
         </LinearLayout>
         <LinearLayout
+            android:id="@+id/gprofile_cardMessage"
             android:layout_marginTop="1dp"
             android:orientation="horizontal"
+            android:clickable="true"
             android:paddingLeft="25dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -108,17 +112,19 @@
                 android:text="Message"/>
         </LinearLayout>
         <LinearLayout
+            android:id="@+id/gprofile_cardFavorite"
             android:layout_marginTop="1dp"
             android:orientation="horizontal"
             android:paddingLeft="25dp"
+            android:clickable="true"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-            <ImageButton
+            <ImageView
                 android:id="@+id/star"
                 android:layout_width="36dp"
                 android:layout_height="36dp"
                 android:src="@drawable/ic_star_border_black_24dp"
-                android:onClick="onToggleStar"/>
+                />
             <TextView
                 android:id="@+id/Favorite"
                 android:textStyle="bold"
@@ -129,11 +135,13 @@
                 android:text="Favorite"/>
         </LinearLayout>
         <LinearLayout
+            android:id="@+id/gprofile_cardRate"
             android:layout_marginTop="1dp"
             android:orientation="horizontal"
             android:paddingLeft="25dp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:clickable="true">
             <ImageView
                 android:layout_width="36dp"
                 android:layout_height="36dp"
@@ -149,11 +157,13 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/gprofile_cardReadReview"
             android:layout_marginTop="1dp"
             android:orientation="horizontal"
             android:paddingLeft="25dp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:clickable="true">
             <ImageView
                 android:layout_width="36dp"
                 android:layout_height="36dp"
@@ -168,11 +178,13 @@
                 android:text="Read Reviews"/>
         </LinearLayout>
         <LinearLayout
+            android:id="@+id/gprofile_cardScheduleAppoint"
             android:layout_marginTop="1dp"
             android:orientation="horizontal"
             android:paddingLeft="25dp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:clickable="true">
             <ImageView
                 android:layout_width="36dp"
                 android:layout_height="36dp"

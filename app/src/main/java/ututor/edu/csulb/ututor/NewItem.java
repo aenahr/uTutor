@@ -4,12 +4,12 @@ package ututor.edu.csulb.ututor;
  * Created by Nishant on 2/17/2018.
  */
 
-public class newItem
+public class NewItem
 {
     private int mImage;
     private String mText1;
     private String mText2;
-    public newItem(int image, String text1,String text2) {
+    public NewItem(int image, String text1, String text2) {
         mImage = image;
         mText1 = text1;
         mText2 = text2;
