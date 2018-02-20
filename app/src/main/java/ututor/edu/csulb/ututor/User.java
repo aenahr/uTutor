@@ -18,7 +18,7 @@ public class User implements Serializable{
     public String uProfilePicture;
     public boolean isTutor;
     public boolean walkIn;
-    public ArrayList<Integer> ratings = null;
+    public float rating;
     public ArrayList<String> favorites = null;
     public ArrayList<Appointment> appointments;
     public ArrayList<String> subjectsTaught;
@@ -26,14 +26,16 @@ public class User implements Serializable{
 
     public User(){
 
+        rating = 0;
         isTutor = false;
         walkIn = false;
         appointments = new ArrayList<Appointment>();
         subjectsTaught = new ArrayList<String>();
         workHours = new ArrayList<WorkHour>();
 
-
     }
+
+    public float getRating(){ return rating;}
 
     public ArrayList<String> getSubjectsTaught(){ return subjectsTaught;}
 
@@ -74,6 +76,8 @@ public class User implements Serializable{
     public boolean isTutor(){
         return isTutor;
     }
+
+    public void setRating(float d){ rating = d;}
 
     public void addNewHour(WorkHour newHour){
         workHours.add(newHour);
