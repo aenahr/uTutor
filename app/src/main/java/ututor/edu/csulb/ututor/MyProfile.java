@@ -72,6 +72,9 @@ public class MyProfile extends Fragment {
                 if(canModify == true){
                     // TODO direct user to edit bio
                     Toast.makeText(getActivity(), "Going to edit", Toast.LENGTH_SHORT).show();
+                    Intent i = new Intent(getActivity(), MyProfile_Edit.class);
+                    i.putExtra("currentUser", currentUser);
+                    startActivity(i);
                 }
                 else{
                     // TODO diredct user to view bio

@@ -32,6 +32,7 @@ public class User implements Serializable{
         appointments = new ArrayList<Appointment>();
         subjectsTaught = new ArrayList<String>();
         workHours = new ArrayList<WorkHour>();
+        uUniversity = "NONE";
 
     }
 

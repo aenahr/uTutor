@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/fillApointment"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    android:background="@color/colorLightPrimary">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:layout_centerInParent="true">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/titleEdit"
+            android:text="Edit Profile"
+            android:textSize="40dp"
+            android:fontFamily="sans-serif-light"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="25dp"/>
+
+        <RelativeLayout
+            android:id="@+id/names"
+            android:layout_below="@+id/titleEdit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true">
+
+            <EditText
+                android:id="@+id/bio_fname"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginStart="10dp"
+                android:hint="First Name"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="25dp"
+                android:inputType="text"/>
+            <EditText
+                android:id="@+id/bio_lname"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@id/bio_fname"
+                android:layout_alignBottom="@id/bio_fname"
+                android:layout_marginLeft="20dp"
+                android:hint="Last Name"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="25dp"
+                android:inputType="text"/>
+
+        </RelativeLayout>
+
+        <EditText
+            android:id="@+id/bio_email"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/names"
+            android:layout_marginTop="10dp"
+            android:hint="Email"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            android:layout_centerHorizontal="true"
+            android:inputType="textEmailAddress"/>
+
+        <TextView
+            android:id="@+id/pro_education"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/bio_email"
+            android:layout_marginTop="10dp"
+            android:text="Education:"
+            android:layout_centerHorizontal="true"
+            android:textSize="30dp"
+            android:fontFamily="sans-serif-light" />
+
+        <EditText
+            android:id="@+id/text_edu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/pro_education"
+            android:layout_marginTop="5dp"
+            android:hint="Education"
+            android:inputType="textMultiLine"
+            android:layout_centerHorizontal="true"
+            android:textSize="20dp"/>
+
+        <Button
+            android:id="@+id/saveChanges"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:text="Save Changes"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/text_edu"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/button_border"
+            android:textColor="@color/white"/>
+        <Button
+            android:id="@+id/Cancel_bio"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Cancel"
+            android:layout_below="@+id/saveChanges"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/button_border"
+            android:textColor="@color/white"/>
+    </RelativeLayout>
+</ScrollView>

@@ -106,7 +106,7 @@ public class WalkInSession extends AppCompatActivity {
                             "Tutor: " + currentUser.getEmail() + "\n" +
                             "Tutee: " + inputTutee.getText().toString() + "\n" +
                             timeElapsed + "\n\n" +
-                            "Pressing no will create a new session and delete the current one./");
+                            "Pressing no will create a new session and delete the current one.");
                     myMsg.setGravity(Gravity.CENTER_HORIZONTAL);
                     confirmAdd.setView(myMsg);
                     confirmAdd.setCancelable(true);

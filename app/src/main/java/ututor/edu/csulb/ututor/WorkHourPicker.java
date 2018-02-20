@@ -323,7 +323,7 @@ public class WorkHourPicker extends AppCompatActivity implements com.wdullaer.ma
         // cannot go back by pressing back
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage("Do you wish to continue? By pressing no, unsaved changes will be delted.")
+        builder.setMessage("Do you wish to continue? By pressing no, unsaved changes will be deleted.")
                 .setIcon(R.drawable.warning_icon)
                 .setTitle("Unsaved Changes")
                 .setCancelable(false)

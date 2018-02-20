@@ -83,12 +83,4 @@ public class WalkInActivity extends AppCompatActivity {
         alert.show();
     }
 
-    protected void onStop(){
-
-        // TODO alert database that user's walkIn is false now AND update all the walkIns tutor has completed
-        currentUser.setWalkIn(false);
-        Toast.makeText(getApplicationContext(),"HEHEHEHEHEH", Toast.LENGTH_SHORT).show();
-        super.onStop();
-    }
-
 }
