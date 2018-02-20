@@ -1,5 +1,7 @@
 package ututor.edu.csulb.ututor;
 
+import android.content.Intent;
+import android.graphics.Color;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -7,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
@@ -17,14 +20,16 @@ public class GenericProfile extends AppCompatActivity {
 
 
     TextView user_name;
-    TextView biography;
     TextView favorite;
-    TextView message;
-    TextView readreview;
-    ImageButton star_button;
-    TextView schedule_appointment;
-    TextView rate_user;
+    LinearLayout cbiography;
+    LinearLayout cfavorite;
+    LinearLayout cmessage;
+    LinearLayout creadreview;
+    LinearLayout crate;
+    LinearLayout schedule_appointment;
     boolean click = true;
+
+
 
 
     @Override
@@ -34,12 +39,12 @@ public class GenericProfile extends AppCompatActivity {
         setContentView(R.layout.my_profile);
 
         user_name = (TextView) findViewById(R.id.userName);
-        biography = (TextView) findViewById(R.id.Biography);
-        star_button = (ImageButton) findViewById(R.id.star);
-        message = (TextView) findViewById(R.id.Message);
-        readreview = (TextView) findViewById(R.id.ReadReview);
-        schedule_appointment = (TextView)findViewById(R.id.rate_user);
-        rate_user = (TextView)findViewById(R.id.rate_user);
+        cbiography = (LinearLayout) findViewById(R.id.gprofile_cardBio);
+        crate = (LinearLayout) findViewById(R.id.gprofile_cardRate);
+        cmessage = (LinearLayout) findViewById(R.id.gprofile_cardMessage);
+        creadreview = (LinearLayout) findViewById(R.id.gprofile_cardReadReview);
+        schedule_appointment = (LinearLayout) findViewById(R.id.gprofile_cardScheduleAppoint);
+
 
 
         user_name.setOnClickListener(new View.OnClickListener() {
@@ -48,38 +53,35 @@ public class GenericProfile extends AppCompatActivity {
             }
         });
 
-        biography.setOnClickListener(new View.OnClickListener() {
+        cbiography.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
+                Intent i = new Intent(GenericProfile.this, Gprofile_bio.class);
 
             }
         });
 
-        star_button.setOnClickListener(new View.OnClickListener() {
+        crate.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 if (click) {
                     favorite = (TextView) findViewById(R.id.Favorite);
-                    favorite.setTextColor(0xffffff00);
+                    favorite.setTextColor(Color.parseColor("#FFC107"));
                     click=false;
                 }else
                 {
-                    favorite.setTextColor(212121);
+                    favorite.setTextColor(Color.parseColor("#CFD8DC"));
                     click =true;
                 }
 
             }
         });
 
-        readreview.setOnClickListener(new View.OnClickListener() {
+        creadreview.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
 
             }
         });
 
-        rate_user.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View view) {
 
-            }
-        });
 
         schedule_appointment.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {

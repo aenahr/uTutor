@@ -9,94 +9,64 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_centerInParent="true">
 
-        <Button
+
+        <EditText
+            android:id="@+id/bio_fname"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/backButton"
-            android:text="Back"
-            android:textSize="20dp"
-            android:textColor="@color/colorPrimaryDark"
-            android:background="@android:color/transparent"
-            android:drawableLeft="@drawable/back_arrow"/>
-
-        <ImageView
-            android:id="@+id/bio_user"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
-            android:layout_alignParentStart="true"
-            android:layout_alignTop="@+id/bio_username"
-            android:layout_marginTop="13dp"
-            android:src="@drawable/user1" />
-
-        <TextView
-            android:id="@+id/bio_username"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignStart="@+id/bio_occupation"
-            android:layout_below="@+id/backButton"
-            android:layout_marginTop="13dp"
-            android:text="Username"
-            android:textColor="@color/colorPrimaryDark"
-            android:textSize="25dp" />
-
-        <TextView
-            android:id="@+id/bio_occupation"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/bio_username"
-            android:layout_marginLeft="20dp"
             android:layout_marginTop="10dp"
-            android:layout_toRightOf="@id/bio_user"
-            android:text="Occupation"
+            android:layout_marginStart="10dp"
+            android:hint="First Name"
             android:textColor="@color/colorPrimaryDark"
-            android:textSize="20dp"
-            android:textStyle="bold" />
+            android:textSize="25dp"
+            android:inputType="text"/>
+        <EditText
+            android:id="@+id/bio_lname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/bio_fname"
+            android:layout_alignBottom="@id/bio_fname"
+            android:layout_marginLeft="20dp"
+            android:hint="Last Name"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="25dp"
+            android:inputType="text"/>
 
-        <TextView
+
+        <EditText
             android:id="@+id/bio_major"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBaseline="@+id/bio_occupation"
-            android:layout_alignBottom="@+id/bio_occupation"
-            android:layout_marginStart="18dp"
-            android:layout_toEndOf="@+id/bio_username"
-            android:text="Major "
+            android:layout_marginStart="10dp"
+            android:layout_below="@+id/bio_fname"
+            android:hint="Major "
             android:textColor="@color/colorPrimaryDark"
+            android:inputType="text"
             android:textSize="20dp"
             android:textStyle="bold" />
 
-        <TextView
-            android:id="@+id/bio_mobile"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignStart="@+id/bio_occupation"
-            android:layout_below="@+id/bio_occupation"
-            android:layout_marginTop="15dp"
-            android:text="Mobile:"
-            android:textColor="@color/colorPrimaryDark"
-            android:textSize="20dp"
-            android:textStyle="bold" />
 
-        <TextView
+        <EditText
             android:id="@+id/bio_email"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignStart="@+id/bio_mobile"
-            android:layout_below="@+id/bio_mobile"
+            android:layout_below="@+id/bio_major"
             android:layout_marginTop="10dp"
-            android:text="Email:"
+            android:layout_marginStart="10dp"
+            android:hint="Email"
             android:textColor="@color/colorPrimaryDark"
             android:textSize="20dp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:inputType="textEmailAddress"/>
 
         <TextView
             android:id="@+id/teach_exp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/bio_user"
+            android:layout_below="@id/bio_email"
             android:layout_marginTop="10dp"
             android:layout_marginStart="10dp"
             android:text="Teaching Experience: "
@@ -109,16 +79,16 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
-
             android:layout_below="@+id/teach_exp"
             android:layout_marginTop="10dp">
 
-            <TextView
+            <EditText
                 android:id="@+id/tex_exp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:hint="your teaching experience"
+                android:inputType="textLongMessage"
                 android:textSize="15dp" />
 
             <TextView
@@ -132,56 +102,40 @@
                 android:textSize="20dp"
                 android:textStyle="bold" />
 
-            <TextView
+            <EditText
+                android:id="@+id/text_edu"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/pro_education"
                 android:layout_marginTop="5dp"
-                android:hint="Education" />
+                android:hint="Education"
+                android:inputType="textMultiLine"
+                android:textSize="15dp"/>
 
         </RelativeLayout>
-
-        <TextView
-            android:id="@+id/pro_emp_history"
+        <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
+            android:layout_centerInParent="true"
             android:layout_below="@+id/relativeLayout2"
-            android:layout_marginTop="10dp"
-            android:layout_marginStart="10dp"
-            android:text="Employment history: "
-            android:textSize="20dp"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/textView2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_below="@+id/pro_emp_history"
-            android:layout_marginTop="12dp"
-            android:hint="employee history" />
-
-        <TextView
-            android:id="@+id/pro_preferrence"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_below="@+id/textView2"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="10dp"
-            android:text="Preferrence:"
-            android:textSize="20dp"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/textView3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_below="@+id/pro_preferrence"
-            android:layout_marginTop="10dp"
-            android:hint="Preferrence" />
+            android:layout_marginTop="20dp">
+            <Button
+                android:id="@+id/Submit_bio"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Submit"
+                android:background="@drawable/button_border"
+                android:textColor="@color/white"/>
+            <Button
+                android:id="@+id/Cancel_bio"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/Submit_bio"
+                android:text="Cancel"
+                android:layout_marginLeft="40dp"
+                android:background="@drawable/button_border"
+                android:textColor="@color/white"/>
+        </RelativeLayout>
 
 
     </RelativeLayout>
