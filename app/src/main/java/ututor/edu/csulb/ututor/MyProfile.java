@@ -27,6 +27,7 @@ public class MyProfile extends Fragment {
     ImageView profilePic;
     LinearLayout linearBio;
     LinearLayout linearReadReviews;
+    ImageView editPic;
 
     RatingBar ratingBar;
 
@@ -45,6 +46,7 @@ public class MyProfile extends Fragment {
         currentUser = (User)i.getSerializableExtra("currentUser");
 
         // initialize objects
+        editPic = (ImageView) rootView.findViewById(R.id.editPic);
         modifyProfile = (Button) rootView.findViewById(R.id.modifyProfile);
         bioText = (TextView) rootView.findViewById(R.id.Biography);
         ratingBar =(RatingBar) rootView.findViewById(R.id.ratingBar);
@@ -92,8 +94,6 @@ public class MyProfile extends Fragment {
         });
 
 
-
-
         modifyProfile.setOnClickListener(new View.OnClickListener() { // edit profile information
             public void onClick(View view) {
 
@@ -103,6 +103,7 @@ public class MyProfile extends Fragment {
                     modifyProfile.setTextColor(getResources().getColor(R.color.white));
                     modifyProfile.setText("Edit Profile");
                     bioText.setText("View Biography");
+                    editPic.setVisibility(View.INVISIBLE);
                 }
                 else{
                     canModify = true;
@@ -110,7 +111,17 @@ public class MyProfile extends Fragment {
                     modifyProfile.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
                     modifyProfile.setText("Save Changes");
                     bioText.setText("Edit Biography");
+                    editPic.setVisibility(View.VISIBLE);
                 }
+            }
+        });
+
+        editPic.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getActivity(), MyProfile_EditPicture.class);
+                i.putExtra("currentUser", currentUser);
+                startActivity(i);
             }
         });
 

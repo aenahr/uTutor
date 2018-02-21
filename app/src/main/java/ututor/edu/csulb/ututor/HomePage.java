@@ -182,6 +182,10 @@ public class HomePage extends AppCompatActivity
             if (uploadPage.equals("workManager")) {
                 MenuItem item = menu.findItem(R.id.nav_work);
                 onNavigationItemSelected(item);
+            } else if(uploadPage.equals("myProfile")){
+                Toast.makeText(getApplicationContext(), "Changes saved!" , Toast.LENGTH_SHORT).show();
+                MenuItem item = menu.findItem(R.id.nav_userProfile);
+                onNavigationItemSelected(item);
             }
         }
 

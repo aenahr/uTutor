@@ -317,7 +317,6 @@ public class WorkHourPicker extends AppCompatActivity implements com.wdullaer.ma
         }
     }
 
-
     @Override
     public void onBackPressed() {
         // cannot go back by pressing back
