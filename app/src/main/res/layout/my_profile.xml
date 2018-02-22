@@ -18,24 +18,40 @@
             android:layout_width="match_parent"
             android:layout_height="280dp"
             android:orientation="vertical">
-            <ImageView
-                android:id="@+id/profilePic"
-                android:layout_marginTop="35dp"
-                android:layout_gravity="center_horizontal"
-                android:layout_width="125dp"
-                android:layout_height="125dp"
-                android:src="@drawable/user1" />
-            <TextView
-                android:id="@+id/profileName"
-                android:layout_marginTop="10dp"
-                android:layout_gravity="center_horizontal"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="User Name"
-                android:textColor="#fff"
-                android:textStyle="bold"
-                android:textSize="21sp" />
+
         </LinearLayout>
+
+        <ImageView
+            android:id="@+id/profilePic"
+            android:layout_marginTop="35dp"
+            android:layout_centerHorizontal="true"
+            android:layout_width="125dp"
+            android:layout_height="125dp"
+            android:src="@drawable/ututorlogo" />
+        <TextView
+            android:id="@+id/profileName"
+            android:layout_marginTop="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/profilePic"
+            android:text="User Name"
+            android:textColor="#fff"
+            android:textStyle="bold"
+            android:textSize="21sp" />
+
+        <ImageView
+            android:id="@+id/editPic"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="25dp"
+            android:layout_marginLeft="15dp"
+            android:layout_toRightOf="@+id/profilePic"
+            android:clickable="true"
+            android:src="@drawable/edit_icon"
+            android:background="@color/colorAccent"
+            android:visibility="invisible"/>
+
         <android.support.v7.widget.CardView
             android:id="@+id/belowStars"
             android:layout_width="280dp"

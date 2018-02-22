@@ -1,8 +1,12 @@
 package ututor.edu.csulb.ututor;
 
+import android.*;
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
@@ -182,9 +186,14 @@ public class HomePage extends AppCompatActivity
             if (uploadPage.equals("workManager")) {
                 MenuItem item = menu.findItem(R.id.nav_work);
                 onNavigationItemSelected(item);
+            } else if(uploadPage.equals("myProfile")){
+                Toast.makeText(getApplicationContext(), "Changes saved!" , Toast.LENGTH_SHORT).show();
+                MenuItem item = menu.findItem(R.id.nav_userProfile);
+                onNavigationItemSelected(item);
             }
         }
 
+        requestLocationPermission();
     }
 
     @Override
@@ -330,5 +339,14 @@ public class HomePage extends AppCompatActivity
         bTest.setClickable(true);//DELETE WHEN DONE TESTING
     }
 
+    public void requestLocationPermission(){
+        // request permissions
+        if (ActivityCompat.checkSelfPermission(HomePage.this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(HomePage.this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(HomePage.this, new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION}, 1);
+            return;
+        }else{
+            // Write you code here if permission already given.
+        }
+    }
 
 }
