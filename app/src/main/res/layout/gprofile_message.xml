@@ -1,6 +1,77 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/fillMessaget"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    android:background="@color/colorLightPrimary">
 
-</android.support.constraint.ConstraintLayout>
+    <RelativeLayout
+        android:id="@+id/layout1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:focusable="true"
+        android:focusableInTouchMode="true">
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/backButton"
+            android:text="Back"
+            android:textSize="20dp"
+            android:textColor="@color/colorPrimaryDark"
+            android:background="@android:color/transparent"
+            android:drawableLeft="@drawable/back_arrow"/>
+
+        <TextView
+            android:id="@+id/To_ms"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="To:"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="5dp"
+            android:layout_below="@id/backButton"
+            android:textSize="25dp"
+            android:fontFamily="sans-serif-light"
+            android:textColor="@color/colorPrimaryDark"
+            android:background="@drawable/edit_text_background"/>
+        <TextView
+            android:id="@+id/From_ms"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="From:"
+            android:layout_below="@id/To_ms"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="5dp"
+            android:textSize="25dp"
+            android:fontFamily="sans-serif-light"
+            android:textColor="@color/colorPrimaryDark"
+            android:background="@drawable/edit_text_background"/>
+
+        <EditText
+            android:id="@+id/msg_txt"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:layout_below="@id/From_ms"
+            android:layout_marginTop="15dp"
+            android:layout_margin="5dp"
+            android:gravity="top|left"
+            android:background="@drawable/edit_text_background"
+            android:hint="Your message"
+            android:fontFamily="sans-serif-light"
+            android:textSize="20dp"
+            android:textColor="@color/colorPrimaryDark"
+            android:maxLength="200" />
+        <Button
+            android:id="@+id/SendMsg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/msg_txt"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"
+            android:text="Send"
+            android:textSize="20dp"/>
+    </RelativeLayout>
+
+</ScrollView>
