@@ -18,6 +18,8 @@ public class MyProfile_Edit extends AppCompatActivity {
     EditText collegeName;
     Button saveChanges;
     Button cancelEdit;
+    EditText currentPassword;
+    EditText newPassword;
     boolean emailAlreadyInDatabase = false;
 
 
@@ -36,6 +38,8 @@ public class MyProfile_Edit extends AppCompatActivity {
         collegeName = (EditText) findViewById(R.id.text_edu);
         saveChanges = (Button) findViewById(R.id.saveChanges);
         cancelEdit = (Button) findViewById(R.id.Cancel_bio);
+        currentPassword = (EditText) findViewById(R.id.bio_currentPass);
+        newPassword = (EditText)findViewById(R.id.bio_newPass);
 
 
         // set from User's values
@@ -61,6 +65,16 @@ public class MyProfile_Edit extends AppCompatActivity {
                         currentUser.setEmail(eEmail.getText().toString());
                     }
                     if(!collegeName.getText().toString().matches("")){ currentUser.setUniversity(collegeName.getText().toString());}
+
+                    // this is the current Password
+                    String cPassword = currentPassword.getText().toString();
+                    String nPassword = newPassword.getText().toString();
+
+                    if(!currentPassword.getText().toString().matches("") || !newPassword.getText().toString().matches("")){
+
+                        // IF THEY DID INPUT SOMETHING TO CHANGE THE PASSWORD
+
+                    }
 
 
                     // go back to profile

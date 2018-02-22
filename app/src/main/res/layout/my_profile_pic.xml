@@ -15,17 +15,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/backButton"
-            android:layout_marginTop="3dp"
-            android:text="Back"
-            android:textSize="20dp"
-            android:textColor="@color/colorPrimaryDark"
-            android:background="@android:color/transparent"
-            android:drawableLeft="@drawable/back_arrow"/>
-
         <TextView
             android:id="@+id/titlePic"
             android:layout_width="wrap_content"
@@ -34,7 +23,7 @@
             android:text="EDIT PROFILE PICTURE"
             android:layout_centerHorizontal="true"
             android:textSize="34dp"
-            android:layout_marginTop="45dp"
+            android:layout_marginTop="25dp"
             android:layout_marginBottom="5dp"/>
         <TextView
             android:id="@+id/subtitlePic"
