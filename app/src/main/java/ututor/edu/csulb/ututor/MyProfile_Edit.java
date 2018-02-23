@@ -71,11 +71,8 @@ public class MyProfile_Edit extends AppCompatActivity {
                     String nPassword = newPassword.getText().toString();
 
                     if(!currentPassword.getText().toString().matches("") || !newPassword.getText().toString().matches("")){
-
                         // IF THEY DID INPUT SOMETHING TO CHANGE THE PASSWORD
-
                     }
-
 
                     // go back to profile
                     Intent i = new Intent(MyProfile_Edit.this, HomePage.class);
@@ -83,8 +80,6 @@ public class MyProfile_Edit extends AppCompatActivity {
                     i.putExtra("uploadPage", "myProfile");
                     startActivity(i);
                 }
-
-
             }
         });
 
