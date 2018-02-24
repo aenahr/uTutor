@@ -92,7 +92,8 @@ public class Registration extends AppCompatActivity {
                 e.printStackTrace();
             } catch (ExecutionException e) {
                 e.printStackTrace();
-            }
+            }Toast.makeText(Registration.this, "Registration complete! Welcome, " + mFirst.getText().toString() + "!", Toast.LENGTH_LONG).show();
+
             try {
                 if (response.get("success").equals("true")) {
                     currentUser = new User();
@@ -107,8 +108,6 @@ public class Registration extends AppCompatActivity {
                     Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.ututorlogo); // drawable to bitmap
                     currentUser.setProfilePic(bitmap);
                     // notify user of success
-                    Toast.makeText(Registration.this, "Registration complete! Welcome, " + mFirst.getText().toString() + "!", Toast.LENGTH_LONG).show();
-
                     // send user info to HomePage
                     Intent i = new Intent(Registration.this, HomePage.class);
                     i.putExtra("currentUser", currentUser);

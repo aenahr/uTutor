@@ -115,7 +115,6 @@ public class LogIn extends AppCompatActivity {
                 mAlert.setVisibility(View.INVISIBLE);
                 mAlertDatabase.setVisibility(View.INVISIBLE);
 
-                // TODO validate email and password match in database
                 if (mEmail.getText().toString().equals("")) { // if email is blank
                     mAlert.setVisibility(View.VISIBLE);
                     Animation shake = AnimationUtils.loadAnimation(LogIn.this, R.anim.shake);
@@ -124,7 +123,19 @@ public class LogIn extends AppCompatActivity {
                 } else{
                     try {
                         System.out.println("Sending Login Request");
+                        //response.get("error") will give you the error code
+                        // -1: Query Failed, -2: Invalid Email, -3: Invalid Password
                         JSONObject response = new ServerRequester().execute("login.php", "whatever", "email", mEmail.getText().toString(), "password", mPassword.getText().toString()).get();
+                        //TODO Implement some error handling. Something like:
+                        // if(!response.isNull("error"){
+                        //  switch(response.get("error"){
+                        //  case '-1':
+                        //Some query failed
+                        //  case '-2':
+                        //Invalid Email
+                        //  case '-3':
+                        //Invalid Password
+                        // }}
                         System.out.println("Recieved Login Response");
                         System.out.println(response.toString());
                         // if remember me is selected
@@ -139,7 +150,6 @@ public class LogIn extends AppCompatActivity {
                             editor.putString("Password", sPass);
                             editor.commit();
                         } else {
-
                             SharedPreferences pref = getApplicationContext().getSharedPreferences("TEAM_ANDROID", MODE_PRIVATE);
                             SharedPreferences.Editor editor = pref.edit();
                             editor.clear();
