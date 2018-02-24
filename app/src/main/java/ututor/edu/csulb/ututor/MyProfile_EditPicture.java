@@ -29,7 +29,6 @@ public class MyProfile_EditPicture extends AppCompatActivity {
     Button saveChanges;
     Button cancelChanges;
     String selected;
-    Button imgBack;
 
 
     @Override
@@ -49,15 +48,6 @@ public class MyProfile_EditPicture extends AppCompatActivity {
         chooseHead = (RadioGroup) findViewById(R.id.choiceHead);
         saveChanges = (Button) findViewById(R.id.saveChanges);
         cancelChanges = (Button) findViewById(R.id.Cancel_bio);
-        imgBack = (Button) findViewById(R.id.backButton);
-
-        imgBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                MyProfile_EditPicture.super.onBackPressed();
-                finish();
-            }
-        });
 
         //have the current color the user is using selected
         selectCurrentHead();
