@@ -16,9 +16,11 @@ public class User implements Serializable{
     public String uEmail;
     public String uUniversity;
     public String uProfilePicture;
+    public int uNumProfilePic;
     public boolean isTutor;
     public boolean walkIn;
     public float rating;
+    public String uDescription;
     public ArrayList<String> favorites = null;
     public ArrayList<Appointment> appointments;
     public ArrayList<String> subjectsTaught;
@@ -26,6 +28,7 @@ public class User implements Serializable{
 
     public User(){
 
+        uNumProfilePic = 0;
         rating = 0;
         isTutor = false;
         walkIn = false;
@@ -33,8 +36,20 @@ public class User implements Serializable{
         subjectsTaught = new ArrayList<String>();
         workHours = new ArrayList<WorkHour>();
         uUniversity = "NONE";
+        uDescription = "NULL";
+
 
     }
+
+    public String getDescription(){
+        if(uDescription.equals("NULL")){
+            return "";
+        }
+        else{
+            return uDescription;
+        }
+    }
+    public int getuNumProfilePic(){ return uNumProfilePic;}
 
     public float getRating(){ return rating;}
 
@@ -77,6 +92,10 @@ public class User implements Serializable{
     public boolean isTutor(){
         return isTutor;
     }
+
+    public void setDescription(String newDescription){ uDescription = newDescription;}
+
+    public void setNumProfilePic(int newNum){ uNumProfilePic = newNum;}
 
     public void setRating(float d){ rating = d;}
 

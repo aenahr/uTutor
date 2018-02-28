@@ -69,6 +69,12 @@
         <activity android:name=".MyProfile_EditPicture"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
+        <activity android:name=".ScheduleAppointment"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+        <activity android:name=".ScheduleTimePicker"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
 
         <activity android:name=".Profile_readreview"
             android:theme="@style/AppTheme.NoActionBar">

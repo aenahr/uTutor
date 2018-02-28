@@ -234,8 +234,16 @@ public class LogIn extends AppCompatActivity {
         double num = 3.5;
         cUser.setRating((float)num);
 
-        Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.ututorlogo); // drawable to bitmap
+        ProfilePicture p = new ProfilePicture(LogIn.this);
+         // from datbase
+        cUser.setNumProfilePic(2);
+        p.setColor(2);
+
+        Bitmap bitmap = p.getBitmapColor();
         cUser.setProfilePic(bitmap);
+
+        // user description
+        cUser.setDescription("Hello my name is Testy. I love testing things cause it's part of my name. Did you know what my last name is? It's test!");
 
         // send user info to HomePage
         Intent i = new Intent(LogIn.this, HomePage.class);

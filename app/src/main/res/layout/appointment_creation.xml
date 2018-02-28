@@ -6,13 +6,12 @@
     android:layout_height="match_parent"
     android:fillViewport="true"
     android:background="@color/colorLightPrimary">
-
-
     <RelativeLayout
         android:id="@+id/fillAppointmentRelative"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
+        android:layout_height="match_parent"
+        android:focusable="true"
+        android:focusableInTouchMode="true">
 
         <TextView
             android:id="@+id/tutorEmail"
@@ -22,8 +21,7 @@
             android:fontFamily="sans-serif-black"
             android:text="Tutor Email"
             android:textSize="25dp" />
-
-        <EditText
+        <TextView
             android:id="@+id/userInputTutorEmail"
             android:layout_width="200dp"
             android:layout_height="wrap_content"
@@ -45,7 +43,7 @@
             android:text="Your Email"
             android:textSize="25dp" />
 
-        <EditText
+        <TextView
             android:id="@+id/userInputTuteeName"
             android:layout_width="200dp"
             android:layout_height="wrap_content"
@@ -53,7 +51,7 @@
             android:layout_marginRight="20dp"
             android:layout_marginTop="80dp"
             android:background="@drawable/edit_text_background"
-            android:hint="Insert your email..."
+            android:text="currentUser's email"
             android:padding="5dp"
             android:textAlignment="center"
             android:textSize="20dp" />
@@ -106,7 +104,7 @@
             android:text="Time Start"
             android:textSize="25dp" />
 
-        <EditText
+        <TextView
             android:id="@+id/editTimeStart"
             android:layout_width="200dp"
             android:layout_height="wrap_content"
@@ -117,37 +115,15 @@
             android:background="@drawable/edit_text_background"
             android:hint="click to edit time..."
             android:padding="5dp"
-            android:textAlignment="center" />
-
-        <TextView
-            android:id="@+id/timeEnd"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/timeStart"
-            android:layout_marginTop="23dp"
-            android:fontFamily="sans-serif-black"
-            android:text="Time End"
-            android:textSize="25dp" />
-
-        <EditText
-            android:id="@+id/editTimeEnd"
-            android:layout_width="200dp"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_below="@+id/editTimeStart"
-            android:layout_marginRight="20dp"
-            android:layout_marginTop="18dp"
-            android:background="@drawable/edit_text_background"
-            android:hint="click to edit time..."
-            android:padding="5dp"
-            android:textAlignment="center" />
+            android:textAlignment="center"
+            android:onClick="pickTime"/>
 
 
         <TextView
             android:id="@+id/location"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/timeEnd"
+            android:layout_below="@+id/timeStart"
             android:layout_marginTop="15dp"
             android:fontFamily="sans-serif-black"
             android:text="Location"
@@ -158,7 +134,7 @@
             android:layout_width="180dp"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:layout_below="@+id/editTimeEnd"
+            android:layout_below="@+id/editTimeStart"
             android:layout_marginRight="70dp"
             android:layout_marginTop="15dp"
             android:background="@drawable/edit_text_background"
@@ -173,9 +149,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:layout_below="@id/editTimeEnd"
+            android:layout_below="@id/editTimeStart"
             android:layout_marginRight="10dp"
-            android:layout_marginTop="17dp"
+            android:layout_marginTop="19dp"
             android:background="@color/colorPrimary"
             android:minHeight="30dp"
             android:minWidth="50dp"

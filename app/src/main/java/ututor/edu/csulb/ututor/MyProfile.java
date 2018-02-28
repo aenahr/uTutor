@@ -64,7 +64,10 @@ public class MyProfile extends Fragment {
         ratingBar.setRating(currentUser.getRating());
         profileName.setText(currentUser.getFirstName() + " " + currentUser.getLastName()); // set First and Last Name
 
-        Bitmap b = StringToBitMap(currentUser.getProfilePic());
+        ProfilePicture p = new ProfilePicture(getActivity());
+        p.setColor(currentUser.getuNumProfilePic());
+
+        Bitmap b = p.getBitmapColor();
         profilePic.setImageBitmap(b);
 
 
@@ -90,6 +93,10 @@ public class MyProfile extends Fragment {
             @Override
             public void onClick(View v) {
                 // TODO go to Read Reviews Activity
+
+                Intent i = new Intent(getActivity(), ScheduleAppointment.class);
+                i.putExtra("currentUser", currentUser);
+                startActivity(i);
             }
         });
 

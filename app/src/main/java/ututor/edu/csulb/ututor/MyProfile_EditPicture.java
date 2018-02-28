@@ -68,25 +68,37 @@ public class MyProfile_EditPicture extends AppCompatActivity {
         });
 
         saveChanges.setOnClickListener(new View.OnClickListener(){
+
+            ProfilePicture p = new ProfilePicture(MyProfile_EditPicture.this);
             public void onClick(View view) {
                 Bitmap bitmap;
                 if(blue.isChecked()){
-                    bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.ututorlogo); // drawable to bitmap
+                    p.setColor(0);
+                    bitmap = p.getBitmapColor();
                     currentUser.setProfilePic(bitmap);
                 } else if(red.isChecked()){
-                    bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.tutorhead_red); // drawable to bitmap
+                    p.setColor(1);
+                    bitmap = p.getBitmapColor();
                     currentUser.setProfilePic(bitmap);
                 } else if(green.isChecked()){
-                    bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.tutorhead_green); // drawable to bitmap
+                    p.setColor(2);
+                    bitmap = p.getBitmapColor();
                     currentUser.setProfilePic(bitmap);
                 } else if(purple.isChecked()){
-                    bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.tutorhead_purple); // drawable to bitmap
+                    p.setColor(4);
+                    bitmap = p.getBitmapColor();
                     currentUser.setProfilePic(bitmap);
                 } else if(yellow.isChecked()){
-                    bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.tutorhead_yellow); // drawable to bitmap
+                    p.setColor(3);
+                    bitmap = p.getBitmapColor();
                     currentUser.setProfilePic(bitmap);
                 }
-                // TODO update user's profile pic in database
+
+                currentUser.setNumProfilePic(p.getIntColor());
+
+                // TODO update user in database
+
+
                 // go back to profile with saved changes
                 Intent i = new Intent(MyProfile_EditPicture.this, HomePage.class);
                 i.putExtra("currentUser", currentUser);
