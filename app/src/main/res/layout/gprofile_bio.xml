@@ -47,34 +47,10 @@
 
 
         <TextView
-            android:id="@+id/gbio_major"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="10dp"
-            android:layout_below="@id/gbio_firstname"
-            android:hint="Major "
-            android:textColor="@color/colorPrimaryDark"
-            android:textSize="20dp"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/gbio_mobile"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:layout_marginStart="10dp"
-            android:layout_below="@id/gbio_major"
-            android:hint="Mobile:"
-            android:textColor="@color/colorPrimaryDark"
-            android:textSize="20dp"
-            android:textStyle="bold" />
-
-        <TextView
             android:id="@+id/gbio_email"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/gbio_mobile"
+            android:layout_below="@+id/gbio_firstname"
             android:layout_marginTop="10dp"
             android:layout_marginStart="10dp"
             android:hint="Email"
@@ -83,13 +59,46 @@
             android:textStyle="bold" />
 
         <TextView
+            android:id="@+id/gbio_major"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_below="@id/gbio_email"
+            android:hint="Major "
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="20dp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/gdescription"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/gbio_major"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="10dp"
+            android:text="Summary:"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="20dp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/gdes"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_below="@+id/gdescription"
+            android:hint="your description here"
+            android:textSize="15dp" />
+
+        <TextView
             android:id="@+id/gteach_exp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/gbio_email"
+            android:layout_below="@id/gdes"
             android:layout_marginTop="10dp"
             android:layout_marginStart="10dp"
-            android:text="Teaching Experience: "
+            android:text="Subjects Taught:"
             android:textColor="@color/colorPrimaryDark"
             android:textSize="20dp"
             android:textStyle="bold" />
@@ -107,7 +116,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
-                android:hint="your teaching experience"
+                android:hint="your subjects"
                 android:textSize="15dp" />
 
             <TextView
