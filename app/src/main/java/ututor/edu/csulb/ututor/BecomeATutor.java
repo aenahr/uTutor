@@ -44,6 +44,7 @@ public class BecomeATutor extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
+                // TODO: this user is now a tutor tehee
                 currentUser.setTutor(true);
 
                 // finish this activity and go back to log in

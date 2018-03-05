@@ -92,8 +92,6 @@ public class MyProfile_Edit extends AppCompatActivity {
                                 break;
                         }
 
-
-
                     }
                 } catch (InterruptedException e) {
                     e.printStackTrace();
@@ -120,6 +118,8 @@ public class MyProfile_Edit extends AppCompatActivity {
                     if(!currentPassword.getText().toString().matches("") || !newPassword.getText().toString().matches("")){
                         // IF THEY DID INPUT SOMETHING TO CHANGE THE PASSWORD
                     }
+
+
 
                     // go back to profile
                     Intent i = new Intent(MyProfile_Edit.this, HomePage.class);
