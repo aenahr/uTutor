@@ -26,6 +26,8 @@ public class MyProfile_Edit extends AppCompatActivity {
     EditText currentPassword;
     EditText newPassword;
     boolean emailAlreadyInDatabase = false;
+    EditText description;
+
 
 
     @Override
@@ -44,6 +46,7 @@ public class MyProfile_Edit extends AppCompatActivity {
         cancelEdit = (Button) findViewById(R.id.Cancel_bio);
         currentPassword = (EditText) findViewById(R.id.bio_currentPass);
         newPassword = (EditText) findViewById(R.id.bio_newPass);
+        description = (EditText) findViewById(R.id.summaryEdit);
 
 
         // set from User's values
@@ -51,9 +54,10 @@ public class MyProfile_Edit extends AppCompatActivity {
         lastName.setHint(currentUser.getLastName());
         eEmail.setHint(currentUser.getEmail());
         collegeName.setHint(currentUser.getUniversity());
+        description.setHint(currentUser.getDescription());
 
 
-        saveChanges.setOnClickListener(new View.OnClickListener() {
+        saveChanges.setOnClickListener(new View.OnClickListener(){
             public void onClick(View view) {
                 JSONObject response = null;
                 try { //Will internally test for Current Email and Password Matches, Returns Success if successful
@@ -100,25 +104,19 @@ public class MyProfile_Edit extends AppCompatActivity {
 
 
                     // TODO set changes to user in database
-                    if (!firstName.getText().toString().matches("")) {
-                        currentUser.setFirstName(firstName.getText().toString());
-                    }
-                    if (!lastName.getText().toString().matches("")) {
-                        currentUser.setLastName(lastName.getText().toString());
-                    }
-                    if (!eEmail.getText().toString().matches("")) {
+                    if(!firstName.getText().toString().matches("")){ currentUser.setFirstName(firstName.getText().toString());}
+                    if(!lastName.getText().toString().matches("")){ currentUser.setLastName(lastName.getText().toString());}
+                    if(!eEmail.getText().toString().matches("")){
                         String oldEmail = currentUser.getEmail(); // NEEDED TO SEARCH THROUGH DATABASE FOR CURRENT USER
                         currentUser.setEmail(eEmail.getText().toString());
                     }
-                    if (!collegeName.getText().toString().matches("")) {
-                        currentUser.setUniversity(collegeName.getText().toString());
-                    }
+                    if(!collegeName.getText().toString().matches("")){ currentUser.setUniversity(collegeName.getText().toString());}
 
                     // this is the current Password
                     String cPassword = currentPassword.getText().toString();
                     String nPassword = newPassword.getText().toString();
 
-                    if (!currentPassword.getText().toString().matches("") || !newPassword.getText().toString().matches("")) {
+                    if(!currentPassword.getText().toString().matches("") || !newPassword.getText().toString().matches("")){
                         // IF THEY DID INPUT SOMETHING TO CHANGE THE PASSWORD
                     }
 

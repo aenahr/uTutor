@@ -7,82 +7,74 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
-/**
- * Created by Henry Tran on 2/12/2018.
- */
+import java.util.ArrayList;
+
 
 public class Profile_Bio extends AppCompatActivity {
 
-    EditText firstname;
-    EditText lastname;
-    EditText email;
-    EditText education;
-    Button submit;
-    Button cancel;
+    User currentUser;
+    TextView mFName;
+    TextView mLName;
+    TextView mEmail;
+    TextView mDescription;
+    TextView mEducation;
+    TextView mSubjects;
+    TextView mSubjectsTitle;
+    Button imgBack;
 
     public void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.my_profile);
+        setContentView(R.layout.gprofile_bio);
 
-        firstname =(EditText)findViewById(R.id.bio_fname);
-        lastname = (EditText)findViewById(R.id.bio_lname);
-        email = (EditText)findViewById(R.id.bio_email);
-        education =(EditText)findViewById(R.id.text_edu);
-        submit =(Button)findViewById(R.id.saveChanges);
-        cancel=(Button)findViewById(R.id.Cancel_bio);
 
-        firstname.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Log.v("First Name", firstname.getText().toString());
-            }
-        });
-        lastname.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Log.v("Last Name", lastname.getText().toString());
-            }
-        });
-        email.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Log.v("Email", email.getText().toString());
-            }
-        });
+        // get user's data
+        Intent i = getIntent();
+        currentUser = (User)i.getSerializableExtra("currentUser");
 
-        education.setOnClickListener(new View.OnClickListener() {
+
+        mFName = (TextView) findViewById(R.id.gbio_firstname);
+        mLName = (TextView) findViewById(R.id.gbio_lastname);
+        mEmail = (TextView) findViewById(R.id.gbio_email);
+        mDescription = (TextView) findViewById(R.id.gdes);
+        mEducation = (TextView) findViewById(R.id.text_ed);
+        mSubjects = (TextView) findViewById(R.id.gSubjects);
+        mSubjectsTitle = (TextView) findViewById(R.id.gSubjects_Title);
+        imgBack = (Button) findViewById(R.id.backButton);
+
+        imgBack.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                Log.v("Education", education.getText().toString());
-            }
-        });
-        submit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (firstname.getText().toString().isEmpty()) {
-                    firstname.setError("What is your first name?");
-                }
-                if (lastname.getText().toString().isEmpty()) {
-                    firstname.setError("What is your last name?");
-                }
-                if (email.getText().toString().isEmpty()) {
-                    email.setError("What is your email?");
-                }
-                if(education.getText().toString().isEmpty())
-                {
-                    education.setError("What is your Education?");
-                }
-            }
-        });
-        cancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(Profile_Bio.this, MyProfile.class);
+            public void onClick(View v) {
                 finish();
             }
         });
+
+        // check if tutor or not
+        if(currentUser.isTutor() == true){
+            ArrayList<String> subjects = currentUser.getSubjectsTaught();
+            if(subjects.isEmpty()){ mSubjects.setText("None"); }
+            else{
+                StringBuilder stringBuilder = new StringBuilder();
+                for(int x = 0; x < subjects.size()-1; x++){
+                    stringBuilder.append(subjects.get(x) + ", ");
+                }
+                stringBuilder.append(subjects.get(subjects.size()-1));
+                mSubjects.setText(stringBuilder.toString());
+            }
+        }
+        else{ // not a tutor - don't show subjects taught
+            mSubjects.setVisibility(View.INVISIBLE);
+            mSubjectsTitle.setVisibility(View.INVISIBLE);
+        }
+
+        // set data for current user
+        mFName.setText(currentUser.getFirstName());
+        mLName.setText(currentUser.getLastName());
+        mEmail.setText(currentUser.getEmail());
+        mDescription.setText(currentUser.getDescription());
+        mEducation.setText(currentUser.getUniversity());
 
 
     }

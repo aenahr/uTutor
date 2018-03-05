@@ -23,123 +23,112 @@
             android:background="@android:color/transparent"
             android:drawableLeft="@drawable/back_arrow"/>
 
-
-        <TextView
+        <RelativeLayout
+            android:id="@+id/fullName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_below="@id/backButton"
-            android:id="@+id/gbio_firstname"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="13dp"
-            android:text="First Name"
-            android:textColor="@color/colorPrimaryDark"
-            android:textSize="25dp" />
-        <TextView
-            android:id="@+id/gbio_lastname"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBottom="@id/gbio_firstname"
-            android:layout_toRightOf="@id/gbio_firstname"
-            android:layout_marginLeft="20dp"
-            android:text="Last Name"
-            android:textColor="@color/colorPrimaryDark"
-            android:textSize="25dp" />
+            android:layout_marginTop="50dp"
+            android:layout_centerHorizontal="true">
+            <TextView
+                android:id="@+id/gbio_firstname"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="First"
+                android:textStyle="bold"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="40dp" />
+            <TextView
+                android:id="@+id/gbio_lastname"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:layout_alignBottom="@id/gbio_firstname"
+                android:layout_toRightOf="@id/gbio_firstname"
+                android:layout_marginLeft="10dp"
+                android:text="Last"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="40dp" />
 
+        </RelativeLayout>
 
         <TextView
             android:id="@+id/gbio_email"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/gbio_firstname"
+            android:layout_below="@+id/fullName"
             android:layout_marginTop="10dp"
-            android:layout_marginStart="10dp"
             android:hint="Email"
             android:textColor="@color/colorPrimaryDark"
-            android:textSize="20dp"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/gbio_major"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="10dp"
-            android:layout_below="@id/gbio_email"
-            android:hint="Major "
-            android:textColor="@color/colorPrimaryDark"
-            android:textSize="20dp"
+            android:textSize="25dp"
+            android:layout_centerHorizontal="true"
             android:textStyle="bold" />
 
         <TextView
             android:id="@+id/gdescription"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/gbio_major"
+            android:layout_below="@id/gbio_email"
+            android:layout_centerHorizontal="true"
             android:layout_marginTop="10dp"
-            android:layout_marginStart="10dp"
             android:text="Summary:"
             android:textColor="@color/colorPrimaryDark"
-            android:textSize="20dp"
-            android:textStyle="bold" />
+            android:textSize="30dp"
+            android:fontFamily="sans-serif-light" />
 
         <TextView
             android:id="@+id/gdes"
             android:layout_width="match_parent"
+            android:gravity="center"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             android:layout_below="@+id/gdescription"
-            android:hint="your description here"
-            android:textSize="15dp" />
+            android:layout_centerHorizontal="true"
+            android:text="your description here"
+            android:textSize="20dp" />
 
         <TextView
-            android:id="@+id/gteach_exp"
+            android:id="@+id/gpro_education"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/gdes"
+            android:layout_below="@+id/gdes"
             android:layout_marginTop="10dp"
-            android:layout_marginStart="10dp"
+            android:layout_centerHorizontal="true"
+            android:textColor="@color/colorPrimaryDark"
+            android:text="Education:"
+            android:textSize="30dp"
+            android:fontFamily="sans-serif-light" />
+        <TextView
+            android:id="@+id/text_ed"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/gpro_education"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="5dp"
+            android:text="school name here"
+            android:textSize="25dp" />
+
+        <TextView
+            android:id="@+id/gSubjects_Title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/text_ed"
+            android:layout_marginTop="10dp"
             android:text="Subjects Taught:"
             android:textColor="@color/colorPrimaryDark"
-            android:textSize="20dp"
-            android:textStyle="bold" />
+            android:layout_centerHorizontal="true"
+            android:textSize="30dp"
+            android:fontFamily="sans-serif-light" />
 
-        <RelativeLayout
-            android:id="@+id/relativeLayout2"
-            android:layout_width="wrap_content"
+        <TextView
+            android:id="@+id/gSubjects"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_below="@+id/gteach_exp"
-            android:layout_marginTop="10dp">
-
-            <TextView
-                android:id="@+id/gtex_exp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:hint="your subjects"
-                android:textSize="15dp" />
-
-            <TextView
-                android:id="@+id/gpro_education"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/gtex_exp"
-                android:layout_marginTop="10dp"
-                android:layout_marginStart="10dp"
-                android:text="Education:"
-                android:textSize="20dp"
-                android:textStyle="bold" />
-            <TextView
-                android:id="@+id/text_ed"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/gpro_education"
-                android:layout_marginTop="5dp"
-                android:layout_alignParentStart="true"
-                android:hint="Education" />
-
-
-        </RelativeLayout>
+            android:layout_below="@+id/gSubjects_Title"
+            android:layout_marginTop="5dp"
+            android:hint="your subjects"
+            android:gravity="center"
+            android:textSize="20dp" />
 
 
 
