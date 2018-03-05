@@ -79,6 +79,9 @@
         <activity android:name=".Profile_readreview"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
+        <activity android:name=".Profile_Bio"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
 
 
         <meta-data

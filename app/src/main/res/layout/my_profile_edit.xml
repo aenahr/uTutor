@@ -132,13 +132,36 @@
             android:layout_centerHorizontal="true"
             android:textSize="20dp"/>
 
+        <TextView
+            android:id="@+id/summary"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/text_edu"
+            android:layout_marginTop="10dp"
+            android:text="Summary:"
+            android:layout_centerHorizontal="true"
+            android:textSize="30dp"
+            android:fontFamily="sans-serif-light" />
+
+        <EditText
+            android:id="@+id/summaryEdit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/summary"
+            android:layout_marginTop="5dp"
+            android:hint="description here"
+            android:inputType="textMultiLine"
+            android:gravity="center"
+            android:layout_centerHorizontal="true"
+            android:textSize="15dp"/>
+
         <Button
             android:id="@+id/saveChanges"
             android:layout_width="250dp"
             android:layout_height="wrap_content"
             android:text="Save Changes"
             android:layout_centerHorizontal="true"
-            android:layout_below="@+id/text_edu"
+            android:layout_below="@+id/summaryEdit"
             android:layout_marginTop="10dp"
             android:background="@drawable/button_border"
             android:textColor="@color/white"/>
