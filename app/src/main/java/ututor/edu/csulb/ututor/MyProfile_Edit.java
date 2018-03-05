@@ -57,6 +57,7 @@ public class MyProfile_Edit extends AppCompatActivity {
             public void onClick(View view) {
                 JSONObject response = null;
                 try { //Will internally test for Current Email and Password Matches, Returns Success if successful
+                    //TODO Aenah Help, Need to put what is entered into the page fields into the request
                     response = new ServerRequester().execute("changeProfile.php", "whatever",
                             "currentEmail", currentUser.getEmail(),
                             "newEmail", eEmail.toString(),

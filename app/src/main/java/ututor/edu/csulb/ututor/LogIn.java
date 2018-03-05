@@ -120,67 +120,82 @@ public class LogIn extends AppCompatActivity {
                     Animation shake = AnimationUtils.loadAnimation(LogIn.this, R.anim.shake);
                     mAlert.startAnimation(shake);
 
-                } else{
+                } else {
                     try {
                         System.out.println("Sending Login Request");
                         //response.get("error") will give you the error code
+                        //response.get("errormessage") will print out what exactly happened, should be used for debugging,
+                        //user probably doesn't need to know this
                         // -1: Query Failed, -2: Invalid Email, -3: Invalid Password
                         JSONObject response = new ServerRequester().execute("login.php", "whatever", "email", mEmail.getText().toString(), "password", mPassword.getText().toString()).get();
-                        //TODO Implement some error handling. Something like:
-                        // if(!response.isNull("error"){
-                        //  switch(response.get("error"){
-                        //  case '-1':
-                        //Some query failed
-                        //  case '-2':
-                        //Invalid Email
-                        //  case '-3':
-                        //Invalid Password
-                        // }}
-                        System.out.println("Recieved Login Response");
-                        System.out.println(response.toString());
-                        // if remember me is selected
-                        if (mRemember.isChecked()) {
-                            String sEmail = mEmail.getText().toString();
-                            String sPass = mPassword.getText().toString();
+                        //TODO Implement some error handling. This is a skeleton of what should be done
+                        //if (response.isNull("success")) { //Interchangable with response.isNull("isTutor")), use whichever is better
+                        if(response.isNull("isTutor")){    //This is what the last query returns, if this is null the Server didn't go through all the queries therefore there is some error
+                            if (!response.isNull("error")) {//If the server returned an error code (So the request was at least processed)
+                                switch (response.get("error").toString()) {
+                                    case "-1": //Some query failed, Server error
 
-                            SharedPreferences pref = getApplicationContext().getSharedPreferences("TEAM_ANDROID", MODE_PRIVATE);
-                            SharedPreferences.Editor editor = pref.edit();
-                            editor.putBoolean("isSaved", true);
-                            editor.putString("Email", sEmail);
-                            editor.putString("Password", sPass);
-                            editor.commit();
-                        } else {
-                            SharedPreferences pref = getApplicationContext().getSharedPreferences("TEAM_ANDROID", MODE_PRIVATE);
-                            SharedPreferences.Editor editor = pref.edit();
-                            editor.clear();
-                            editor.apply();
+                                        break;
+                                    case "-2"://Invalid Email, Email wasn't in the database
+
+                                        break;
+                                    case "-3"://Email was in the database but Password was wrong
+
+                                        break;
+                                    default: //Some unhandled error code was returned
+
+                                        break;
+                                }
+                            } else {//The server had a problem but didn't return an error code, something went horribly wrong with the connection to the server or the server itself
+
+                            }
+                        } else {//Server Responded with a "Success", So everything is hunky dory
+
+                            //TODO Delete These Next 2 Lines when you are done debugging
+                            System.out.println("Received Login Response");
+                            System.out.println(response.toString());
+                            // if remember me is selected
+                            if (mRemember.isChecked()) {
+                                String sEmail = mEmail.getText().toString();
+                                String sPass = mPassword.getText().toString();
+
+                                SharedPreferences pref = getApplicationContext().getSharedPreferences("TEAM_ANDROID", MODE_PRIVATE);
+                                SharedPreferences.Editor editor = pref.edit();
+                                editor.putBoolean("isSaved", true);
+                                editor.putString("Email", sEmail);
+                                editor.putString("Password", sPass);
+                                editor.commit();
+                            } else {
+                                SharedPreferences pref = getApplicationContext().getSharedPreferences("TEAM_ANDROID", MODE_PRIVATE);
+                                SharedPreferences.Editor editor = pref.edit();
+                                editor.clear();
+                                editor.apply();
+                            }
+
+                            //upload server info about User to the User class
+                            // get info from Database and set them to the User class
+                            // for now, I've just set random values
+                            User cUser = new User();
+                            cUser.setEmail(response.get("email").toString());
+                            if (response.get("isTutor").toString().equals("true")) {
+                                cUser.setTutor(true);
+                            }
+                            if (response.get("isTutor").toString().equals("false")) {
+                                cUser.setTutor(false);
+                            }
+                            cUser.setFirstName(response.get("firstName").toString());
+                            cUser.setLastName(response.get("lastName").toString());
+                            Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.ututorlogo); // drawable to bitmap
+                            cUser.setProfilePic(bitmap);
+
+                            // send user info to HomePage
+                            Intent i = new Intent(LogIn.this, HomePage.class);
+                            i.putExtra("currentUser", cUser);
+                            startActivity(i);
+                            finish();
                         }
-
-                        //upload server info about User to the User class
-                        // get info from Database and set them to the User class
-                        // for now, I've just set random values
-                        User cUser = new User();
-                        cUser.setEmail(response.get("email").toString());
-                        if (response.get("isTutor").toString().equals("true")) {
-                            cUser.setTutor(true);
-                        }else if(response.get("isTutor").toString().equals("false")){
-                            cUser.setTutor(false);
-                        }else{
-                            //ya messed up kiddo
-                            System.out.println("YA MESSED UP KIDDO");
-                        }
-                        cUser.setFirstName("[First Name]");
-                        cUser.setLastName("[Last Name]");
-                        Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.ututorlogo); // drawable to bitmap
-                        cUser.setProfilePic(bitmap);
-
-                        // send user info to HomePage
-                        Intent i = new Intent(LogIn.this, HomePage.class);
-                        i.putExtra("currentUser", cUser);
-                        startActivity(i);
-                        finish();
-
                     } catch (InterruptedException e) {
+                        e.printStackTrace();
                     } catch (ExecutionException e) {
                         e.printStackTrace();
                     } catch (JSONException e) {
@@ -232,10 +247,10 @@ public class LogIn extends AppCompatActivity {
         cUser.setFirstName("Testy");
         cUser.setLastName("Test");
         double num = 3.5;
-        cUser.setRating((float)num);
+        cUser.setRating((float) num);
 
         ProfilePicture p = new ProfilePicture(LogIn.this);
-         // from datbase
+        // from datbase
         cUser.setNumProfilePic(2);
         p.setColor(2);
 

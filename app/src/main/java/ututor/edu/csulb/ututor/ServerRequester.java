@@ -146,16 +146,9 @@ public class ServerRequester extends AsyncTask<String, Void, JSONObject> {
             StringBuilder response = new StringBuilder();
             //Response from server terminates when a null value is read
             while ((inputLine = in.readLine()) != null) {
-                System.out.println(inputLine);
                 response.append(inputLine);
             }
-            //TODO Get a better solution than deleting the Square Brackets from both ends of the JSON
-            if (response.charAt(0) == '[') {
-                response.deleteCharAt(0);
-            }
-            if (response.charAt(response.length() - 1) ==']') {
-                response.deleteCharAt(response.length() - 1);
-            }            //Closes the Input Stream
+          //Closes the Input Stream
             in.close();
             //Creates the JSON object from the response that the server gave
             System.out.println("FINAL Response: " + response.toString());
