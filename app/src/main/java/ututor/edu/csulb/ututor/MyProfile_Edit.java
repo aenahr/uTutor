@@ -8,6 +8,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.concurrent.ExecutionException;
+
 
 public class MyProfile_Edit extends AppCompatActivity {
 
@@ -29,8 +34,7 @@ public class MyProfile_Edit extends AppCompatActivity {
         setContentView(R.layout.my_profile_edit);
 
         Intent i = getIntent();
-        currentUser = (User)i.getSerializableExtra("currentUser");
-
+        currentUser = (User) i.getSerializableExtra("currentUser");
         // initialize all objects
         firstName = (EditText) findViewById(R.id.bio_fname);
         lastName = (EditText) findViewById(R.id.bio_lname);
@@ -39,7 +43,7 @@ public class MyProfile_Edit extends AppCompatActivity {
         saveChanges = (Button) findViewById(R.id.saveChanges);
         cancelEdit = (Button) findViewById(R.id.Cancel_bio);
         currentPassword = (EditText) findViewById(R.id.bio_currentPass);
-        newPassword = (EditText)findViewById(R.id.bio_newPass);
+        newPassword = (EditText) findViewById(R.id.bio_newPass);
 
 
         // set from User's values
@@ -49,28 +53,72 @@ public class MyProfile_Edit extends AppCompatActivity {
         collegeName.setHint(currentUser.getUniversity());
 
 
-        saveChanges.setOnClickListener(new View.OnClickListener(){
+        saveChanges.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
-                // TODO do checks on email if it is already in the database
+                JSONObject response = null;
+                try { //Will internally test for Current Email and Password Matches, Returns Success if successful
+                    response = new ServerRequester().execute("changeProfile.php", "whatever",
+                            "currentEmail", currentUser.getEmail(),
+                            "newEmail", eEmail.toString(),
+                            "currentPassword", currentPassword.toString(),
+                            "newPassword", newPassword.toString(),
+                            "firstName", firstName.toString(),
+                            "lastName", lastName.toString(),
+                            "university", collegeName.toString()).get();
+                    if (response == null) {//Something went horribly , JSON failed to be formed meaning something happened in the server requester
+                    } else if (!response.isNull("error")) {//Some incorrect information was sent, but the server and requester still processed it
+                        //TODO Handle Server Errors
+                        switch(response.get("error").toString()) {
+                            case "-1": //Email Password Combo not in the Database
 
-                if(emailAlreadyInDatabase == true){ // send error message
+                                break;
+                            case "-2":  //Select Query failed due to something dumb
+                                        // Print out response.get("errormessage"), it'll have the mysql error with it
 
-                } else{ // set new values in database
+                                break;
+                            case "-3": //Update Query Failed Due to New Email is already associated with another account
+
+                                break;
+                            case "-4":  //Update Query Failed Due to Something Else Dumb that I haven't handled yet,
+                                        // Print out response.get("errormessage"), it'll have the mysql error with it
+                                break;
+                            default:    //Some Error Code was printed from the server that isn't handled above
+
+                                break;
+                        }
+
+
+
+                    }
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                } catch (ExecutionException e) {
+                    e.printStackTrace();
+                } catch(JSONException e) {
+
+                }
+
 
                     // TODO set changes to user in database
-                    if(!firstName.getText().toString().matches("")){ currentUser.setFirstName(firstName.getText().toString());}
-                    if(!lastName.getText().toString().matches("")){ currentUser.setLastName(lastName.getText().toString());}
-                    if(!eEmail.getText().toString().matches("")){
+                    if (!firstName.getText().toString().matches("")) {
+                        currentUser.setFirstName(firstName.getText().toString());
+                    }
+                    if (!lastName.getText().toString().matches("")) {
+                        currentUser.setLastName(lastName.getText().toString());
+                    }
+                    if (!eEmail.getText().toString().matches("")) {
                         String oldEmail = currentUser.getEmail(); // NEEDED TO SEARCH THROUGH DATABASE FOR CURRENT USER
                         currentUser.setEmail(eEmail.getText().toString());
                     }
-                    if(!collegeName.getText().toString().matches("")){ currentUser.setUniversity(collegeName.getText().toString());}
+                    if (!collegeName.getText().toString().matches("")) {
+                        currentUser.setUniversity(collegeName.getText().toString());
+                    }
 
                     // this is the current Password
                     String cPassword = currentPassword.getText().toString();
                     String nPassword = newPassword.getText().toString();
 
-                    if(!currentPassword.getText().toString().matches("") || !newPassword.getText().toString().matches("")){
+                    if (!currentPassword.getText().toString().matches("") || !newPassword.getText().toString().matches("")) {
                         // IF THEY DID INPUT SOMETHING TO CHANGE THE PASSWORD
                     }
 
@@ -80,12 +128,13 @@ public class MyProfile_Edit extends AppCompatActivity {
                     i.putExtra("uploadPage", "myProfile");
                     startActivity(i);
                 }
-            }
+
         });
 
-        cancelEdit.setOnClickListener(new View.OnClickListener(){
+        cancelEdit.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
-                MyProfile_Edit.super.onBackPressed();;
+                MyProfile_Edit.super.onBackPressed();
+                ;
             }
         });
 
