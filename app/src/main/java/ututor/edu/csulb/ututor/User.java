@@ -10,7 +10,6 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 public class User implements Serializable{
-    public String uID;
     public String uFirst;
     public String uLast;
     public String uEmail;
@@ -79,10 +78,6 @@ public class User implements Serializable{
 
     public String getEmail(){
         return uEmail;
-    }
-
-    public String getID(){
-        return uID;
     }
 
     public String getUniversity(){

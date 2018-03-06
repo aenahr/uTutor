@@ -88,14 +88,44 @@ public class Registration extends AppCompatActivity {
                         "firstname", mFirst.getText().toString(),
                         "lastname", mLast.getText().toString(),
                         "university", mUniversity.getText().toString()).get();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            } catch (ExecutionException e) {
-                e.printStackTrace();
-            }Toast.makeText(Registration.this, "Registration complete! Welcome, " + mFirst.getText().toString() + "!", Toast.LENGTH_LONG).show();
+                //TODO Implement Error Checks on a Server Response
+                if (response.isNull("success")) { //If the server didn't return a success message
+                    if (response.isNull("error")) { //If the server didn't return a success or error message
+                        //Something went horribly wrong with the server, contact your local Lance for assistance
 
-            try {
-                if (response.get("success").equals("true")) {
+                        //Just threw this part in here from Aenah's original code
+                        mAlertEmail.setVisibility(View.VISIBLE);
+                        Animation shake = AnimationUtils.loadAnimation(Registration.this, R.anim.shake);
+                        mAlertEmail.startAnimation(shake);
+                    } else {//Server Returned an error Code, need to be handled here
+                        switch (response.get("error").toString()) {
+                            case "-1":
+                                //Statement failed to execute, server runtime error
+                                break;
+                            case "-2":
+                                //Statement Failed to Bind Parameters, server runtime error
+                                break;
+                            case "-3":
+                                //Query Failed to Prepare, Server Error
+                                break;
+                            case "-4":
+                                //Query was successful but no rows were affected,
+                                break;
+                            case "-5":
+                                //Query Succeeded Execution but..affected a negative number of rows, Should Never get this error... Panic time if you do
+                                break;
+                            case "-6":
+                                //Query Failed to Execute Due to Email Already Existing in the Database Should display something to the user saying to use a different email
+                                break;
+                            case "-7":
+                                //Query Failed to Execute for some other uncaught reason, probably a server error
+                                break;
+                            default:
+                                //Some error code that was unhandled was returned
+                                break;
+                        }
+                    }
+                } else {//Server returned a Success message, everything is A-OK
                     currentUser = new User();
                     currentUser.setFirstName(mFirst.getText().toString());
                     currentUser.setLastName(mLast.getText().toString());
@@ -112,17 +142,17 @@ public class Registration extends AppCompatActivity {
                     Intent i = new Intent(Registration.this, HomePage.class);
                     i.putExtra("currentUser", currentUser);
                     startActivity(i);
-                } else {
-                    //Something Went Wrong in the DB side
-                    mAlertEmail.setVisibility(View.VISIBLE);
-                    Animation shake = AnimationUtils.loadAnimation(Registration.this, R.anim.shake);
-                    mAlertEmail.startAnimation(shake);
+                    Toast.makeText(Registration.this, "Registration complete! Welcome, " + mFirst.getText().toString() + "!", Toast.LENGTH_LONG).show();
                 }
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            } catch (ExecutionException e) {
+                e.printStackTrace();
             } catch (JSONException e) {
                 e.printStackTrace();
             }
         } else if (validRegistration == false) { //required fields not filled
-
+            //TODO Figure out if this part is still necessary, might have some use as front-end validation so we don't send a request if something is obviously with the user's input
             mAlertInput.setVisibility(View.VISIBLE);
             Animation shake = AnimationUtils.loadAnimation(Registration.this, R.anim.shake);
             mAlertInput.startAnimation(shake);

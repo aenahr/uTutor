@@ -55,7 +55,7 @@ public class GenericProfile extends AppCompatActivity {
 
         cbiography.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
-                Intent i = new Intent(GenericProfile.this, Gprofile_bio.class);
+                Intent i = new Intent(GenericProfile.this, Profile_Bio.class);
 
             }
         });

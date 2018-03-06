@@ -84,6 +84,9 @@ public class MyProfile extends Fragment {
                 else{
                     // TODO diredct user to view bio
                     Toast.makeText(getActivity(), "Going to view", Toast.LENGTH_SHORT).show();
+                    Intent i = new Intent(getActivity(), Profile_Bio.class);
+                    i.putExtra("currentUser", currentUser);
+                    startActivity(i);
                 }
 
             }

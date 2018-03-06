@@ -8,6 +8,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.concurrent.ExecutionException;
+
 
 public class MyProfile_Edit extends AppCompatActivity {
 
@@ -21,6 +26,8 @@ public class MyProfile_Edit extends AppCompatActivity {
     EditText currentPassword;
     EditText newPassword;
     boolean emailAlreadyInDatabase = false;
+    EditText description;
+
 
 
     @Override
@@ -29,8 +36,7 @@ public class MyProfile_Edit extends AppCompatActivity {
         setContentView(R.layout.my_profile_edit);
 
         Intent i = getIntent();
-        currentUser = (User)i.getSerializableExtra("currentUser");
-
+        currentUser = (User) i.getSerializableExtra("currentUser");
         // initialize all objects
         firstName = (EditText) findViewById(R.id.bio_fname);
         lastName = (EditText) findViewById(R.id.bio_lname);
@@ -39,53 +45,89 @@ public class MyProfile_Edit extends AppCompatActivity {
         saveChanges = (Button) findViewById(R.id.saveChanges);
         cancelEdit = (Button) findViewById(R.id.Cancel_bio);
         currentPassword = (EditText) findViewById(R.id.bio_currentPass);
-        newPassword = (EditText)findViewById(R.id.bio_newPass);
+        newPassword = (EditText) findViewById(R.id.bio_newPass);
+        description = (EditText) findViewById(R.id.summaryEdit);
 
 
         // set from User's values
-        firstName.setHint(currentUser.getFirstName());
-        lastName.setHint(currentUser.getLastName());
-        eEmail.setHint(currentUser.getEmail());
-        collegeName.setHint(currentUser.getUniversity());
+        firstName.setText(currentUser.getFirstName());
+        lastName.setText(currentUser.getLastName());
+        eEmail.setText(currentUser.getEmail());
+        collegeName.setText(currentUser.getUniversity());
+        description.setText(currentUser.getDescription());
+
+        // TODO: if newpassword is empty, set currentPassword to newpassword
 
 
         saveChanges.setOnClickListener(new View.OnClickListener(){
             public void onClick(View view) {
-                // TODO do checks on email if it is already in the database
+                JSONObject response = null;
+                try { //Will internally test for Current Email and Password Matches, Returns Success if successful
+                    //TODO Aenah Help, Need to put what is entered into the page fields into the request
+                    response = new ServerRequester().execute("changeProfile.php", "whatever",
+                            "currentEmail", currentUser.getEmail(),
+                            "newEmail", eEmail.toString(),
+                            "currentPassword", currentPassword.toString(),
+                            "newPassword", newPassword.toString(),
+                            "firstName", firstName.toString(),
+                            "lastName", lastName.toString(),
+                            "university", collegeName.toString()).get();
+                    if (response == null) {//Something went horribly , JSON failed to be formed meaning something happened in the server requester
+                    } else if (!response.isNull("error")) {//Some incorrect information was sent, but the server and requester still processed it
+                        //TODO Handle Server Errors
+                        switch(response.get("error").toString()) {
+                            case "-1": //Email Password Combo not in the Database
 
-                if(emailAlreadyInDatabase == true){ // send error message
+                                break;
+                            case "-2":  //Select Query failed due to something dumb
+                                        // Print out response.get("errormessage"), it'll have the mysql error with it
 
-                } else{ // set new values in database
+                                break;
+                            case "-3": //Update Query Failed Due to New Email is already associated with another account
 
-                    // TODO set changes to user in database
-                    if(!firstName.getText().toString().matches("")){ currentUser.setFirstName(firstName.getText().toString());}
-                    if(!lastName.getText().toString().matches("")){ currentUser.setLastName(lastName.getText().toString());}
-                    if(!eEmail.getText().toString().matches("")){
-                        String oldEmail = currentUser.getEmail(); // NEEDED TO SEARCH THROUGH DATABASE FOR CURRENT USER
+                                break;
+                            case "-4":  //Update Query Failed Due to Something Else Dumb that I haven't handled yet,
+                                        // Print out response.get("errormessage"), it'll have the mysql error with it
+                                break;
+                            default:    //Some Error Code was printed from the server that isn't handled above
+
+                                break;
+                        }
+
+                    }
+                    else{
+                        // WEËËËËËËËËËËËËËËËËËËËËËËËËËËËËËËËËËËËËËËËËËËËËËËËËËËËËËËËËËËËËËË
+
+                        // update changes in user throughout all of app
+                        currentUser.setFirstName(firstName.getText().toString());
+                        currentUser.setLastName(lastName.getText().toString());
                         currentUser.setEmail(eEmail.getText().toString());
+                        currentUser.setUniversity(collegeName.getText().toString());
+                        currentUser.setUniversity(collegeName.getText().toString());
+
+                        // go back to profile
+                        Intent i = new Intent(MyProfile_Edit.this, HomePage.class);
+                        i.putExtra("currentUser", currentUser);
+                        i.putExtra("uploadPage", "myProfile");
+                        startActivity(i);
+
                     }
-                    if(!collegeName.getText().toString().matches("")){ currentUser.setUniversity(collegeName.getText().toString());}
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                } catch (ExecutionException e) {
+                    e.printStackTrace();
+                } catch(JSONException e) {
 
-                    // this is the current Password
-                    String cPassword = currentPassword.getText().toString();
-                    String nPassword = newPassword.getText().toString();
-
-                    if(!currentPassword.getText().toString().matches("") || !newPassword.getText().toString().matches("")){
-                        // IF THEY DID INPUT SOMETHING TO CHANGE THE PASSWORD
-                    }
-
-                    // go back to profile
-                    Intent i = new Intent(MyProfile_Edit.this, HomePage.class);
-                    i.putExtra("currentUser", currentUser);
-                    i.putExtra("uploadPage", "myProfile");
-                    startActivity(i);
                 }
-            }
+
+                }
+
         });
 
-        cancelEdit.setOnClickListener(new View.OnClickListener(){
+        cancelEdit.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
-                MyProfile_Edit.super.onBackPressed();;
+                MyProfile_Edit.super.onBackPressed();
+                ;
             }
         });
 
