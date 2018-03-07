@@ -66,12 +66,12 @@ public class MyProfile_Edit extends AppCompatActivity {
                     //TODO Aenah Help, Need to put what is entered into the page fields into the request
                     response = new ServerRequester().execute("changeProfile.php", "whatever",
                             "currentEmail", currentUser.getEmail(),
-                            "newEmail", eEmail.toString(),
-                            "currentPassword", currentPassword.toString(),
-                            "newPassword", newPassword.toString(),
-                            "firstName", firstName.toString(),
-                            "lastName", lastName.toString(),
-                            "university", collegeName.toString()).get();
+                            "newEmail", eEmail.getText().toString(),
+                            "currentPassword", currentPassword.getText().toString(),
+                            "newPassword", newPassword.getText().toString(),
+                            "firstName", firstName.getText().toString(),
+                            "lastName", lastName.getText().toString(),
+                            "university", collegeName.getText().toString()).get();
                     if (response == null) {//Something went horribly , JSON failed to be formed meaning something happened in the server requester
                     } else if (!response.isNull("error")) {//Some incorrect information was sent, but the server and requester still processed it
                         //TODO Handle Server Errors
