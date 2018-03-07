@@ -50,11 +50,13 @@ public class MyProfile_Edit extends AppCompatActivity {
 
 
         // set from User's values
-        firstName.setHint(currentUser.getFirstName());
-        lastName.setHint(currentUser.getLastName());
-        eEmail.setHint(currentUser.getEmail());
-        collegeName.setHint(currentUser.getUniversity());
-        description.setHint(currentUser.getDescription());
+        firstName.setText(currentUser.getFirstName());
+        lastName.setText(currentUser.getLastName());
+        eEmail.setText(currentUser.getEmail());
+        collegeName.setText(currentUser.getUniversity());
+        description.setText(currentUser.getDescription());
+
+        // TODO: if newpassword is empty, set currentPassword to newpassword
 
 
         saveChanges.setOnClickListener(new View.OnClickListener(){
@@ -93,39 +95,23 @@ public class MyProfile_Edit extends AppCompatActivity {
                         }
 
                     }
+                    else{
+                        // WEËËËËËËËËËËËËËËËËËËËËËËËËËËËËËËËËËËËËËËËËËËËËËËËËËËËËËËËËËËËËËË
+
+                        // update changes in user throughout all of app
+                        currentUser.setFirstName(firstName.getText().toString());
+                        currentUser.setLastName(lastName.getText().toString());
+                        currentUser.setEmail(eEmail.getText().toString());
+                        currentUser.setUniversity(collegeName.getText().toString());
+                        currentUser.setUniversity(collegeName.getText().toString());
+
+                    }
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 } catch (ExecutionException e) {
                     e.printStackTrace();
                 } catch(JSONException e) {
-
                 }
-
-
-                    // TODO set changes to user in database
-                    if(!firstName.getText().toString().matches("")){ currentUser.setFirstName(firstName.getText().toString());}
-                    if(!lastName.getText().toString().matches("")){ currentUser.setLastName(lastName.getText().toString());}
-                    if(!eEmail.getText().toString().matches("")){
-                        String oldEmail = currentUser.getEmail(); // NEEDED TO SEARCH THROUGH DATABASE FOR CURRENT USER
-                        currentUser.setEmail(eEmail.getText().toString());
-                    }
-                    if(!collegeName.getText().toString().matches("")){ currentUser.setUniversity(collegeName.getText().toString());}
-
-                    // this is the current Password
-                    String cPassword = currentPassword.getText().toString();
-                    String nPassword = newPassword.getText().toString();
-
-                    if(!currentPassword.getText().toString().matches("") || !newPassword.getText().toString().matches("")){
-                        // IF THEY DID INPUT SOMETHING TO CHANGE THE PASSWORD
-                    }
-
-
-
-                    // go back to profile
-                    Intent i = new Intent(MyProfile_Edit.this, HomePage.class);
-                    i.putExtra("currentUser", currentUser);
-                    i.putExtra("uploadPage", "myProfile");
-                    startActivity(i);
                 }
 
         });

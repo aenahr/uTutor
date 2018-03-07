@@ -24,6 +24,17 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="25dp"/>
 
+        <TextView
+            android:id="@+id/name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_below="@+id/titleEdit"
+            android:text="Full Name:"
+            android:layout_centerHorizontal="true"
+            android:textSize="30dp"
+            android:fontFamily="sans-serif-light" />
+
         <RelativeLayout
             android:id="@+id/names"
             android:layout_below="@+id/titleEdit"
@@ -35,8 +46,8 @@
                 android:id="@+id/bio_fname"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:hint="First Name"
+                android:layout_marginTop="50dp"
+                android:text="First Name"
                 android:textColor="@color/colorPrimaryDark"
                 android:textSize="25dp"
                 android:inputType="text"/>
@@ -47,20 +58,31 @@
                 android:layout_toRightOf="@id/bio_fname"
                 android:layout_alignBottom="@id/bio_fname"
                 android:layout_marginLeft="10dp"
-                android:hint="Last Name"
+                android:text="Last Name"
                 android:textColor="@color/colorPrimaryDark"
                 android:textSize="25dp"
                 android:inputType="text"/>
 
         </RelativeLayout>
 
+        <TextView
+            android:id="@+id/emailAddress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_below="@+id/names"
+            android:text="Email Address:"
+            android:layout_centerHorizontal="true"
+            android:textSize="30dp"
+            android:fontFamily="sans-serif-light" />
+
         <EditText
             android:id="@+id/bio_email"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/names"
-            android:layout_marginTop="10dp"
-            android:hint="Email"
+            android:layout_below="@+id/emailAddress"
+            android:layout_marginTop="5dp"
+            android:text="Email"
             android:textColor="@color/colorPrimaryDark"
             android:textSize="20dp"
             android:textStyle="bold"
@@ -68,53 +90,10 @@
             android:inputType="textEmailAddress"/>
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/titlePass"
-            android:text="To change password, you must enter your current password:"
-            android:textSize="19dp"
-            android:gravity="center"
-            android:layout_below="@+id/bio_email"
-            android:fontFamily="sans-serif-light"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="15dp"/>
-
-        <RelativeLayout
-            android:id="@+id/passwords"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/titlePass"
-            android:layout_centerHorizontal="true">
-
-            <EditText
-                android:id="@+id/bio_currentPass"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:hint="Current Password"
-                android:textColor="@color/colorPrimaryDark"
-                android:textSize="20dp"
-                android:textStyle="italic"
-                android:inputType="textEmailAddress"
-                android:layout_marginRight="10dp"/>
-
-            <EditText
-                android:id="@+id/bio_newPass"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:hint="New Password"
-                android:textStyle="italic"
-                android:textColor="@color/colorPrimaryDark"
-                android:layout_toRightOf="@+id/bio_currentPass"
-                android:textSize="20dp"
-                android:inputType="textEmailAddress"/>
-
-        </RelativeLayout>
-
-        <TextView
             android:id="@+id/pro_education"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/passwords"
+            android:layout_below="@+id/bio_email"
             android:layout_marginTop="10dp"
             android:text="University Name:"
             android:layout_centerHorizontal="true"
@@ -127,8 +106,9 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/pro_education"
             android:layout_marginTop="5dp"
-            android:hint="NONE"
+            android:text="NONE"
             android:inputType="textMultiLine"
+            android:textColor="@color/colorPrimaryDark"
             android:layout_centerHorizontal="true"
             android:textSize="20dp"/>
 
@@ -138,7 +118,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/text_edu"
             android:layout_marginTop="10dp"
-            android:text="Summary:"
+            android:text="Description:"
             android:layout_centerHorizontal="true"
             android:textSize="30dp"
             android:fontFamily="sans-serif-light" />
@@ -149,11 +129,62 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/summary"
             android:layout_marginTop="5dp"
-            android:hint="description here"
+            android:text="description here"
+            android:textColor="@color/colorPrimaryDark"
             android:inputType="textMultiLine"
             android:gravity="center"
             android:layout_centerHorizontal="true"
             android:textSize="15dp"/>
+
+        <TextView
+            android:id="@+id/changePass"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/summaryEdit"
+            android:layout_marginTop="10dp"
+            android:text="Change Password:"
+            android:layout_centerHorizontal="true"
+            android:textSize="30dp"
+            android:fontFamily="sans-serif-light" />
+
+
+        <EditText
+            android:id="@+id/bio_newPass"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/changePass"
+            android:hint="New Password"
+            android:textStyle="italic"
+            android:textColor="@color/colorPrimaryDark"
+            android:layout_centerHorizontal="true"
+            android:textSize="20dp"
+            android:inputType="textEmailAddress"/>
+
+        <TextView
+            android:id="@+id/confirmPass"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/bio_newPass"
+            android:layout_marginTop="10dp"
+            android:text="To save changes, insert current password:"
+            android:gravity="center"
+            android:layout_centerHorizontal="true"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="20dp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/bio_currentPass"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="Current Password"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="20dp"
+            android:textStyle="italic"
+            android:inputType="textEmailAddress"
+            android:layout_below="@+id/confirmPass"
+            android:layout_centerHorizontal="true"
+            android:layout_marginRight="10dp"/>
 
         <Button
             android:id="@+id/saveChanges"
@@ -161,7 +192,7 @@
             android:layout_height="wrap_content"
             android:text="Save Changes"
             android:layout_centerHorizontal="true"
-            android:layout_below="@+id/summaryEdit"
+            android:layout_below="@+id/bio_currentPass"
             android:layout_marginTop="10dp"
             android:background="@drawable/button_border"
             android:textColor="@color/white"/>
@@ -175,5 +206,7 @@
             android:layout_centerHorizontal="true"
             android:background="@drawable/button_border"
             android:textColor="@color/white"/>
+
+
     </RelativeLayout>
 </ScrollView>
