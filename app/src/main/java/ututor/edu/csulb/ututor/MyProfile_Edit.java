@@ -111,9 +111,7 @@ public class MyProfile_Edit extends AppCompatActivity {
                 } catch (ExecutionException e) {
                     e.printStackTrace();
                 } catch(JSONException e) {
-
                 }
-
                 }
 
         });
