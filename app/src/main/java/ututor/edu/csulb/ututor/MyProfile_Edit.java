@@ -105,12 +105,6 @@ public class MyProfile_Edit extends AppCompatActivity {
                         currentUser.setUniversity(collegeName.getText().toString());
                         currentUser.setUniversity(collegeName.getText().toString());
 
-                        // go back to profile
-                        Intent i = new Intent(MyProfile_Edit.this, HomePage.class);
-                        i.putExtra("currentUser", currentUser);
-                        i.putExtra("uploadPage", "myProfile");
-                        startActivity(i);
-
                     }
                 } catch (InterruptedException e) {
                     e.printStackTrace();
