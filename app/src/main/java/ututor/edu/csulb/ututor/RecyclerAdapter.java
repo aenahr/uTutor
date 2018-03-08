@@ -17,14 +17,16 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         public ImageView itemImage;
-        public TextView itemTitle;
-        public TextView itemDetail;
+        public TextView itemName;
+        public TextView itemSubject;
+        public TextView itemWalkin;
 
         public ViewHolder(View itemView) {
             super(itemView);
             itemImage = (ImageView) itemView.findViewById(R.id.item_image);
-            itemTitle = (TextView) itemView.findViewById(R.id.item_title);
-            itemDetail = (TextView) itemView.findViewById(R.id.item_details);
+            itemName = (TextView) itemView.findViewById(R.id.item_name);
+            itemSubject = (TextView) itemView.findViewById(R.id.item_subject);
+            itemWalkin = (TextView) itemView.findViewById(R.id.WalkinStaus);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override public void onClick(View v) {
@@ -55,8 +57,8 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
     public void onBindViewHolder(ViewHolder holder, int i) {
         NewItem currentItem = Data.get(i);
         holder.itemImage.setImageResource(currentItem.getImage());
-        holder.itemTitle.setText(currentItem.getText1());
-        holder.itemDetail.setText(currentItem.getText2());
+        holder.itemName.setText(currentItem.getText1());
+        holder.itemSubject.setText(currentItem.getText2());
     }
 
     @Override

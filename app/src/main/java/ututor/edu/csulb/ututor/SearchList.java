@@ -33,7 +33,10 @@ public class SearchList extends Fragment {
 
         recyclerView = (RecyclerView) rootView.findViewById(R.id.recycler_view);
         layoutManager = new LinearLayoutManager( this.getActivity() );
-        adapter = new RecyclerAdapter(DataList);
+
+        ArrayList<NewItem> filteredList = new ArrayList<>();
+        adapter = new RecyclerAdapter(filteredList);  //initialise adapter with empty array
+
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adapter);
 
@@ -59,20 +62,21 @@ public class SearchList extends Fragment {
         return rootView;
     }
 
-    /**
-     * This method filters entries
-     * @param text
-     */
+    /** This method filters entries */
     private void filter(String text) {
-        ArrayList<NewItem> filteredList = new ArrayList<>();
+        if(text != null && !text.isEmpty()) {
+            ArrayList<NewItem> filteredList = new ArrayList<>();
 
-        for (NewItem item : DataList) {
-            if (item.getText1().toLowerCase().contains(text.toLowerCase())) {
-                filteredList.add(item);
+            for (NewItem item : DataList) {
+                if (item.getText1().toLowerCase().contains(text.toLowerCase())) {
+                    filteredList.add(item);
+                }
             }
+            adapter.filterList(filteredList);
+        } else {
+            ArrayList<NewItem> filteredList = new ArrayList<>();
+            adapter.filterList(filteredList);
         }
-
-        adapter.filterList(filteredList);
     }
 
     private void CreateDataList() {

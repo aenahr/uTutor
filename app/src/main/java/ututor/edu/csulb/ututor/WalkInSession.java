@@ -17,6 +17,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -27,7 +28,14 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.maps.CameraUpdate;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.UiSettings;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
@@ -51,7 +59,7 @@ import java.util.Locale;
 import javax.net.ssl.HttpsURLConnection;
 
 
-public class WalkInSession extends AppCompatActivity{
+public class WalkInSession extends AppCompatActivity implements OnMapReadyCallback{
 
 
     Button buttonTime;
@@ -64,7 +72,7 @@ public class WalkInSession extends AppCompatActivity{
     TextView userEmail; // auto-generated email given from user class
     TextView currentDate; // gets the date when tutor pressed new walk in
     TextView inputTutee; // tutee must type in his/her email
-    TextView location;
+    TextView tvLocation;
 
     // objects needed for location
     Geocoder geocoder;
@@ -78,10 +86,8 @@ public class WalkInSession extends AppCompatActivity{
     private MyLocationListener mylistener;
     private Criteria criteria;
 
-
-
-
-
+    private GoogleMap mMap;
+    private String addressName;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -99,12 +105,14 @@ public class WalkInSession extends AppCompatActivity{
         currentDate = (TextView) findViewById(R.id.generateDate);
 
         inputTutee = (TextView) findViewById(R.id.inputTuteeEmail);
-        location = (TextView) findViewById(R.id.generateLocation);
+        tvLocation = (TextView) findViewById(R.id.generateLocation);
 
         // getting user's location and displaying it
         requestLocationPermission();
-        String address = getAddressName(currentPosition);
-        location.setText(address);
+
+        // google maps initialize
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
+        mapFragment.getMapAsync(this);
 
         // set to user email
         userEmail.setText(currentUser.getEmail());
@@ -123,7 +131,6 @@ public class WalkInSession extends AppCompatActivity{
 
         buttonTime.setOnClickListener(new View.OnClickListener(){
             public void onClick(View view) {
-
                 if(begin == false){ // walk in session started
 
                     //set boolean to true now
@@ -250,6 +257,7 @@ public class WalkInSession extends AppCompatActivity{
             addresses = geocoder.getFromLocation(currentPosition.latitude, currentPosition.longitude,1);
         } catch (IOException e) {
             e.printStackTrace();
+            Log.e("uTutor", "error getting Address");
         }
 
         android.location.Address address = addresses.get(0);
@@ -274,43 +282,82 @@ public class WalkInSession extends AppCompatActivity{
             ActivityCompat.requestPermissions(WalkInSession.this, new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION}, 1);
             return;
         }else{
-            // Write you code here if permission already given.
-//            Toast.makeText(WalkInSession.this, "Permission already granted!", Toast.LENGTH_LONG).show();
-            locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-            // Define the criteria how to select the location provider
-            criteria = new Criteria();
-            criteria.setAccuracy(Criteria.ACCURACY_COARSE);   //default
 
-            // user defines the criteria
+            String location_context = Context.LOCATION_SERVICE;
+            locationManager = (LocationManager) this.getSystemService(location_context);
+            List<String> providers = locationManager.getProviders(true);
+            for (String provider : providers) {
+                locationManager.requestLocationUpdates(provider, 1000, 0,
+                        new LocationListener() {
 
-            criteria.setCostAllowed(false);
-            // get the best provider depending on the criteria
-            provider = locationManager.getBestProvider(criteria, false);
+                            public void onLocationChanged(Location location) {}
 
-            // the last known location of this provider
-            Location location = locationManager.getLastKnownLocation("gps");
+                            public void onProviderDisabled(String provider) {}
 
-            mylistener = new MyLocationListener();
+                            public void onProviderEnabled(String provider) {}
 
-            if (location != null) {
-                mylistener.onLocationChanged(location);
-                // location updates: at least 1 meter and 200millsecs change
-                locationManager.requestLocationUpdates(provider, 200, 1, mylistener);
-                double latitude = location.getLatitude();
-                double longitude = location.getLongitude();
-//                currentPosition = new LatLng(latitude, longitude);
-//                currentPosition = LOCATION_CSUF;
-                currentPosition = LOCATION_PARK;
-            } else {
-                // leads to the settings because there is no last known location
-                Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-                startActivity(intent);
+                            public void onStatusChanged(String provider, int status,
+                                                        Bundle extras) {}
+                        });
+                Location location = locationManager.getLastKnownLocation(provider);
+                if (location != null) {
+                    double latitude = location.getLatitude();
+                    double longitude = location.getLongitude();
+                    currentPosition = new LatLng(latitude, longitude);
+                    addressName = getAddressName(currentPosition);
+                    tvLocation.setText(addressName);
+                }
             }
-
-
+//            // Write you code here if permission already given.
+//            locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+//            // Define the criteria how to select the location provider
+//            criteria = new Criteria();
+//            criteria.setAccuracy(Criteria.ACCURACY_COARSE);   //default
+//            // user defines the criteria
+//            criteria.setCostAllowed(false);
+//
+//            // get the best provider depending on the criteria
+//            provider = locationManager.getBestProvider(criteria, false);
+//
+//            // the last known location of this provider
+//            Location location = locationManager.getLastKnownLocation("gps");
+//            mylistener = new MyLocationListener();
+//
+//            if (location != null) {
+//                mylistener.onLocationChanged(location);
+//                // location updates: at least 1 meter and 200millsecs change
+//                locationManager.requestLocationUpdates(provider, 200, 1, mylistener);
+//                double latitude = location.getLatitude();
+//                double longitude = location.getLongitude();
+////                currentPosition = new LatLng(latitude, longitude);
+//                currentPosition = LOCATION_CSUF;
+//                // for initializing Google Maps
+////                currentPosition = LOCATION_PARK;
+//            } else {
+//                // leads to the settings because there is no last known location
+//                Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+//                startActivity(intent);
+//            }
         }
     }
 
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+        mMap = googleMap;
+        mMap.getUiSettings().setZoomControlsEnabled(true);
+        mMap.addMarker(new MarkerOptions().position(currentPosition).title("Current Location"));
+        //mMap.moveCamera(CameraUpdateFactory.newLatLng(currentPosition));
+
+        mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
+        CameraUpdate update = CameraUpdateFactory.newLatLngZoom(currentPosition, 16);
+        mMap.animateCamera(update);
+
+    }
+
+
+    /**
+     * For the location listener and updating the location of user should they move
+     */
     private class MyLocationListener implements LocationListener {
 
         @Override

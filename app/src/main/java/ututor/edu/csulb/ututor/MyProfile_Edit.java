@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -50,11 +51,13 @@ public class MyProfile_Edit extends AppCompatActivity {
 
 
         // set from User's values
-        firstName.setHint(currentUser.getFirstName());
-        lastName.setHint(currentUser.getLastName());
-        eEmail.setHint(currentUser.getEmail());
-        collegeName.setHint(currentUser.getUniversity());
-        description.setHint(currentUser.getDescription());
+        firstName.setText(currentUser.getFirstName());
+        lastName.setText(currentUser.getLastName());
+        eEmail.setText(currentUser.getEmail());
+        collegeName.setText(currentUser.getUniversity());
+        description.setText(currentUser.getDescription());
+
+        // TODO: if newpassword is empty, set currentPassword to newpassword
 
 
         saveChanges.setOnClickListener(new View.OnClickListener(){
@@ -64,12 +67,13 @@ public class MyProfile_Edit extends AppCompatActivity {
                     //TODO Aenah Help, Need to put what is entered into the page fields into the request
                     response = new ServerRequester().execute("changeProfile.php", "whatever",
                             "currentEmail", currentUser.getEmail(),
-                            "newEmail", eEmail.toString(),
-                            "currentPassword", currentPassword.toString(),
-                            "newPassword", newPassword.toString(),
-                            "firstName", firstName.toString(),
-                            "lastName", lastName.toString(),
-                            "university", collegeName.toString()).get();
+                            "newEmail", eEmail.getText().toString(),
+                            "currentPassword", currentPassword.getText().toString(),
+                            "newPassword", newPassword.getText().toString(),
+                            "firstName", firstName.getText().toString(),
+                            "lastName", lastName.getText().toString(),
+                            "university", collegeName.getText().toString(),
+                            "description", description.getText().toString()).get();
                     if (response == null) {//Something went horribly , JSON failed to be formed meaning something happened in the server requester
                     } else if (!response.isNull("error")) {//Some incorrect information was sent, but the server and requester still processed it
                         //TODO Handle Server Errors
@@ -91,41 +95,27 @@ public class MyProfile_Edit extends AppCompatActivity {
 
                                 break;
                         }
+                    }
+                    else{
+                        // update changes in user throughout all of app
+                        currentUser.setFirstName(firstName.getText().toString());
+                        currentUser.setLastName(lastName.getText().toString());
+                        currentUser.setEmail(eEmail.getText().toString());
+                        currentUser.setUniversity(collegeName.getText().toString());
+                        currentUser.setDescription(description.getText().toString());
 
-
-
+                        // go back to profile with saved changes
+                        Intent i = new Intent(MyProfile_Edit.this, HomePage.class);
+                        i.putExtra("currentUser", currentUser);
+                        i.putExtra("uploadPage", "myProfile");
+                        startActivity(i);
                     }
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 } catch (ExecutionException e) {
                     e.printStackTrace();
                 } catch(JSONException e) {
-
                 }
-
-
-                    // TODO set changes to user in database
-                    if(!firstName.getText().toString().matches("")){ currentUser.setFirstName(firstName.getText().toString());}
-                    if(!lastName.getText().toString().matches("")){ currentUser.setLastName(lastName.getText().toString());}
-                    if(!eEmail.getText().toString().matches("")){
-                        String oldEmail = currentUser.getEmail(); // NEEDED TO SEARCH THROUGH DATABASE FOR CURRENT USER
-                        currentUser.setEmail(eEmail.getText().toString());
-                    }
-                    if(!collegeName.getText().toString().matches("")){ currentUser.setUniversity(collegeName.getText().toString());}
-
-                    // this is the current Password
-                    String cPassword = currentPassword.getText().toString();
-                    String nPassword = newPassword.getText().toString();
-
-                    if(!currentPassword.getText().toString().matches("") || !newPassword.getText().toString().matches("")){
-                        // IF THEY DID INPUT SOMETHING TO CHANGE THE PASSWORD
-                    }
-
-                    // go back to profile
-                    Intent i = new Intent(MyProfile_Edit.this, HomePage.class);
-                    i.putExtra("currentUser", currentUser);
-                    i.putExtra("uploadPage", "myProfile");
-                    startActivity(i);
                 }
 
         });
