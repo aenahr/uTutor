@@ -1,54 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:gravity="center"
-    android:padding="10dp"
-    android:orientation="vertical">
+    android:layout_height="match_parent">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint=" Feedback"
+        android:textSize="25dp"
+        android:textStyle="bold"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/text"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/text"
+        android:id="@+id/user_name"
+        android:layout_marginTop="15dp"
+        android:hint="username"
+        android:layout_centerHorizontal="true"
+        android:textSize="20dp"/>
 
     <TextView
-        android:id="@+id/title"
+        android:id="@+id/username_feedback"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Feedback"
-        android:textColor="@color/colorPrimaryDark"
+        android:layout_below="@+id/user_name"
+        android:layout_marginTop="15dp"
+        android:hint="user's feedback"
         android:layout_centerHorizontal="true"
-        android:textSize="30dp" />
-
-    <ImageView
-        android:id="@+id/image"
-        android:layout_width="200dp"
-        android:layout_height="150dp"
-        android:layout_centerHorizontal="true"
-        android:src="@drawable/user1"
-        android:layout_marginTop="40dp"
-        android:adjustViewBounds="true"/>
-    <RatingBar
-        android:id="@+id/review_rate"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:layout_below="@id/image"
-        android:layout_centerHorizontal="true"
-        android:isIndicator="true"
-        android:rating="3.0"/>
-
-    <TextView
-        android:id="@+id/description"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="User feedback"
-        android:textColor="@color/colorPrimaryDark"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="300dp"
         android:textSize="20dp" />
 
-    <Button
-        android:id="@+id/dismiss"
-        android:layout_width="match_parent"
+    <TextView
+        android:id="@+id/rate"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
+        android:layout_below="@+id/username_feedback"
+        android:layout_marginTop="15dp"
+        android:hint="Rate Number"
         android:layout_centerHorizontal="true"
-        android:text="OK" />
+        android:textSize="20dp"/>
+    <RatingBar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:numStars="5"
+        android:layout_below="@+id/rate"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="15dp"
+        android:id="@+id/rate_detail"/>
+
 
 </RelativeLayout>
