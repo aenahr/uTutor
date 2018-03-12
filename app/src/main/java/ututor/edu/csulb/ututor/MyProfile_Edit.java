@@ -79,14 +79,14 @@ public class MyProfile_Edit extends AppCompatActivity {
                         //TODO Handle Server Errors
                         switch(response.get("error").toString()) {
                             case "-1": //Email Password Combo not in the Database
-
+                                Toast.makeText(getApplicationContext(), "Current Password does not match database. Try again." , Toast.LENGTH_SHORT).show();
                                 break;
                             case "-2":  //Select Query failed due to something dumb
                                         // Print out response.get("errormessage"), it'll have the mysql error with it
 
                                 break;
                             case "-3": //Update Query Failed Due to New Email is already associated with another account
-
+                                Toast.makeText(getApplicationContext(), "Email address already exists." , Toast.LENGTH_SHORT).show();
                                 break;
                             case "-4":  //Update Query Failed Due to Something Else Dumb that I haven't handled yet,
                                         // Print out response.get("errormessage"), it'll have the mysql error with it

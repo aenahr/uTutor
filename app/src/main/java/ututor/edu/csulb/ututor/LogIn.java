@@ -187,12 +187,12 @@ public class LogIn extends AppCompatActivity {
                             cUser.setLastName(response.get("lastName").toString());
                             cUser.setDescription(response.get("userDescription").toString());
                             if(response.isNull("profilePic")) {
-                                cUser.setNumProfilePic(1);
+                                cUser.setNumProfilePic(0);
                             }else{
                                 cUser.setNumProfilePic(response.getInt("profilePic"));
                             }
-                            Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.ututorlogo); // drawable to bitmap
-                            cUser.setProfilePic(bitmap);
+//                            Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.ututorlogo); // drawable to bitmap
+//                            cUser.setProfilePic(bitmap);
 
                             // send user info to HomePage
                             Intent i = new Intent(LogIn.this, HomePage.class);
@@ -260,8 +260,8 @@ public class LogIn extends AppCompatActivity {
         cUser.setNumProfilePic(2);
         p.setColor(2);
 
-        Bitmap bitmap = p.getBitmapColor();
-        cUser.setProfilePic(bitmap);
+//        Bitmap bitmap = p.getBitmapColor();
+//        cUser.setProfilePic(bitmap);
 
         // user description
         cUser.setDescription("Hello my name is Testy. I love testing things cause it's part of my name. Did you know what my last name is? It's test!");

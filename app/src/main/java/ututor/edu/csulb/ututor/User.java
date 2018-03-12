@@ -42,7 +42,7 @@ public class User implements Serializable{
 
     public String getDescription(){
         if(uDescription.equals("NULL")){
-            return "";
+            return "NONE";
         }
         else{
             return uDescription;
@@ -122,18 +122,18 @@ public class User implements Serializable{
         uUniversity = s;
     }
 
-    public String getProfilePic(){
-        return uProfilePicture;
-    }
-
-    public void setProfilePic(Bitmap b){
-        String newPic = "";
-        newPic = BitMapToString(b);
-        // Bitmap to String
-        // Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.bacon); // drawable to bitmap
-        // String bit = BitMapToString(bitmap);
-        uProfilePicture = newPic;
-    }
+//    public String getProfilePic(){
+//        return uProfilePicture;
+//    }
+//
+//    public void setProfilePic(Bitmap b){
+//        String newPic = "";
+//        newPic = BitMapToString(b);
+//        // Bitmap to String
+//        // Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.bacon); // drawable to bitmap
+//        // String bit = BitMapToString(bitmap);
+//        uProfilePicture = newPic;
+//    }
 
     /**
      * Converting bitmap to string code

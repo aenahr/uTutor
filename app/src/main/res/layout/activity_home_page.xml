@@ -210,15 +210,5 @@
 
         </LinearLayout>
 
-        <Button
-            android:id="@+id/testButton"
-            android:layout_width="250dp"
-            android:layout_height="wrap_content"
-            android:fontFamily="sans-serif-light"
-            android:text="Test JSON"
-            android:textSize="20dp"
-            android:layout_marginBottom="10dp"
-            android:background="@color/colorPrimary"
-            android:textColor="@color/colorLightPrimary"/>
     </LinearLayout>
 </FrameLayout>

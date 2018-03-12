@@ -74,27 +74,32 @@ public class MyProfile_EditPicture extends AppCompatActivity {
                 Bitmap bitmap;
                 if(blue.isChecked()){
                     p.setColor(0);
-                    bitmap = p.getBitmapColor();
-                    currentUser.setProfilePic(bitmap);
+                    currentUser.setNumProfilePic(p.getIntColor());
+//                    bitmap = p.getBitmapColor();
+//                    currentUser.setProfilePic(bitmap);
                 } else if(red.isChecked()){
                     p.setColor(1);
-                    bitmap = p.getBitmapColor();
-                    currentUser.setProfilePic(bitmap);
+                    currentUser.setNumProfilePic(p.getIntColor());
+//                    bitmap = p.getBitmapColor();
+//                    currentUser.setProfilePic(bitmap);
                 } else if(green.isChecked()){
                     p.setColor(2);
-                    bitmap = p.getBitmapColor();
-                    currentUser.setProfilePic(bitmap);
+                    currentUser.setNumProfilePic(p.getIntColor());
+//                    bitmap = p.getBitmapColor();
+//                    currentUser.setProfilePic(bitmap);
                 } else if(purple.isChecked()){
                     p.setColor(4);
-                    bitmap = p.getBitmapColor();
-                    currentUser.setProfilePic(bitmap);
+                    currentUser.setNumProfilePic(p.getIntColor());
+//                    bitmap = p.getBitmapColor();
+//                    currentUser.setProfilePic(bitmap);
                 } else if(yellow.isChecked()){
                     p.setColor(3);
-                    bitmap = p.getBitmapColor();
-                    currentUser.setProfilePic(bitmap);
+                    currentUser.setNumProfilePic(p.getIntColor());
+//                    bitmap = p.getBitmapColor();
+//                    currentUser.setProfilePic(bitmap);
                 }
 
-                currentUser.setNumProfilePic(p.getIntColor());
+//                currentUser.setNumProfilePic(p.getIntColor());
 
                 // TODO update user in database
 
@@ -117,16 +122,16 @@ public class MyProfile_EditPicture extends AppCompatActivity {
     }
 
     public void selectCurrentHead(){
-        if(currentUser.getProfilePic().equals(BitMapToString(BitmapFactory.decodeResource(getResources(), R.drawable.ututorlogo)))){
+        if(currentUser.getuNumProfilePic() == 0){
             //blue
             blue.setChecked(true);
-        } else if(currentUser.getProfilePic().equals(BitMapToString(BitmapFactory.decodeResource(getResources(), R.drawable.tutorhead_yellow)))){
+        } else if(currentUser.getuNumProfilePic() == 3){
             yellow.setChecked(true);
-        } else if(currentUser.getProfilePic().equals(BitMapToString(BitmapFactory.decodeResource(getResources(), R.drawable.tutorhead_purple)))){
+        } else if(currentUser.getuNumProfilePic() == 4){
             purple.setChecked(true);
-        } else if(currentUser.getProfilePic().equals(BitMapToString(BitmapFactory.decodeResource(getResources(), R.drawable.tutorhead_green)))){
+        } else if(currentUser.getuNumProfilePic() == 2){
             green.setChecked(true);
-        } else if(currentUser.getProfilePic().equals(BitMapToString(BitmapFactory.decodeResource(getResources(), R.drawable.tutorhead_red)))){
+        } else if(currentUser.getuNumProfilePic() == 1){
             red.setChecked(true);
         }
     }
