@@ -186,8 +186,11 @@ public class LogIn extends AppCompatActivity {
                             cUser.setFirstName(response.get("firstName").toString());
                             cUser.setLastName(response.get("lastName").toString());
                             cUser.setDescription(response.get("userDescription").toString());
-                            //TODO MAKE IT DEAL WITH NULL IDIOT
-                            cUser.setNumProfilePic(response.getInt("profilePic"));
+                            if(response.isNull("profilePic")) {
+                                cUser.setNumProfilePic(1);
+                            }else{
+                                cUser.setNumProfilePic(response.getInt("profilePic"));
+                            }
                             Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.ututorlogo); // drawable to bitmap
                             cUser.setProfilePic(bitmap);
 
