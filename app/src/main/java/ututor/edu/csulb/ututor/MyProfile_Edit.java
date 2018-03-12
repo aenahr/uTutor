@@ -123,7 +123,6 @@ public class MyProfile_Edit extends AppCompatActivity {
         cancelEdit.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 MyProfile_Edit.super.onBackPressed();
-                ;
             }
         });
 
