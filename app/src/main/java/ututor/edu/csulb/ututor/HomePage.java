@@ -219,6 +219,7 @@ public class HomePage extends AppCompatActivity
                 // send user info to HomePage
                 Intent i = new Intent(HomePage.this, HomePage.class);
                 i.putExtra("currentUser", currentUser);
+                i.putExtra("veganState", true);
                 startActivity(i);
             }
             else{

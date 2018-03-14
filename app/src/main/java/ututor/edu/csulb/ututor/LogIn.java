@@ -122,6 +122,7 @@ public class LogIn extends AppCompatActivity {
 
                 } else {
                     try {
+                        Animation shake = AnimationUtils.loadAnimation(LogIn.this, R.anim.shake);
                         System.out.println("Sending Login Request");
                         //response.get("error") will give you the error code
                         //response.get("errormessage") will print out what exactly happened, should be used for debugging,
@@ -137,10 +138,12 @@ public class LogIn extends AppCompatActivity {
 
                                         break;
                                     case "-2"://Invalid Email, Email wasn't in the database
-
+                                        mAlertDatabase.setVisibility(View.VISIBLE);
+                                        mAlertDatabase.startAnimation(shake);
                                         break;
                                     case "-3"://Email was in the database but Password was wrong
-
+                                        mAlertDatabase.setVisibility(View.VISIBLE);
+                                        mAlertDatabase.startAnimation(shake);
                                         break;
                                     default: //Some unhandled error code was returned
 
