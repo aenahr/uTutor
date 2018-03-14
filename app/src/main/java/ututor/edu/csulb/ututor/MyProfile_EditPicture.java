@@ -14,7 +14,11 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.ByteArrayOutputStream;
+import java.util.concurrent.ExecutionException;
 
 
 public class MyProfile_EditPicture extends AppCompatActivity {
@@ -55,44 +59,45 @@ public class MyProfile_EditPicture extends AppCompatActivity {
         chooseHead.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
-                if(checkedId == R.id.blueHead) {
-                } else if(checkedId == R.id.redHead){
-                } else if(checkedId == R.id.greenHead){
-                } else if(checkedId == R.id.yellowHead){
+                if (checkedId == R.id.blueHead) {
+                } else if (checkedId == R.id.redHead) {
+                } else if (checkedId == R.id.greenHead) {
+                } else if (checkedId == R.id.yellowHead) {
 
-                } else if(checkedId == R.id.purpleHead){
+                } else if (checkedId == R.id.purpleHead) {
 
                 }
 
             }
         });
 
-        saveChanges.setOnClickListener(new View.OnClickListener(){
+        saveChanges.setOnClickListener(new View.OnClickListener() {
 
             ProfilePicture p = new ProfilePicture(MyProfile_EditPicture.this);
+
             public void onClick(View view) {
                 Bitmap bitmap;
-                if(blue.isChecked()){
+                if (blue.isChecked()) {
                     p.setColor(0);
                     currentUser.setNumProfilePic(p.getIntColor());
 //                    bitmap = p.getBitmapColor();
 //                    currentUser.setProfilePic(bitmap);
-                } else if(red.isChecked()){
+                } else if (red.isChecked()) {
                     p.setColor(1);
                     currentUser.setNumProfilePic(p.getIntColor());
 //                    bitmap = p.getBitmapColor();
 //                    currentUser.setProfilePic(bitmap);
-                } else if(green.isChecked()){
+                } else if (green.isChecked()) {
                     p.setColor(2);
                     currentUser.setNumProfilePic(p.getIntColor());
 //                    bitmap = p.getBitmapColor();
 //                    currentUser.setProfilePic(bitmap);
-                } else if(purple.isChecked()){
+                } else if (purple.isChecked()) {
                     p.setColor(4);
                     currentUser.setNumProfilePic(p.getIntColor());
 //                    bitmap = p.getBitmapColor();
 //                    currentUser.setProfilePic(bitmap);
-                } else if(yellow.isChecked()){
+                } else if (yellow.isChecked()) {
                     p.setColor(3);
                     currentUser.setNumProfilePic(p.getIntColor());
 //                    bitmap = p.getBitmapColor();
@@ -102,17 +107,49 @@ public class MyProfile_EditPicture extends AppCompatActivity {
 //                currentUser.setNumProfilePic(p.getIntColor());
 
                 // TODO update user in database
+                try {
+                    JSONObject response = new ServerRequester().execute("changePicture.php", "whatever",
+                            "email", currentUser.getEmail(),
+                            "profilePicNum", (Integer.toString(currentUser.getuNumProfilePic()))).get();
+                    if (!response.isNull("success")){
+                        if (!response.isNull("error")) {//If the server returned an error code (So the request was at least processed)
+                            switch (response.get("error").toString()) {
+                                case "-1": //Email is not in the database
 
+                                    break;
+                                case "-2"://Query Failed
 
-                // go back to profile with saved changes
-                Intent i = new Intent(MyProfile_EditPicture.this, HomePage.class);
-                i.putExtra("currentUser", currentUser);
-                i.putExtra("uploadPage", "myProfile");
-                startActivity(i);
+                                    break;
+                                default: //Some unhandled error code was returned
+
+                                    break;
+                            }
+                        } else {//Stuff happened that should have happened
+                            Intent i = new Intent(MyProfile_EditPicture.this, HomePage.class);
+                            i.putExtra("currentUser", currentUser);
+                            i.putExtra("uploadPage", "myProfile");
+                            startActivity(i);
+                        }
+                    }else{//Stuff Happened that should have happened
+                        Intent i = new Intent(MyProfile_EditPicture.this, HomePage.class);
+                        i.putExtra("currentUser", currentUser);
+                        i.putExtra("uploadPage", "myProfile");
+                        startActivity(i);
+                    }
+
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                } catch (ExecutionException e) {
+                    e.printStackTrace();
+                } catch (JSONException e) {e.printStackTrace();
+                }
+
             }
         });
 
-        cancelChanges.setOnClickListener(new View.OnClickListener(){
+        cancelChanges.setOnClickListener(new View.OnClickListener()
+
+        {
             public void onClick(View view) {
                 MyProfile_EditPicture.super.onBackPressed();
                 finish();
@@ -121,31 +158,32 @@ public class MyProfile_EditPicture extends AppCompatActivity {
 
     }
 
-    public void selectCurrentHead(){
-        if(currentUser.getuNumProfilePic() == 0){
+    public void selectCurrentHead() {
+        if (currentUser.getuNumProfilePic() == 0) {
             //blue
             blue.setChecked(true);
-        } else if(currentUser.getuNumProfilePic() == 3){
+        } else if (currentUser.getuNumProfilePic() == 3) {
             yellow.setChecked(true);
-        } else if(currentUser.getuNumProfilePic() == 4){
+        } else if (currentUser.getuNumProfilePic() == 4) {
             purple.setChecked(true);
-        } else if(currentUser.getuNumProfilePic() == 2){
+        } else if (currentUser.getuNumProfilePic() == 2) {
             green.setChecked(true);
-        } else if(currentUser.getuNumProfilePic() == 1){
+        } else if (currentUser.getuNumProfilePic() == 1) {
             red.setChecked(true);
         }
     }
 
     /**
      * Converting bitmap to string code
+     *
      * @param bitmap
      * @return
      */
-    public String BitMapToString(Bitmap bitmap){
-        ByteArrayOutputStream baos=new  ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.PNG,100, baos);
-        byte [] b=baos.toByteArray();
-        String temp= Base64.encodeToString(b, Base64.DEFAULT);
+    public String BitMapToString(Bitmap bitmap) {
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos);
+        byte[] b = baos.toByteArray();
+        String temp = Base64.encodeToString(b, Base64.DEFAULT);
         return temp;
     }
 }
