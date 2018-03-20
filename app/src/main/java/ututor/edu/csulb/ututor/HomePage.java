@@ -49,7 +49,6 @@ public class HomePage extends AppCompatActivity
     public TextView hEmail;
     public ImageView hProfilePic;
     public Button mWork;
-    public Button bTest;
 
     // card layouts
     Menu menu;
@@ -68,8 +67,6 @@ public class HomePage extends AppCompatActivity
         uploadPage = i.getExtras().getString("uploadPage");
 
         mWork = (Button) findViewById(R.id.workButton);
-        bTest = (Button) findViewById(R.id.testButton); //DELETE WHEN DONE TESTING
-        bTest.setVisibility(View.VISIBLE);
         //check if the person is a tutor or not
         if( !currentUser.isTutor){
             mWork.setVisibility(View.INVISIBLE);
@@ -119,9 +116,12 @@ public class HomePage extends AppCompatActivity
         hName.setText(currentUser.getFirstName() +  " " + currentUser.getLastName());
         hEmail.setText(currentUser.getEmail());
 
-        String bit = currentUser.getProfilePic();
-        Bitmap b = StringToBitMap(bit);
-        hProfilePic.setImageBitmap(b);
+//        String bit = currentUser.getProfilePic();
+//        Bitmap b = StringToBitMap(bit);
+
+        ProfilePicture p = new ProfilePicture(this);
+        p.setColor(currentUser.getuNumProfilePic());
+        hProfilePic.setImageBitmap(p.getBitmapColor());
 
         mWork.setOnClickListener(new View.OnClickListener(){
             public void onClick(View view) {
@@ -129,21 +129,6 @@ public class HomePage extends AppCompatActivity
                 i.putExtra("currentUser", currentUser);
                 startActivity(i);
                 finish();
-            }
-        });
-        bTest.setOnClickListener(new View.OnClickListener(){
-            public void onClick(View view) {
-                try {
-                    //JSONObject response = new ServerRequester().execute("getUser.php", "bleh","email","lance@lance.lance").get();
-                    String UsersEmail = "what@what.what";
-                    String UsersPassword = "1853794613";
-                    JSONObject response = new ServerRequester().execute("register.php", "whatever" , "email",UsersEmail , "password" , UsersPassword).get();
-                    Toast.makeText(getApplicationContext(), "Response: " + response.toString() , Toast.LENGTH_SHORT).show();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                } catch (ExecutionException e) {
-                    e.printStackTrace();
-                }
             }
         });
 
@@ -234,6 +219,7 @@ public class HomePage extends AppCompatActivity
                 // send user info to HomePage
                 Intent i = new Intent(HomePage.this, HomePage.class);
                 i.putExtra("currentUser", currentUser);
+                i.putExtra("veganState", true);
                 startActivity(i);
             }
             else{
@@ -323,7 +309,6 @@ public class HomePage extends AppCompatActivity
         cardAppointment.setClickable(false);
 
         mWork.setClickable(false);
-        bTest.setClickable(false);//DELETE WHEN DONE TESTING
 
     }
 
@@ -336,7 +321,6 @@ public class HomePage extends AppCompatActivity
         cardAppointment.setClickable(true);
 
         mWork.setClickable(true);
-        bTest.setClickable(true);//DELETE WHEN DONE TESTING
     }
 
     public void requestLocationPermission(){

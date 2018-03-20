@@ -345,7 +345,12 @@ public class WalkInSession extends AppCompatActivity implements OnMapReadyCallba
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
         mMap.getUiSettings().setZoomControlsEnabled(true);
-        mMap.addMarker(new MarkerOptions().position(currentPosition).title("Current Location"));
+        if(currentPosition == null){
+            mMap.addMarker(new MarkerOptions().position(LOCATION_UNIV).title("Current Location"));
+        }
+        else{
+            mMap.addMarker(new MarkerOptions().position(currentPosition).title("Current Location"));
+        }
         //mMap.moveCamera(CameraUpdateFactory.newLatLng(currentPosition));
 
         mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);

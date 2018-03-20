@@ -1,5 +1,9 @@
 package ututor.edu.csulb.ututor;
 
+import android.content.Context;
+
+import com.google.android.gms.maps.model.LatLng;
+
 import java.io.Serializable;
 import java.util.Calendar;
 
@@ -8,18 +12,25 @@ public class Appointment implements Serializable{
     Calendar startTime;
     Calendar endTime;
     String location;
+    LatLng locationCoor;
     String tutor; // email format
     String tutee; //email format
     long lengthOfAppointment; // this is in seconds...convert as needed
     String typeOfAppointment; // OPTIONS ARE: PENDING, UPCOMING, PAST, WALKIN, NULL
+    Context context;
     // PENDING: needs confirmation from tutor
     // UPCOMING: confirmed by tutor and awaiting time
     // PAST: completed
     // WALKIN: appointment generated from walkin
     // NULL: invalid or empty appointment
 
+    public Appointment(Context c ){
+        typeOfAppointment = "NULL";
+        context = c;
+    }
+
     public Appointment(){
-        typeOfAppointment = "none";
+        typeOfAppointment = "NULL";
     }
 
     public String getTypeOfAppointment(){ return typeOfAppointment;}

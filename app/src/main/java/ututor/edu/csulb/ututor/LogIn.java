@@ -122,6 +122,7 @@ public class LogIn extends AppCompatActivity {
 
                 } else {
                     try {
+                        Animation shake = AnimationUtils.loadAnimation(LogIn.this, R.anim.shake);
                         System.out.println("Sending Login Request");
                         //response.get("error") will give you the error code
                         //response.get("errormessage") will print out what exactly happened, should be used for debugging,
@@ -137,10 +138,12 @@ public class LogIn extends AppCompatActivity {
 
                                         break;
                                     case "-2"://Invalid Email, Email wasn't in the database
-
+                                        mAlertDatabase.setVisibility(View.VISIBLE);
+                                        mAlertDatabase.startAnimation(shake);
                                         break;
                                     case "-3"://Email was in the database but Password was wrong
-
+                                        mAlertDatabase.setVisibility(View.VISIBLE);
+                                        mAlertDatabase.startAnimation(shake);
                                         break;
                                     default: //Some unhandled error code was returned
 
@@ -185,8 +188,14 @@ public class LogIn extends AppCompatActivity {
                             }
                             cUser.setFirstName(response.get("firstName").toString());
                             cUser.setLastName(response.get("lastName").toString());
-                            Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.ututorlogo); // drawable to bitmap
-                            cUser.setProfilePic(bitmap);
+                            cUser.setDescription(response.get("userDescription").toString());
+                            if(response.isNull("profilePic")) {
+                                cUser.setNumProfilePic(0);
+                            }else{
+                                cUser.setNumProfilePic(response.getInt("profilePic"));
+                            }
+//                            Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.ututorlogo); // drawable to bitmap
+//                            cUser.setProfilePic(bitmap);
 
                             // send user info to HomePage
                             Intent i = new Intent(LogIn.this, HomePage.class);
@@ -254,8 +263,8 @@ public class LogIn extends AppCompatActivity {
         cUser.setNumProfilePic(2);
         p.setColor(2);
 
-        Bitmap bitmap = p.getBitmapColor();
-        cUser.setProfilePic(bitmap);
+//        Bitmap bitmap = p.getBitmapColor();
+//        cUser.setProfilePic(bitmap);
 
         // user description
         cUser.setDescription("Hello my name is Testy. I love testing things cause it's part of my name. Did you know what my last name is? It's test!");

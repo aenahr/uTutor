@@ -135,8 +135,6 @@ public class Registration extends AppCompatActivity {
                     } else {
                         currentUser.setUniversity(mUniversity.getText().toString());
                     }
-                    Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.ututorlogo); // drawable to bitmap
-                    currentUser.setProfilePic(bitmap);
                     // notify user of success
                     // send user info to HomePage
                     Intent i = new Intent(Registration.this, HomePage.class);

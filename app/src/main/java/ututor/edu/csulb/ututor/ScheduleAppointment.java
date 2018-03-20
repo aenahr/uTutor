@@ -36,7 +36,6 @@ public class ScheduleAppointment extends AppCompatActivity {
         if (requestCode == 1) {
             if(resultCode == Activity.RESULT_OK){
                 String result=data.getStringExtra("result");
-
                 Toast.makeText(getApplicationContext(), result , Toast.LENGTH_SHORT).show();
             }
             if (resultCode == Activity.RESULT_CANCELED) {
@@ -48,6 +47,7 @@ public class ScheduleAppointment extends AppCompatActivity {
     public void pickTime(View v){
 
         // TODO send the other User's info and the current User
+        // some sample user that I will delete later
         otherUser = new User();
         otherUser.setEmail("theOtherUser@gmail.com");
         WorkHour monday = new WorkHour();

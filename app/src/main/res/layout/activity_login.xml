@@ -141,7 +141,6 @@
         android:layout_marginTop="20dp"
         android:onClick="byPassLogIn"
         android:text="SKIP"
-
         />
 
 </RelativeLayout>
