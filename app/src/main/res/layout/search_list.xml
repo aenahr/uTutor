@@ -7,65 +7,18 @@
     android:background="@color/colorPrimary"
     android:gravity="center_horizontal">
 
+    <include
+        layout="@layout/searchlist"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycler_view"
+        android:layout_marginTop="50dp"
         android:layout_width="match_parent"
         android:layout_height="630dp"
         android:layout_below="@+id/userInputTutor"
         android:background="@color/colorLightPrimary"
         android:scrollbars="horizontal|vertical" />
-
-
-    <EditText
-        android:id="@+id/userInputTutor"
-        android:layout_width="180dp"
-        android:layout_height="wrap_content"
-        android:drawableLeft="@drawable/search_icon"
-        android:hint="search tutor..."
-        android:inputType="text|textPersonName"
-        android:textColor="@color/colorLightPrimary"
-        android:textColorHint="@color/colorLightPrimary"
-        android:singleLine="false" />
-
-    <Button
-        android:id="@+id/search"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Search"
-        android:layout_alignParentTop="true"
-        android:layout_toRightOf="@id/userInputTutor"
-        android:textColor="@color/colorLightPrimary"
-        android:minWidth="50dp"
-        android:padding="8dp"
-        android:background="@color/colorPrimary"
-        />
-
-    <Button
-        android:id="@+id/filterOption"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Filter"
-        android:layout_alignParentTop="true"
-        android:layout_toRightOf="@id/search"
-        android:background="@color/colorPrimary"
-        android:textColor="@color/colorLightPrimary"
-        android:minWidth="50dp"
-        android:padding="7dp"
-        />
-    <Button
-        android:id="@+id/view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_toRightOf="@id/filterOption"
-        android:text="View"
-        android:background="@color/colorPrimary"
-        android:textColor="@color/colorLightPrimary"
-        android:minWidth="50dp"
-        android:padding="7dp"
-        />
-
-
-
 
 </RelativeLayout>
