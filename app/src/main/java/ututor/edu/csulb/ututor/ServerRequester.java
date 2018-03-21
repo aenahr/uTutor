@@ -40,7 +40,7 @@ public class ServerRequester extends AsyncTask<String, Void, JSONObject> {
      * Default Request Method will be POST
      */
     public ServerRequester() {
-        serverurl = "http://25.85.175.237/";
+        serverurl = "http://ututor-server.us-west-1.elasticbeanstalk.com/";
         method = "POST";
     }
 
@@ -98,6 +98,7 @@ public class ServerRequester extends AsyncTask<String, Void, JSONObject> {
      *              Ex. 'Lance' or '12345' or 'lance@gmail.com'
      *              5.  Key 2: Second $POST variable name
      *              6.  Value 2: Second $POST variable value
+     *              7.  (...)
      *              </OPTIONAL>
      * @return JSON object holding any server response
      */
