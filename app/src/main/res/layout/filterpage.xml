@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/filterpage"
+    android:layout_width="300dp"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimaryDark">
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true">
+
+        <RelativeLayout android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/textview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="110dp"
+                android:layout_toLeftOf="@+id/clearall"
+                android:text="Preferences"
+                android:textColor="@color/colorPrimary"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/clearall"
+                style="@style/Widget.AppCompat.Button.Borderless"
+                android:layout_width="wrap_content"
+                android:layout_height="25dp"
+                android:layout_alignParentEnd="true"
+                android:background="@color/colorPrimaryDark"
+                android:text="Clear all"
+                android:textAppearance="@style/TextAppearance.AppCompat"
+                android:textColor="@color/colorPrimary"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:visibility="visible" />
+
+            <TextView
+                android:id="@+id/sortby"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/textview"
+                android:text="Sort by"
+                android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/sortb1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/sortby"
+                android:text="Distance"
+                android:layout_marginStart="5dp" />
+            <Button
+                android:id="@+id/sortb2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/sortby"
+                android:layout_toEndOf="@+id/sortb1"
+                android:text="Name"
+                android:layout_marginLeft="5dp" />
+            <Button
+                android:id="@+id/sortb3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/sortby"
+                android:layout_toEndOf="@+id/sortb2"
+                android:text="Rating"
+                android:layout_marginLeft="5dp"/>
+
+            <TextView
+                android:id="@+id/distance"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/sortb1"
+                android:text="Distance"
+                android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/distanceb1"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/distance"
+                android:text="1"
+                android:layout_marginLeft="5dp"/>
+            <Button
+                android:id="@+id/distanceb2"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/distance"
+                android:layout_toEndOf="@+id/distanceb1"
+                android:text="2"
+                android:layout_marginLeft="5dp" />
+            <Button
+                android:id="@+id/distanceb3"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/distance"
+                android:layout_toEndOf="@+id/distanceb2"
+                android:text="5"
+                android:layout_marginLeft="5dp"/>
+            <Button
+                android:id="@+id/distanceb4"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/distance"
+                android:layout_toEndOf="@+id/distanceb3"
+                android:text="10"
+                android:layout_marginLeft="5dp"/>
+
+            <TextView
+                android:id="@+id/ratingtext"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/distanceb1"
+                android:text="Ratings"
+                android:textStyle="bold"
+                android:layout_marginTop="12dp"/>
+            <RatingBar
+                android:id="@+id/ratingBar3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/distanceb1"
+                android:layout_toEndOf="@+id/ratingtext"/>
+
+            <EditText
+                android:id="@+id/editText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/ratingtext"
+                android:ems="10"
+                android:inputType="text"
+                android:text="Subjects"
+                android:layout_marginTop="10dp"/>
+
+            <Button
+                android:id="@+id/advsearch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/editText"
+                android:text="Search"
+                android:layout_centerHorizontal="true"/>
+        </RelativeLayout>
+
+    </ScrollView>
+
+</RelativeLayout>
