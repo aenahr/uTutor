@@ -1,28 +1,20 @@
 package ututor.edu.csulb.ututor;
 
-import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.DataOutputStream;
-import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.UnsupportedEncodingException;
+
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.util.List;
+import java.net.URL;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.net.URL;
 import java.util.concurrent.ExecutionException;
 
-import android.content.ContentValues;
 import android.os.AsyncTask;
-import android.util.Log;
 
 /**
  * Primary AsyncTask class that handles server requests
@@ -35,8 +27,7 @@ public class ServerRequester extends AsyncTask<String, Void, JSONObject> {
     static InputStream is = null;
 
     /**
-     * Sets default hostname and protocol to
-     * http://25.85.175.237/
+     * Sets default hostname and protocol to the server's URL and POST
      * Default Request Method will be POST
      */
     public ServerRequester() {
@@ -47,8 +38,8 @@ public class ServerRequester extends AsyncTask<String, Void, JSONObject> {
     /**
      * Sets hostname and protocol to parameter input.
      * Do not put the pagename as the input
-     * Bad Example: http://google.com/somepage.html
      * Good Example: http://google.com/
+     * Bad Example: http://google.com/somepage.html
      * <p>
      * Sets Default Method to POST
      *
@@ -71,7 +62,7 @@ public class ServerRequester extends AsyncTask<String, Void, JSONObject> {
      *                    Expects a string in the form of:
      *                    http://yahoo.com/
      *                    or
-     *                    https://192.158.3.355/
+     *                    http://192.158.3.355/
      * @param meth        Method of the request, case insensitive
      *                    Expects usable method such as:
      *                    POST, GET, HEAD, OPTIONS, PUT, DELETE, or TRACE
@@ -89,15 +80,15 @@ public class ServerRequester extends AsyncTask<String, Void, JSONObject> {
      *              <REQUIRED>
      *              1. Page Name: Will be appended to the server url to direct the request to the proper page
      *              Ex. login.php or userlist.html etc
-     *              2. Web Token: Basic login authentication variable acquired when logging in, leave blank if unimplemented
+     *              2. Web Token: Basic login authentication variable acquired when logging in, leave an blank string if unimplemented
      *              </REQUIRED>
      *              <OPTIONAL>
-     *              3.  Key 1:   Name of the first $POST variable
+     *              3.  Key 1:   Name of the first $_POST variable
      *              Ex. 'username' or 'password' or 'email'
-     *              4.  Value 1:    Value of the first $POST variable
+     *              4.  Value 1:    Value of the first $_POST variable
      *              Ex. 'Lance' or '12345' or 'lance@gmail.com'
-     *              5.  Key 2: Second $POST variable name
-     *              6.  Value 2: Second $POST variable value
+     *              5.  Key 2: Second $_POST variable name
+     *              6.  Value 2: Second $_POST variable value
      *              7.  (...)
      *              </OPTIONAL>
      * @return JSON object holding any server response
@@ -113,7 +104,7 @@ public class ServerRequester extends AsyncTask<String, Void, JSONObject> {
                 jsonResponse.accumulate("Error", "1");
                 return jsonResponse;
             }
-            //Check if there is an odd number of parameters
+            //Check if there is an odd number of parameters, all requests need a url, token, and several key/value pairs
             if (param.length % 2 == 1) {
                 jsonResponse.accumulate("Error", "1");
                 return jsonResponse;
@@ -130,6 +121,7 @@ public class ServerRequester extends AsyncTask<String, Void, JSONObject> {
             String request = parameters.toString();
             System.out.println("Request: " + request);
             urlConnection = (HttpURLConnection) url.openConnection();
+            urlConnection.setConnectTimeout(5000);
             System.out.println("Connection Opened");
             urlConnection.setRequestMethod(method);
             urlConnection.setDoInput(true);
@@ -141,7 +133,7 @@ public class ServerRequester extends AsyncTask<String, Void, JSONObject> {
             write.flush();
             write.close();
 
-            //Connection is actually made here, any response is thrown into the reader
+            //Response is actually made here, any response is thrown into the reader
             BufferedReader in = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
             String inputLine;
             StringBuilder response = new StringBuilder();
@@ -149,7 +141,7 @@ public class ServerRequester extends AsyncTask<String, Void, JSONObject> {
             while ((inputLine = in.readLine()) != null) {
                 response.append(inputLine);
             }
-          //Closes the Input Stream
+            //Closes the Input Stream
             in.close();
             //Creates the JSON object from the response that the server gave
             System.out.println("FINAL Response: " + response.toString());
