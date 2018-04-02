@@ -7,12 +7,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ExpandableListView;
+import android.widget.RadioGroup;
 
 import java.util.HashMap;
 import java.util.List;
 
 
 public class AppointmentManager extends Fragment {
+
 
 
     public AppointmentManager() {

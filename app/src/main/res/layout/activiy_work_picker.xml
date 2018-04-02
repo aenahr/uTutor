@@ -126,6 +126,7 @@
             android:textColor="@color/white"
             android:background="@color/colorPrimary"/></RelativeLayout>
 
+
     <TextView
         android:id="@+id/tTimes"
         android:layout_width="wrap_content"

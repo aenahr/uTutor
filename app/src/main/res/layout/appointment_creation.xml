@@ -129,6 +129,36 @@
             android:fontFamily="sans-serif-black"
             android:text="Location"
             android:textSize="25dp" />
+        <RadioGroup
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/location"
+            android:layout_marginTop="25dp"
+            android:id="@+id/typeConversation"
+            android:orientation="horizontal"
+            android:layout_centerHorizontal="true"
+            >
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/apoint_SMS"
+                android:text="SMS"
+                android:textSize="25dp"
+                android:fontFamily="sans-serif-black"
+                android:checked="true"
+                android:buttonTint="@color/radiocolor"
+                />
+
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/apoint_Email"
+                android:text="Email"
+                android:textSize="25dp"
+                android:fontFamily="sans-serif-black"
+                android:buttonTint="@color/radiocolor"
+                />
+        </RadioGroup>
 
         <TextView
             android:id="@+id/locationOutput"
@@ -165,7 +195,7 @@
             android:id="@+id/sendMessage"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/location"
+            android:layout_below="@+id/typeConversation"
             android:layout_marginTop="15dp"
             android:fontFamily="sans-serif-black"
             android:text="Send Message"

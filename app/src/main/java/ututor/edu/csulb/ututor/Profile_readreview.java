@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.RatingBar;
 import android.widget.TextView;
@@ -28,7 +29,7 @@ public class Profile_readreview extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.profile_readreview);
         listView = (ListView)findViewById(R.id.simpleListView);
         setLisData();
         adapter = new Review_ListViewAdapter(this, R.layout.profile_review_list, arrayList);
@@ -59,6 +60,16 @@ public class Profile_readreview extends AppCompatActivity {
                 feedback.setText("Feedback: " + user.getFeedback());
                 starRate.setText("Your rate: " + user.getRatingStar());
                 Star.setRating(user.getRatingStar());
+
+                Button dismiss = (Button) dialog.findViewById(R.id.Dimiss);
+
+                dismiss.setOnClickListener(new View.OnClickListener() {
+
+                    @Override
+                    public void onClick(View v) {
+                        dialog.dismiss();
+                    }
+                });
 
 
                 dialog.show();

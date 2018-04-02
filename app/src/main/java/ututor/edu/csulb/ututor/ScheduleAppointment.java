@@ -4,9 +4,14 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.telephony.SmsManager;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
@@ -30,6 +35,11 @@ public class ScheduleAppointment extends AppCompatActivity implements DatePicker
     int[] daysOfWeek;
 
 
+    RadioGroup conver_Group;
+    RadioButton sms;
+    RadioButton email;
+    Button set_appointment;
+    EditText apoint_message;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +52,46 @@ public class ScheduleAppointment extends AppCompatActivity implements DatePicker
         dateOutput = findViewById(R.id.dateOutput);
 
         // the other User's stuff
+        apoint_message = (EditText)findViewById(R.id.editSendMessage) ;
+        conver_Group = (RadioGroup)findViewById(R.id.typeConversation);
+        sms = (RadioButton)findViewById(R.id.apoint_SMS);
+        email =(RadioButton)findViewById(R.id.apoint_Email);
+
+
+        set_appointment = (Button)findViewById(R.id.setAppointmentButton);
+        set_appointment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(sms.isChecked())
+                {
+                    sendSMS("800-233-5555",""+apoint_message.getText().toString()); //TODO this is temporary phone number and get text user enter
+
+                }else if (email.isChecked())
+                {
+                    Log.i("Send email", "");
+                    String[] TO = {"123@gmail.com"}; //TODO temporary email and replace by user email
+                    String[] CC = {""};
+                    Intent emailIntent = new Intent(Intent.ACTION_SEND);
+
+                    emailIntent.setData(Uri.parse("mailto:"));
+                    emailIntent.setType("text/plain");
+                    emailIntent.putExtra(Intent.EXTRA_EMAIL, TO);
+                    emailIntent.putExtra(Intent.EXTRA_CC, CC);
+                    emailIntent.putExtra(Intent.EXTRA_SUBJECT, currentUser.getFirstName()+" " + currentUser.getLastName() + " is requesting to make appointment" );
+                    emailIntent.putExtra(Intent.EXTRA_TEXT, " " + apoint_message.getText().toString());
+                    startActivity(emailIntent);
+
+                    try {
+                        startActivity(Intent.createChooser(emailIntent, "Send mail..."));
+                        Log.i("Finished sending email", "");
+                    } catch (android.content.ActivityNotFoundException ex) {
+                        Toast.makeText(ScheduleAppointment.this, "There is no email client installed.", Toast.LENGTH_SHORT).show();
+                    }
+
+                }
+            }
+        });
+
 
     }
 
@@ -56,6 +106,22 @@ public class ScheduleAppointment extends AppCompatActivity implements DatePicker
             if (resultCode == Activity.RESULT_CANCELED) {
                 //Write your code if there's no result
             }
+        }
+    }
+
+    //TODO need to turn on the permission in the emulator
+
+    public void sendSMS(String phoneNo, String msg) {
+
+        try {
+            SmsManager smsManager = SmsManager.getDefault();
+            smsManager.sendTextMessage(phoneNo, null, msg, null, null);
+            Toast.makeText(getApplicationContext(), "Message Sent",
+                    Toast.LENGTH_LONG).show();
+        } catch (Exception ex) {
+            Toast.makeText(getApplicationContext(),"SMS faild, please try again later!",
+                    Toast.LENGTH_LONG).show();
+            ex.printStackTrace();
         }
     }
 
