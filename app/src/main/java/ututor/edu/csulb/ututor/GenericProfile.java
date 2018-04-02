@@ -77,6 +77,7 @@ public class GenericProfile extends AppCompatActivity {
 
         creadreview.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
+                Intent i = new Intent(GenericProfile.this, Profile_readreview.class);
 
             }
         });
