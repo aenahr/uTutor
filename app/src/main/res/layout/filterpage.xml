@@ -54,7 +54,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/sortby"
-                android:text="Distance"
+                android:text="@string/card_name"
                 android:layout_marginStart="5dp" />
             <Button
                 android:id="@+id/sortb2"
@@ -62,7 +62,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/sortby"
                 android:layout_toEndOf="@+id/sortb1"
-                android:text="Name"
+                android:text="@string/card_subject"
                 android:layout_marginLeft="5dp" />
             <Button
                 android:id="@+id/sortb3"
@@ -74,62 +74,23 @@
                 android:layout_marginLeft="5dp"/>
 
             <TextView
-                android:id="@+id/distance"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/sortb1"
-                android:text="Distance"
-                android:textStyle="bold" />
-
-            <Button
-                android:id="@+id/distanceb1"
-                android:layout_width="50dp"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/distance"
-                android:text="1"
-                android:layout_marginLeft="5dp"/>
-            <Button
-                android:id="@+id/distanceb2"
-                android:layout_width="50dp"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/distance"
-                android:layout_toEndOf="@+id/distanceb1"
-                android:text="2"
-                android:layout_marginLeft="5dp" />
-            <Button
-                android:id="@+id/distanceb3"
-                android:layout_width="50dp"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/distance"
-                android:layout_toEndOf="@+id/distanceb2"
-                android:text="5"
-                android:layout_marginLeft="5dp"/>
-            <Button
-                android:id="@+id/distanceb4"
-                android:layout_width="50dp"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/distance"
-                android:layout_toEndOf="@+id/distanceb3"
-                android:text="10"
-                android:layout_marginLeft="5dp"/>
-
-            <TextView
                 android:id="@+id/ratingtext"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/distanceb1"
+                android:layout_below="@+id/sortb1"
                 android:text="Ratings"
                 android:textStyle="bold"
                 android:layout_marginTop="12dp"/>
+
             <RatingBar
                 android:id="@+id/ratingBar3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/distanceb1"
+                android:layout_below="@+id/sortb1"
                 android:layout_toEndOf="@+id/ratingtext"/>
 
             <EditText
-                android:id="@+id/editText"
+                android:id="@+id/searchsubject"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/ratingtext"
@@ -137,14 +98,15 @@
                 android:inputType="text"
                 android:text="Subjects"
                 android:layout_marginTop="10dp"/>
-
-            <Button
-                android:id="@+id/advsearch"
+            <EditText
+                android:id="@+id/searchuniversity"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/editText"
-                android:text="Search"
-                android:layout_centerHorizontal="true"/>
+                android:layout_below="@+id/searchsubject"
+                android:ems="10"
+                android:inputType="text"
+                android:text="Univeristy"
+                android:layout_marginTop="10dp"/>
         </RelativeLayout>
 
     </ScrollView>

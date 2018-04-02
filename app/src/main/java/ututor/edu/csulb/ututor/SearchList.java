@@ -29,7 +29,8 @@ public class SearchList extends Fragment {
         super.onCreateView(inflater, container, savedInstanceState);
         View rootView = inflater.inflate(R.layout.search_list, container, false);
 
-        CreateDataList();
+        CreateDataList();  // data
+
 
         recyclerView = (RecyclerView) rootView.findViewById(R.id.recycler_view);
         layoutManager = new LinearLayoutManager( this.getActivity() );
@@ -40,8 +41,12 @@ public class SearchList extends Fragment {
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adapter);
 
-        EditText userinput = rootView.findViewById(R.id.userInputTutor);
-        userinput.addTextChangedListener(new TextWatcher() {
+        EditText userinput = rootView.findViewById(R.id.userInputTutor);  //gets name from user
+        EditText userinputsubject = rootView.findViewById(R.id.searchsubject);
+
+        //gets subject from user
+
+        userinput.addTextChangedListener(new TextWatcher() {  //does the stuff with the user input
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
@@ -51,10 +56,10 @@ public class SearchList extends Fragment {
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
             }
-
             @Override
             public void afterTextChanged(Editable editable) {
-               //this is where filtering happens
+                // Lance
+               // this is where filtering happens
                 filter(editable.toString());
             }
         });
