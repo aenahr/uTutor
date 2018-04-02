@@ -40,7 +40,7 @@ public class ServerRequester extends AsyncTask<String, Void, JSONObject> {
      * Default Request Method will be POST
      */
     public ServerRequester() {
-        serverurl = "http://25.85.175.237/";
+        serverurl = "http://172.20.10.2/";
         method = "POST";
     }
 

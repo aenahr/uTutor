@@ -14,9 +14,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
-/**
- * Created by aenah on 2/22/18.
- */
 
 public class ScheduleTimePicker extends AppCompatActivity {
 

@@ -32,6 +32,20 @@ public class WorkHour implements Serializable{
 
     public void setEndTime(String s){ endTime = s;}
 
+    public boolean getMONDAY(){ return MONDAY;}
+
+    public boolean getTUESDAY(){ return TUESDAY;}
+
+    public boolean getWEDNESDAY(){ return WEDNESDAY;}
+
+    public boolean getTHURSDAY(){ return THURSDAY;}
+
+    public boolean getFRIDAY(){ return FRIDAY;}
+
+    public boolean getSATURDAY(){ return SATURDAY;}
+
+    public boolean getSUNDAY(){ return SUNDAY;}
+
     public void setMONDAY(boolean b){
         MONDAY =b;
     }

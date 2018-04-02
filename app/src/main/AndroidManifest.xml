@@ -55,10 +55,6 @@
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
 
-        <activity android:name=".SampleActivity"
-            android:theme="@style/AppTheme.NoActionBar">
-        </activity>
-
         <activity android:name=".WorkHourPicker"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
@@ -80,6 +76,9 @@
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
         <activity android:name=".Profile_Bio"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+        <activity android:name=".AppointmentTimePicker"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
 

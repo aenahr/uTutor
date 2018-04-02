@@ -92,7 +92,8 @@
             android:minWidth="50dp"
             android:text="..."
             android:textColor="@color/white"
-            android:textSize="20dp" />
+            android:textSize="20dp"
+            android:onClick="pickDate"/>
 
         <TextView
             android:id="@+id/timeStart"
@@ -157,7 +158,8 @@
             android:minWidth="50dp"
             android:text="..."
             android:textColor="@color/white"
-            android:textSize="20dp" />
+            android:textSize="20dp"
+            android:onClick="pickLocation"/>
 
         <TextView
             android:id="@+id/sendMessage"

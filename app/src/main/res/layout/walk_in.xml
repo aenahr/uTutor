@@ -34,7 +34,7 @@
             android:textSize="20dp"
             android:layout_below="@+id/titleWalkIn"
             android:layout_marginTop="50dp"
-            android:layout_marginLeft="50dp"
+            android:layout_marginLeft="30dp"
             android:textColor="@color/colorLightPrimary"/>
 
         <TextView
@@ -64,7 +64,7 @@
             android:textSize="20dp"
             android:layout_below="@+id/tutorEmail"
             android:layout_marginTop="10dp"
-            android:layout_marginLeft="50dp"/>
+            android:layout_marginLeft="30dp"/>
 
         <EditText
             android:id="@+id/inputTuteeEmail"
@@ -95,7 +95,7 @@
             android:textSize="20dp"
             android:layout_below="@+id/tuteeEmail"
             android:layout_marginTop="10dp"
-            android:layout_marginLeft="50dp"/>
+            android:layout_marginLeft="30dp"/>
 
         <TextView
             android:id="@+id/generateDate"

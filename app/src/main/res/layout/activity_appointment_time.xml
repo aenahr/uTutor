@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".AppointmentTimePicker"
+    android:background="@color/colorPrimary"
+    >
+
+    <TextView
+        android:id="@+id/currentDate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textSize="35dp"
+        android:text="DATE SCHEDULE"
+        android:textColor="@color/colorLightPrimary"
+        android:fontFamily="sans-serif-light"
+        android:layout_marginBottom="5dp"
+        android:layout_marginTop="5dp"/>
+    <ScrollView
+        android:id="@+id/scrollDay"
+        android:layout_width="match_parent"
+        android:layout_height="315dp"
+        android:clipToPadding="false"
+        android:layout_below="@+id/currentDate"
+        android:layout_centerHorizontal="true"
+        android:paddingTop="10dp"
+        >
+        <com.framgia.library.calendardayview.CalendarDayView
+            android:id="@+id/calendar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:eventMarginLeft="0dp"
+            app:dayHeight="@dimen/dayHeight" />
+    </ScrollView>
+
+    <TextView
+        android:id="@+id/startTimeTitle"
+        android:textSize="25dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/scrollDay"
+        android:layout_centerHorizontal="true"
+        android:textColor="@color/colorLightPrimary"
+        android:text="START TIME"/>
+
+    <LinearLayout
+        android:id="@+id/startTimeData"
+        android:layout_width="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/startTimeTitle"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/generatedStartDate"
+            android:textSize="18dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/scrollDay"
+            android:layout_centerHorizontal="true"
+            android:textColor="@color/colorLightPrimary"
+            android:text="START DATE"
+            android:fontFamily="sans-serif-light"
+            android:layout_marginRight="15dp"/>
+        <TextView
+            android:id="@+id/startTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="18dp"
+            android:text="00:00"
+            android:clickable="true"
+            android:fontFamily="sans-serif-light"
+            android:textColor="@color/colorLightPrimary"
+            android:onClick="AddTime"/>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/endTimeTitle"
+        android:textSize="25dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/startTimeData"
+        android:layout_centerHorizontal="true"
+        android:textColor="@color/colorLightPrimary"
+        android:text="END TIME"/>
+
+    <LinearLayout
+        android:id="@+id/endTimeData"
+        android:layout_width="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/endTimeTitle"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/endDate"
+            android:textSize="18dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/scrollDay"
+            android:layout_centerHorizontal="true"
+            android:textStyle="italic"
+            android:textColor="@color/colorLightPrimary"
+            android:text="YYYY-DD-MM"
+            android:fontFamily="sans-serif-light"
+            android:layout_marginRight="15dp"
+            android:clickable="true"
+            android:onClick="EndDate"/>
+        <TextView
+            android:id="@+id/endTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="18dp"
+            android:text="00:00"
+            android:clickable="true"
+            android:fontFamily="sans-serif-light"
+            android:textColor="@color/colorLightPrimary"
+            android:onClick="EndTime"/>
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/checkInput"
+        android:text="Set Times"
+        android:layout_marginTop="10dp"
+        android:layout_below="@+id/endTimeData"
+        android:layout_centerHorizontal="true"
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="CheckInput"/>
+
+</RelativeLayout>
