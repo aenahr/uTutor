@@ -72,11 +72,15 @@ public class SearchList extends Fragment {
         if(text != null && !text.isEmpty()) {
             ArrayList<NewItem> filteredList = new ArrayList<>();
 
-            for (NewItem item : DataList) {
-                if (item.getText1().toLowerCase().contains(text.toLowerCase())) {
-                    filteredList.add(item);
-                }
-            }
+//            String[] name = text.split(" ");
+//            String firstname = name[0];
+//            String lastname = name[1];
+//
+//            for (NewItem item : DataList) {
+//                if (item.getfirstname().toLowerCase().contains(firstname.toLowerCase()) && item.getlastname().toLowerCase().contains(lastname.toLowerCase())) {
+//                    filteredList.add(item);
+//                }
+//            }
             adapter.filterList(filteredList);
         } else {
             ArrayList<NewItem> filteredList = new ArrayList<>();
@@ -88,6 +92,7 @@ public class SearchList extends Fragment {
         DataList = new ArrayList<>();
         DataList.add(new NewItem(R.drawable.search_icon, "Aenah Ramones", "Computer Science"));
         DataList.add(new NewItem(R.drawable.search_icon, "Nishant Saxena", "Computer Science"));
+        DataList.add(new NewItem(R.drawable.search_icon, "Shikha Saxena", "Speech Pathology"));
         DataList.add(new NewItem(R.drawable.search_icon, "Lance McVicar", "Computer Science"));
         DataList.add(new NewItem(R.drawable.search_icon, "Henry Tran", "Line 2"));
         DataList.add(new NewItem(R.drawable.search_icon, "Shahar Janjua", "Line 2"));

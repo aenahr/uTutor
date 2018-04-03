@@ -9,6 +9,7 @@ public class NewItem
     private int mImage;
     private String mText1;
     private String mText2;
+    private String mText3;
     public NewItem(int image, String text1, String text2) {
         mImage = image;
         mText1 = text1;
@@ -17,10 +18,14 @@ public class NewItem
     public int getImage() {
         return mImage;
     }
-    public String getText1() {
+
+    public String getfirstname() {
         return mText1;
     }
-    public String getText2() {
+    public String getlastname() {
         return mText2;
+    }
+    public String getsubject() {
+        return mText3;
     }
 }
