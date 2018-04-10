@@ -42,7 +42,7 @@ public class SearchList extends Fragment {
         recyclerView.setAdapter(adapter);
 
         EditText userinput = rootView.findViewById(R.id.userInputTutor);  //gets name from user
-        EditText userinputsubject = rootView.findViewById(R.id.searchsubject);
+        //EditText userinputsubject = rootView.findViewById(R.id.searchsubject);
 
         //gets subject from user
 
@@ -72,15 +72,15 @@ public class SearchList extends Fragment {
         if(text != null && !text.isEmpty()) {
             ArrayList<NewItem> filteredList = new ArrayList<>();
 
-//            String[] name = text.split(" ");
-//            String firstname = name[0];
-//            String lastname = name[1];
-//
-//            for (NewItem item : DataList) {
-//                if (item.getfirstname().toLowerCase().contains(firstname.toLowerCase()) && item.getlastname().toLowerCase().contains(lastname.toLowerCase())) {
-//                    filteredList.add(item);
-//                }
-//            }
+            String[] name = text.split(" ");
+            String firstname = name[0];
+            String lastname = name[1];
+
+            for (NewItem item : DataList) {
+                if (item.getfirstname().toLowerCase().contains(firstname.toLowerCase())) {
+                    filteredList.add(item);
+                }
+            }
             adapter.filterList(filteredList);
         } else {
             ArrayList<NewItem> filteredList = new ArrayList<>();
@@ -90,15 +90,15 @@ public class SearchList extends Fragment {
 
     private void CreateDataList() {
         DataList = new ArrayList<>();
-        DataList.add(new NewItem(R.drawable.search_icon, "Aenah Ramones", "Computer Science"));
-        DataList.add(new NewItem(R.drawable.search_icon, "Nishant Saxena", "Computer Science"));
-        DataList.add(new NewItem(R.drawable.search_icon, "Shikha Saxena", "Speech Pathology"));
-        DataList.add(new NewItem(R.drawable.search_icon, "Lance McVicar", "Computer Science"));
-        DataList.add(new NewItem(R.drawable.search_icon, "Henry Tran", "Line 2"));
-        DataList.add(new NewItem(R.drawable.search_icon, "Shahar Janjua", "Line 2"));
-        DataList.add(new NewItem(R.drawable.bacon, "Chris P. Bacon", "Line 2"));
-        DataList.add(new NewItem(R.drawable.search_icon, "Ella Vader", "Line 2"));
-        DataList.add(new NewItem(R.drawable.search_icon, "Bend Dover", "Line 2"));
-        DataList.add(new NewItem(R.drawable.search_icon, "Al Bino", "Line 2"));
+        DataList.add(new NewItem(R.drawable.search_icon, "Aenah", "Ramones", "Computer Science","Available","CSULB",3.50f));
+        DataList.add(new NewItem(R.drawable.search_icon, "Nishant", "Saxena", "Computer Science","Available","CSULB",3.00f));
+        DataList.add(new NewItem(R.drawable.search_icon, "Shikha", "Saxena", "Speech Pathology","Available","FSU",4.60f));
+        DataList.add(new NewItem(R.drawable.search_icon, "Lance"," McVicar", "Computer Science","Available","CSULB",2.00f));
+        DataList.add(new NewItem(R.drawable.search_icon, "Henry"," Tran", "Line 2","Available","CSULB",5f));
+        DataList.add(new NewItem(R.drawable.search_icon, "Shahar"," Janjua", "Line 2","Available","CSULB",1.5f));
+        DataList.add(new NewItem(R.drawable.bacon, "Chris"," P. Bacon", "Line 2","Available","CSULB",5f));
+        DataList.add(new NewItem(R.drawable.search_icon, "Ella"," Vader", "Line 2","Available","CSULB",3.4f));
+        DataList.add(new NewItem(R.drawable.search_icon, "Bend"," Dover", "Line 2","Available","CSULB",2.4f));
+        DataList.add(new NewItem(R.drawable.search_icon, "Al"," Bino", "Line 2","Available","CSULB",3f));
     }
 }

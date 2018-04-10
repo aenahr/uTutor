@@ -7,25 +7,32 @@ package ututor.edu.csulb.ututor;
 public class NewItem
 {
     private int mImage;
-    private String mText1;
-    private String mText2;
-    private String mText3;
-    public NewItem(int image, String text1, String text2) {
+    private String fname, lname, subject;
+    private String status, university;
+    Float rating;
+
+    public NewItem(int image, String firstname, String lastname, String sub, String status1, String uni, Float ratingg) {
         mImage = image;
-        mText1 = text1;
-        mText2 = text2;
+        fname = firstname;
+        lname = lastname;
+        subject = sub;
+        status = status1;
+        university = uni;
+        rating = ratingg;
     }
+
     public int getImage() {
         return mImage;
     }
 
     public String getfirstname() {
-        return mText1;
+        return fname;
     }
     public String getlastname() {
-        return mText2;
+        return lname;
     }
-    public String getsubject() {
-        return mText3;
-    }
+    public String getstatus() { return status;   }
+    public String getuniversity() { return university; }
+
+    public Float getrating() { return rating;   }
 }
