@@ -30,17 +30,22 @@ public class ScheduleAppointment extends AppCompatActivity implements DatePicker
     User otherUser;
     int hi= RESULT_OK;
     TextView dateOutput;
-    int year;
-    int monthOfYear;
-    int dayOfMonth;
+    TextView timeOutput;
+
+    // date selected specified by the user
+    Calendar dateSpecified;
+    // available days (from the current YEAR)
     int[] daysOfWeek;
 
 
+    // object initialization
     RadioGroup conver_Group;
     RadioButton sms;
     RadioButton email;
     Button set_appointment;
     EditText apoint_message;
+    String startTime;
+    String endTime;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,7 +55,31 @@ public class ScheduleAppointment extends AppCompatActivity implements DatePicker
         Intent i = getIntent();
         currentUser = (User)i.getSerializableExtra("currentUser");
 
+        // TODO - dummy user... delete later
+        otherUser = new User();
+        otherUser.setEmail("theOtherUser@gmail.com");
+//            WorkHour w = new WorkHour();
+//            w.setMONDAY(true);
+//            w.setWEDNESDAY(true);
+//            WorkHour h = new WorkHour();
+//            h.setFRIDAY(true);
+//            otherUser.addNewHour(w);
+//            otherUser.addNewHour(h);
+
+        WorkHour monday = new WorkHour();
+        monday.setMONDAY(true);
+        monday.setStartTime("07:00"+":00");
+        monday.setEndTime("10:30"+":00");
+        otherUser.addNewHour(monday);
+
+        WorkHour monday2 = new WorkHour();
+        monday2.setMONDAY(true);
+        monday2.setStartTime("20:00"+":00");
+        monday2.setEndTime("23:50"+":00");
+        otherUser.addNewHour(monday2);
+
         dateOutput = findViewById(R.id.dateOutput);
+        timeOutput = findViewById(R.id.timeOutput);
 
         // the other User's stuff
         apoint_message = (EditText)findViewById(R.id.editSendMessage) ;
@@ -101,8 +130,9 @@ public class ScheduleAppointment extends AppCompatActivity implements DatePicker
 
         if (requestCode == 1) {
             if(resultCode == Activity.RESULT_OK){
-                String result=data.getStringExtra("result");
-                Toast.makeText(getApplicationContext(), result , Toast.LENGTH_SHORT).show();
+                startTime =data.getStringExtra("startTime");
+                endTime =data.getStringExtra("endTime");
+                timeOutput.setText(startTime + " - " + endTime);
             }
             if (resultCode == Activity.RESULT_CANCELED) {
                 //Write your code if there's no result
@@ -126,33 +156,32 @@ public class ScheduleAppointment extends AppCompatActivity implements DatePicker
         }
     }
 
+    /**
+     * Button that allows user to choose the time based on the date chosen.
+     * @param v
+     */
     public void pickTime(View v){
+        // send date
+
 
         if(dateOutput.getText().toString().equals("Date output...")){// if you haven't changed a date yet
             Toast.makeText(this, "Please select a date first.", Toast.LENGTH_SHORT).show();
-
         }
         else{
-            // TODO send the other User's info and the current User
-            // some sample user that I will delete later
-            otherUser = new User();
-            otherUser.setEmail("theOtherUser@gmail.com");
-            WorkHour monday = new WorkHour();
-            monday.setMONDAY(true);
-            monday.setStartTime("07:00"+":00");
-            monday.setEndTime("10:30"+":00");
-            otherUser.addNewHour(monday);
-
             // send currentUser and otherUser's data to TimePicker
             Intent toTime = new Intent(this, AppointmentTimePicker.class);
             toTime.putExtra("currentUser", currentUser);
             toTime.putExtra("otherUser", otherUser);
+            toTime.putExtra("dateChosen", dateSpecified);
             startActivityForResult(toTime, 1);
-
         }
 
     }
 
+    /**
+     * User gets to select a day based on his/her work hours.
+     * @param v
+     */
     public void pickDate(View v){
         // set min date - user shouldn't be able to schedule an appointment past the current day...
         // YOU ARE ONLY ALLOWED TO SCHEDULE AN APPOINTMENT ONE DAY BEFORE
@@ -169,14 +198,6 @@ public class ScheduleAppointment extends AppCompatActivity implements DatePicker
         // IMPORTANT - single out the days the actual user tutors
         // TODO temporary other user - erase later
         // get other users available days
-        WorkHour w = new WorkHour();
-        w.setMONDAY(true);
-        w.setWEDNESDAY(true);
-        WorkHour h = new WorkHour();
-        h.setFRIDAY(true);
-        otherUser = new User();
-        otherUser.addNewHour(w);
-        otherUser.addNewHour(h);
 
         // gets other user's work hour
         initializeDayOfWeek();
@@ -223,9 +244,14 @@ public class ScheduleAppointment extends AppCompatActivity implements DatePicker
     @Override
     public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {
 
-        //set selected date in the Date Output for visual purposes
+        // set selected date in the Date Output for visual purposes
         dateOutput.setText(String.format("%d-%d-%d", monthOfYear+1, dayOfMonth, year));
-//        Toast.makeText(this, String.format("You selected %d/%d, %d", monthOfYear, dayOfMonth, year), Toast.LENGTH_SHORT).show();
+
+        // update current user's chosen date
+        dateSpecified = Calendar.getInstance();
+        dateSpecified.set(Calendar.MONTH, monthOfYear);
+        dateSpecified.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+        dateSpecified.set(Calendar.YEAR, year);
     }
 
     public boolean isWithinDays(int currentDayOfWeek){
@@ -249,9 +275,8 @@ public class ScheduleAppointment extends AppCompatActivity implements DatePicker
         }
     }
 
-
     public void pickLocation(View v){
-        Intent toLocation = new Intent(this, AppointmentTimePicker.class);
-        startActivity(toLocation);
+//        Intent toLocation = new Intent(this, AppointmentTimePicker.class);
+//        startActivity(toLocation);
     }
 }

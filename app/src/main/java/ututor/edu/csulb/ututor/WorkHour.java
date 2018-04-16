@@ -28,6 +28,10 @@ public class WorkHour implements Serializable{
         SUNDAY = false;
     }
 
+    public String getStartTime(){ return startTime;}
+
+    public String getEndTime(){ return endTime;}
+
     public void setStartTime(String s){ startTime = s;}
 
     public void setEndTime(String s){ endTime = s;}

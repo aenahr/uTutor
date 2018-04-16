@@ -14,20 +14,29 @@
         android:focusableInTouchMode="true">
 
         <TextView
+            android:id="@+id/titleAppointment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:fontFamily="sans-serif-light"
+            android:text="Set Appointment"
+            android:layout_centerHorizontal="true"
+            android:textSize="45dp" />
+
+        <TextView
             android:id="@+id/tutorEmail"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
-            android:fontFamily="sans-serif-black"
+            android:layout_below="@+id/titleAppointment"
+            android:layout_centerHorizontal="true"
             android:text="Tutor Email"
             android:textSize="25dp" />
         <TextView
             android:id="@+id/userInputTutorEmail"
             android:layout_width="200dp"
             android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="20dp"
-            android:layout_marginTop="30dp"
+            android:layout_below="@+id/tutorEmail"
+            android:layout_centerHorizontal="true"
             android:background="@drawable/edit_text_background"
             android:text="test@gmail.com"
             android:padding="5dp"
@@ -38,8 +47,8 @@
             android:id="@+id/tuteeEmail"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="82dp"
-            android:fontFamily="sans-serif-black"
+            android:layout_below="@+id/userInputTutorEmail"
+            android:layout_centerHorizontal="true"
             android:text="Your Email"
             android:textSize="25dp" />
 
@@ -47,9 +56,8 @@
             android:id="@+id/userInputTuteeName"
             android:layout_width="200dp"
             android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="20dp"
-            android:layout_marginTop="80dp"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/tuteeEmail"
             android:background="@drawable/edit_text_background"
             android:text="currentUser's email"
             android:padding="5dp"
@@ -60,80 +68,100 @@
             android:id="@+id/date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="132dp"
-            android:fontFamily="sans-serif-black"
+            android:layout_below="@+id/userInputTuteeName"
+            android:layout_centerHorizontal="true"
             android:text="Date"
             android:textSize="25dp" />
 
-        <TextView
-            android:id="@+id/dateOutput"
-            android:layout_width="200dp"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="70dp"
-            android:layout_marginTop="130dp"
-            android:background="@drawable/edit_text_background"
-            android:text="Date output..."
-            android:textAlignment="center"
-            android:textStyle="italic"
-            android:padding="5dp"
-            android:textSize="20dp" />
-
-        <Button
-            android:id="@+id/dateInput"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_below="@id/userInputTuteeName"
-            android:layout_marginRight="10dp"
-            android:layout_marginTop="17dp"
-            android:background="@color/colorPrimary"
-            android:minHeight="30dp"
-            android:minWidth="50dp"
-            android:text="..."
-            android:textColor="@color/white"
-            android:textSize="20dp"
-            android:onClick="pickDate"/>
-
-        <TextView
-            android:id="@+id/timeStart"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+        <LinearLayout
+            android:id="@+id/dateLayout"
+            android:layout_width="match_parent"
             android:layout_below="@+id/date"
+            android:gravity="center"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/dateOutput"
+                android:layout_width="230dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/edit_text_background"
+                android:text="Date output..."
+                android:layout_marginRight="5dp"
+                android:textAlignment="center"
+                android:textStyle="italic"
+                android:padding="5dp"
+                android:textSize="20dp" />
+
+            <Button
+                android:id="@+id/dateInput"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/colorPrimary"
+                android:minHeight="30dp"
+                android:minWidth="50dp"
+                android:text="..."
+                android:textColor="@color/white"
+                android:textSize="20dp"
+                android:onClick="pickDate"/>
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/dateLayout"
+            android:layout_centerHorizontal="true"
             android:layout_marginTop="15dp"
-            android:fontFamily="sans-serif-black"
-            android:text="Time Start"
+            android:text="Time"
             android:textSize="25dp" />
 
-        <TextView
-            android:id="@+id/editTimeStart"
-            android:layout_width="200dp"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_below="@+id/date"
-            android:layout_marginRight="20dp"
-            android:layout_marginTop="18dp"
-            android:background="@drawable/edit_text_background"
-            android:hint="click to edit time..."
-            android:padding="5dp"
-            android:textAlignment="center"
-            android:onClick="pickTime"/>
+        <LinearLayout
+            android:id="@+id/timeLayout"
+            android:layout_width="match_parent"
+            android:layout_below="@+id/time"
+            android:gravity="center"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/timeOutput"
+                android:layout_width="230dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/edit_text_background"
+                android:text="XX:XX - XX:XX"
+                android:layout_marginRight="5dp"
+                android:textAlignment="center"
+                android:textStyle="italic"
+                android:padding="5dp"
+                android:textSize="20dp" />
+
+            <Button
+                android:id="@+id/timeInput"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/colorPrimary"
+                android:minHeight="30dp"
+                android:minWidth="50dp"
+                android:text="..."
+                android:textColor="@color/white"
+                android:textSize="20dp"
+                android:onClick="pickTime"/>
+        </LinearLayout>
 
 
+
         <TextView
-            android:id="@+id/location"
+            android:id="@+id/sendMessage"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/timeStart"
+            android:layout_below="@+id/timeLayout"
             android:layout_marginTop="15dp"
-            android:fontFamily="sans-serif-black"
-            android:text="Location"
-            android:textSize="25dp" />
+            android:layout_centerHorizontal="true"
+            android:text="Send Message"
+            android:fontFamily="sans-serif-light"
+            android:textSize="35dp" />
+
         <RadioGroup
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/location"
-            android:layout_marginTop="25dp"
+            android:layout_below="@id/sendMessage"
             android:id="@+id/typeConversation"
             android:orientation="horizontal"
             android:layout_centerHorizontal="true"
@@ -144,9 +172,8 @@
                 android:id="@+id/apoint_SMS"
                 android:text="SMS"
                 android:textSize="25dp"
-                android:fontFamily="sans-serif-black"
+                android:textColor="@color/colorPrimaryDark"
                 android:checked="true"
-                android:buttonTint="@color/radiocolor"
                 />
 
             <RadioButton
@@ -155,57 +182,15 @@
                 android:id="@+id/apoint_Email"
                 android:text="Email"
                 android:textSize="25dp"
-                android:fontFamily="sans-serif-black"
-                android:buttonTint="@color/radiocolor"
+                android:textColor="@color/colorPrimaryDark"
                 />
         </RadioGroup>
-
-        <TextView
-            android:id="@+id/locationOutput"
-            android:layout_width="180dp"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_below="@+id/editTimeStart"
-            android:layout_marginRight="70dp"
-            android:layout_marginTop="15dp"
-            android:background="@drawable/edit_text_background"
-            android:text="Location output..."
-            android:textAlignment="center"
-            android:textStyle="italic"
-            android:padding="5dp"
-            android:textSize="20dp" />
-
-        <Button
-            android:id="@+id/locationInput"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_below="@id/editTimeStart"
-            android:layout_marginRight="10dp"
-            android:layout_marginTop="19dp"
-            android:background="@color/colorPrimary"
-            android:minHeight="30dp"
-            android:minWidth="50dp"
-            android:text="..."
-            android:textColor="@color/white"
-            android:textSize="20dp"
-            android:onClick="pickLocation"/>
-
-        <TextView
-            android:id="@+id/sendMessage"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/typeConversation"
-            android:layout_marginTop="15dp"
-            android:fontFamily="sans-serif-black"
-            android:text="Send Message"
-            android:textSize="25dp" />
 
         <EditText
             android:id="@+id/editSendMessage"
             android:layout_width="match_parent"
             android:layout_height="285dp"
-            android:layout_below="@+id/sendMessage"
+            android:layout_below="@+id/typeConversation"
             android:layout_margin="5dp"
             android:background="@drawable/edit_text_background"
             android:gravity="top|left"
@@ -216,14 +201,13 @@
 
         <Button
             android:id="@+id/setAppointmentButton"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/editSendMessage"
             android:layout_centerHorizontal="true"
-            android:background="@drawable/button_round"
             android:text="Set Appointment"
-            android:textColor="@color/white"
-            android:visibility="visible" />
+            style="@style/Widget.AppCompat.Button.Colored"
+            />
 
     </RelativeLayout>
 

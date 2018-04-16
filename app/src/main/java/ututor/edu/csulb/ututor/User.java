@@ -36,8 +36,7 @@ public class User implements Serializable{
         workHours = new ArrayList<WorkHour>();
         uUniversity = "NONE";
         uDescription = "NULL";
-
-
+        
     }
 
     public String getDescription(){
@@ -48,6 +47,7 @@ public class User implements Serializable{
             return uDescription;
         }
     }
+
     public int getuNumProfilePic(){ return uNumProfilePic;}
 
     public float getRating(){ return rating;}

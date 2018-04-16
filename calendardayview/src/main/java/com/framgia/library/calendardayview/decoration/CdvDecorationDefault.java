@@ -45,7 +45,11 @@ public class CdvDecorationDefault implements CdvDecoration {
     @Override
     public DayView getDayView(int hour) {
         DayView dayView = new DayView(mContext);
-        dayView.setText(String.format("%1$2s:00", hour));
+        if(hour == 24){
+            dayView.setText("");
+            dayView.setHourSeparatorAsInvisible();
+        }
+        else{ dayView.setText(String.format("%1$2s:00", hour)); }
         return dayView;
     }
 
