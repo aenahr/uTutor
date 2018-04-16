@@ -35,8 +35,6 @@ public class MyProfile_Bio extends AppCompatActivity {
         // get user's data
         Intent i = getIntent();
         currentUser = (User)i.getSerializableExtra("currentUser");
-
-
         mFName = (TextView) findViewById(R.id.gbio_firstname);
         mLName = (TextView) findViewById(R.id.gbio_lastname);
         mEmail = (TextView) findViewById(R.id.gbio_email);
