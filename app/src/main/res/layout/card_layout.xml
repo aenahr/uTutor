@@ -24,43 +24,66 @@
         android:layout_height="50dp"
         android:background="@drawable/button_round"
         android:padding="4dp"
-        android:layout_marginEnd="20dp" />
+        android:layout_marginEnd="15dp" />
 
     <TextView
-        android:id="@+id/item_name"
+        android:id="@+id/item_firstname"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_toEndOf="@+id/item_image"
-        android:text = "@string/card_name"
+        android:text = "First name"
         android:textColor="@android:color/black"
         android:textSize="10sp"
         android:textStyle="bold"
         android:layout_marginTop="15dp"
-        android:layout_marginEnd="20dp"/>
-    <TextView
-        android:id="@+id/item_subject"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_toEndOf="@+id/item_name"
-        android:text = "@string/card_subject"
-        android:textColor="@android:color/black"
-        android:textSize="10sp"
-        android:textStyle="bold"
-        android:layout_marginTop="15dp"
-        android:layout_marginEnd="20dp"/>
+        android:layout_marginEnd="5dp"/>
 
-    <!--add textview for walk in status -->
     <TextView
-        android:id="@+id/WalkinStaus"
+        android:id="@+id/item_lastname"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_toEndOf="@+id/item_subject"
+        android:layout_toEndOf="@+id/item_firstname"
+        android:text = "Last name"
+        android:textColor="@android:color/black"
+        android:textSize="10sp"
+        android:textStyle="bold"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="15dp"/>
+    <TextView
+        android:id="@+id/WalkinStatus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@+id/item_firstname"
+        android:layout_alignTop="@+id/item_lastname"
         android:text = "@string/card_walkin"
         android:textColor="@android:color/black"
         android:textSize="10sp"
         android:textStyle="bold"
         android:layout_marginTop="15dp"
-        android:layout_marginEnd="20dp"/>
+        android:layout_marginEnd="15dp"/>
+    <TextView
+        android:id="@+id/university"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@+id/item_lastname"
+        android:text = "University"
+        android:textColor="@android:color/black"
+        android:textSize="10sp"
+        android:textStyle="bold"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="15dp"/>
+
+    <android.support.v7.widget.AppCompatRatingBar
+        android:id="@+id/searchrating"
+        style="@android:style/Widget.Material.Light.RatingBar.Small"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/university"
+        android:layout_toEndOf="@+id/university"
+        android:numStars="5"
+        android:rating="3"
+        android:stepSize="0.5" />
+
 </RelativeLayout>
 
 </android.support.v7.widget.CardView>

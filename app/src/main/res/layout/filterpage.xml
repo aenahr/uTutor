@@ -96,8 +96,9 @@
                 android:layout_below="@+id/ratingtext"
                 android:ems="10"
                 android:inputType="text"
-                android:text="Subjects"
+                android:text="Subject"
                 android:layout_marginTop="10dp"/>
+
             <EditText
                 android:id="@+id/searchuniversity"
                 android:layout_width="wrap_content"
