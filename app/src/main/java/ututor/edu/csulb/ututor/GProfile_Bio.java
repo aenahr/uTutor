@@ -12,9 +12,11 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 
-public class Profile_Bio extends AppCompatActivity {
+public class GProfile_Bio extends AppCompatActivity {
 
     User currentUser;
+    User otherUser;
+
     TextView mFName;
     TextView mLName;
     TextView mEmail;
@@ -32,7 +34,7 @@ public class Profile_Bio extends AppCompatActivity {
 
         // get user's data
         Intent i = getIntent();
-        currentUser = (User)i.getSerializableExtra("currentUser");
+        otherUser = (User)i.getSerializableExtra("otherUser"); // TODO temporary keyword it will replace by keyword with Nissant keyword
 
 
         mFName = (TextView) findViewById(R.id.gbio_firstname);
@@ -52,8 +54,8 @@ public class Profile_Bio extends AppCompatActivity {
         });
 
         // check if tutor or not
-        if(currentUser.isTutor() == true){
-            ArrayList<String> subjects = currentUser.getSubjectsTaught();
+        if(otherUser.isTutor() == true){
+            ArrayList<String> subjects = otherUser.getSubjectsTaught();
             if(subjects.isEmpty()){ mSubjects.setText("None"); }
             else{
                 StringBuilder stringBuilder = new StringBuilder();
@@ -69,12 +71,12 @@ public class Profile_Bio extends AppCompatActivity {
             mSubjectsTitle.setVisibility(View.INVISIBLE);
         }
 
-        // set data for current user
-        mFName.setText(currentUser.getFirstName());
-        mLName.setText(currentUser.getLastName());
-        mEmail.setText(currentUser.getEmail());
-        mDescription.setText(currentUser.getDescription());
-        mEducation.setText(currentUser.getUniversity());
+        //set data for other user
+        mFName.setText(otherUser.getFirstName());
+        mLName.setText(otherUser.getLastName());
+        mEmail.setText(otherUser.getEmail());
+        mDescription.setText(otherUser.getDescription());
+        mEducation.setText(otherUser.getUniversity());
 
 
     }

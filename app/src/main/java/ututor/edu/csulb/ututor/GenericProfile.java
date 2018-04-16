@@ -2,24 +2,20 @@ package ututor.edu.csulb.ututor;
 
 import android.content.Intent;
 import android.graphics.Color;
-import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RatingBar;
 import android.widget.TextView;
-
-import org.w3c.dom.Text;
+import android.widget.Toast;
 
 
 public class GenericProfile extends AppCompatActivity {
 
 
     TextView user_name;
+    ImageView user_image;
     TextView favorite;
     LinearLayout cbiography;
     LinearLayout cfavorite;
@@ -28,6 +24,9 @@ public class GenericProfile extends AppCompatActivity {
     LinearLayout crate;
     LinearLayout schedule_appointment;
     boolean click = true;
+
+    User currentUser;
+    User otherUser;
 
 
 
@@ -40,45 +39,79 @@ public class GenericProfile extends AppCompatActivity {
 
         user_name = (TextView) findViewById(R.id.userName);
         cbiography = (LinearLayout) findViewById(R.id.gprofile_cardBio);
+        cfavorite = (LinearLayout)findViewById(R.id.gprofile_cardFavorite);
         crate = (LinearLayout) findViewById(R.id.gprofile_cardRate);
         cmessage = (LinearLayout) findViewById(R.id.gprofile_cardMessage);
         creadreview = (LinearLayout) findViewById(R.id.gprofile_cardReadReview);
         schedule_appointment = (LinearLayout) findViewById(R.id.gprofile_cardScheduleAppoint);
+        user_image = (ImageView)findViewById(R.id.profile_userImage);
 
 
 
-        user_name.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View view) {
+        // get user's data
+        Intent i = getIntent();
+        currentUser = (User)i.getSerializableExtra("currentUser");
+        otherUser = (User)i.getSerializableExtra("otherUser"); // TODO temporary keyword it will replace by keyword with Nissant keyword
 
-            }
-        });
+        user_name.setText(otherUser.getFirstName()+" " + otherUser.getLastName());
+        //get other user image
+        ProfilePicture p = new ProfilePicture(this);
+        p.setColor(otherUser.getuNumProfilePic());
+        user_image.setImageBitmap(p.getBitmapColor());
+
+
 
         cbiography.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
-                Intent i = new Intent(GenericProfile.this, Profile_Bio.class);
+                Intent i = new Intent(GenericProfile.this, GProfile_Bio.class);
+                i.putExtra("otherUser", otherUser);
+                startActivity(i);
 
             }
         });
 
-        crate.setOnClickListener(new View.OnClickListener() {
+        cfavorite.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
-                if (click) {
-                    favorite = (TextView) findViewById(R.id.Favorite);
-                    favorite.setTextColor(Color.parseColor("#FFC107"));
-                    click=false;
+                if (currentUser.getEmail().equals(otherUser.getEmail()))
+                {
+                    Toast.makeText(GenericProfile.this, "You cannot favorite yourself",Toast.LENGTH_LONG).show();
                 }else
                 {
-                    favorite.setTextColor(Color.parseColor("#CFD8DC"));
-                    click =true;
-                }
+                    if (click) {
+                        favorite = (TextView) findViewById(R.id.Favorite);
+                        favorite.setTextColor(Color.parseColor("#FFC107"));
+                        click=false;
+                    }else
+                    {
+                        favorite.setTextColor(Color.parseColor("#CFD8DC"));
+                        click =true;
+                    }
 
+                }
+            }
+        });
+        crate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (currentUser.getEmail().equals(otherUser.getEmail()))
+                {
+                    Toast.makeText(GenericProfile.this,"You can not rate yourself",Toast.LENGTH_LONG).show();
+                }
+                else
+                {
+                    Intent i = new Intent(GenericProfile.this,Gprofile_rateTutor.class);
+                    i.putExtra("currentUser",currentUser);
+                    i.putExtra("otherUser",otherUser);
+                    startActivity(i);
+                }
             }
         });
 
         creadreview.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 Intent i = new Intent(GenericProfile.this, Profile_readreview.class);
-
+                i.putExtra("otherUser", otherUser);
+                startActivity(i);
             }
         });
 
@@ -86,7 +119,17 @@ public class GenericProfile extends AppCompatActivity {
 
         schedule_appointment.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
-
+                startActivity(new Intent(GenericProfile.this, ScheduleAppointment.class));
+                if (currentUser.getEmail().equals(otherUser.getEmail()))
+                {
+                    Toast.makeText(GenericProfile.this,"You can not make an appointment yourself",Toast.LENGTH_LONG).show();
+                }else
+                {
+                    Intent i = new Intent(GenericProfile.this,ScheduleAppointment.class);
+                    i.putExtra("currentUser",currentUser);
+                    i.putExtra("otherUser",otherUser);
+                    startActivity(i);
+                }
             }
         });
 

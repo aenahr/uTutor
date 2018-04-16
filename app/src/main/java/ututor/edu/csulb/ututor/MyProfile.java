@@ -14,7 +14,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 
 public class MyProfile extends Fragment {
@@ -84,7 +83,7 @@ public class MyProfile extends Fragment {
                 else{
                     // TODO diredct user to view bio
 //                    Toast.makeText(getActivity(), "Going to view", Toast.LENGTH_SHORT).show();
-                    Intent i = new Intent(getActivity(), Profile_Bio.class);
+                    Intent i = new Intent(getActivity(), MyProfile_Bio.class);
                     i.putExtra("currentUser", currentUser);
                     startActivity(i);
                 }

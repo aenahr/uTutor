@@ -99,9 +99,10 @@ public class ScheduleAppointment extends AppCompatActivity implements DatePicker
                 }else if (email.isChecked())
                 {
                     Log.i("Send email", "");
-                    String[] TO = {"123@gmail.com"}; //TODO temporary email and replace by user email
+                    String[] TO = {"123@gmail.com"}; // TODO the temporary email that will replace by user email
                     String[] CC = {""};
                     Intent emailIntent = new Intent(Intent.ACTION_SEND);
+
 
                     emailIntent.setData(Uri.parse("mailto:"));
                     emailIntent.setType("text/plain");

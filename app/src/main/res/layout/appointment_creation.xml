@@ -194,7 +194,7 @@
             android:layout_margin="5dp"
             android:background="@drawable/edit_text_background"
             android:gravity="top|left"
-            android:hint="click to edit time..."
+            android:hint="Enter your message....."
             android:inputType="textMultiLine"
             android:maxLength="150"
             android:scrollbars="vertical" />

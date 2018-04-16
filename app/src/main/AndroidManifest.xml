@@ -80,7 +80,10 @@
         <activity android:name=".Profile_readreview"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
-        <activity android:name=".Profile_Bio"
+        <activity android:name=".GProfile_Bio"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+        <activity android:name=".MyProfile_Bio"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
         <activity android:name=".AppointmentTimePicker"
