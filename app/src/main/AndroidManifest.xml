@@ -87,6 +87,11 @@
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
 
+        <activity android:name=".Searchlist_filter"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+
+
 
         <meta-data
             android:name="com.google.android.gms.version"

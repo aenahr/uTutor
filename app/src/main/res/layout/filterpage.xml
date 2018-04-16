@@ -108,6 +108,7 @@
                 android:inputType="text"
                 android:text="Univeristy"
                 android:layout_marginTop="10dp"/>
+
         </RelativeLayout>
 
     </ScrollView>

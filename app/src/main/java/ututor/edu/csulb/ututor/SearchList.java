@@ -1,6 +1,7 @@
 package ututor.edu.csulb.ututor;
 
 
+import android.content.Intent;
 import android.media.Rating;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -11,6 +12,7 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RatingBar;
 import android.widget.TextView;
@@ -37,6 +39,23 @@ public class SearchList extends Fragment {
 
         super.onCreateView(inflater, container, savedInstanceState);
         View rootView = inflater.inflate(R.layout.search_list, container, false);
+
+        Button advsearch = (Button) rootView.findViewById(R.id.advsearch);
+        advsearch.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v){
+                startActivity(new Intent(getActivity(), Searchlist_filter.class));
+
+            }
+        });
+
+        Button search = (Button) rootView.findViewById(R.id.search);
+        advsearch.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v){
+                startActivity(new Intent(getActivity(), SearchList.class));
+
+            }
+        });
+
 
         CreateDataList();  // data
 
