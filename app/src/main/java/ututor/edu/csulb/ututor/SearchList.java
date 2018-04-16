@@ -44,18 +44,15 @@ public class SearchList extends Fragment {
         advsearch.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
                 startActivity(new Intent(getActivity(), Searchlist_filter.class));
-
             }
         });
 
         Button search = (Button) rootView.findViewById(R.id.search);
-        advsearch.setOnClickListener(new View.OnClickListener(){
+        search.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
                 startActivity(new Intent(getActivity(), SearchList.class));
-
             }
         });
-
 
         CreateDataList();  // data
 
