@@ -1,6 +1,7 @@
 package ututor.edu.csulb.ututor;
 
 
+import android.media.Rating;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -11,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import org.json.JSONException;
@@ -27,7 +29,8 @@ public class SearchList extends Fragment {
     private RecyclerView recyclerView;
     private RecyclerView.LayoutManager layoutManager;
     private RecyclerAdapter adapter;
-    private  EditText userinput, searchuni;
+    private EditText userinput, searchuni,searchsubj;
+    private RatingBar searchrating;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -51,8 +54,10 @@ public class SearchList extends Fragment {
         //EditText userinputsubject = rootView.findViewById(R.id.searchsubject);
 
         searchuni = rootView.findViewById(R.id.searchuniversity);
+        searchrating = rootView.findViewById(R.id.ratingBar3);
+        searchsubj = rootView.findViewById(R.id.searchsubject);
 
-       // searchuni.getText().toString();
+        // searchuni.getText().toString();
         //gets subject from user
 
         userinput.addTextChangedListener(new TextWatcher() {  //does the stuff with the user input
@@ -81,17 +86,17 @@ public class SearchList extends Fragment {
     private void filter(String text) {
 
         JSONObject response = null;
-        try { //Will internally test for Current Email and Password Matches, Returns Success if successful
-            String[] name =  userinput.getText().toString().split(" ");
-            String firstname = name[0];
-            String lastname = name[1];
+        try {
+//            String[] name =  userinput.getText().toString().split(" ");
+ //          String firstname = name[0];
+   //         String lastname = name[1];
             response = new ServerRequester().execute("search.php", "whatever",
-                    "firstName", firstname.toLowerCase(),
-                    "lastName", "eh",
-                    "subject", "eh",
-                    "university",  "eh",
-                    "rating",  "eh").get();
-            if (response == null) {//Something went horribly , JSON failed to be formed meaning something happened in the server requester
+                    "firstName", userinput.getText().toString(),
+                    "subject", searchsubj.getText().toString(),
+                    "university", searchuni.getText().toString(),
+                    "rating",  Float.toString(searchrating.getRating())
+                    ).get();
+            if (response == null) {//Something went horribly wrong, JSON failed to be formed meaning something happened in the server requester
             } else if (!response.isNull("error")) {//Some incorrect information was sent, but the server and requester still processed it
                 //TODO Handle Server Errors
                 switch(response.get("error").toString()) {
