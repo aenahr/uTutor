@@ -144,7 +144,8 @@ public class SearchList extends Fragment {
                 while (keys.hasNext()) {
                     JSONObject next = (JSONObject) response.get(keys.next());
                     System.out.println("YA GOT HERE KIDDO");
-                    filteredList.add(new NewItem(R.drawable.back_arrow, next.get("firstName").toString(), next.get("lastName").toString(), "",next.get("walkinStatus").toString(), next.get("university").toString(), Float.parseFloat(next.get("averageRating").toString())));
+
+                    filteredList.add(new NewItem(Integer.parseInt(next.get("profilePic").toString()), next.get("firstName").toString(), next.get("lastName").toString(), next.get("email").toString(),next.get("walkinStatus").toString(), next.get("university").toString(), Float.parseFloat(next.get("averageRating").toString())));
                     System.out.println(next.toString());
                 }
                 for(NewItem e : filteredList){

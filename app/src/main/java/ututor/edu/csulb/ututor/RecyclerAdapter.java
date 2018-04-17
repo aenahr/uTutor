@@ -13,6 +13,8 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
+import static java.sql.Types.NULL;
+
 
 public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHolder> {
 
@@ -38,7 +40,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
                     int position = getAdapterPosition();
                     //code for get information for that item
 
-                    Snackbar.make(v, "Hi " + Data.get(position).getfirstname() + "  " + Data.get(position).getlastname(),
+                    Snackbar.make(v, "Email: " + Data.get(position).getemail(),
                             Snackbar.LENGTH_LONG)
                             .setAction("Action", null).show();
                             //opens a snackbar for individual click
@@ -63,7 +65,25 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
     @Override
     public void onBindViewHolder(ViewHolder holder, int i) {
         NewItem currentItem = Data.get(i);
-        holder.itemImage.setImageResource(currentItem.getImage());
+
+        int picCode = currentItem.getImage();
+
+        if( picCode == 0 ){ //blue
+            holder.itemImage.setImageResource(R.drawable.ututorlogo);
+        } else if( picCode == 1 ){ // red
+            holder.itemImage.setImageResource( R.drawable.tutorhead_red);
+        } else if(picCode == 2) // green
+        {
+            holder.itemImage.setImageResource( R.drawable.tutorhead_green);
+        } else if(picCode == 3) // yellow
+        {
+            holder.itemImage.setImageResource( R.drawable.tutorhead_yellow);
+        } else if( picCode == 4)// purple
+        {
+            holder.itemImage.setImageResource( R.drawable.tutorhead_purple);
+        }
+
+        //holder.itemImage.setImageResource(R.drawable.ututorlogo);
 
         holder.itemfirstName.setText(currentItem.getfirstname());
         holder.itemlastName.setText(currentItem.getlastname());
