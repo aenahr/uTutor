@@ -9,13 +9,14 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
 
 public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHolder> {
 
-    private ArrayList<NewItem> Data;
+    private static ArrayList<NewItem> Data;
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         public ImageView itemImage;
@@ -35,10 +36,9 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override public void onClick(View v) {
                     int position = getAdapterPosition();
-                    //for to determine which profile to go to
-                    //intent, startactivity()
+                    //code for get information for that item
 
-                    Snackbar.make(v, "Click detected on item " + position,
+                    Snackbar.make(v, "Hi " + Data.get(position).getfirstname() + "  " + Data.get(position).getlastname(),
                             Snackbar.LENGTH_LONG)
                             .setAction("Action", null).show();
                             //opens a snackbar for individual click

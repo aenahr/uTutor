@@ -7,15 +7,16 @@ package ututor.edu.csulb.ututor;
 public class NewItem
 {
     private int mImage;
-    private String fname, lname, subject;
+    private String fname, lname;
     private String status, university;
-    Float rating;
+    private String email;
+    private Float rating;
 
-    public NewItem(int image, String firstname, String lastname, String sub, String status1, String uni, Float ratingg) {
+    public NewItem(int image, String firstname, String lastname, String email1, String status1, String uni, Float ratingg) {
         mImage = image;
         fname = firstname;
         lname = lastname;
-        subject = sub;
+        email = email1;
         status = status1;
         university = uni;
         rating = ratingg;
@@ -31,6 +32,7 @@ public class NewItem
     public String getlastname() {
         return lname;
     }
+    public String getemail() { return email;   }
     public String getstatus() { return status;   }
     public String getuniversity() { return university; }
 
