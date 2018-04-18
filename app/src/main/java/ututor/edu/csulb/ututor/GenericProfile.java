@@ -36,7 +36,7 @@ public class GenericProfile extends AppCompatActivity {
     public void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.my_profile);
+        setContentView(R.layout.genericprofile);
 
         user_name = (TextView) findViewById(R.id.userName);
         cbiography = (LinearLayout) findViewById(R.id.gprofile_cardBio);
@@ -52,14 +52,15 @@ public class GenericProfile extends AppCompatActivity {
         // get user's data
         Intent i = getIntent();
         currentUser = (User)i.getSerializableExtra("currentUser");
-        otherUser = (User)i.getSerializableExtra("otherUser"); // TODO temporary keyword it will replace by keyword with Nissant keyword
+        otherUser = (User)i.getSerializableExtra("otherUser");
+
+        System.out.println(otherUser.getFirstName());
 
         user_name.setText(otherUser.getFirstName()+" " + otherUser.getLastName());
         //get other user image
         ProfilePicture p = new ProfilePicture(this);
         p.setColor(otherUser.getuNumProfilePic());
         user_image.setImageBitmap(p.getBitmapColor());
-
 
 
         cbiography.setOnClickListener(new View.OnClickListener() {

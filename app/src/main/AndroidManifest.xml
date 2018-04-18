@@ -94,6 +94,13 @@
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
 
+        <activity android:name=".GenericProfile"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+
+        <activity android:name=".Gprofile_rateTutor"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
 
 
         <meta-data

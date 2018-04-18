@@ -49,7 +49,7 @@
     <ListView
         android:id="@+id/aList"
         android:layout_width="337dp"
-        android:layout_height="390dp"
+        android:layout_height="405dp"
         android:background="@drawable/regular_border"
         android:layout_centerHorizontal="true"
         android:layout_below="@+id/buttons"

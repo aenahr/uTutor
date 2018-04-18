@@ -36,6 +36,9 @@ public class ScheduleAppointment extends AppCompatActivity implements DatePicker
     TextView dateOutput;
     TextView timeOutput;
 
+    TextView tutorEmail;
+    TextView tuteeEmail;
+
     // date selected specified by the user
     Calendar dateSpecified;
     // available days (from the current YEAR)
@@ -91,17 +94,20 @@ public class ScheduleAppointment extends AppCompatActivity implements DatePicker
         monday2.setEndTime("23:50"+":00");
         otherUser.addNewHour(monday2);
 
+        //initialize objects
         dateOutput = findViewById(R.id.dateOutput);
         timeOutput = findViewById(R.id.timeOutput);
-
-        // the other User's stuff
+        tutorEmail = (TextView) findViewById(R.id.viewTutorEmail);
+        tuteeEmail = (TextView) findViewById(R.id.viewTuteeEmail);
+        tutorEmail.setText(otherUser.getEmail());
+        tuteeEmail.setText(currentUser.getEmail());
         apoint_message = (EditText)findViewById(R.id.editSendMessage) ;
         conver_Group = (RadioGroup)findViewById(R.id.typeConversation);
         sms = (RadioButton)findViewById(R.id.apoint_SMS);
         email =(RadioButton)findViewById(R.id.apoint_Email);
-
-
         set_appointment = (Button)findViewById(R.id.setAppointmentButton);
+
+
         set_appointment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -178,7 +184,7 @@ public class ScheduleAppointment extends AppCompatActivity implements DatePicker
         // send date
 
 
-        if(dateOutput.getText().toString().equals("Date output...")){// if you haven't changed a date yet
+        if(dateOutput.getText().toString().equals("Select Date...")){// if you haven't changed a date yet
             Toast.makeText(this, "Please select a date first.", Toast.LENGTH_SHORT).show();
         }
         else{
@@ -289,8 +295,12 @@ public class ScheduleAppointment extends AppCompatActivity implements DatePicker
         }
     }
 
-    public void pickLocation(View v){
-//        Intent toLocation = new Intent(this, AppointmentTimePicker.class);
-//        startActivity(toLocation);
+    @Override
+    public void onBackPressed()
+    {
+        // code here to show dialog
+        super.onBackPressed();  // optional depending on your needs
     }
+
+
 }

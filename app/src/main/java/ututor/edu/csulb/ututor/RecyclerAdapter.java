@@ -1,5 +1,6 @@
 package ututor.edu.csulb.ututor;
 
+import android.content.Context;
 import android.content.Intent;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.RecyclerView;
@@ -19,6 +20,8 @@ import static java.sql.Types.NULL;
 public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHolder> {
 
     private static ArrayList<NewItem> Data;
+    private static User currentUser;
+    private static Context searchContext;
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         public ImageView itemImage;
@@ -40,18 +43,33 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
                     int position = getAdapterPosition();
                     //code for get information for that item
 
-                    Snackbar.make(v, "Email: " + Data.get(position).getemail(),
-                            Snackbar.LENGTH_LONG)
-                            .setAction("Action", null).show();
-                            //opens a snackbar for individual click
-                            //so redirection to profile will happen here
+                    // TODO - LAAAAAANCE: FETCH ME THE USER'S EMAIL
+                    // the otherUser's email is found by : Data.get(position).getemail()
+                    // DUMMY USER - DELETE AFTER QUEREY IS DONE :)
+                    User otherUser = new User();
+                    otherUser.setFirstName("Herp");
+                    otherUser.setLastName("Derp");
+                    otherUser.setEmail("herpderp@gmail.com");
+                    otherUser.setUniversity("CSULB");
+                    otherUser.setRating(3f);
+                    otherUser.setDescription("My name is HerpDerp! I am here to herp your derp.");
+                    otherUser.setNumProfilePic(2);
+                    // delete up to here ^
+
+                    Intent i = new Intent(searchContext, GenericProfile.class);
+                    i.putExtra("currentUser", currentUser);
+                    i.putExtra("otherUser", otherUser);
+                    searchContext.startActivity(i);
+
                 }
             });
         }
     } //end of class ViewHolder
 
-    public RecyclerAdapter(ArrayList<NewItem> DataList) {
+    public RecyclerAdapter(ArrayList<NewItem> DataList, User cUser, Context c) {
         Data = DataList;
+        currentUser = cUser;
+        searchContext = c;
     }
 
     @Override

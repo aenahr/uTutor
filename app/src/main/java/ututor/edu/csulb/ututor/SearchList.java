@@ -37,11 +37,17 @@ public class SearchList extends Fragment {
     private RatingBar searchrating;
     private Button search;
 
+    private User currentUser;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         super.onCreateView(inflater, container, savedInstanceState);
         View rootView = inflater.inflate(R.layout.search_list, container, false);
+
+        // get user information
+        Intent i = getActivity().getIntent();
+        currentUser = (User)i.getSerializableExtra("currentUser");
 
         Button advsearch = (Button) rootView.findViewById(R.id.advsearch);
         advsearch.setOnClickListener(new View.OnClickListener() {
@@ -60,7 +66,7 @@ public class SearchList extends Fragment {
         layoutManager = new LinearLayoutManager(this.getActivity());
 
         ArrayList<NewItem> filteredList = new ArrayList<>();
-        adapter = new RecyclerAdapter(filteredList);  //initialise adapter with empty array
+        adapter = new RecyclerAdapter(filteredList, currentUser, getActivity());  //initialise adapter with empty array
 
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adapter);

@@ -19,9 +19,9 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:fontFamily="sans-serif-light"
-            android:text="Set Appointment"
+            android:text="SET APPOINTMENT"
             android:layout_centerHorizontal="true"
-            android:textSize="45dp" />
+            android:textSize="40dp" />
 
         <TextView
             android:id="@+id/tutorEmail"
@@ -32,8 +32,8 @@
             android:text="Tutor Email"
             android:textSize="25dp" />
         <TextView
-            android:id="@+id/userInputTutorEmail"
-            android:layout_width="200dp"
+            android:id="@+id/viewTutorEmail"
+            android:layout_width="330dp"
             android:layout_height="wrap_content"
             android:layout_below="@+id/tutorEmail"
             android:layout_centerHorizontal="true"
@@ -47,14 +47,14 @@
             android:id="@+id/tuteeEmail"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/userInputTutorEmail"
+            android:layout_below="@+id/viewTutorEmail"
             android:layout_centerHorizontal="true"
             android:text="Your Email"
             android:textSize="25dp" />
 
         <TextView
-            android:id="@+id/userInputTuteeName"
-            android:layout_width="200dp"
+            android:id="@+id/viewTuteeEmail"
+            android:layout_width="330dp"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_below="@+id/tuteeEmail"
@@ -68,7 +68,7 @@
             android:id="@+id/date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/userInputTuteeName"
+            android:layout_below="@+id/viewTuteeEmail"
             android:layout_centerHorizontal="true"
             android:text="Date"
             android:textSize="25dp" />
@@ -81,10 +81,10 @@
             android:layout_height="wrap_content">
             <TextView
                 android:id="@+id/dateOutput"
-                android:layout_width="230dp"
+                android:layout_width="275dp"
                 android:layout_height="wrap_content"
                 android:background="@drawable/edit_text_background"
-                android:text="Date output..."
+                android:text="Select Date..."
                 android:layout_marginRight="5dp"
                 android:textAlignment="center"
                 android:textStyle="italic"
@@ -122,7 +122,7 @@
             android:layout_height="wrap_content">
             <TextView
                 android:id="@+id/timeOutput"
-                android:layout_width="230dp"
+                android:layout_width="275dp"
                 android:layout_height="wrap_content"
                 android:background="@drawable/edit_text_background"
                 android:text="XX:XX - XX:XX"
