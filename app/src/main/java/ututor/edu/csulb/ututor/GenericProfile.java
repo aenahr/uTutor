@@ -24,10 +24,12 @@ public class GenericProfile extends AppCompatActivity {
     LinearLayout creadreview;
     LinearLayout crate;
     LinearLayout schedule_appointment;
-    boolean click = true;
+    ImageView starImage;
 
     User currentUser;
     User otherUser;
+
+    boolean isFavorite;
 
 
 
@@ -46,21 +48,39 @@ public class GenericProfile extends AppCompatActivity {
         creadreview = (LinearLayout) findViewById(R.id.gprofile_cardReadReview);
         schedule_appointment = (LinearLayout) findViewById(R.id.gprofile_cardScheduleAppoint);
         user_image = (ImageView)findViewById(R.id.profile_userImage);
+        favorite = (TextView) findViewById(R.id.wordFavorite);
+        starImage = (ImageView)findViewById(R.id.starFavorite);
 
 
+        // TODO database: find if favorite relationship
+        // dummy variable
+        isFavorite = false;
 
         // get user's data
         Intent i = getIntent();
         currentUser = (User)i.getSerializableExtra("currentUser");
         otherUser = (User)i.getSerializableExtra("otherUser");
 
-        System.out.println(otherUser.getFirstName());
 
-        user_name.setText(otherUser.getFirstName()+" " + otherUser.getLastName());
-        //get other user image
+        // set full name
+        String fullName = otherUser.getFirstName()+" " + otherUser.getLastName();
+        user_name.setText(fullName);
+
+        //set display image
         ProfilePicture p = new ProfilePicture(this);
         p.setColor(otherUser.getuNumProfilePic());
         user_image.setImageBitmap(p.getBitmapColor());
+
+        // set favorite color/word
+        if(isFavorite){
+            starImage.setBackgroundResource(R.drawable.ic_star_colored);
+            favorite.setText("Unfavorite User");
+
+        }else{
+            starImage.setBackgroundResource(R.drawable.ic_star_border_black_24dp);
+            favorite.setText("Favorite User");
+        }
+
 
 
         cbiography.setOnClickListener(new View.OnClickListener() {
@@ -74,33 +94,28 @@ public class GenericProfile extends AppCompatActivity {
 
         cfavorite.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
-                if (currentUser.getEmail().equals(otherUser.getEmail()))
-                {
-                    Toast.makeText(GenericProfile.this, "You cannot favorite yourself",Toast.LENGTH_LONG).show();
-                }else
-                {
-                    if (click) {
-                        favorite = (TextView) findViewById(R.id.Favorite);
-                        favorite.setTextColor(Color.parseColor("#FFC107"));
-                        click=false;
-                    }else
-                    {
-                        favorite.setTextColor(Color.parseColor("#CFD8DC"));
-                        click =true;
+                if (currentUser.getEmail().equals(otherUser.getEmail())) { Toast.makeText(GenericProfile.this, "You cannot favorite yourself",Toast.LENGTH_LONG).show();}
+                else {
+                    if(!isFavorite){
+                        //TODO database : create favorite relationship
+                        starImage.setBackgroundResource(R.drawable.ic_star_colored);
+                        favorite.setText("Unfavorite User");
+                        isFavorite = true;
+                    }else{
+                        // TODO database : delete favorite relationship
+                        starImage.setBackgroundResource(R.drawable.ic_star_border_black_24dp);
+                        favorite.setText("Favorite User");
+                        isFavorite = false;
                     }
-
                 }
             }
         });
         crate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (currentUser.getEmail().equals(otherUser.getEmail()))
-                {
-                    Toast.makeText(GenericProfile.this,"You can not rate yourself",Toast.LENGTH_LONG).show();
-                }
-                else
-                {
+                if (currentUser.getEmail().equals(otherUser.getEmail())) {Toast.makeText(GenericProfile.this,"You cannot rate yourself.",Toast.LENGTH_LONG).show();}
+                else {
+                    // go to rate tutor page
                     Intent i = new Intent(GenericProfile.this,Gprofile_rateTutor.class);
                     i.putExtra("currentUser",currentUser);
                     i.putExtra("otherUser",otherUser);
@@ -121,13 +136,12 @@ public class GenericProfile extends AppCompatActivity {
 
         schedule_appointment.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
-                startActivity(new Intent(GenericProfile.this, ScheduleAppointment.class));
                 if (currentUser.getEmail().equals(otherUser.getEmail()))
                 {
-                    Toast.makeText(GenericProfile.this,"You can not make an appointment yourself",Toast.LENGTH_LONG).show();
+                    Toast.makeText(GenericProfile.this,"You cannot make an appointment with yourself.",Toast.LENGTH_LONG).show();
                 }else
                 {
-                    Intent i = new Intent(GenericProfile.this,ScheduleAppointment.class);
+                    Intent i = new Intent(GenericProfile.this, ScheduleAppointment.class);
                     i.putExtra("currentUser",currentUser);
                     i.putExtra("otherUser",otherUser);
                     startActivity(i);
@@ -135,24 +149,5 @@ public class GenericProfile extends AppCompatActivity {
             }
         });
 
-
-
-
     }
-/*
-    public void addListenerOnRatingBar() {
-
-        ratebar = (RatingBar) findViewById(R.id.ratingBar2);
-
-        //if rating value is changed,
-        //display the current rating value in the result (textview) automatically
-        ratebar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
-            public void onRatingChanged(RatingBar ratingBar, float rating,
-                                        boolean fromUser) {
-
-
-            }
-        });
-    }
-    */
 }

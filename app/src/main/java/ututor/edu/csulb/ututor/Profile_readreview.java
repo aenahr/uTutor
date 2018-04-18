@@ -52,13 +52,11 @@ public class Profile_readreview extends AppCompatActivity {
 
                 TextView username = (TextView) dialog.findViewById(R.id.user_name);
                 TextView feedback = (TextView) dialog.findViewById(R.id.username_feedback);
-                TextView starRate = (TextView) dialog.findViewById(R.id.rate);
                 RatingBar Star = (RatingBar) dialog.findViewById(R.id.rate_detail);
 
                 Profile_review_detail user = (Profile_review_detail) parent.getAdapter().getItem(position);
-                username.setText("Username: " + user.getName());
-                feedback.setText("Feedback: " + user.getFeedback());
-                starRate.setText("Your rate: " + user.getRatingStar());
+                username.setText(user.getName());
+                feedback.setText(user.getFeedback());
                 Star.setRating(user.getRatingStar());
 
                 Button dismiss = (Button) dialog.findViewById(R.id.Dimiss);
@@ -79,7 +77,7 @@ public class Profile_readreview extends AppCompatActivity {
 
     private void setLisData() {
         arrayList = new ArrayList<>();
-        arrayList.add(new Profile_review_detail(1, "Aneah", "A very positive experience. Christie is encouraging, supportive, and highly knowledgeable. The resources she has provided are useful and greatly help my understanding and confidence of the subject."));
+        arrayList.add(new Profile_review_detail(1, "Aenah", "A very positive experience. Christie is encouraging, supportive, and highly knowledgeable. The resources she has provided are useful and greatly help my understanding and confidence of the subject."));
         arrayList.add(new Profile_review_detail(2, "Bacon", "Thank you so much for a great lesson!"));
         arrayList.add(new Profile_review_detail(3, "Henry", "Covered a whole section of Mechanics thoroughly."));
         arrayList.add(new Profile_review_detail(3, "Lance", "He was extremely helpful."));

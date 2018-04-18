@@ -1,60 +1,90 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/colorLightPrimary">
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:hint=" Feedback"
-        android:textSize="25dp"
-        android:textStyle="bold"
+        android:layout_marginTop="40dp"
+        android:text="REVIEW"
+        android:fontFamily="sans-serif-light"
+        android:textSize="50dp"
         android:layout_centerHorizontal="true"
-        android:id="@+id/text"/>
+        android:layout_marginBottom="10dp"
+        android:id="@+id/text"
+        android:textColor="@color/colorPrimaryDark"/>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/text"
+        android:text="Username"
+        android:textSize="35dp"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/username"
+        android:textColor="@color/colorPrimaryDark"
+        android:fontFamily="sans-serif-light"
+        android:layout_below="@id/text"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/username"
+        android:gravity="center"
         android:id="@+id/user_name"
-        android:layout_marginTop="15dp"
-        android:hint="username"
+        android:text="username"
         android:layout_centerHorizontal="true"
-        android:textSize="20dp"/>
+        android:layout_marginBottom="10dp"
+        android:textSize="25dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Feedback"
+        android:textSize="35dp"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/feedbackTitle"
+        android:textColor="@color/colorPrimaryDark"
+        android:fontFamily="sans-serif-light"
+        android:layout_below="@id/user_name"/>
 
     <TextView
         android:id="@+id/username_feedback"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/user_name"
-        android:layout_marginTop="15dp"
-        android:hint="user's feedback"
+        android:gravity="center"
+        android:layout_below="@+id/feedbackTitle"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:text="user's feedback"
+        android:layout_marginBottom="10dp"
         android:layout_centerHorizontal="true"
-        android:textSize="20dp" />
+        android:textSize="25dp" />
 
     <TextView
-        android:id="@+id/rate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/username_feedback"
-        android:layout_marginTop="15dp"
-        android:hint="Rate Number"
+        android:text="Rating"
+        android:textSize="35dp"
         android:layout_centerHorizontal="true"
-        android:textSize="20dp"/>
+        android:id="@+id/rating"
+        android:textColor="@color/colorPrimaryDark"
+        android:fontFamily="sans-serif-light"
+        android:layout_below="@id/username_feedback"/>
     <RatingBar
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:numStars="5"
-        android:layout_below="@+id/rate"
+        android:layout_below="@+id/rating"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="15dp"
         android:id="@+id/rate_detail"/>
     <Button
-        android:layout_width="wrap_content"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:id="@+id/Dimiss"
         android:layout_below="@+id/rate_detail"
-        android:layout_marginTop="55dp"
+        android:background="@color/colorPrimaryDark"
+        android:text="OK"
+        android:textColor="@color/white"
+        android:layout_marginTop="30dp"
         android:layout_centerHorizontal="true"/>
-
-
 
 </RelativeLayout>

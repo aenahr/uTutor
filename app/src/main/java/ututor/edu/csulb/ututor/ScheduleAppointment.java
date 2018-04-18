@@ -99,13 +99,17 @@ public class ScheduleAppointment extends AppCompatActivity implements DatePicker
         timeOutput = findViewById(R.id.timeOutput);
         tutorEmail = (TextView) findViewById(R.id.viewTutorEmail);
         tuteeEmail = (TextView) findViewById(R.id.viewTuteeEmail);
-        tutorEmail.setText(otherUser.getEmail());
-        tuteeEmail.setText(currentUser.getEmail());
         apoint_message = (EditText)findViewById(R.id.editSendMessage) ;
         conver_Group = (RadioGroup)findViewById(R.id.typeConversation);
         sms = (RadioButton)findViewById(R.id.apoint_SMS);
         email =(RadioButton)findViewById(R.id.apoint_Email);
         set_appointment = (Button)findViewById(R.id.setAppointmentButton);
+
+        // set tutee and tutor emails
+        tutorEmail.setText(otherUser.getEmail());
+        if(currentUser != null) {
+            tuteeEmail.setText(currentUser.getEmail());
+        }
 
 
         set_appointment.setOnClickListener(new View.OnClickListener() {

@@ -121,13 +121,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <ImageView
-                android:id="@+id/star"
+                android:id="@+id/starFavorite"
                 android:layout_width="36dp"
                 android:layout_height="36dp"
-                android:src="@drawable/ic_star_border_black_24dp"
+                android:background="@drawable/ic_star_border_black_24dp"
                 />
             <TextView
-                android:id="@+id/Favorite"
+                android:id="@+id/wordFavorite"
                 android:textStyle="bold"
                 android:layout_gravity="center_vertical"
                 android:layout_width="wrap_content"
@@ -189,7 +189,7 @@
             <ImageView
                 android:layout_width="36dp"
                 android:layout_height="36dp"
-                android:src="@mipmap/ic_schedule_appoint"/>
+                android:src="@drawable/ic_calendar"/>
             <TextView
                 android:id="@+id/schedule_appoint"
                 android:textStyle="bold"

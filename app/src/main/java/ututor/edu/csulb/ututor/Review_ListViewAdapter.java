@@ -73,7 +73,7 @@ public class Review_ListViewAdapter extends ArrayAdapter<Profile_review_detail> 
 
         public ViewHolder(View view) {
             ratingBar = (RatingBar) view.findViewById(R.id.RatingBar_list);
-            userName_Feed = (TextView) view.findViewById(R.id.text);
+            userName_Feed = (TextView) view.findViewById(R.id.textView);
         }
     }
 }
