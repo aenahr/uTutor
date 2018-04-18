@@ -17,7 +17,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Username"
+        android:text="Name"
         android:textSize="35dp"
         android:layout_centerHorizontal="true"
         android:id="@+id/username"
@@ -75,6 +75,7 @@
         android:numStars="5"
         android:layout_below="@+id/rating"
         android:layout_centerHorizontal="true"
+        android:isIndicator="true"
         android:id="@+id/rate_detail"/>
     <Button
         android:layout_width="300dp"

@@ -74,7 +74,7 @@ public class SearchList extends Fragment {
         userinput = rootView.findViewById(R.id.userInputTutor);  //gets name from user
         //EditText userinputsubject = rootView.findViewById(R.id.searchsubject);
 
-        searchuni = rootView.findViewById(R.id.searchuniversity);
+        searchuni = rootView.findViewById(R.id.searchUni);
         searchrating = rootView.findViewById(R.id.ratingBar3);
         searchsubj = rootView.findViewById(R.id.searchsubject);
 

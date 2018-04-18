@@ -50,18 +50,18 @@
                 android:textStyle="bold" />
 
             <Button
-                android:id="@+id/sortb1"
+                android:id="@+id/sUniversity"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/sortby"
-                android:text="@string/card_name"
+                android:text="University"
                 android:layout_marginStart="5dp" />
             <Button
                 android:id="@+id/sortb2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/sortby"
-                android:layout_toEndOf="@+id/sortb1"
+                android:layout_toEndOf="@+id/sUniversity"
                 android:text="@string/card_subject"
                 android:layout_marginLeft="5dp" />
             <Button
@@ -77,7 +77,7 @@
                 android:id="@+id/ratingtext"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/sortb1"
+                android:layout_below="@+id/sUniversity"
                 android:text="Ratings"
                 android:textStyle="bold"
                 android:layout_marginTop="12dp"/>
@@ -86,7 +86,7 @@
                 android:id="@+id/ratingBar3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/sortb1"
+                android:layout_below="@+id/sUniversity"
                 android:layout_toEndOf="@+id/ratingtext"/>
 
             <EditText
@@ -100,7 +100,7 @@
                 android:layout_marginTop="10dp"/>
 
             <EditText
-                android:id="@+id/searchuniversity"
+                android:id="@+id/searchUni"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/searchsubject"
