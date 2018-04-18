@@ -14,10 +14,16 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 public class WorkHourPicker extends AppCompatActivity implements com.wdullaer.materialdatetimepicker.time.TimePickerDialog.OnTimeSetListener{
+
 
     // user buttons
     Button saveChanges;
@@ -176,6 +182,18 @@ public class WorkHourPicker extends AppCompatActivity implements com.wdullaer.ma
                     newTime.setEndTime(endString);
 
                     currentUser.addNewHour(newTime);
+
+                    // TODO FOR LANCE: DO THE CONVERSION THINGY AND DATABASE STUFF HERE
+                    // you need to convert the sendToDatabaseHours variable, change it to gson, and then convert to json
+                    //ArrayList<WorkHour> sendToDatabaseHours = currentUser.getWorkHours();
+                    // then get the json string
+                    // String json;
+                    // then :from database to app
+                    /**Gson gson = new Gson();
+                    TypeToken<List<WorkHour>> token = new TypeToken<List<WorkHour>>() {};
+                    currentUser.setWorkHours( gson.fromJson(json, token.getType()));**/
+
+                    //// should be up to here
                     Intent i = new Intent(WorkHourPicker.this, HomePage.class);
                     i.putExtra("currentUser", currentUser);
                     i.putExtra("uploadPage", "workManager");

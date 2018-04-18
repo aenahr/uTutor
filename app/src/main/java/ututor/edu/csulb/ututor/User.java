@@ -7,6 +7,7 @@ import android.util.Base64;
 
 import java.io.ByteArrayOutputStream;
 import java.io.Serializable;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class User implements Serializable{
@@ -47,6 +48,8 @@ public class User implements Serializable{
             return uDescription;
         }
     }
+
+    public void setWorkHours(ArrayList<WorkHour> h){ workHours = h;}
 
     public int getuNumProfilePic(){ return uNumProfilePic;}
 

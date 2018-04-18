@@ -132,6 +132,17 @@ public class HomePage extends AppCompatActivity
             }
         });
 
+        // Work Hour: get from database
+        // TODO FOR LANCE: DO THE CONVERSION THINGY AND DATABASE STUFF HERE
+        // you need to convert the sendToDatabaseHours variable, change it to gson, and then convert to json
+        //ArrayList<WorkHour> sendToDatabaseHours = currentUser.getWorkHours();
+        // then get the json string
+        // String json;
+        // then :from database to app
+        /**Gson gson = new Gson();
+         TypeToken<List<WorkHour>> token = new TypeToken<List<WorkHour>>() {};
+         currentUser.setWorkHours( gson.fromJson(json, token.getType()));**/
+
         // make card layouts clickable
         cardSearch = (LinearLayout) findViewById(R.id.cardSearch);
         cardAppointment = (LinearLayout) findViewById(R.id.cardAppointment);

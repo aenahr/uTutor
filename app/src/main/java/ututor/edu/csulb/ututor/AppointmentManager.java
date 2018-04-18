@@ -10,6 +10,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ExpandableListView;
 import android.widget.RadioGroup;
+import android.widget.Toast;
+
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
@@ -39,6 +43,10 @@ public class AppointmentManager extends Fragment {
 
         Intent i = getActivity().getIntent();
         currentUser = (User)i.getSerializableExtra("currentUser");
+
+        currentUser.addNewHour(new WorkHour());
+        currentUser.addNewHour(new WorkHour());
+        currentUser.addNewHour(new WorkHour());
 
         bPending = rootView.findViewById(R.id.pending);
         bUpcoming = rootView.findViewById(R.id.upcoming);
@@ -129,7 +137,7 @@ public class AppointmentManager extends Fragment {
         Calendar today = Calendar.getInstance();
         for(int x =0; x < currentUser.getAppointments().size(); x++){
             if(currentUser.getAppointments().get(x).isAccepted == true){ //either upcoming or past
-                if(currentUser.getAppointments().get(x).getStartTime().compareTo(today) < 0){ //upcoming
+                if(currentUser.getAppointments().get(x).getStartTime().compareTo(today) > 0){ //upcoming
                     upcomingAppointments.add(currentUser.getAppointments().get(x));
                 }else{
                     pastAppointments.add(currentUser.getAppointments().get(x));
@@ -148,7 +156,9 @@ public class AppointmentManager extends Fragment {
         bPending.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 changeOption(1);
+                Toast.makeText(getActivity(), pendingAppointments.get(0).toString(), Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -156,6 +166,8 @@ public class AppointmentManager extends Fragment {
             @Override
             public void onClick(View v) {
                 changeOption(2);
+                Toast.makeText(getActivity(), upcomingAppointments.get(0).toString(), Toast.LENGTH_SHORT).show();
+
             }
         });
 
@@ -163,6 +175,8 @@ public class AppointmentManager extends Fragment {
             @Override
             public void onClick(View v) {
                 changeOption(3);
+                Toast.makeText(getActivity(), pastAppointments.get(0).toString(), Toast.LENGTH_SHORT).show();
+
             }
         });
 

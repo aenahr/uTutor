@@ -19,7 +19,6 @@ public class Appointment implements Serializable{
     String tutor; // email format
     String tutee; //email format
     long lengthOfAppointment; // this is in seconds...convert as needed
-    String typeOfAppointment; // OPTIONS ARE: PENDING, UPCOMING, PAST, WALKIN, NULL
     boolean isAccepted;
     Context context;
     // PENDING: needs confirmation from tutor
@@ -32,13 +31,11 @@ public class Appointment implements Serializable{
 
         tutorEmail = "NULL";
         tuteeEmail = "NULL";
-        typeOfAppointment = "NULL";
         context = c;
         isAccepted = false;
     }
 
     public Appointment(){
-        typeOfAppointment = "NULL";
         isAccepted = false;
     }
 
@@ -60,8 +57,6 @@ public class Appointment implements Serializable{
 
     public void setTuteeEmail(String s){ tuteeEmail = s;}
 
-    public String getTypeOfAppointment(){ return typeOfAppointment;}
-
     public Calendar getDate(){ return dateOfAppointment;}
 
     public Calendar getStartTime(){ return startTime;}
@@ -75,19 +70,6 @@ public class Appointment implements Serializable{
     public String getTutee(){ return tutee;}
 
     public long getLengthOfAppointment(){return lengthOfAppointment;}
-
-    /**
-     * Specific number of options to choose from
-     * @param s type of Appointment
-     */
-    public void setTypeOfAppointment(String s){
-        if (s.equals("PENDING") || s.equals("UPCOMING") || s.equals("PAST") || s.equals("WALKIN")) { // must be valid type
-            typeOfAppointment = s;
-        }
-        else{
-            typeOfAppointment = "NULL";
-        }
-    }
 
     public void setDateOfAppointment(Calendar c){
         dateOfAppointment = c;
@@ -118,9 +100,9 @@ public class Appointment implements Serializable{
     }
 
     public String toString(){
-        String date = String.format("%02-%02-%02", dateOfAppointment.get(Calendar.MONTH), dateOfAppointment.get(Calendar.DAY_OF_MONTH), dateOfAppointment.get(Calendar.YEAR));
-        String time = String.format("%02:%02 - %02:%02", startTime.get(Calendar.HOUR_OF_DAY), startTime.get(Calendar.MINUTE), endTime.get(Calendar.HOUR_OF_DAY), endTime.get(Calendar.MINUTE));
-        return "Name: " + tuteeFName + " " + tuteeLName + "\tDate: " + date + "\tTime:" + time;
+        String date = String.format("%2s-%2s-%2s", dateOfAppointment.get(Calendar.MONTH), dateOfAppointment.get(Calendar.DAY_OF_MONTH), dateOfAppointment.get(Calendar.YEAR)).replace(' ', '0');
+        String time = String.format("%2s:%2s-%2s:%2s", startTime.get(Calendar.HOUR_OF_DAY), startTime.get(Calendar.MINUTE), endTime.get(Calendar.HOUR_OF_DAY), endTime.get(Calendar.MINUTE)).replace(' ', '0');
+        return "Name: " + tuteeFName + " " + tuteeLName + "  Date: " + date + "  Time:" + time;
     }
 
 }

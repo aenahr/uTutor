@@ -85,8 +85,8 @@ public class AppointmentTimePicker extends AppCompatActivity implements com.wdul
         endTime.set(Calendar.SECOND,0);
         endTime.set(Calendar.MILLISECOND,0);
         displayEnd.setText(String.format("%02d:%02d", endTime.get(Calendar.HOUR_OF_DAY), endTime.get(Calendar.MINUTE)));
-        ///////////
-        // TODO get other user's date
+
+        // getting currentUser and otherUser
         Intent i = getIntent();
         currentUser = (User)i.getSerializableExtra("currentUser");
         otherUser = (User)i.getSerializableExtra("otherUser");
@@ -101,42 +101,6 @@ public class AppointmentTimePicker extends AppCompatActivity implements com.wdul
         // create dayViewCalendar objects
         dayView = (CalendarDayView) findViewById(R.id.calendar);
         dayView.setLimitTime(0, 24);
-
-//        ((CdvDecorationDefault) (dayView.getDecoration())).setOnEventClickListener(
-//                new EventView.OnEventClickListener() {
-//                    @Override
-//                    public void onEventClick(EventView view, IEvent data) {
-//                        Log.e("TAG", "onEventClick:" + data.getName());
-//                    }
-//
-//                    @Override
-//                    public void onEventViewClick(View view, EventView eventView, IEvent data) {
-//                        Log.e("TAG", "onEventViewClick:" + data.getName());
-//                        if (data instanceof Event) {
-//                            // change event (ex: set event color)
-//                            dayView.setEvents(events);
-//                        }
-//                    }
-//                });
-//
-//        ((CdvDecorationDefault) (dayView.getDecoration())).setOnPopupClickListener(
-//                new PopupView.OnEventPopupClickListener() {
-//                    @Override
-//                    public void onPopupClick(PopupView view, IPopup data) {
-//                        Log.e("TAG", "onPopupClick:" + data.getTitle());
-//                    }
-//
-//                    @Override
-//                    public void onQuoteClick(PopupView view, IPopup data) {
-//                        Log.e("TAG", "onQuoteClick:" + data.getTitle());
-//                    }
-//
-//                    @Override
-//                    public void onLoadData(PopupView view, ImageView start, ImageView end,
-//                                           IPopup data) {
-//                        start.setImageResource(R.drawable.bacon);
-//                    }
-//                });
 
         ///////////
         /// Below is the code that displays the tutor's work hours from date chosen
@@ -212,43 +176,6 @@ public class AppointmentTimePicker extends AppCompatActivity implements com.wdul
             popup.isAutohide();
             popups.add(popup);
         }
-
-//        // any scheduled appointments
-//        {
-//            Calendar timeStart = Calendar.getInstance();
-//            timeStart.set(Calendar.HOUR_OF_DAY, 12);
-//            timeStart.set(Calendar.MINUTE, 0);
-//            Calendar timeEnd = (Calendar) timeStart.clone();
-//            timeEnd.set(Calendar.HOUR_OF_DAY, 13);
-//            timeEnd.set(Calendar.MINUTE, 30);
-//
-//
-//            PopUp popup = new PopUp();
-//            popup.setStartTime(timeStart);
-//            popup.setEndTime(timeEnd);
-//            popup.setImageStart("");
-//            popup.setTitle("event 1 with title");
-//            popup.setDescription("Yuong alsdf");
-//            popup.isAutohide();
-//            popups.add(popup);
-//        }
-//
-//        {
-//            Calendar timeStart = Calendar.getInstance();
-//            timeStart.set(Calendar.HOUR_OF_DAY, 20);
-//            timeStart.set(Calendar.MINUTE, 0);
-//            Calendar timeEnd = (Calendar) timeStart.clone();
-//            timeEnd.set(Calendar.HOUR_OF_DAY, 22);
-//            timeEnd.set(Calendar.MINUTE, 0);
-//
-//            PopUp popup = new PopUp();
-//            popup.setStartTime(timeStart);
-//            popup.setEndTime(timeEnd);
-//            popup.setImageStart("");
-//            popup.setTitle("Time Blocked");
-//            popup.setDescription("");
-//            popups.add(popup);
-//        }
 
         // add all tutor's appointments and hours in
         dayView.setEvents(events);

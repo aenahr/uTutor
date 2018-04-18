@@ -14,6 +14,7 @@ import android.widget.Toast;
 public class GenericProfile extends AppCompatActivity {
 
 
+
     TextView user_name;
     ImageView user_image;
     TextView favorite;

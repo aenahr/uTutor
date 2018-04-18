@@ -15,11 +15,15 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 
 import java.util.Calendar;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.ArrayList;
+
 
 
 public class ScheduleAppointment extends AppCompatActivity implements DatePickerDialog.OnDateSetListener{
@@ -54,8 +58,17 @@ public class ScheduleAppointment extends AppCompatActivity implements DatePicker
 
         Intent i = getIntent();
         currentUser = (User)i.getSerializableExtra("currentUser");
+        otherUser = (User)i.getSerializableExtra("otherUser");
 
-        // TODO - dummy user... delete later
+        // TODO FOR LANCE: DO THE CONVERSION THINGY AND DATABASE STUFF HERE
+        // then get the json string
+        // String json;
+        // then :from database to app
+        /**Gson gson = new Gson();
+         TypeToken<List<WorkHour>> token = new TypeToken<List<WorkHour>>() {};
+         otherUser.setWorkHours( gson.fromJson(json, token.getType()));**/
+
+        // dummy user - delete after database
         otherUser = new User();
         otherUser.setEmail("theOtherUser@gmail.com");
 //            WorkHour w = new WorkHour();

@@ -190,7 +190,6 @@ public class WalkInSession extends AppCompatActivity implements OnMapReadyCallba
                                     wiAppointment.setLengthOfAppointment(seconds);
                                     wiAppointment.setTutee(inputTutee.getText().toString());
                                     wiAppointment.setTutor(currentUser.getEmail());
-                                    wiAppointment.setTypeOfAppointment("WALKIN");
                                     //wiAppointment.setLocation("herp");
                                     // TODO get user's lat long and somehow convert to address then convert to string
 
