@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,8 +23,6 @@ import java.util.concurrent.ExecutionException;
 
 public class GenericProfile extends AppCompatActivity {
 
-
-
     TextView user_name;
     ImageView user_image;
     TextView favorite;
@@ -34,14 +33,10 @@ public class GenericProfile extends AppCompatActivity {
     LinearLayout crate;
     LinearLayout schedule_appointment;
     ImageView starImage;
-
     User currentUser;
     User otherUser;
-
     boolean isFavorite;
-
-
-
+    RatingBar ratingBar;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -59,6 +54,7 @@ public class GenericProfile extends AppCompatActivity {
         user_image = (ImageView)findViewById(R.id.profile_userImage);
         favorite = (TextView) findViewById(R.id.wordFavorite);
         starImage = (ImageView)findViewById(R.id.starFavorite);
+        ratingBar = (RatingBar)findViewById(R.id.ratingBar2);
 
 
         // TODO database: find if favorite relationship
@@ -69,7 +65,10 @@ public class GenericProfile extends AppCompatActivity {
         Intent i = getIntent();
         currentUser = (User)i.getSerializableExtra("currentUser");
         otherUser = (User)i.getSerializableExtra("otherUser");
+        otherUser.setTutor(true);
 
+        // set rating
+        ratingBar.setRating(otherUser.getRating());
 
         // set full name
         String fullName = otherUser.getFirstName()+" " + otherUser.getLastName();

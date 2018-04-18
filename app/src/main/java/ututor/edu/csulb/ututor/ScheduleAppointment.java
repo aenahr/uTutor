@@ -94,7 +94,7 @@ public class ScheduleAppointment extends AppCompatActivity implements DatePicker
                 }else if (email.isChecked())
                 {
                     Log.i("Send email", "");
-                    String[] TO = {"123@gmail.com"}; // TODO the temporary email that will replace by user email
+                    String[] TO = {otherUser.getEmail()}; // TODO the temporary email that will replace by user email
                     String[] CC = {""};
                     Intent emailIntent = new Intent(Intent.ACTION_SEND);
 
@@ -103,9 +103,15 @@ public class ScheduleAppointment extends AppCompatActivity implements DatePicker
                     emailIntent.setType("text/plain");
                     emailIntent.putExtra(Intent.EXTRA_EMAIL, TO);
                     emailIntent.putExtra(Intent.EXTRA_CC, CC);
-                    emailIntent.putExtra(Intent.EXTRA_SUBJECT, currentUser.getFirstName()+" " + currentUser.getLastName() + " is requesting to make appointment" );
+                    emailIntent.putExtra(Intent.EXTRA_SUBJECT, currentUser.getFirstName()+" " + currentUser.getLastName() + " is Reqesting to make an Appointment!" );
                     emailIntent.putExtra(Intent.EXTRA_TEXT, " " + apoint_message.getText().toString());
                     startActivity(emailIntent);
+
+                    Toast.makeText(ScheduleAppointment.this, "Appointment scheduled!", Toast.LENGTH_SHORT).show();
+                    Intent i = new Intent(ScheduleAppointment.this, GenericProfile.class);
+                    i.putExtra("currentUser",currentUser);
+                    i.putExtra("otherUser",otherUser);
+                    startActivity(i);
 
                     try {
                         startActivity(Intent.createChooser(emailIntent, "Send mail..."));

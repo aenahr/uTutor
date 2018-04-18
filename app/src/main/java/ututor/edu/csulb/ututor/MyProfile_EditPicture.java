@@ -111,7 +111,7 @@ public class MyProfile_EditPicture extends AppCompatActivity {
                     JSONObject response = new ServerRequester().execute("changePicture.php", "whatever",
                             "email", currentUser.getEmail(),
                             "profilePicNum", (Integer.toString(currentUser.getuNumProfilePic()))).get();
-                    if (!response.isNull("success")){
+                    if (response.isNull("success")){
                         if (!response.isNull("error")) {//If the server returned an error code (So the request was at least processed)
                             switch (response.get("error").toString()) {
                                 case "-1": //Email is not in the database
@@ -124,11 +124,8 @@ public class MyProfile_EditPicture extends AppCompatActivity {
 
                                     break;
                             }
-                        } else {//Stuff happened that should have happened
-                            Intent i = new Intent(MyProfile_EditPicture.this, HomePage.class);
-                            i.putExtra("currentUser", currentUser);
-                            i.putExtra("uploadPage", "myProfile");
-                            startActivity(i);
+                        } else {//Stuff happened that should NOT have happened
+
                         }
                     }else{//Stuff Happened that should have happened
                         Intent i = new Intent(MyProfile_EditPicture.this, HomePage.class);

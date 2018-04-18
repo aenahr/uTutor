@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -75,6 +76,8 @@ public class GProfile_Bio extends AppCompatActivity {
         mFName.setText(otherUser.getFirstName());
         mLName.setText(otherUser.getLastName());
         mEmail.setText(otherUser.getEmail());
+        if(otherUser.getDescription().equals("NULL") || otherUser.getDescription().equals("null")){mDescription.setText("None");}
+        else{ mDescription.setText(otherUser.getDescription()); }
         mDescription.setText(otherUser.getDescription());
         mEducation.setText(otherUser.getUniversity());
 

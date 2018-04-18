@@ -117,7 +117,6 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
         NewItem currentItem = Data.get(i);
 
         int picCode = currentItem.getImage();
-
         if( picCode == 0 ){ //blue
             holder.itemImage.setImageResource(R.drawable.ututorlogo);
         } else if( picCode == 1 ){ // red
@@ -133,11 +132,15 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
             holder.itemImage.setImageResource( R.drawable.tutorhead_purple);
         }
 
-        //holder.itemImage.setImageResource(R.drawable.ututorlogo);
-
         holder.itemfirstName.setText(currentItem.getfirstname());
         holder.itemlastName.setText(currentItem.getlastname());
-        holder.itemStatus.setText(currentItem.getstatus());
+        if(currentItem.getstatus().equals("0")){
+            holder.itemStatus.setText("Walk-In Unavailable");
+            holder.itemStatus.setTextColor(searchContext.getResources().getColor(R.color.rustRed));
+        }else{
+            holder.itemStatus.setText("Walk-In Available");
+            holder.itemStatus.setTextColor(searchContext.getResources().getColor(R.color.green));
+        }
         holder.itemuniversity.setText(currentItem.getuniversity());
 
         holder.itemrating.setRating((float) currentItem.getrating());

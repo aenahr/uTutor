@@ -57,6 +57,9 @@ public class AppointmentTimePicker extends AppCompatActivity implements com.wdul
     Calendar dateChosen;
     Calendar dateEnded;
 
+    boolean doIt = false;
+
+
     private int indexOfWorkHour;
 
     @Override
@@ -92,6 +95,8 @@ public class AppointmentTimePicker extends AppCompatActivity implements com.wdul
         otherUser = (User)i.getSerializableExtra("otherUser");
         dateChosen = (Calendar)i.getSerializableExtra("dateChosen");
 
+        int dayOfWeek = dateChosen.get(Calendar.DAY_OF_WEEK);
+
         // initialize start and end dates
         title.setText(String.format("%d/%d", dateChosen.get(Calendar.MONTH)+1, dateChosen.get(Calendar.DAY_OF_MONTH)) + " SCHEDULE");
         generateStartDate.setText(String.format("%d-%d-%d", dateChosen.get(Calendar.MONTH)+1, dateChosen.get(Calendar.DAY_OF_MONTH), dateChosen.get(Calendar.YEAR)));
@@ -109,18 +114,42 @@ public class AppointmentTimePicker extends AppCompatActivity implements com.wdul
         EventView ev = new EventView(this);
         for(int j = 0; j < otherUser.getWorkHours().size(); j++){
 
-            int eventColor = ContextCompat.getColor(this, R.color.colorPrimaryDark);
-            String start[] = otherUser.getWorkHours().get(j).getStartTime().split(":");
-            Calendar timeStart = Calendar.getInstance();
-            timeStart.set(Calendar.HOUR_OF_DAY, Integer.parseInt(start[0]));
-            timeStart.set(Calendar.MINUTE, Integer.parseInt(start[1]));
-            String end[] = otherUser.getWorkHours().get(j).getEndTime().split(":");
-            Calendar timeEnd = (Calendar) timeStart.clone();
-            timeEnd.set(Calendar.HOUR_OF_DAY, Integer.parseInt(end[0]));
-            timeEnd.set(Calendar.MINUTE, Integer.parseInt(end[1]));
-            Event event = new Event(1, timeStart, timeEnd, "", "", eventColor);
-            events.add(event);
+            if( dayOfWeek == 1 && otherUser.getWorkHours().get(j).getSUNDAY() == true){ //sunday
+                doIt = true;
+            }else if( dayOfWeek == 2 && otherUser.getWorkHours().get(j).getMONDAY() == true){
+                doIt = true;
+            }
+            else if( dayOfWeek == 3 && otherUser.getWorkHours().get(j).getTUESDAY() == true){
+                doIt = true;
+            }
+            else if( dayOfWeek == 4 && otherUser.getWorkHours().get(j).getWEDNESDAY() == true){
+                doIt = true;
+            }
+            else if( dayOfWeek == 5 && otherUser.getWorkHours().get(j).getTHURSDAY() == true){
+                doIt = true;
+            }
+            else if( dayOfWeek == 6 && otherUser.getWorkHours().get(j).getFRIDAY() == true){
+                doIt = true;
+            }
+            else if( dayOfWeek == 7 && otherUser.getWorkHours().get(j).getSATURDAY() == true){
+                doIt = true;
+            }
 
+            if(doIt == true){
+                int eventColor = ContextCompat.getColor(this, R.color.colorPrimaryDark);
+                String start[] = otherUser.getWorkHours().get(j).getStartTime().split(":");
+                Calendar timeStart = Calendar.getInstance();
+                timeStart.set(Calendar.HOUR_OF_DAY, Integer.parseInt(start[0]));
+                timeStart.set(Calendar.MINUTE, Integer.parseInt(start[1]));
+                String end[] = otherUser.getWorkHours().get(j).getEndTime().split(":");
+                Calendar timeEnd = (Calendar) timeStart.clone();
+                timeEnd.set(Calendar.HOUR_OF_DAY, Integer.parseInt(end[0]));
+                timeEnd.set(Calendar.MINUTE, Integer.parseInt(end[1]));
+                Event event = new Event(1, timeStart, timeEnd, "", "", eventColor);
+                events.add(event);
+            }
+
+            doIt = false;
         }
 
 
@@ -139,24 +168,13 @@ public class AppointmentTimePicker extends AppCompatActivity implements com.wdul
         Calendar e = (Calendar) s.clone();
         otherUser.getAppointments().clear();
         Appointment one = new Appointment();
-        s.set(Calendar.HOUR_OF_DAY, 7);
+        s.set(Calendar.HOUR_OF_DAY, 17);
         s.set(Calendar.MINUTE, 0);
-        e.set(Calendar.HOUR_OF_DAY, 10);
-        e.set(Calendar.MINUTE, 0);
+        e.set(Calendar.HOUR_OF_DAY, 18);
+        e.set(Calendar.MINUTE, 30);
         one.setStartTime(s);
         one.setEndTime(e);
         otherUser.addNewAppointment(one);
-        Calendar s1 = Calendar.getInstance();
-        Calendar e1 = (Calendar) s1.clone();
-        Appointment two = new Appointment();
-        s1.set(Calendar.HOUR_OF_DAY, 22);
-        s1.set(Calendar.MINUTE, 30);
-        e1.set(Calendar.HOUR_OF_DAY, 23);
-        e1.set(Calendar.MINUTE, 30);
-        two.setStartTime(s1);
-        two.setEndTime(e1);
-        otherUser.addNewAppointment(two);
-        // erase until here
 
 
         for(int k = 0; k < otherUser.getAppointments().size(); k++){
@@ -435,4 +453,5 @@ public class AppointmentTimePicker extends AppCompatActivity implements com.wdul
                 TimeUnit.MILLISECONDS.toMinutes(timeDiff) - TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(timeDiff)));
         return diff;
     }
+
 }
