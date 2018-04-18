@@ -17,10 +17,14 @@ import android.widget.ToggleButton;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 public class WorkHourPicker extends AppCompatActivity implements com.wdullaer.materialdatetimepicker.time.TimePickerDialog.OnTimeSetListener{
 
@@ -183,16 +187,66 @@ public class WorkHourPicker extends AppCompatActivity implements com.wdullaer.ma
 
                     currentUser.addNewHour(newTime);
 
-                    // TODO FOR LANCE: DO THE CONVERSION THINGY AND DATABASE STUFF HERE
-                    // you need to convert the sendToDatabaseHours variable, change it to gson, and then convert to json
-                    //ArrayList<WorkHour> sendToDatabaseHours = currentUser.getWorkHours();
-                    // then get the json string
-                    // String json;
-                    // then :from database to app
-                    /**Gson gson = new Gson();
-                    TypeToken<List<WorkHour>> token = new TypeToken<List<WorkHour>>() {};
-                    currentUser.setWorkHours( gson.fromJson(json, token.getType()));**/
+                    // App to Database
+                    ArrayList<WorkHour> sendToDatabaseHours = currentUser.getWorkHours(); //Not sure this is necessary
+                    String json = new Gson().toJson(currentUser.getWorkHours());
+                    JSONObject response = null;
+                    try {
+                        response = new ServerRequester().execute("setWorkHours.php", "whatever",
+                                "email", currentUser.getEmail(),
+                                "workHours", json
+                                //"university", searchuni.getText().toString(),
+                                //"rating",  Float.toString(searchrating.getRating())
+                        ).get();
+                        if (response == null) {//Something went horribly wrong, JSON failed to be formed meaning something happened in the server requester
 
+                        } else if (!response.isNull("error")) {//Some incorrect information was sent, but the server and requester still processed it
+                            //TODO Handle Server Errors
+                            switch (response.get("error").toString()) {
+                                default:    //Some Error Code was printed from the server that isn't handled above
+
+                                    break;
+                            }
+                        } else { //Everything Went Well
+
+                        }
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    } catch (ExecutionException e) {
+                        e.printStackTrace();
+                    } catch (JSONException e){
+                        e.printStackTrace();
+                    }
+
+
+                    // From Database to App
+                    response = null;
+                    try {
+                        response = new ServerRequester().execute("fetchWorkHours.php", "whatever",
+                                "email", currentUser.getEmail()
+                        ).get();
+                        if (response == null) {//Something went horribly wrong, JSON failed to be formed meaning something happened in the server requester
+
+                        } else if (!response.isNull("error")) {//Some incorrect information was sent, but the server and requester still processed it
+                            //TODO Handle Server Errors
+                            switch (response.get("error").toString()) {
+                                default:    //Some Error Code was printed from the server that isn't handled above
+
+                                    break;
+                            }
+                        } else { //Everything Went Well
+                            Gson gson = new Gson();
+                            TypeToken<List<WorkHour>> token = new TypeToken<List<WorkHour>>() {};
+                            System.out.println("JSON to be SET: " + response.get("workHours").toString());
+                            currentUser.setWorkHours( gson.fromJson(response.get("workHours").toString(), token.getType()));
+                        }
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    } catch (ExecutionException e) {
+                        e.printStackTrace();
+                    } catch (JSONException e){
+                        e.printStackTrace();
+                    }
                     //// should be up to here
                     Intent i = new Intent(WorkHourPicker.this, HomePage.class);
                     i.putExtra("currentUser", currentUser);

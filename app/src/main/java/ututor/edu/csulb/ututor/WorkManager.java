@@ -59,7 +59,7 @@ public class WorkManager extends Fragment implements AdapterView.OnItemSelectedL
 
 
     // TODO find out when to refresh database to update Work Times
-
+    // TODO find out if ^this TODO is Aenah telling me to fetch user work hours from the database
 
     public WorkManager() {
     }

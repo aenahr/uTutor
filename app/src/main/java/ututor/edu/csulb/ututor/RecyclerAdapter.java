@@ -45,9 +45,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override public void onClick(View v) {
                     int position = getAdapterPosition();
-                    //code for get information for that item
 
-                    // TODO - LAAAAAANCE: FETCH ME THE USER'S EMAIL
                     JSONObject response = null;
                     try {
                         response = new ServerRequester().execute("fetchUser.php", "whatever",
