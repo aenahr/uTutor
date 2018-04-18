@@ -96,7 +96,7 @@
                 android:layout_below="@+id/ratingtext"
                 android:ems="10"
                 android:inputType="text"
-                android:text="Subject"
+                android:hint="Subject"
                 android:layout_marginTop="10dp"/>
 
             <EditText
@@ -106,7 +106,7 @@
                 android:layout_below="@+id/searchsubject"
                 android:ems="10"
                 android:inputType="text"
-                android:text="Univeristy"
+                android:hint="University"
                 android:layout_marginTop="10dp"/>
 
         </RelativeLayout>
