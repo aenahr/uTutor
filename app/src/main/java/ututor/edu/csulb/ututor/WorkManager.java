@@ -15,9 +15,17 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 public class WorkManager extends Fragment implements AdapterView.OnItemSelectedListener {
 
@@ -72,7 +80,33 @@ public class WorkManager extends Fragment implements AdapterView.OnItemSelectedL
         Intent i = getActivity().getIntent();
         currentUser = (User)i.getSerializableExtra("currentUser");
         //Toast.makeText(getActivity(), currentUser.getFirstName(), Toast.LENGTH_SHORT).show();
+        JSONObject response = null;
+        try {
+            response = new ServerRequester().execute("fetchWorkHours.php", "whatever",
+                    "email", currentUser.getEmail()
+            ).get();
+            if (response == null) {//Something went horribly wrong, JSON failed to be formed meaning something happened in the server requester
 
+            } else if (!response.isNull("error")) {//Some incorrect information was sent, but the server and requester still processed it
+                //TODO Handle Server Errors
+                switch (response.get("error").toString()) {
+                    default:    //Some Error Code was printed from the server that isn't handled above
+
+                        break;
+                }
+            } else { //Everything Went Well
+                Gson gson = new Gson();
+                TypeToken<List<WorkHour>> token = new TypeToken<List<WorkHour>>() {};
+                System.out.println("JSON to be SET: " + response.get("workHours").toString());
+                currentUser.setWorkHours( gson.fromJson(response.get("workHours").toString(), token.getType()));
+            }
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (JSONException e){
+            e.printStackTrace();
+        }
         // work hours from current User
         tempWorkItems = currentUser.getWorkHours();
         mWorkItems = new ArrayList<String>();
@@ -156,9 +190,38 @@ public class WorkManager extends Fragment implements AdapterView.OnItemSelectedL
                 // remove from list
                 mWorkItems.remove(position);
                 tempWorkItems.remove(position);
-                mWorkAdapter.notifyDataSetChanged();
 
-                Toast.makeText(getActivity(), "Work Hour successfully deleted.", Toast.LENGTH_SHORT).show();
+                //do this
+                currentUser.setWorkHours(tempWorkItems);
+                String json = new Gson().toJson(currentUser.getWorkHours());
+                JSONObject response = null;
+                try {
+                    response = new ServerRequester().execute("setWorkHours.php", "whatever",
+                            "email", currentUser.getEmail(),
+                            "workHours", json
+                    ).get();
+                    if (response == null) {//Something went horribly wrong, JSON failed to be formed meaning something happened in the server requester
+
+                    } else if (!response.isNull("error")) {//Some incorrect information was sent, but the server and requester still processed it
+                        //TODO Handle Server Errors
+                        switch (response.get("error").toString()) {
+                            default:    //Some Error Code was printed from the server that isn't handled above
+
+                                break;
+                        }
+                    } else { //Everything Went Well
+                        Toast.makeText(getActivity(), "Work Hour successfully deleted.", Toast.LENGTH_SHORT).show();
+                        mWorkAdapter.notifyDataSetChanged();
+                    }
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                } catch (ExecutionException e) {
+                    e.printStackTrace();
+                } catch (JSONException e){
+                    e.printStackTrace();
+                }
+
+
             }
         });
 

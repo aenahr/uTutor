@@ -19,11 +19,14 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.Calendar;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.ArrayList;
-
+import java.util.concurrent.ExecutionException;
 
 
 public class ScheduleAppointment extends AppCompatActivity implements DatePickerDialog.OnDateSetListener{
@@ -62,37 +65,6 @@ public class ScheduleAppointment extends AppCompatActivity implements DatePicker
         Intent i = getIntent();
         currentUser = (User)i.getSerializableExtra("currentUser");
         otherUser = (User)i.getSerializableExtra("otherUser");
-
-        // TODO FOR LANCE: DO THE CONVERSION THINGY AND DATABASE STUFF HERE
-        // then get the json string
-        // String json;
-        // then :from database to app
-        /**Gson gson = new Gson();
-         TypeToken<List<WorkHour>> token = new TypeToken<List<WorkHour>>() {};
-         otherUser.setWorkHours( gson.fromJson(json, token.getType()));**/
-
-        // dummy user - delete after database
-        otherUser = new User();
-        otherUser.setEmail("theOtherUser@gmail.com");
-//            WorkHour w = new WorkHour();
-//            w.setMONDAY(true);
-//            w.setWEDNESDAY(true);
-//            WorkHour h = new WorkHour();
-//            h.setFRIDAY(true);
-//            otherUser.addNewHour(w);
-//            otherUser.addNewHour(h);
-
-        WorkHour monday = new WorkHour();
-        monday.setMONDAY(true);
-        monday.setStartTime("07:00"+":00");
-        monday.setEndTime("10:30"+":00");
-        otherUser.addNewHour(monday);
-
-        WorkHour monday2 = new WorkHour();
-        monday2.setMONDAY(true);
-        monday2.setStartTime("20:00"+":00");
-        monday2.setEndTime("23:50"+":00");
-        otherUser.addNewHour(monday2);
 
         //initialize objects
         dateOutput = findViewById(R.id.dateOutput);

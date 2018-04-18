@@ -10,6 +10,15 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.List;
+import java.util.concurrent.ExecutionException;
+
 
 public class GenericProfile extends AppCompatActivity {
 
@@ -141,10 +150,41 @@ public class GenericProfile extends AppCompatActivity {
                     Toast.makeText(GenericProfile.this,"You cannot make an appointment with yourself.",Toast.LENGTH_LONG).show();
                 }else
                 {
-                    Intent i = new Intent(GenericProfile.this, ScheduleAppointment.class);
-                    i.putExtra("currentUser",currentUser);
-                    i.putExtra("otherUser",otherUser);
-                    startActivity(i);
+                    JSONObject response = null;
+                    try {
+                        response = new ServerRequester().execute("fetchWorkHours.php", "whatever",
+                                "email", otherUser.getEmail()
+                        ).get();
+                        if (response == null) {//Something went horribly wrong, JSON failed to be formed meaning something happened in the server requester
+
+                        } else if (!response.isNull("error")) {//Some incorrect information was sent, but the server and requester still processed it
+                            //TODO Handle Server Errors
+                            switch (response.get("error").toString()) {
+                                default:    //Some Error Code was printed from the server that isn't handled above
+
+                                    break;
+                            }
+                        } else { //Everything Went Well
+                            Gson gson = new Gson();
+                            TypeToken<List<WorkHour>> token = new TypeToken<List<WorkHour>>() {};
+                            System.out.println("JSON to be SET: " + response.get("workHours").toString());
+                            otherUser.setWorkHours( gson.fromJson(response.get("workHours").toString(), token.getType()));
+                        }
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    } catch (ExecutionException e) {
+                        e.printStackTrace();
+                    } catch (JSONException e){
+                        e.printStackTrace();
+                    }
+                    if(otherUser.workHours.isEmpty()){
+                        Toast.makeText(GenericProfile.this,"This user has no work hours to make an appointment with.",Toast.LENGTH_LONG).show();
+                    }else{
+                        Intent i = new Intent(GenericProfile.this, ScheduleAppointment.class);
+                        i.putExtra("currentUser",currentUser);
+                        i.putExtra("otherUser",otherUser);
+                        startActivity(i);
+                    }
                 }
             }
         });
