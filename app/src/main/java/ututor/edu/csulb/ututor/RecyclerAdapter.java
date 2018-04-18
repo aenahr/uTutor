@@ -12,7 +12,11 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
+import java.util.concurrent.ExecutionException;
 
 import static java.sql.Types.NULL;
 
@@ -44,23 +48,56 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
                     //code for get information for that item
 
                     // TODO - LAAAAAANCE: FETCH ME THE USER'S EMAIL
-                    // the otherUser's email is found by : Data.get(position).getemail()
-                    // DUMMY USER - DELETE AFTER QUEREY IS DONE :)
-                    User otherUser = new User();
-                    otherUser.setFirstName("Herp");
-                    otherUser.setLastName("Derp");
-                    otherUser.setEmail("herpderp@gmail.com");
-                    otherUser.setUniversity("CSULB");
-                    otherUser.setRating(3f);
-                    otherUser.setDescription("My name is HerpDerp! I am here to herp your derp.");
-                    otherUser.setNumProfilePic(2);
-                    // delete up to here ^
+                    JSONObject response = null;
+                    try {
+                        response = new ServerRequester().execute("fetchUser.php", "whatever",
+                                "email", Data.get(position).getemail()
+                                //"subject", searchsubj.getText().toString(),
+                                //"university", searchuni.getText().toString(),
+                                //"rating",  Float.toString(searchrating.getRating())
+                        ).get();
+                        if (response == null) {//Something went horribly wrong, JSON failed to be formed meaning something happened in the server requester
+                        } else if (!response.isNull("error")) {//Some incorrect information was sent, but the server and requester still processed it
+                            //TODO Handle Server Errors
+                            switch (response.get("error").toString()) {
+                                case "-1": //Email Password Combo not in the Database
+                                    break;
+                                case "-2":  //Select Query failed due to something dumb
+                                    // Print out response.get("errormessage"), it'll have the mysql error with it
 
-                    Intent i = new Intent(searchContext, GenericProfile.class);
-                    i.putExtra("currentUser", currentUser);
-                    i.putExtra("otherUser", otherUser);
-                    searchContext.startActivity(i);
+                                    break;
+                                case "-3": //Update Query Failed Due to New Email is already associated with another account
+                                    break;
+                                case "-4":  //Update Query Failed Due to Something Else Dumb that I haven't handled yet,
+                                    // Print out response.get("errormessage"), it'll have the mysql error with it
+                                    break;
+                                default:    //Some Error Code was printed from the server that isn't handled above
 
+                                    break;
+                            }
+                        } else { //Everything Went Well
+                            User otherUser = new User();
+                            otherUser.setFirstName(response.get("firstName").toString());
+                            otherUser.setLastName(response.get("lastName").toString());
+                            otherUser.setEmail(response.get("email").toString());
+                            otherUser.setUniversity(response.get("university").toString());
+                            otherUser.setRating(Float.parseFloat(response.get("averageRating").toString()));
+                            otherUser.setDescription(response.get("userDescription").toString());
+                            otherUser.setNumProfilePic(Integer.parseInt(response.get("profilePic").toString()));
+                            // delete up to here ^
+
+                            Intent i = new Intent(searchContext, GenericProfile.class);
+                            i.putExtra("currentUser", currentUser);
+                            i.putExtra("otherUser", otherUser);
+                            searchContext.startActivity(i);
+                        }
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    } catch (ExecutionException e) {
+                        e.printStackTrace();
+                    } catch (JSONException e){
+                        e.printStackTrace();
+                    }
                 }
             });
         }
