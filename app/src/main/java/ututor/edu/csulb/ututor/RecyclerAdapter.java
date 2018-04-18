@@ -50,9 +50,6 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
                     try {
                         response = new ServerRequester().execute("fetchUser.php", "whatever",
                                 "email", Data.get(position).getemail()
-                                //"subject", searchsubj.getText().toString(),
-                                //"university", searchuni.getText().toString(),
-                                //"rating",  Float.toString(searchrating.getRating())
                         ).get();
                         if (response == null) {//Something went horribly wrong, JSON failed to be formed meaning something happened in the server requester
                         } else if (!response.isNull("error")) {//Some incorrect information was sent, but the server and requester still processed it
