@@ -15,11 +15,16 @@ import android.widget.Toast;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 
 public class AppointmentManager extends Fragment {
@@ -56,8 +61,43 @@ public class AppointmentManager extends Fragment {
         upcomingAppointments = new ArrayList<Appointment>();
         pastAppointments = new ArrayList<Appointment>();
 
-        // TODO - LANCE: DATABASE FETCH! GET ALL APPOINTMENTS ASSOCIATED WITH USER
-        // IT WILL BE MY JOB TO SORT THEM :)
+        JSONObject response = null;
+        try {
+            response = new ServerRequester().execute("rate.php", "whatever"
+                    ,"email", currentUser.getEmail()
+            ).get();
+            if (response == null) {//Something went horribly wrong, JSON failed to be formed meaning something happened in the server requester
+
+            } else if (!response.isNull("error")) {//Some incorrect information was sent, but the server and requester still processed it
+                //TODO Handle Server Errors
+                switch (response.get("error").toString()) {
+                    default:    //Some Error Code was printed from the server that isn't handled above
+
+                        break;
+                }
+            } else {//Everything went like cream gravy (good)
+                Iterator<String> keys = response.keys(); //Iterator to go through each appointment returned
+                while(keys.hasNext()){ //For each key in the entire response
+                    JSONObject next = (JSONObject) response.get(keys.next()); //next now has a single appointment
+                    //next.get("startAppDateTime"); //Gets the Start Time and Date in format "YYYY-MM-DD HH:MM:SS"
+                        //Ex: "2018-04-29 18:37:01"
+                        //If you need to split this up into date and time you could try using String.split(" ") which splits it up based on the space
+                            //Ex: String[] datetime = next.getString(keys.next()).split(" ");
+                                //datetime[0] : Date in format "YYYY-MM-DD"
+                                //datetime[1] : Time in format "HH:MM:SS"
+                    //next.getString("endAppDateTime"); //Gets the End DateTime
+                    //next.getString("isAccepted"); //Returns either 0 or 1
+                    //next.getString("tutorEmail");
+                    //next.getString("tuteeEmail");
+                }
+            }
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
         // phony appointments...will delete later
         Calendar past = Calendar.getInstance();
         past.set(Calendar.MONTH, 11);
