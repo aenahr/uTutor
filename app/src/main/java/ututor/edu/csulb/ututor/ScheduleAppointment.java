@@ -93,8 +93,12 @@ public class ScheduleAppointment extends AppCompatActivity implements DatePicker
 
                 }else if (email.isChecked())
                 {
+                    // TODO put yo stuff here:
+                    //
+
+                    // sending email intent
                     Log.i("Send email", "");
-                    String[] TO = {otherUser.getEmail()}; // TODO the temporary email that will replace by user email
+                    String[] TO = {otherUser.getEmail()};
                     String[] CC = {""};
                     Intent emailIntent = new Intent(Intent.ACTION_SEND);
 

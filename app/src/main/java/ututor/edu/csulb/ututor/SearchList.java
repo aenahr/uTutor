@@ -16,6 +16,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -140,6 +141,7 @@ public class SearchList extends Fragment {
                         break;
                     case "-4":  //Update Query Failed Due to Something Else Dumb that I haven't handled yet,
                         // Print out response.get("errormessage"), it'll have the mysql error with it
+                        Toast.makeText(getActivity(), "'"+userinput.getText().toString()+"' not found.", Toast.LENGTH_SHORT).show();
                         break;
                     default:    //Some Error Code was printed from the server that isn't handled above
 
