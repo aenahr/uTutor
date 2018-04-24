@@ -1,5 +1,7 @@
 package ututor.edu.csulb.ututor;
 
+import java.util.Comparator;
+
 /**
  * Created by Nishant on 2/17/2018.
  */
@@ -37,4 +39,15 @@ public class NewItem
     public String getuniversity() { return university; }
 
     public Float getrating() { return rating;   }
+
+
+//    public int compareRating(NewItem jc1, NewItem jc2) {
+//        return (jc2.getrating() < jc1.getrating() ? -1 :
+//                (jc2.getrating() == jc1.getrating() ? 0 : 1));
+//    }
+//
+//    public int compareUni(NewItem jc1, NewItem jc2) {
+//        return (int) (jc1.getuniversity().compareTo(jc2.getuniversity()));
+//    }
+
 }

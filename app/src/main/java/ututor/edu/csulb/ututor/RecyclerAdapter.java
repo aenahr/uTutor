@@ -15,11 +15,14 @@ import android.widget.Toast;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.concurrent.ExecutionException;
 
 import static java.sql.Types.NULL;
-
+import java.util.Collections;
 
 public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHolder> {
 
@@ -157,4 +160,35 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
         Data = filteredList;
         notifyDataSetChanged();
     }
+
+   public void sortList(ArrayList<NewItem> filteredList)
+    {
+        Sorter sort = new Sorter(filteredList);
+        ArrayList<NewItem> SortedList = sort.getSortedByUni();
+//        Data = filteredList;
+//        notifyDataSetChanged();
+    }
+}
+
+class Sorter {
+
+    ArrayList<NewItem> FilteredList = new ArrayList<>();
+
+    public Sorter(ArrayList<NewItem> FilteredList) {
+        this.FilteredList = FilteredList;
+    }
+
+    public ArrayList<NewItem> getSortedByRating() {
+//        for(int i = 0; i < FilteredList.size(); i++) {
+//            FilteredList.sort( (Comparator<NewItem>) FilteredList.get(i).getrating());
+//        }
+        return FilteredList;
+
+    }
+
+    public ArrayList<NewItem> getSortedByUni() {
+//        Collections.sort(FilteredList, FilteredList.get(i));
+          return FilteredList;
+    }
+
 }

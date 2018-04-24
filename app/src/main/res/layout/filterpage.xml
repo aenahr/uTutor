@@ -51,27 +51,22 @@
 
             <Button
                 android:id="@+id/sUniversity"
+                style="@style/Widget.AppCompat.Button.Borderless.Colored"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/sortby"
-                android:text="University"
-                android:layout_marginStart="5dp" />
+                android:layout_marginStart="5dp"
+                android:text="University" />
+
             <Button
-                android:id="@+id/sortb2"
+                android:id="@+id/sRating"
+                style="@style/Widget.AppCompat.Button.Borderless.Colored"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/sortby"
+                android:layout_marginLeft="5dp"
                 android:layout_toEndOf="@+id/sUniversity"
-                android:text="@string/card_subject"
-                android:layout_marginLeft="5dp" />
-            <Button
-                android:id="@+id/sortb3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/sortby"
-                android:layout_toEndOf="@+id/sortb2"
-                android:text="Rating"
-                android:layout_marginLeft="5dp"/>
+                android:text="Rating" />
 
             <TextView
                 android:id="@+id/ratingtext"

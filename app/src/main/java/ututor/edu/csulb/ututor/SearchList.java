@@ -118,11 +118,12 @@ public class SearchList extends Fragment {
         ArrayList<NewItem> filteredList = new ArrayList<>();
         JSONObject response = null;
         try {
-//            String[] name =  userinput.getText().toString().split(" ");
+            //          String[] name =  userinput.getText().toString().split(" ");
             //          String firstname = name[0];
             //         String lastname = name[1];
             response = new ServerRequester().execute("search.php", "whatever"
-                    ,"firstName", userinput.getText().toString()
+                    ,"email", userinput.getText().toString()
+                    //,"firstName", userinput.getText().toString()
                     //,"subject", searchsubj.getText().toString()
                     //,"university", searchuni.getText().toString()
                     //,"rating",  Float.toString(searchrating.getRating())
