@@ -63,7 +63,7 @@ public class AppointmentManager extends Fragment {
 
         JSONObject response = null;
         try {
-            response = new ServerRequester().execute("rate.php", "whatever"
+            response = new ServerRequester().execute("getAppointments.php", "whatever"
                     ,"email", currentUser.getEmail()
             ).get();
             if (response == null) {//Something went horribly wrong, JSON failed to be formed meaning something happened in the server requester
