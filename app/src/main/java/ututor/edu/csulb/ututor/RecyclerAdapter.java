@@ -145,8 +145,9 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
             holder.itemStatus.setTextColor(searchContext.getResources().getColor(R.color.green));
         }
         holder.itemuniversity.setText(currentItem.getuniversity());
-
         holder.itemrating.setRating((float) currentItem.getrating());
+        //holder.itemsubject.setText(currentItem.getSubject());
+        //add subject field back
     }
 
     @Override

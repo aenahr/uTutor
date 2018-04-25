@@ -33,7 +33,17 @@ public class Searchlist_filter extends AppCompatActivity{
 
         bSearch.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
-                Toast.makeText(Searchlist_filter.this,"Searching " + userInput.getText().toString() + " with parameter " + searchUniversity.getText().toString() ,Toast.LENGTH_LONG).show();
+                // learn how to transfer data from one activity to another
+                // when user clicks search on adv panel, it should go back to the search page and
+                // display the results (no need to click search again there)
+                // use Intent to load search_list
+                //Intent i = ...
+                //       .putExtra("university,..");
+
+                Toast.makeText(Searchlist_filter.this,"Searching " +
+                        userInput.getText().toString() + " with parameter " +
+                        searchUniversity.getText().toString() ,Toast.LENGTH_LONG).show();
+
             }
         });
 

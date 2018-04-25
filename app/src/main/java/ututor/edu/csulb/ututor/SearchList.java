@@ -99,7 +99,9 @@ public class SearchList extends Fragment {
                 // this is where filtering happens
                 search.setOnClickListener(new View.OnClickListener() {
                     public void onClick(View v) {
+
                         filter(editable.toString());
+
                     }
                 });
 
