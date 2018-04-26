@@ -1,29 +1,41 @@
 package ututor.edu.csulb.ututor;
 
 import android.content.Intent;
+import android.media.Rating;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RatingBar;
 import android.widget.Toast;
 
 public class Searchlist_filter extends AppCompatActivity{
 
     EditText searchUniversity;
-    Button bUniversity, bSearch;
-    EditText userInput;
-
+    Button bRating, bUniversity, bSearch, bclear;
+    EditText searchSubject, searchEmail;
+    RatingBar rating;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.searchlist_filter);
 
+        //Getting subject and university from user in adv search
+        searchSubject = (EditText) findViewById(R.id.searchsubject);
         searchUniversity = (EditText) findViewById(R.id.searchUni);
-        bUniversity = (Button) findViewById(R.id.sUniversity);
-        userInput = (EditText)findViewById(R.id.userInputTutor);
+        rating = (RatingBar) findViewById(R.id.ratingBar3);
+        //place where user types name and the search button that starts the search
+        searchEmail = (EditText)findViewById(R.id.userInputTutor); //email
         bSearch = (Button) findViewById(R.id.search);
+
+        //clear all
+        bclear = (Button) findViewById(R.id.clearall);
+
+        //sortby buttons
+        bRating = (Button) findViewById(R.id.sRating);
+        bUniversity = (Button) findViewById(R.id.sUniversity);
 
         bUniversity.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
@@ -41,12 +53,21 @@ public class Searchlist_filter extends AppCompatActivity{
                 //       .putExtra("university,..");
 
                 Toast.makeText(Searchlist_filter.this,"Searching " +
-                        userInput.getText().toString() + " with parameter " +
+                        searchEmail.getText().toString() + " with parameter " +
                         searchUniversity.getText().toString() ,Toast.LENGTH_LONG).show();
 
             }
         });
 
+        //clear all buttons clears the text fields and rating to empty
+        bclear.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                searchUniversity.setText("");
+                searchSubject.setText("");
+                rating.setRating(0);
+            }
+        });
     }
 
     }

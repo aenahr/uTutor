@@ -34,7 +34,7 @@ public class SearchList extends Fragment {
     private RecyclerView recyclerView;
     private RecyclerView.LayoutManager layoutManager;
     private RecyclerAdapter adapter;
-    private EditText userinput, searchuni, searchsubj;
+    private EditText searchEmail, searchuni, searchsubj;
     private RatingBar searchrating;
     private Button search;
 
@@ -72,7 +72,7 @@ public class SearchList extends Fragment {
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adapter);
 
-        userinput = rootView.findViewById(R.id.userInputTutor);  //gets name from user
+        searchEmail = rootView.findViewById(R.id.userInputTutor);  //gets name from user
         //EditText userinputsubject = rootView.findViewById(R.id.searchsubject);
 
         searchuni = rootView.findViewById(R.id.searchUni);
@@ -82,7 +82,7 @@ public class SearchList extends Fragment {
         // searchuni.getText().toString();
         //gets subject from user
 
-        userinput.addTextChangedListener(new TextWatcher() {  //does the stuff with the user input
+        searchEmail.addTextChangedListener(new TextWatcher() {  //does the stuff with the user input
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
@@ -124,8 +124,9 @@ public class SearchList extends Fragment {
             //          String firstname = name[0];
             //         String lastname = name[1];
             response = new ServerRequester().execute("search.php", "whatever"
-                    ,"email", userinput.getText().toString()
-                    //,"firstName", userinput.getText().toString()
+                    ,"email", searchEmail.getText().toString()
+                    //,"firstName", firstName.getText().toString()
+                    //,"lastName",  lastName.getText().toString()
                     //,"subject", searchsubj.getText().toString()
                     //,"university", searchuni.getText().toString()
                     //,"rating",  Float.toString(searchrating.getRating())
@@ -144,7 +145,7 @@ public class SearchList extends Fragment {
                         break;
                     case "-4":  //Update Query Failed Due to Something Else Dumb that I haven't handled yet,
                         // Print out response.get("errormessage"), it'll have the mysql error with it
-                        Toast.makeText(getActivity(), "'"+userinput.getText().toString()+"' not found.", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(), "'"+searchEmail.getText().toString()+"' not found.", Toast.LENGTH_SHORT).show();
                         break;
                     default:    //Some Error Code was printed from the server that isn't handled above
 
