@@ -136,6 +136,7 @@ public class GenericProfile extends AppCompatActivity {
             public void onClick(View view) {
                 Intent i = new Intent(GenericProfile.this, Profile_readreview.class);
                 i.putExtra("otherUser", otherUser);
+                i.putExtra("from", "GenericProfile");
                 startActivity(i);
             }
         });

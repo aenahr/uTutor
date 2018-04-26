@@ -12,6 +12,8 @@ public class Appointment implements Serializable{
     String tuteeEmail;
     String tuteeFName;
     String tuteeLName;
+    String tutorFName;
+    String tutorLName;
     Calendar dateOfAppointment;
     Calendar startTime;
     Calendar endTime;
@@ -38,6 +40,11 @@ public class Appointment implements Serializable{
     public Appointment(){
         isAccepted = false;
     }
+
+    public void setTutorFName(String s){ tutorFName = s;}
+    public void setTutorLName(String s){ tutorLName = s;}
+    public String getTutorLName(){ return tutorLName;}
+    public String getTutorFName(){ return tutorFName;}
 
     public void setTuteeFName(String s){ tuteeFName = s;}
     public void setTuteeLName(String s){ tuteeLName = s;}
@@ -99,10 +106,16 @@ public class Appointment implements Serializable{
         lengthOfAppointment = l;
     }
 
-    public String toString(){
+    public String toStringTutee(){
         String date = String.format("%2s-%2s-%2s", dateOfAppointment.get(Calendar.MONTH), dateOfAppointment.get(Calendar.DAY_OF_MONTH), dateOfAppointment.get(Calendar.YEAR)).replace(' ', '0');
         String time = String.format("%2s:%2s-%2s:%2s", startTime.get(Calendar.HOUR_OF_DAY), startTime.get(Calendar.MINUTE), endTime.get(Calendar.HOUR_OF_DAY), endTime.get(Calendar.MINUTE)).replace(' ', '0');
         return "Name: " + tuteeFName + " " + tuteeLName + "  Date: " + date + "  Time:" + time;
+    }
+
+    public String toStringTutor(){
+        String date = String.format("%2s-%2s-%2s", dateOfAppointment.get(Calendar.MONTH), dateOfAppointment.get(Calendar.DAY_OF_MONTH), dateOfAppointment.get(Calendar.YEAR)).replace(' ', '0');
+        String time = String.format("%2s:%2s-%2s:%2s", startTime.get(Calendar.HOUR_OF_DAY), startTime.get(Calendar.MINUTE), endTime.get(Calendar.HOUR_OF_DAY), endTime.get(Calendar.MINUTE)).replace(' ', '0');
+        return "Name: " + tutorFName + " " + tutorLName + "  Date: " + date + "  Time:" + time;
     }
 
 }

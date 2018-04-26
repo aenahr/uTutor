@@ -1,6 +1,7 @@
 package ututor.edu.csulb.ututor;
 
 import android.app.Dialog;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -25,12 +26,25 @@ public class Profile_readreview extends AppCompatActivity {
     private ListView listView;
     private ArrayAdapter<Profile_review_detail> adapter;
     private ArrayList<Profile_review_detail> arrayList;
+    private User user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.profile_readreview);
         listView = (ListView)findViewById(R.id.simpleListView);
+
+        Intent i = getIntent();
+        if(i.getSerializableExtra("from").equals("GenericProfile")){
+            user = (User)i.getSerializableExtra("otherUser");
+        }else{
+            user = (User)i.getSerializableExtra("currentUser");
+
+        }
+        // TODO: LANCE FETCH DA REVIEWS VIA THE EMAIL!
+        // user.getEmail()
+        // when you're done call meh
+
         setLisData();
         adapter = new Review_ListViewAdapter(this, R.layout.profile_review_list, arrayList);
         listView.setAdapter(adapter);

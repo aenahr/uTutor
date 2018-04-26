@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    android:id="@+id/customItem"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="80dp"
+    android:background="@color/colorLightPrimary">
+
+    <LinearLayout
+        android:id="@+id/typeLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:layout_centerHorizontal="true"
+        android:orientation="horizontal">
+        <TextView
+            android:id="@+id/typeTitle"
+            android:text="You are tutoring:"
+            android:textStyle="bold"
+            android:textColor="@color/colorPrimaryDark"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="3dp"
+            android:textSize="17dp" />
+        <TextView
+            android:id="@+id/name"
+            android:text="Aenah Ramones"
+            android:textSize="17dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/dateLayout"
+        android:layout_width="wrap_content"
+        android:layout_below="@+id/typeLayout"
+        android:layout_centerHorizontal="true"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:id="@+id/dateTitle"
+            android:text="Date:"
+            android:textStyle="bold"
+            android:textColor="@color/colorPrimaryDark"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="3dp"
+            android:textSize="17dp" />
+        <TextView
+            android:id="@+id/date"
+            android:text="XX-XX-XXXX"
+            android:textSize="17dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/timeLayout"
+        android:layout_width="wrap_content"
+        android:layout_below="@+id/dateLayout"
+        android:layout_centerHorizontal="true"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:id="@+id/timeTitle"
+            android:text="Time:"
+            android:textStyle="bold"
+            android:textColor="@color/colorPrimaryDark"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="3dp"
+            android:textSize="17dp" />
+        <TextView
+            android:id="@+id/time"
+            android:text="XX:XX - XX:XX"
+            android:textSize="17dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+
+
+</RelativeLayout>

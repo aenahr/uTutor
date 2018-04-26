@@ -6,9 +6,11 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ExpandableListView;
+import android.widget.ListView;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
@@ -38,6 +40,17 @@ public class AppointmentManager extends Fragment {
     ArrayList<Appointment> upcomingAppointments;
     ArrayList<Appointment> pastAppointments;
 
+    private ListView appointmentListView;
+    private ArrayList<HashMap<String,String>> appointmentItems;
+
+    private ArrayAdapter<String> upcomingAdapter;
+    private ArrayAdapter<String> pendingAdapter;
+    private ArrayAdapter<String> pastAdapter;
+
+    View root;
+
+
+
     public AppointmentManager() {
     }
 
@@ -45,6 +58,8 @@ public class AppointmentManager extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View rootView = inflater.inflate(R.layout.fragment_am, container, false);
+
+        root = rootView;
 
         Intent i = getActivity().getIntent();
         currentUser = (User)i.getSerializableExtra("currentUser");
@@ -56,6 +71,8 @@ public class AppointmentManager extends Fragment {
         bPending = rootView.findViewById(R.id.pending);
         bUpcoming = rootView.findViewById(R.id.upcoming);
         bPast = rootView.findViewById(R.id.past);
+        appointmentListView = (ListView) rootView.findViewById(R.id.aList);
+
 
         pendingAppointments = new ArrayList<Appointment>();
         upcomingAppointments = new ArrayList<Appointment>();
@@ -79,16 +96,53 @@ public class AppointmentManager extends Fragment {
                 Iterator<String> keys = response.keys(); //Iterator to go through each appointment returned
                 while(keys.hasNext()){ //For each key in the entire response
                     JSONObject next = (JSONObject) response.get(keys.next()); //next now has a single appointment
-                    //next.get("startAppDateTime"); //Gets the Start Time and Date in format "YYYY-MM-DD HH:MM:SS"
-                        //Ex: "2018-04-29 18:37:01"
-                        //If you need to split this up into date and time you could try using String.split(" ") which splits it up based on the space
-                            //Ex: String[] datetime = next.getString(keys.next()).split(" ");
-                                //datetime[0] : Date in format "YYYY-MM-DD"
-                                //datetime[1] : Time in format "HH:MM:SS"
-                    //next.getString("endAppDateTime"); //Gets the End DateTime
-                    //next.getString("isAccepted"); //Returns either 0 or 1
-                    //next.getString("tutorEmail");
-                    //next.getString("tuteeEmail");
+                    Appointment newAppointment = new Appointment();
+
+                    String fullString = next.getString("startAppDateTime"); //Gets the Start Time and Date in format "YYYY-MM-DD HH:MM:SS"
+                    String[] datetime = fullString.split(" ");
+                    String[] actualDate = datetime[0].split("-");
+                    String[] actualTime = datetime[1].split(":");
+                    Calendar startTime = Calendar.getInstance();
+                    startTime.set(Calendar.YEAR, Integer.parseInt(actualDate[0]));
+                    startTime.set(Calendar.MONTH, Integer.parseInt(actualDate[1]));
+                    startTime.set(Calendar.DAY_OF_MONTH, Integer.parseInt(actualDate[2]));
+                    startTime.set(Calendar.HOUR, Integer.parseInt(actualTime[0]));
+                    startTime.set(Calendar.MINUTE, Integer.parseInt(actualTime[1]));
+                    startTime.set(Calendar.SECOND, 0);
+                    fullString = next.getString("endAppDateTime");
+                    datetime = fullString.split(" ");
+                    actualDate = datetime[0].split("-");
+                    actualTime = datetime[1].split(":");
+                    Calendar endTime = Calendar.getInstance();
+                    endTime.set(Calendar.YEAR, Integer.parseInt(actualDate[0]));
+                    endTime.set(Calendar.MONTH, Integer.parseInt(actualDate[1]));
+                    endTime.set(Calendar.DAY_OF_MONTH, Integer.parseInt(actualDate[2]));
+                    endTime.set(Calendar.HOUR, Integer.parseInt(actualTime[0]));
+                    endTime.set(Calendar.MINUTE, Integer.parseInt(actualTime[1]));
+                    endTime.set(Calendar.SECOND, 0);
+
+                    // set Calendar classes
+                    newAppointment.setStartTime(startTime);
+                    newAppointment.setDateOfAppointment(startTime);
+                    newAppointment.setEndTime(endTime);
+
+                    // set if accepted or not by tutor
+                    if(Integer.parseInt(next.getString("is_accepted")) == 0){ newAppointment.setAccepted(false); }
+                    else{ newAppointment.setAccepted(true); }
+
+                    newAppointment.setTutorEmail(next.getString("tutorEmail"));
+                    newAppointment.setTuteeEmail(next.getString("tuteeEmail"));
+
+                    // Setting the first and last names of the tutor and tutee
+                    newAppointment.setTutorFName(next.getString("tutorFirstName"));
+                    newAppointment.setTutorLName(next.getString("tutorLastName"));
+
+                    newAppointment.setTuteeFName(next.getString("tuteeFirstName"));
+                    newAppointment.setTuteeLName(next.getString("tuteeLastName"));
+
+
+                    // add apointment to the user class
+                    currentUser.addNewAppointment(newAppointment);
                 }
             }
         } catch (InterruptedException e) {
@@ -98,88 +152,15 @@ public class AppointmentManager extends Fragment {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        // phony appointments...will delete later
-        Calendar past = Calendar.getInstance();
-        past.set(Calendar.MONTH, 11);
-        past.set(Calendar.DAY_OF_MONTH, 15);
-        past.set(Calendar.YEAR, 1995);
-        past.set(Calendar.HOUR_OF_DAY, 7);
-        past.set(Calendar.MINUTE, 30);
-        Calendar pastEnd = Calendar.getInstance();
-        pastEnd.set(Calendar.MONTH, 11);
-        pastEnd.set(Calendar.DAY_OF_MONTH, 15);
-        pastEnd.set(Calendar.YEAR, 1995);
-        pastEnd.set(Calendar.HOUR_OF_DAY, 11);
-        pastEnd.set(Calendar.MINUTE, 30);
-
-        Appointment one = new Appointment();
-        one.setDateOfAppointment(past);
-        one.setStartTime(past);
-        one.setEndTime(pastEnd);
-        one.setAccepted(true);
-        one.setTutee("annah.ramones@gmail.com");
-        one.setTuteeFName("Annah");
-        one.setTuteeLName("Ramones");
-        one.setTutorEmail(currentUser.getEmail());
-
-        Calendar up = Calendar.getInstance();
-        up.set(Calendar.MONTH, 4);
-        up.set(Calendar.DAY_OF_MONTH, 11);
-        up.set(Calendar.YEAR, 2018);
-        up.set(Calendar.HOUR_OF_DAY, 13);
-        up.set(Calendar.MINUTE, 15);
-        Calendar upEnd = Calendar.getInstance();
-        upEnd.set(Calendar.MONTH, 4);
-        upEnd.set(Calendar.DAY_OF_MONTH, 11);
-        upEnd.set(Calendar.YEAR, 2018);
-        upEnd.set(Calendar.HOUR_OF_DAY, 15);
-        upEnd.set(Calendar.MINUTE, 30);
-        Appointment two = new Appointment();
-        two.setDateOfAppointment(up);
-        two.setStartTime(up);
-        two.setEndTime(upEnd);
-        two.setAccepted(true);
-        two.setTutee("grace@gmail.com");
-        two.setTuteeFName("Grace");
-        two.setTuteeLName("Ji");
-        two.setTutorEmail(currentUser.getEmail());
-
-        Calendar pend = Calendar.getInstance();
-        pend.set(Calendar.MONTH, 7);
-        pend.set(Calendar.DAY_OF_MONTH, 11);
-        pend.set(Calendar.YEAR, 2018);
-        pend.set(Calendar.HOUR_OF_DAY, 20);
-        pend.set(Calendar.MINUTE, 30);
-        Calendar pendEnd = Calendar.getInstance();
-        pendEnd.set(Calendar.MONTH, 7);
-        pendEnd.set(Calendar.DAY_OF_MONTH, 11);
-        pendEnd.set(Calendar.YEAR, 2018);
-        pendEnd.set(Calendar.HOUR_OF_DAY, 23);
-        pendEnd.set(Calendar.MINUTE, 30);
-        Appointment three = new Appointment();
-        three.setDateOfAppointment(pend);
-        three.setStartTime(pend);
-        three.setEndTime(pendEnd);
-        three.setAccepted(false);
-        three.setTutee("maria@gmail.com");
-        three.setTuteeFName("Maria");
-        three.setTuteeLName("Etcheverry");
-        three.setTutorEmail(currentUser.getEmail());
 
 
-        currentUser.addNewAppointment(one);
-        currentUser.addNewAppointment(two);
-        currentUser.addNewAppointment(three);
-
-        // delete till here
-
-        // TODO - SORTING!
+        // SORTING ALL THE APPOINTMENTS
         Calendar today = Calendar.getInstance();
         for(int x =0; x < currentUser.getAppointments().size(); x++){
             if(currentUser.getAppointments().get(x).isAccepted == true){ //either upcoming or past
                 if(currentUser.getAppointments().get(x).getStartTime().compareTo(today) > 0){ //upcoming
                     upcomingAppointments.add(currentUser.getAppointments().get(x));
-                }else{
+                }else{ // past
                     pastAppointments.add(currentUser.getAppointments().get(x));
                 }
             }
@@ -188,39 +169,37 @@ public class AppointmentManager extends Fragment {
             }
         }
 
-
+        // TODO: add all appointments to listview
+        // starting with upcoming
+        changeUpcomingListView(rootView);
         // initialize colors
-        changeOption(2);
+        changeButtonOption(2);
 
         // button listeners
         bPending.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                changeOption(1);
-                Toast.makeText(getActivity(), pendingAppointments.get(0).toString(), Toast.LENGTH_SHORT).show();
+                changePendingListView(root);
+                changeButtonOption(1);
             }
         });
 
         bUpcoming.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                changeOption(2);
-                Toast.makeText(getActivity(), upcomingAppointments.get(0).toString(), Toast.LENGTH_SHORT).show();
-
+                changeUpcomingListView(root);
+                changeButtonOption(2);
             }
         });
 
         bPast.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                changeOption(3);
-                Toast.makeText(getActivity(), pastAppointments.get(0).toString(), Toast.LENGTH_SHORT).show();
-
+                changeButtonOption(3);
+                changePastListView(root);
             }
         });
-
-
 
         return rootView;
     }
@@ -229,7 +208,7 @@ public class AppointmentManager extends Fragment {
      * Changes the color of the text depending on what the user has selected
      * @param choice
      */
-    public void changeOption(int choice){
+    public void changeButtonOption(int choice){
         if( choice == 1){ // pending
             bPending.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
             bUpcoming.setTextColor(getResources().getColor(R.color.white));
@@ -243,6 +222,80 @@ public class AppointmentManager extends Fragment {
             bUpcoming.setTextColor(getResources().getColor(R.color.white));
             bPast.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
         }
+    }
+
+    /**
+     * Changing the List View to show Upcoming Appointments
+     * @param rootView
+     */
+    public void changeUpcomingListView(View rootView){
+//        appointmentItems = new ArrayList<String>();
+//        if(upcomingAppointments.isEmpty()){ } // nothing shown
+//        else{
+//            for(int k = 0; k < upcomingAppointments.size(); k++){ // add all the work hours to array that will be inserted into adapter
+//                appointmentItems.add(upcomingAppointments.get(k).toStringTutee());
+//            }
+//        }
+//        appointmentListView = (ListView) rootView.findViewById(R.id.aList);
+//        upcomingAdapter = new ArrayAdapter<String>(getActivity().getBaseContext(), android.R.layout.simple_list_item_1, appointmentItems);
+//        appointmentListView.setAdapter(upcomingAdapter);
+
+
+        appointmentItems = new ArrayList<HashMap<String, String>>();
+        for(int i =0;i<upcomingAppointments.size();i++)
+        {
+            HashMap<String,String> mHashMap = new HashMap<>();
+            if(currentUser.getEmail().equals(upcomingAppointments.get(i).getTuteeEmail())){
+                mHashMap.put("typeTitle", "Tutored By:");
+                mHashMap.put("nameKey",upcomingAppointments.get(i).getTutorFName() + " " + upcomingAppointments.get(i).getTutorLName());
+            }else{
+                mHashMap.put("typeTitle", "Tutoring:");
+                mHashMap.put("nameKey",upcomingAppointments.get(i).getTuteeFName() + " " + upcomingAppointments.get(i).getTuteeLName());
+            }
+            String date = String.format("%2s-%2s-%2s", upcomingAppointments.get(i).getDate().get(Calendar.MONTH), upcomingAppointments.get(i).getDate().get(Calendar.DAY_OF_MONTH), upcomingAppointments.get(i).getDate().get(Calendar.YEAR)).replace(' ', '0');
+            String time = String.format("%2s:%2s-%2s:%2s", upcomingAppointments.get(i).getStartTime().get(Calendar.HOUR_OF_DAY), upcomingAppointments.get(i).getStartTime().get(Calendar.MINUTE), upcomingAppointments.get(i).getEndTime().get(Calendar.HOUR_OF_DAY), upcomingAppointments.get(i).getEndTime().get(Calendar.MINUTE)).replace(' ', '0');
+            mHashMap.put("dateKey",date);
+            mHashMap.put("timeKey",time);
+
+            appointmentItems.add(mHashMap);
+        }
+
+        AppointmentListView customListView = new AppointmentListView(appointmentItems,getActivity());
+        appointmentListView.setAdapter(customListView);
+    }
+
+    /**
+     * Changing the List View to show Pending Appointments
+     * @param rootView
+     */
+    public void changePendingListView(View rootView){
+//        appointmentItems = new ArrayList<String>();
+//        if(pendingAppointments.isEmpty()){ } // nothing shown
+//        else{
+//            for(int k = 0; k < pendingAppointments.size(); k++){ // add all the work hours to array that will be inserted into adapter
+//                appointmentItems.add(pendingAppointments.get(k).toStringTutee());
+//            }
+//        }
+//        appointmentListView = (ListView) rootView.findViewById(R.id.aList);
+//        pendingAdapter = new ArrayAdapter<String>(getActivity().getBaseContext(), android.R.layout.simple_list_item_1, appointmentItems);
+//        appointmentListView.setAdapter(pendingAdapter);
+    }
+
+    /**
+     * Changing the List View to show Past Appointments
+     * @param rootView
+     */
+    public void changePastListView(View rootView){
+//        appointmentItems = new ArrayList<String>();
+//        if(pastAppointments.isEmpty()){ } // nothing shown
+//        else{
+//            for(int k = 0; k < pastAppointments.size(); k++){ // add all the work hours to array that will be inserted into adapter
+//                appointmentItems.add(pastAppointments.get(k).toStringTutee());
+//            }
+//        }
+//        appointmentListView = (ListView) rootView.findViewById(R.id.aList);
+//        pastAdapter = new ArrayAdapter<String>(getActivity().getBaseContext(), android.R.layout.simple_list_item_1, appointmentItems);
+//        appointmentListView.setAdapter(pastAdapter);
     }
 
 }

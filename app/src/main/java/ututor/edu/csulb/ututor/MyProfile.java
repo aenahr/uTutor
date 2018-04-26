@@ -74,14 +74,12 @@ public class MyProfile extends Fragment {
             @Override
             public void onClick(View v) {
                 if(canModify == true){
-                    // TODO direct user to edit bio
 //                    Toast.makeText(getActivity(), "Going to edit", Toast.LENGTH_SHORT).show();
                     Intent i = new Intent(getActivity(), MyProfile_Edit.class);
                     i.putExtra("currentUser", currentUser);
                     startActivity(i);
                 }
                 else{
-                    // TODO diredct user to view bio
 //                    Toast.makeText(getActivity(), "Going to view", Toast.LENGTH_SHORT).show();
                     Intent i = new Intent(getActivity(), MyProfile_Bio.class);
                     i.putExtra("currentUser", currentUser);
@@ -94,8 +92,6 @@ public class MyProfile extends Fragment {
         linearReadReviews.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // TODO go to Read Reviews Activity
-
                 Intent i = new Intent(getActivity(), ScheduleAppointment.class);
                 i.putExtra("currentUser", currentUser);
                 startActivity(i);
