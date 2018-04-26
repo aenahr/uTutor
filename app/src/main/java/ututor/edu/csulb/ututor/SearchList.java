@@ -34,7 +34,7 @@ public class SearchList extends Fragment {
     private RecyclerView recyclerView;
     private RecyclerView.LayoutManager layoutManager;
     private RecyclerAdapter adapter;
-    private EditText searchEmail, searchuni, searchsubj;
+    private EditText searchEmail, searchuni, searchsubj, searchFname, searchLname;
     private RatingBar searchrating;
     private Button search;
 
@@ -72,12 +72,13 @@ public class SearchList extends Fragment {
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adapter);
 
-        searchEmail = rootView.findViewById(R.id.userInputTutor);  //gets name from user
-        //EditText userinputsubject = rootView.findViewById(R.id.searchsubject);
-
-        searchuni = rootView.findViewById(R.id.searchUni);
+        //objects from adv search
+        searchEmail = rootView.findViewById(R.id.searchEmail);  //gets email
+        searchuni = rootView.findViewById(R.id.searchUni);      //gets university
         searchrating = rootView.findViewById(R.id.ratingBar3);
         searchsubj = rootView.findViewById(R.id.searchsubject);
+        searchFname = rootView.findViewById(R.id.firstname);
+        searchLname = rootView.findViewById(R.id.lastname);
 
         // searchuni.getText().toString();
         //gets subject from user
@@ -155,7 +156,15 @@ public class SearchList extends Fragment {
                 Iterator<String> keys = response.keys();
                 while (keys.hasNext()) {
                     JSONObject next = (JSONObject) response.get(keys.next());
-                    filteredList.add(new NewItem(Integer.parseInt(next.get("profilePic").toString()), next.get("firstName").toString(), next.get("lastName").toString(), next.get("email").toString(),next.get("walkinStatus").toString(), next.get("university").toString(), Float.parseFloat(next.get("averageRating").toString())));
+                    filteredList.add(new NewItem(Integer.parseInt(next.get("profilePic").toString()),
+                            next.get("firstName").toString(),
+                            next.get("lastName").toString(),
+                            next.get("email").toString(),
+                            next.get("walkinStatus").toString(),
+                            next.get("subject").toString(),
+                            next.get("university").toString(),
+                            Float.parseFloat(next.get("averageRating").toString())));
+
                     System.out.println(next.toString());
                 }
                 for(NewItem e : filteredList){

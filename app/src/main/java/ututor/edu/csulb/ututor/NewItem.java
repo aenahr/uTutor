@@ -10,18 +10,19 @@ public class NewItem
 {
     private int mImage;
     private String fname, lname;
-    private String status, university;
+    private String status,subject, university;
     private String email;
     private Float rating;
 
-    public NewItem(int image, String firstname, String lastname, String email1, String status1, String uni, Float ratingg) {
+    public NewItem(int image, String firstname, String lastname, String ema, String status1,String subj, String uni, Float rat) {
         mImage = image;
         fname = firstname;
         lname = lastname;
-        email = email1;
+        email = ema;
         status = status1;
+        subject = subj;
         university = uni;
-        rating = ratingg;
+        rating = rat;
     }
 
     public int getImage() {
@@ -36,6 +37,7 @@ public class NewItem
     }
     public String getemail() { return email;   }
     public String getstatus() { return status;   }
+    public String getSubject() { return subject; }
     public String getuniversity() { return university; }
 
     public Float getrating() { return rating;   }
