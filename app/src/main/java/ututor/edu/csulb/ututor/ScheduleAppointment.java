@@ -94,6 +94,33 @@ public class ScheduleAppointment extends AppCompatActivity implements DatePicker
                 }else if (email.isChecked())
                 {
                     // TODO put yo stuff here:
+                    JSONObject response = null;
+                    try {
+                        response = new ServerRequester().execute("scheduleAppointment.php", "whatever"
+                                ,"tutorEmail", otherUser.getEmail()
+                                ,"tuteeEmail", otherUser.getEmail()
+                                ,"startAppDateTime", otherUser.getEmail() //Format: "YYYY-MM-DD HH:MM:SS", 1<=MM<=12
+                                ,"endAppDateTime", otherUser.getEmail()     //Format is pretty lenient, So long as you use consistent delimiters, seconds not necessary
+                        ).get();
+                        if (response == null) {//Something went horribly wrong, JSON failed to be formed meaning something happened in the server requester
+
+                        } else if (!response.isNull("error")) {//Some incorrect information was sent, but the server and requester still processed it
+                            //TODO Handle Server Errors
+                            switch (response.get("error").toString()) {
+                                default:    //Some Error Code was printed from the server that isn't handled above
+
+                                    break;
+                            }
+                        } else { //Everything Went Well
+
+                        }
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    } catch (ExecutionException e) {
+                        e.printStackTrace();
+                    } catch (JSONException e){
+                        e.printStackTrace();
+                    }
                     //
 
                     // sending email intent

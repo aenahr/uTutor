@@ -55,6 +55,7 @@ public class MyProfile extends Fragment {
         linearReadReviews = (LinearLayout) rootView.findViewById(R.id.linearReadReviews);
 
         // TODO load average rating from database
+
         // Remember this format:
 //        double num = 3.5;
 //        currentUser.setRating((float)num);
