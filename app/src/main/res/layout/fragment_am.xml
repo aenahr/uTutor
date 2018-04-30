@@ -53,6 +53,7 @@
         android:background="@drawable/regular_border"
         android:layout_centerHorizontal="true"
         android:layout_below="@+id/buttons"
+        android:padding="5dp"
         android:drawSelectorOnTop="false"
         />
 </RelativeLayout>

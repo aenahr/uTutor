@@ -101,6 +101,9 @@
         <activity android:name=".Gprofile_rateTutor"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
+        <activity android:name=".WorkManager_SetWorkLocation"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
 
 
         <meta-data

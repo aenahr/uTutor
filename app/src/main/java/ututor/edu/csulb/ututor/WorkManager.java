@@ -64,6 +64,7 @@ public class WorkManager extends Fragment implements AdapterView.OnItemSelectedL
     //RECORDING HOW MANY TIMES THE BUTTON HAS BEEN CLICKED
     Button addSubjectItem;
     Button addWorkHour;
+    Button setWorkLocation;
 
 
     // TODO find out when to refresh database to update Work Times
@@ -228,16 +229,21 @@ public class WorkManager extends Fragment implements AdapterView.OnItemSelectedL
         ///////////
         // Work Hours
         ///////////
-
         addWorkHour.setOnClickListener(new View.OnClickListener(){
             public void onClick(View view) {
-
-//                Intent intent = new Intent(getActivity(), WorkHourPicker.class);
-//                startActivity(intent);
 
                 Intent i = new Intent(getActivity(), WorkHourPicker.class);
                 i.putExtra("currentUser", currentUser);
                 startActivity(i);
+            }
+        });
+
+        setWorkLocation = (Button) getActivity().findViewById(R.id.setLocation);
+        setWorkLocation.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View view) {
+                Intent getLoc = new Intent(getActivity(), WorkManager_SetWorkLocation.class);
+                startActivityForResult(getLoc, 1);
+
             }
         });
 

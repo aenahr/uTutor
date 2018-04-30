@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -48,7 +49,6 @@ public class AppointmentManager extends Fragment {
     private ArrayAdapter<String> pastAdapter;
 
     View root;
-
 
 
     public AppointmentManager() {
@@ -104,7 +104,7 @@ public class AppointmentManager extends Fragment {
                     String[] actualTime = datetime[1].split(":");
                     Calendar startTime = Calendar.getInstance();
                     startTime.set(Calendar.YEAR, Integer.parseInt(actualDate[0]));
-                    startTime.set(Calendar.MONTH, Integer.parseInt(actualDate[1]));
+                    startTime.set(Calendar.MONTH, Integer.parseInt(actualDate[1])-1); // it's a 0-11 month
                     startTime.set(Calendar.DAY_OF_MONTH, Integer.parseInt(actualDate[2]));
                     startTime.set(Calendar.HOUR, Integer.parseInt(actualTime[0]));
                     startTime.set(Calendar.MINUTE, Integer.parseInt(actualTime[1]));
@@ -115,11 +115,13 @@ public class AppointmentManager extends Fragment {
                     actualTime = datetime[1].split(":");
                     Calendar endTime = Calendar.getInstance();
                     endTime.set(Calendar.YEAR, Integer.parseInt(actualDate[0]));
-                    endTime.set(Calendar.MONTH, Integer.parseInt(actualDate[1]));
+                    endTime.set(Calendar.MONTH, Integer.parseInt(actualDate[1])-1);// it's a 0-11 month
                     endTime.set(Calendar.DAY_OF_MONTH, Integer.parseInt(actualDate[2]));
                     endTime.set(Calendar.HOUR, Integer.parseInt(actualTime[0]));
                     endTime.set(Calendar.MINUTE, Integer.parseInt(actualTime[1]));
                     endTime.set(Calendar.SECOND, 0);
+//                    Toast.makeText(getActivity(), "Adding: " + startTime.get(Calendar.MONTH) + "/" + startTime.get(Calendar.DAY_OF_MONTH) + "/" + startTime.get(Calendar.YEAR), Toast.LENGTH_SHORT).show();
+
 
                     // set Calendar classes
                     newAppointment.setStartTime(startTime);
@@ -169,7 +171,6 @@ public class AppointmentManager extends Fragment {
             }
         }
 
-        // TODO: add all appointments to listview
         // starting with upcoming
         changeUpcomingListView(rootView);
         // initialize colors
@@ -229,30 +230,22 @@ public class AppointmentManager extends Fragment {
      * @param rootView
      */
     public void changeUpcomingListView(View rootView){
-//        appointmentItems = new ArrayList<String>();
-//        if(upcomingAppointments.isEmpty()){ } // nothing shown
-//        else{
-//            for(int k = 0; k < upcomingAppointments.size(); k++){ // add all the work hours to array that will be inserted into adapter
-//                appointmentItems.add(upcomingAppointments.get(k).toStringTutee());
-//            }
-//        }
-//        appointmentListView = (ListView) rootView.findViewById(R.id.aList);
-//        upcomingAdapter = new ArrayAdapter<String>(getActivity().getBaseContext(), android.R.layout.simple_list_item_1, appointmentItems);
-//        appointmentListView.setAdapter(upcomingAdapter);
-
-
         appointmentItems = new ArrayList<HashMap<String, String>>();
         for(int i =0;i<upcomingAppointments.size();i++)
         {
             HashMap<String,String> mHashMap = new HashMap<>();
             if(currentUser.getEmail().equals(upcomingAppointments.get(i).getTuteeEmail())){
-                mHashMap.put("typeTitle", "Tutored By:");
+                mHashMap.put("typeTitleKey", "Tutored By:");
                 mHashMap.put("nameKey",upcomingAppointments.get(i).getTutorFName() + " " + upcomingAppointments.get(i).getTutorLName());
+                mHashMap.put("backgroundKey", "normal");
+                mHashMap.put("isTutoring", "F");
             }else{
-                mHashMap.put("typeTitle", "Tutoring:");
+                mHashMap.put("typeTitleKey", "Tutoring:");
                 mHashMap.put("nameKey",upcomingAppointments.get(i).getTuteeFName() + " " + upcomingAppointments.get(i).getTuteeLName());
+                mHashMap.put("backgroundKey", "yellow");
+                mHashMap.put("isTutoring", "T");
             }
-            String date = String.format("%2s-%2s-%2s", upcomingAppointments.get(i).getDate().get(Calendar.MONTH), upcomingAppointments.get(i).getDate().get(Calendar.DAY_OF_MONTH), upcomingAppointments.get(i).getDate().get(Calendar.YEAR)).replace(' ', '0');
+            String date = String.format("%2s-%2s-%2s", upcomingAppointments.get(i).getDate().get(Calendar.MONTH)+1, upcomingAppointments.get(i).getDate().get(Calendar.DAY_OF_MONTH), upcomingAppointments.get(i).getDate().get(Calendar.YEAR)).replace(' ', '0');
             String time = String.format("%2s:%2s-%2s:%2s", upcomingAppointments.get(i).getStartTime().get(Calendar.HOUR_OF_DAY), upcomingAppointments.get(i).getStartTime().get(Calendar.MINUTE), upcomingAppointments.get(i).getEndTime().get(Calendar.HOUR_OF_DAY), upcomingAppointments.get(i).getEndTime().get(Calendar.MINUTE)).replace(' ', '0');
             mHashMap.put("dateKey",date);
             mHashMap.put("timeKey",time);
@@ -262,6 +255,17 @@ public class AppointmentManager extends Fragment {
 
         AppointmentListView customListView = new AppointmentListView(appointmentItems,getActivity());
         appointmentListView.setAdapter(customListView);
+        appointmentListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> a, View v, int position, long id) {
+                Intent i = new Intent(getActivity(), AppointmentView.class);
+                i.putExtra("currentUser", currentUser);
+                if(appointmentItems.get(position).get("isTutoring").equals("F")){ i.putExtra("isTutoring", false); }
+                else{ i.putExtra("isTutoring", true); }
+                i.putExtra("appointmentInfo", appointmentItems.get(position));
+                startActivity(i);
+            }
+        });
     }
 
     /**
@@ -269,16 +273,43 @@ public class AppointmentManager extends Fragment {
      * @param rootView
      */
     public void changePendingListView(View rootView){
-//        appointmentItems = new ArrayList<String>();
-//        if(pendingAppointments.isEmpty()){ } // nothing shown
-//        else{
-//            for(int k = 0; k < pendingAppointments.size(); k++){ // add all the work hours to array that will be inserted into adapter
-//                appointmentItems.add(pendingAppointments.get(k).toStringTutee());
-//            }
-//        }
-//        appointmentListView = (ListView) rootView.findViewById(R.id.aList);
-//        pendingAdapter = new ArrayAdapter<String>(getActivity().getBaseContext(), android.R.layout.simple_list_item_1, appointmentItems);
-//        appointmentListView.setAdapter(pendingAdapter);
+        appointmentItems = new ArrayList<HashMap<String, String>>();
+        for(int i =0;i<pendingAppointments.size();i++)
+        {
+            HashMap<String,String> mHashMap = new HashMap<>();
+            if(currentUser.getEmail().equals(pendingAppointments.get(i).getTuteeEmail())){
+                mHashMap.put("typeTitleKey", "Tutored By:");
+                mHashMap.put("nameKey",pendingAppointments.get(i).getTutorFName() + " " + pendingAppointments.get(i).getTutorLName());
+                mHashMap.put("backgroundKey", "normal");
+                mHashMap.put("isTutoring", "F");
+            }else{
+                mHashMap.put("typeTitleKey", "Tutoring:");
+                mHashMap.put("nameKey",pendingAppointments.get(i).getTuteeFName() + " " + pendingAppointments.get(i).getTuteeLName());
+                mHashMap.put("backgroundKey", "yellow");
+                mHashMap.put("isTutoring", "T");
+
+            }
+            String date = String.format("%2s-%2s-%2s", pendingAppointments.get(i).getDate().get(Calendar.MONTH)+1, pendingAppointments.get(i).getDate().get(Calendar.DAY_OF_MONTH), pendingAppointments.get(i).getDate().get(Calendar.YEAR)).replace(' ', '0');
+            String time = String.format("%2s:%2s-%2s:%2s", pendingAppointments.get(i).getStartTime().get(Calendar.HOUR_OF_DAY), pendingAppointments.get(i).getStartTime().get(Calendar.MINUTE), pendingAppointments.get(i).getEndTime().get(Calendar.HOUR_OF_DAY), pendingAppointments.get(i).getEndTime().get(Calendar.MINUTE)).replace(' ', '0');
+            mHashMap.put("dateKey",date);
+            mHashMap.put("timeKey",time);
+
+            appointmentItems.add(mHashMap);
+        }
+
+        AppointmentListView customListView = new AppointmentListView(appointmentItems,getActivity());
+        appointmentListView.setAdapter(customListView);
+        appointmentListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> a, View v, int position, long id) {
+                Intent i = new Intent(getActivity(), AppointmentView.class);
+                i.putExtra("currentUser", currentUser);
+                if(appointmentItems.get(position).get("isTutoring").equals("F")){ i.putExtra("isTutoring", false); }
+                else{ i.putExtra("isTutoring", true); }
+                i.putExtra("appointmentInfo", appointmentItems.get(position));
+                startActivity(i);
+            }
+        });
     }
 
     /**
@@ -286,16 +317,41 @@ public class AppointmentManager extends Fragment {
      * @param rootView
      */
     public void changePastListView(View rootView){
-//        appointmentItems = new ArrayList<String>();
-//        if(pastAppointments.isEmpty()){ } // nothing shown
-//        else{
-//            for(int k = 0; k < pastAppointments.size(); k++){ // add all the work hours to array that will be inserted into adapter
-//                appointmentItems.add(pastAppointments.get(k).toStringTutee());
-//            }
-//        }
-//        appointmentListView = (ListView) rootView.findViewById(R.id.aList);
-//        pastAdapter = new ArrayAdapter<String>(getActivity().getBaseContext(), android.R.layout.simple_list_item_1, appointmentItems);
-//        appointmentListView.setAdapter(pastAdapter);
+        appointmentItems = new ArrayList<HashMap<String, String>>();
+        for(int i =0;i<pastAppointments.size();i++)
+        {
+            HashMap<String,String> mHashMap = new HashMap<>();
+            if(currentUser.getEmail().equals(pastAppointments.get(i).getTuteeEmail())){
+                mHashMap.put("typeTitleKey", "Tutored By:");
+                mHashMap.put("nameKey",pastAppointments.get(i).getTutorFName() + " " + pastAppointments.get(i).getTutorLName());
+                mHashMap.put("backgroundKey", "normal");
+                mHashMap.put("isTutoring", "F");
+            }else{
+                mHashMap.put("typeTitleKey", "Tutoring:");
+                mHashMap.put("nameKey",pastAppointments.get(i).getTuteeFName() + " " + pastAppointments.get(i).getTuteeLName());
+                mHashMap.put("backgroundKey", "yellow");
+                mHashMap.put("isTutoring", "T");
+            }
+            String date = String.format("%2s-%2s-%2s", pastAppointments.get(i).getDate().get(Calendar.MONTH)+1, pastAppointments.get(i).getDate().get(Calendar.DAY_OF_MONTH), pastAppointments.get(i).getDate().get(Calendar.YEAR)).replace(' ', '0');
+            String time = String.format("%2s:%2s-%2s:%2s", pastAppointments.get(i).getStartTime().get(Calendar.HOUR_OF_DAY), pastAppointments.get(i).getStartTime().get(Calendar.MINUTE), pastAppointments.get(i).getEndTime().get(Calendar.HOUR_OF_DAY), pastAppointments.get(i).getEndTime().get(Calendar.MINUTE)).replace(' ', '0');
+            mHashMap.put("dateKey",date);
+            mHashMap.put("timeKey",time);
+            appointmentItems.add(mHashMap);
+        }
+
+        AppointmentListView customListView = new AppointmentListView(appointmentItems,getActivity());
+        appointmentListView.setAdapter(customListView);
+        appointmentListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> a, View v, int position, long id) {
+                Intent i = new Intent(getActivity(), AppointmentView.class);
+                i.putExtra("currentUser", currentUser);
+                if(appointmentItems.get(position).get("isTutoring").equals("F")){ i.putExtra("isTutoring", false); }
+                else{ i.putExtra("isTutoring", true); }
+                i.putExtra("appointmentInfo", appointmentItems.get(position));
+                startActivity(i);
+            }
+        });
     }
 
 }

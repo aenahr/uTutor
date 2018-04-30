@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -54,6 +55,7 @@ public class AppointmentListView extends BaseAdapter {
         h.typeTitle = (TextView)(view.findViewById(R.id.typeTitle));
         h.date = (TextView)(view.findViewById(R.id.date));
         h.time = (TextView)(view.findViewById(R.id.time));
+        h.background = (RelativeLayout)(view.findViewById(R.id.customItem));
 
         HashMap<String,String> hashMap = new HashMap<>();
         hashMap = list.get(position);
@@ -62,6 +64,8 @@ public class AppointmentListView extends BaseAdapter {
         h.typeTitle.setText(hashMap.get("typeTitleKey"));
         h.date.setText(hashMap.get("dateKey"));
         h.time.setText(hashMap.get("timeKey"));
+        if(hashMap.get("backgroundKey").equals("yellow")){ h.background.setBackgroundColor(mContext.getResources().getColor(R.color.colorAccent)); }
+        else{ h.background.setBackgroundColor(mContext.getResources().getColor(R.color.colorLightPrimary)); }
 
 
         return view;
@@ -74,5 +78,6 @@ public class AppointmentListView extends BaseAdapter {
         TextView name;
         TextView date;
         TextView time;
+        RelativeLayout background;
     }
 }
