@@ -57,11 +57,33 @@ public class GenericProfile extends AppCompatActivity {
         ratingBar = (RatingBar)findViewById(R.id.ratingBar2);
 
 
-        // TODO database: find if favorite relationship
+        JSONObject response = null;
+        try {
+            response = new ServerRequester().execute("determineFavorite.php", "whatever",
+                    "email", currentUser.getEmail()
+            ).get();
+            if (response == null) {//Something went horribly wrong, JSON failed to be formed meaning something happened in the server requester
 
-        // dummy variable
-        isFavorite = false;
+            } else if (!response.isNull("error")) {//Some incorrect information was sent, but the server and requester still processed it
+                //TODO Handle Server Errors
+                switch (response.get("error").toString()) {
+                    case "-2": //TODO if the user is not a favorite, the flow will land here... so handle this
+                        isFavorite=false;
+                        break;
+                    default:    //Some Error Code was printed from the server that isn't handled above
 
+                        break;
+                }
+            } else { //Everything Went Well, User is a favorite
+                isFavorite=true;
+            }
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (JSONException e){
+            e.printStackTrace();
+        }
         // get user's data
         Intent i = getIntent();
         currentUser = (User)i.getSerializableExtra("currentUser");
@@ -106,15 +128,61 @@ public class GenericProfile extends AppCompatActivity {
                 if (currentUser.getEmail().equals(otherUser.getEmail())) { Toast.makeText(GenericProfile.this, "You cannot favorite yourself",Toast.LENGTH_LONG).show();}
                 else {
                     if(!isFavorite){
-                        //TODO database : create favorite relationship
-                        starImage.setBackgroundResource(R.drawable.ic_star_colored);
-                        favorite.setText("Unfavorite User");
-                        isFavorite = true;
+                        JSONObject response = null;
+                        try {
+                            response = new ServerRequester().execute("favorite.php", "whatever"
+                                    ,"favoriterEmail", currentUser.getEmail()
+                                    ,"favoriteeEmail", otherUser.getEmail()
+                            ).get();
+                            if (response == null) {//Something went horribly wrong, JSON failed to be formed meaning something happened in the server requester
+
+                            } else if (!response.isNull("error")) {//Some incorrect information was sent, but the server and requester still processed it
+                                //TODO Handle Server Errors
+                                switch (response.get("error").toString()) {
+                                    default:    //Some Error Code was printed from the server that isn't handled above
+
+                                        break;
+                                }
+                            } else { //Everything Went Well
+                                starImage.setBackgroundResource(R.drawable.ic_star_colored);
+                                favorite.setText("Unfavorite User");
+                                isFavorite = true;
+                            }
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        } catch (ExecutionException e) {
+                            e.printStackTrace();
+                        } catch (JSONException e){
+                            e.printStackTrace();
+                        }
                     }else{
-                        // TODO database : delete favorite relationship
-                        starImage.setBackgroundResource(R.drawable.ic_star_border_black_24dp);
-                        favorite.setText("Favorite User");
-                        isFavorite = false;
+                        JSONObject response = null;
+                        try {
+                            response = new ServerRequester().execute("unFavorite.php", "whatever"
+                                    ,"favoriterEmail", currentUser.getEmail()
+                                    ,"favoriteeEmail", otherUser.getEmail()
+                            ).get();
+                            if (response == null) {//Something went horribly wrong, JSON failed to be formed meaning something happened in the server requester
+
+                            } else if (!response.isNull("error")) {//Some incorrect information was sent, but the server and requester still processed it
+                                //TODO Handle Server Errors
+                                switch (response.get("error").toString()) {
+                                    default:    //Some Error Code was printed from the server that isn't handled above
+
+                                        break;
+                                }
+                            } else { //Everything Went Well
+                                starImage.setBackgroundResource(R.drawable.ic_star_border_black_24dp);
+                                favorite.setText("Favorite User");
+                                isFavorite = false;
+                            }
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        } catch (ExecutionException e) {
+                            e.printStackTrace();
+                        } catch (JSONException e){
+                            e.printStackTrace();
+                        }
                     }
                 }
             }
