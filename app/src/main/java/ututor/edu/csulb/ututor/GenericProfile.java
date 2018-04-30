@@ -58,6 +58,7 @@ public class GenericProfile extends AppCompatActivity {
 
 
         // TODO database: find if favorite relationship
+
         // dummy variable
         isFavorite = false;
 

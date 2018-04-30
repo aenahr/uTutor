@@ -14,7 +14,7 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:drawableLeft="@drawable/search_icon"
-        android:hint="search tutor"
+        android:hint="Search Email"
         android:inputType="text|textPersonName"
         android:singleLine="false"
         android:textColor="@color/colorLightPrimary"
@@ -25,7 +25,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="SEARCH"
-        android:layout_toRightOf="@id/userInputTutor"
+        android:layout_toEndOf="@id/searchEmail"
         android:textColor="@color/colorLightPrimary"
         android:minWidth="50dp"
         android:paddingTop="8dp"
@@ -45,7 +45,7 @@
         android:paddingLeft="8dp"
         android:paddingRight="8dp"
         android:paddingTop="8dp"
-        android:text="Adv Search"
+        android:text="Adv"
         android:textColor="@color/colorLightPrimary" />
 
     <Button

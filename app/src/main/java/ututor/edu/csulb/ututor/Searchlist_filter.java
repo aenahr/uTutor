@@ -27,7 +27,7 @@ public class Searchlist_filter extends AppCompatActivity{
         searchUniversity = (EditText) findViewById(R.id.searchUni);
         rating = (RatingBar) findViewById(R.id.ratingBar3);
         //place where user types name and the search button that starts the search
-        searchEmail = (EditText)findViewById(R.id.userInputTutor); //email
+        searchEmail = (EditText)findViewById(R.id.searchEmail); //email
         bSearch = (Button) findViewById(R.id.search);
 
         //clear all

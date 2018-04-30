@@ -17,7 +17,7 @@
         android:layout_marginTop="50dp"
         android:layout_width="match_parent"
         android:layout_height="630dp"
-        android:layout_below="@+id/userInputTutor"
+        android:layout_below="@+id/searchEmail"
         android:background="@color/colorLightPrimary"
         android:scrollbars="horizontal|vertical" />
 
