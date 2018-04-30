@@ -34,17 +34,22 @@ public class SearchList extends Fragment {
     private RecyclerView recyclerView;
     private RecyclerView.LayoutManager layoutManager;
     private RecyclerAdapter adapter;
-    private EditText searchEmail, searchuni, searchsubj, searchFname, searchLname;
-    private RatingBar searchrating;
+
     private Button search;
+    private TextView searchText;
 
     private User currentUser;
+    private String searchEmail, Email, university, subject, firstName, lastName;
+    private Float rating;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         super.onCreateView(inflater, container, savedInstanceState);
         View rootView = inflater.inflate(R.layout.search_list, container, false);
+
+        search = (Button) rootView.findViewById(R.id.search);
+        searchText = (TextView) rootView.findViewById(R.id.searchEmail);
 
         // get user information
         Intent i = getActivity().getIntent();
@@ -53,15 +58,14 @@ public class SearchList extends Fragment {
         Button advsearch = (Button) rootView.findViewById(R.id.advsearch);
         advsearch.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                startActivity(new Intent(getActivity(), Searchlist_filter.class));
+                Intent a = new Intent(getActivity(), Searchlist_filter.class);
+                Bundle data = new Bundle();
+                data.putString("searchtext",searchText.getText().toString());
+                startActivity(a);
             }
         });
 
-        search = (Button) rootView.findViewById(R.id.search);
-
-
         /*CreateDataList();  // data*/
-
 
         recyclerView = (RecyclerView) rootView.findViewById(R.id.recycler_view);
         layoutManager = new LinearLayoutManager(this.getActivity());
@@ -72,18 +76,29 @@ public class SearchList extends Fragment {
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adapter);
 
-        //objects from adv search
-        searchEmail = rootView.findViewById(R.id.searchEmail);  //gets email
-        searchuni = rootView.findViewById(R.id.searchUni);      //gets university
-        searchrating = rootView.findViewById(R.id.ratingBar3);
-        searchsubj = rootView.findViewById(R.id.searchsubject);
-        searchFname = rootView.findViewById(R.id.firstname);
-        searchLname = rootView.findViewById(R.id.lastname);
+//        //objects from adv search
+        firstName = (String) i.getSerializableExtra("First name");
+        lastName = (String) i.getSerializableExtra("Last name");
+        subject = (String) i.getSerializableExtra("Subject");
+        university = (String) i.getSerializableExtra("University");
+        rating = (Float) i.getSerializableExtra("rating");
 
-        // searchuni.getText().toString();
-        //gets subject from user
+        Email = (String) i.getSerializableExtra("email");
 
-        searchEmail.addTextChangedListener(new TextWatcher() {  //does the stuff with the user input
+        searchEmail = searchText.getText().toString();
+
+        if(firstName == null ) {
+            firstName = "";
+            lastName = "";
+            Email = "";
+            subject = "";
+            university = "";
+            rating = 0f;
+        } else if(firstName!= null) {
+            filter();
+        }
+
+        searchText.addTextChangedListener(new TextWatcher() {  //does the stuff with the user input
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
@@ -101,7 +116,7 @@ public class SearchList extends Fragment {
                 search.setOnClickListener(new View.OnClickListener() {
                     public void onClick(View v) {
 
-                        filter(editable.toString());
+                        filter();
 
                     }
                 });
@@ -117,20 +132,18 @@ public class SearchList extends Fragment {
     /**
      * This method filters entries
      */
-    private void filter(String text) {
+    private void filter() {
         ArrayList<NewItem> filteredList = new ArrayList<>();
         JSONObject response = null;
         try {
-            //          String[] name =  userinput.getText().toString().split(" ");
-            //          String firstname = name[0];
-            //         String lastname = name[1];
+
             response = new ServerRequester().execute("search.php", "whatever"
-                    ,"email", searchEmail.getText().toString()
-                    ,"firstName", searchFname.getText().toString()
-                    ,"lastName",  searchLname.getText().toString()
-                    ,"subject", searchsubj.getText().toString()
-                    ,"university", searchuni.getText().toString()
-                    ,"rating",  Float.toString(searchrating.getRating())
+                    ,"email", Email
+                    ,"firstName", firstName
+                    ,"lastName",  lastName
+                    ,"subject", subject
+                    ,"university", university
+                    ,"rating",  rating.toString()
             ).get();
             if (response == null) {//Something went horribly wrong, JSON failed to be formed meaning something happened in the server requester
             } else if (!response.isNull("error")) {//Some incorrect information was sent, but the server and requester still processed it
@@ -146,7 +159,7 @@ public class SearchList extends Fragment {
                         break;
                     case "-4":  //Update Query Failed Due to Something Else Dumb that I haven't handled yet,
                         // Print out response.get("errormessage"), it'll have the mysql error with it
-                        Toast.makeText(getActivity(), "'"+searchEmail.getText().toString()+"' not found.", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(), "'"+Email+"' not found.", Toast.LENGTH_SHORT).show();
                         break;
                     default:    //Some Error Code was printed from the server that isn't handled above
 

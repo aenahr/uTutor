@@ -12,7 +12,7 @@ import android.widget.Toast;
 
 public class Searchlist_filter extends AppCompatActivity{
 
-    EditText searchUniversity;
+    EditText searchUniversity, searchFname, searchLname;
     Button bRating, bUniversity, bSearch, bclear;
     EditText searchSubject, searchEmail;
     RatingBar rating;
@@ -22,12 +22,19 @@ public class Searchlist_filter extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.searchlist_filter);
 
+        Intent i = getIntent();
+
+
         //Getting subject and university from user in adv search
+        searchFname = (EditText) findViewById(R.id.firstname);
+        searchLname = (EditText) findViewById(R.id.lastname);
         searchSubject = (EditText) findViewById(R.id.searchsubject);
         searchUniversity = (EditText) findViewById(R.id.searchUni);
         rating = (RatingBar) findViewById(R.id.ratingBar3);
+
         //place where user types name and the search button that starts the search
-        searchEmail = (EditText)findViewById(R.id.searchEmail); //email
+        searchEmail = (EditText)findViewById(R.id.userInputTutor); //email
+        searchEmail.setText(i.getSerializableExtra("searchtext").toString());
         bSearch = (Button) findViewById(R.id.search);
 
         //clear all
@@ -51,10 +58,20 @@ public class Searchlist_filter extends AppCompatActivity{
                 // use Intent to load search_list
                 //Intent i = ...
                 //       .putExtra("university,..");
-
-                Toast.makeText(Searchlist_filter.this,"Searching " +
+                Intent i = new Intent(Searchlist_filter.this,SearchList.class);
+                Bundle data = new Bundle();
+                data.putString("First name",searchFname.getText().toString());
+                data.putString("Last name",searchLname.getText().toString());
+                data.putString("University",searchUniversity.getText().toString());
+                data.putString("email",searchEmail.getText().toString());
+                data.putString("Subject",searchSubject.getText().toString());
+                data.putFloat("rating",rating.getRating());
+                i.putExtras(data);
+                startActivity(i);
+                //
+                /*Toast.makeText(Searchlist_filter.this,"Searching " +
                         searchEmail.getText().toString() + " with parameter " +
-                        searchUniversity.getText().toString() ,Toast.LENGTH_LONG).show();
+                        searchUniversity.getText().toString() ,Toast.LENGTH_LONG).show();*/
 
             }
         });
