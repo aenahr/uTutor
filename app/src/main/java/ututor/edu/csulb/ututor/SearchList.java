@@ -126,11 +126,11 @@ public class SearchList extends Fragment {
             //         String lastname = name[1];
             response = new ServerRequester().execute("search.php", "whatever"
                     ,"email", searchEmail.getText().toString()
-                    //,"firstName", firstName.getText().toString()
-                    //,"lastName",  lastName.getText().toString()
-                    //,"subject", searchsubj.getText().toString()
-                    //,"university", searchuni.getText().toString()
-                    //,"rating",  Float.toString(searchrating.getRating())
+                    ,"firstName", searchFname.getText().toString()
+                    ,"lastName",  searchLname.getText().toString()
+                    ,"subject", searchsubj.getText().toString()
+                    ,"university", searchuni.getText().toString()
+                    ,"rating",  Float.toString(searchrating.getRating())
             ).get();
             if (response == null) {//Something went horribly wrong, JSON failed to be formed meaning something happened in the server requester
             } else if (!response.isNull("error")) {//Some incorrect information was sent, but the server and requester still processed it

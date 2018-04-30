@@ -15,6 +15,11 @@ import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.concurrent.ExecutionException;
+
 
 public class MyProfile extends Fragment {
 
@@ -55,7 +60,35 @@ public class MyProfile extends Fragment {
         linearReadReviews = (LinearLayout) rootView.findViewById(R.id.linearReadReviews);
 
         // TODO load average rating from database
+        JSONObject response = null;
+        try {
+            response = new ServerRequester().execute("fetchUser.php", "whatever",
+                    "email", currentUser.getEmail()
+            ).get();
+            if (response == null) {//Something went horribly wrong, JSON failed to be formed meaning something happened in the server requester
+            } else if (!response.isNull("error")) {//Some incorrect information was sent, but the server and requester still processed it
+                //TODO Handle Server Errors
+                switch (response.get("error").toString()) {
+                    default:    //Some Error Code was printed from the server that isn't handled above
 
+                        break;
+                }
+            } else { //Everything Went Well
+                currentUser.setFirstName(response.get("firstName").toString());
+                currentUser.setLastName(response.get("lastName").toString());
+                currentUser.setEmail(response.get("email").toString());
+                currentUser.setUniversity(response.get("university").toString());
+                currentUser.setRating(Float.parseFloat(response.get("averageRating").toString()));
+                currentUser.setDescription(response.get("userDescription").toString());
+                currentUser.setNumProfilePic(Integer.parseInt(response.get("profilePic").toString()));
+            }
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (JSONException e){
+            e.printStackTrace();
+        }
         // Remember this format:
 //        double num = 3.5;
 //        currentUser.setRating((float)num);
