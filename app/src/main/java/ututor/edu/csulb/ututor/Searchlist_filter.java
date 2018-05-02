@@ -26,7 +26,6 @@ public class Searchlist_filter extends AppCompatActivity{
         Intent i = getIntent();
         currentUser = (User) i.getSerializableExtra("currentUser");
 
-
         //Getting subject and university from user in adv search
         searchFname = (EditText) findViewById(R.id.firstname);
         searchLname = (EditText) findViewById(R.id.lastname);
@@ -36,12 +35,9 @@ public class Searchlist_filter extends AppCompatActivity{
 
         //place where user types name and the search button that starts the search
         searchEmail = (EditText)findViewById(R.id.searchEmail); //email
-        String email = (String)i.getSerializableExtra("searchtext");
-        if (email == null){
 
-        }else{
-            searchEmail.setText(email);
-        }
+        if ((String)i.getSerializableExtra("searchtext") == null){}
+        else{ searchEmail.setText((String)i.getSerializableExtra("searchtext")); }
         bSearch = (Button) findViewById(R.id.search);
 
         //clear all
@@ -77,11 +73,6 @@ public class Searchlist_filter extends AppCompatActivity{
                 i.putExtra("uploadPage", "searchPage");
                 i.putExtra("currentUser", currentUser);
                 startActivity(i);
-                //
-                /*Toast.makeText(Searchlist_filter.this,"Searching " +
-                        searchEmail.getText().toString() + " with parameter " +
-                        searchUniversity.getText().toString() ,Toast.LENGTH_LONG).show();*/
-
             }
         });
 

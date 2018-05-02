@@ -60,8 +60,7 @@ public class SearchList extends Fragment {
         advsearch.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent a = new Intent(getActivity(), Searchlist_filter.class);
-                Bundle data = new Bundle();
-                data.putString("searchtext", searchText.getText().toString());
+                a.putExtra("searchtext", searchText.getText().toString());
                 a.putExtra("currentUser", currentUser);
                 startActivity(a);
             }
@@ -91,13 +90,10 @@ public class SearchList extends Fragment {
             subject = "";
             university = "";
             rating = 0f;
-            Toast.makeText(getActivity(), "First Name: " + firstName, Toast.LENGTH_SHORT).show();
         }else{
             //objects from adv search
             searchText.setText(Email);
-            Toast.makeText(getActivity(), firstName, Toast.LENGTH_SHORT).show();
         }
-        filter();
 
 
         searchText.addTextChangedListener(new TextWatcher() {  //does the stuff with the user input
@@ -117,7 +113,6 @@ public class SearchList extends Fragment {
                 // this is where filtering happens
                 search.setOnClickListener(new View.OnClickListener() {
                     public void onClick(View v) {
-
                         searchEmail = searchText.getText().toString();
                         filter();
 
@@ -198,18 +193,4 @@ public class SearchList extends Fragment {
         adapter.filterList(filteredList);
 
     }
-
-/*    private void CreateDataList() {
-        DataList = new ArrayList<>();
-        DataList.add(new NewItem(R.drawable.search_icon, "Aenah", "Ramones", "Computer Science", "Available", "CSULB", 3.50f));
-        DataList.add(new NewItem(R.drawable.search_icon, "Nishant", "Saxena", "Computer Science", "Available", "CSULB", 3.00f));
-        DataList.add(new NewItem(R.drawable.search_icon, "Shikha", "Saxena", "Speech Pathology", "Available", "FSU", 4.60f));
-        DataList.add(new NewItem(R.drawable.search_icon, "Lance", " McVicar", "Computer Science", "Available", "CSULB", 2.00f));
-        DataList.add(new NewItem(R.drawable.search_icon, "Henry", " Tran", "Line 2", "Available", "CSULB", 5f));
-        DataList.add(new NewItem(R.drawable.search_icon, "Shahar", " Janjua", "Line 2", "Available", "CSULB", 1.5f));
-        DataList.add(new NewItem(R.drawable.bacon, "Chris", " P. Bacon", "Line 2", "Available", "CSULB", 5f));
-        DataList.add(new NewItem(R.drawable.search_icon, "Ella", " Vader", "Line 2", "Available", "CSULB", 3.4f));
-        DataList.add(new NewItem(R.drawable.search_icon, "Bend", " Dover", "Line 2", "Available", "CSULB", 2.4f));
-        DataList.add(new NewItem(R.drawable.search_icon, "Al", " Bino", "Line 2", "Available", "CSULB", 3f));
-    }*/
 }
