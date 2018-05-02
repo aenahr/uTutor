@@ -33,8 +33,8 @@ public class Searchlist_filter extends AppCompatActivity{
         rating = (RatingBar) findViewById(R.id.ratingBar3);
 
         //place where user types name and the search button that starts the search
-        searchEmail = (EditText)findViewById(R.id.userInputTutor); //email
-        searchEmail.setText(i.getSerializableExtra("searchtext").toString());
+        searchEmail = (EditText)findViewById(R.id.searchEmail); //email
+        searchEmail.setText((String)i.getSerializableExtra("searchtext"));
         bSearch = (Button) findViewById(R.id.search);
 
         //clear all
