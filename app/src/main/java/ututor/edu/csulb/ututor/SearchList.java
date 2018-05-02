@@ -36,7 +36,8 @@ public class SearchList extends Fragment {
     private RecyclerAdapter adapter;
 
     private Button search;
-    private TextView searchText;
+    private EditText searchText;
+
 
     private User currentUser;
     private String searchEmail, Email, university, subject, firstName, lastName;
@@ -49,7 +50,7 @@ public class SearchList extends Fragment {
         View rootView = inflater.inflate(R.layout.search_list, container, false);
 
         search = (Button) rootView.findViewById(R.id.search);
-        searchText = (TextView) rootView.findViewById(R.id.searchEmail);
+        searchText = (EditText) rootView.findViewById(R.id.searchEmail);
 
         // get user information
         Intent i = getActivity().getIntent();
@@ -60,7 +61,8 @@ public class SearchList extends Fragment {
             public void onClick(View v) {
                 Intent a = new Intent(getActivity(), Searchlist_filter.class);
                 Bundle data = new Bundle();
-                data.putString("searchtext",searchText.getText().toString());
+                data.putString("searchtext", searchText.getText().toString());
+                a.putExtra("currentUser", currentUser);
                 startActivity(a);
             }
         });
@@ -76,24 +78,24 @@ public class SearchList extends Fragment {
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adapter);
 
-//        //objects from adv search
         firstName = (String) i.getSerializableExtra("First name");
         lastName = (String) i.getSerializableExtra("Last name");
         subject = (String) i.getSerializableExtra("Subject");
         university = (String) i.getSerializableExtra("University");
         rating = (Float) i.getSerializableExtra("rating");
-
         Email = (String) i.getSerializableExtra("email");
-
-        searchEmail = searchText.getText().toString();
-
-        if(firstName == null ) {
+        if(firstName == null && lastName == null && Email == null && subject == null && university == null && rating == null) {
             firstName = "";
             lastName = "";
             Email = "";
             subject = "";
             university = "";
             rating = 0f;
+            Toast.makeText(getActivity(), "First Name: " + firstName, Toast.LENGTH_SHORT).show();
+        }else{
+            //objects from adv search
+            searchText.setText(Email);
+            Toast.makeText(getActivity(), firstName, Toast.LENGTH_SHORT).show();
         }
         filter();
 
@@ -116,6 +118,7 @@ public class SearchList extends Fragment {
                 search.setOnClickListener(new View.OnClickListener() {
                     public void onClick(View v) {
 
+                        searchEmail = searchText.getText().toString();
                         filter();
 
                     }

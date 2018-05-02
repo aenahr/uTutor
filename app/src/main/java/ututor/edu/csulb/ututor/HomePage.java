@@ -187,6 +187,10 @@ public class HomePage extends AppCompatActivity
                 MenuItem item = menu.findItem(R.id.nav_userProfile);
                 onNavigationItemSelected(item);
             }
+            else if(uploadPage.equals("searchPage")){
+                MenuItem item = menu.findItem(R.id.nav_searchList);
+                onNavigationItemSelected(item);
+            }
         }
 
         requestLocationPermission();

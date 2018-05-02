@@ -354,6 +354,7 @@ public class WalkInSession extends AppCompatActivity implements OnMapReadyCallba
 
         mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
         CameraUpdate update = CameraUpdateFactory.newLatLngZoom(currentPosition, 16);
+        //System.out.println(currentPosition.latitude + ", " + currentPosition.longitude);
         mMap.animateCamera(update);
 
     }

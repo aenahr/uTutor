@@ -16,15 +16,12 @@
             android:id="@+id/titleWalkIn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Walk-In Appointment"
+            android:text="WALK-IN APPOINTMENT"
             android:layout_centerHorizontal="true"
-            android:textSize="25dp"
-            android:textStyle="bold"
-            android:fontFamily="sans-serif-black"
-            android:layout_marginTop="50dp"
-            android:textColor="@color/colorLightPrimary"
-            />
-
+            android:textSize="30dp"
+            android:fontFamily="sans-serif-light"
+            android:layout_marginTop="25dp"
+            android:textColor="@color/colorLightPrimary" />
         <TextView
             android:id="@+id/tutorEmail"
             android:layout_width="wrap_content"

@@ -16,6 +16,7 @@ public class Searchlist_filter extends AppCompatActivity{
     Button bRating, bUniversity, bSearch, bclear;
     EditText searchSubject, searchEmail;
     RatingBar rating;
+    User currentUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,6 +24,7 @@ public class Searchlist_filter extends AppCompatActivity{
         setContentView(R.layout.searchlist_filter);
 
         Intent i = getIntent();
+        currentUser = (User) i.getSerializableExtra("currentUser");
 
 
         //Getting subject and university from user in adv search
@@ -34,7 +36,12 @@ public class Searchlist_filter extends AppCompatActivity{
 
         //place where user types name and the search button that starts the search
         searchEmail = (EditText)findViewById(R.id.searchEmail); //email
-        searchEmail.setText((String)i.getSerializableExtra("searchtext"));
+        String email = (String)i.getSerializableExtra("searchtext");
+        if (email == null){
+
+        }else{
+            searchEmail.setText(email);
+        }
         bSearch = (Button) findViewById(R.id.search);
 
         //clear all
@@ -58,7 +65,7 @@ public class Searchlist_filter extends AppCompatActivity{
                 // use Intent to load search_list
                 //Intent i = ...
                 //       .putExtra("university,..");
-                Intent i = new Intent(Searchlist_filter.this,SearchList.class);
+                Intent i = new Intent(Searchlist_filter.this,HomePage.class);
                 Bundle data = new Bundle();
                 data.putString("First name",searchFname.getText().toString());
                 data.putString("Last name",searchLname.getText().toString());
@@ -67,6 +74,8 @@ public class Searchlist_filter extends AppCompatActivity{
                 data.putString("Subject",searchSubject.getText().toString());
                 data.putFloat("rating",rating.getRating());
                 i.putExtras(data);
+                i.putExtra("uploadPage", "searchPage");
+                i.putExtra("currentUser", currentUser);
                 startActivity(i);
                 //
                 /*Toast.makeText(Searchlist_filter.this,"Searching " +

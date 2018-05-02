@@ -167,7 +167,10 @@ public class AppointmentManager extends Fragment {
                 }
             }
             else{ // pending
-                pendingAppointments.add(currentUser.getAppointments().get(x));
+                if(currentUser.getAppointments().get(x).getStartTime().compareTo(today) > 0){
+                    pendingAppointments.add(currentUser.getAppointments().get(x));
+                }
+                // else start date has passed and we can assume the the tutor has not accepted the appointment request
             }
         }
 
