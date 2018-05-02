@@ -48,6 +48,8 @@ public class Profile_readreview extends AppCompatActivity {
         }
         // TODO: LANCE FETCH DA REVIEWS VIA THE EMAIL!
         JSONObject response = null;
+        arrayList = new ArrayList<>();
+
         try {
             response = new ServerRequester().execute("fetchRatings.php", "whatever"
                     ,"email", user.getEmail()
@@ -68,7 +70,10 @@ public class Profile_readreview extends AppCompatActivity {
                 Iterator<String> keys = response.keys();
                 while(keys.hasNext()){
                     JSONObject next = (JSONObject) response.get(keys.next());
-                    arrayList.add(new Profile_review_detail(Float.parseFloat(next.getString("rating")),next.getString("firstName") + " " + next.getString("lastName"),response.getString("feedback")));
+                    Profile_review_detail nextReview = new Profile_review_detail(Float.parseFloat(next.getString("rating")),next.getString("firstName") + " " + next.getString("lastName"),next.getString("feedback"));
+                    //arrayList.add(new Profile_review_detail(Float.parseFloat(next.getString("rating")),next.getString("firstName") + " " + next.getString("lastName"),next.getString("feedback")));
+                    System.out.println(nextReview.getName() + " " + nextReview.getRatingStar());
+                    arrayList.add(nextReview);
                 }
             }
         } catch (InterruptedException e) {
@@ -79,7 +84,6 @@ public class Profile_readreview extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        setLisData();
         adapter = new Review_ListViewAdapter(this, R.layout.profile_review_list, arrayList);
         listView.setAdapter(adapter);
 
@@ -121,17 +125,5 @@ public class Profile_readreview extends AppCompatActivity {
                 dialog.show();
             }
         };
-    }
-
-    private void setLisData() {
-        arrayList = new ArrayList<>();
-        arrayList.add(new Profile_review_detail(1, "Aenah", "A very positive experience. Christie is encouraging, supportive, and highly knowledgeable. The resources she has provided are useful and greatly help my understanding and confidence of the subject."));
-        arrayList.add(new Profile_review_detail(2, "Bacon", "Thank you so much for a great lesson!"));
-        arrayList.add(new Profile_review_detail(3, "Henry", "Covered a whole section of Mechanics thoroughly."));
-        arrayList.add(new Profile_review_detail(3, "Lance", "He was extremely helpful."));
-        arrayList.add(new Profile_review_detail(4, "Nishant", "Always happy to help me go through anything I don't get right, always smiling, great teacher!"));
-        arrayList.add(new Profile_review_detail(2, "Smile", "Very helpful and clear "));
-
-
     }
 }

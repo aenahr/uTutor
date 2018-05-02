@@ -56,11 +56,17 @@ public class GenericProfile extends AppCompatActivity {
         starImage = (ImageView)findViewById(R.id.starFavorite);
         ratingBar = (RatingBar)findViewById(R.id.ratingBar2);
 
+        // get user's data
+        Intent i = getIntent();
+        currentUser = (User)i.getSerializableExtra("currentUser");
+        otherUser = (User)i.getSerializableExtra("otherUser");
+        otherUser.setTutor(true);
 
         JSONObject response = null;
         try {
-            response = new ServerRequester().execute("determineFavorite.php", "whatever",
-                    "email", currentUser.getEmail()
+            response = new ServerRequester().execute("determineFavorite.php", "whatever"
+                    ,"favoritorEmail", currentUser.getEmail()
+                    ,"favoriteeEmail", otherUser.getEmail()
             ).get();
             if (response == null) {//Something went horribly wrong, JSON failed to be formed meaning something happened in the server requester
 
@@ -84,12 +90,6 @@ public class GenericProfile extends AppCompatActivity {
         } catch (JSONException e){
             e.printStackTrace();
         }
-        // get user's data
-        Intent i = getIntent();
-        currentUser = (User)i.getSerializableExtra("currentUser");
-        otherUser = (User)i.getSerializableExtra("otherUser");
-        otherUser.setTutor(true);
-
         // set rating
         ratingBar.setRating(otherUser.getRating());
 

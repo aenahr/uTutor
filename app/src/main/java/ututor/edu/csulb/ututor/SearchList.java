@@ -94,9 +94,9 @@ public class SearchList extends Fragment {
             subject = "";
             university = "";
             rating = 0f;
-        } else if(firstName!= null) {
-            filter();
         }
+        filter();
+
 
         searchText.addTextChangedListener(new TextWatcher() {  //does the stuff with the user input
             @Override
@@ -174,7 +174,7 @@ public class SearchList extends Fragment {
                             next.get("lastName").toString(),
                             next.get("email").toString(),
                             next.get("walkinStatus").toString(),
-                            next.get("subject").toString(),
+                            next.get("Subjects").toString(),
                             next.get("university").toString(),
                             Float.parseFloat(next.get("averageRating").toString())));
 
