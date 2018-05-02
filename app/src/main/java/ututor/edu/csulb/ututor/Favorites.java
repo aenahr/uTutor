@@ -6,11 +6,13 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ExpandableListView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -25,11 +27,17 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
-public class Favorites extends Fragment {
+public class Favorites extends Fragment implements AdapterView.OnItemSelectedListener{
 
     public User currentUser;
     public Button add_fav;
     public Button edit_fav;
+    ArrayAdapter<String> adapter;
+    ListView listview;
+
+    ArrayList<String> names;
+    ArrayList<String> emails;
+
 
 
     public Favorites() {
@@ -39,7 +47,7 @@ public class Favorites extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View rootView = inflater.inflate(R.layout.fragment_favorites, container, false);
-        ListView listview =(ListView) rootView .findViewById(R.id.listViewFavorite);
+        listview =(ListView) rootView .findViewById(R.id.listViewFavorite);
         Intent i = getActivity().getIntent();
         currentUser = (User)i.getSerializableExtra("currentUser");
 
@@ -59,14 +67,14 @@ public class Favorites extends Fragment {
                 }
             } else { //Everything Went Well
                 Iterator<String> keys = response.keys();
-                ArrayList<String> names = new ArrayList();
-                ArrayList<String> emails = new ArrayList();
+                names = new ArrayList();
+                emails = new ArrayList();
                 while(keys.hasNext()){
                     JSONObject next = (JSONObject) response.get(keys.next());
                     names.add(next.getString("firstName") + " " + next.getString("lastName"));
                     emails.add(next.getString("favoriteeEmail"));
                 }
-                ArrayAdapter<String> adapter =
+                adapter =
                         new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, names);
                 listview.setAdapter(adapter);
 
@@ -79,7 +87,12 @@ public class Favorites extends Fragment {
             e.printStackTrace();
         }
         //EDITED Code
+        listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Toast.makeText(getActivity(), "Selected " + names.get(position) , Toast.LENGTH_SHORT).show();
+            }
+        });
 
 
         add_fav = (Button)rootView.findViewById(R.id.addFav);
@@ -100,4 +113,13 @@ public class Favorites extends Fragment {
     }
 
 
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
+
+    }
 }

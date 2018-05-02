@@ -126,7 +126,8 @@ public class MyProfile extends Fragment {
         linearReadReviews.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(getActivity(), ScheduleAppointment.class);
+                Intent i = new Intent(getActivity(), Profile_readreview.class);
+                i.putExtra("from", "MyProfile");
                 i.putExtra("currentUser", currentUser);
                 startActivity(i);
             }

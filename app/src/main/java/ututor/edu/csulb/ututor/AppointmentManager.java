@@ -260,9 +260,10 @@ public class AppointmentManager extends Fragment {
             public void onItemClick(AdapterView<?> a, View v, int position, long id) {
                 Intent i = new Intent(getActivity(), AppointmentView.class);
                 i.putExtra("currentUser", currentUser);
+                i.putExtra("appointmentPast", false);
                 if(appointmentItems.get(position).get("isTutoring").equals("F")){ i.putExtra("isTutoring", false); }
                 else{ i.putExtra("isTutoring", true); }
-                i.putExtra("appointmentInfo", appointmentItems.get(position));
+                i.putExtra("appointmentInfo", upcomingAppointments.get(position));
                 startActivity(i);
             }
         });
@@ -304,9 +305,10 @@ public class AppointmentManager extends Fragment {
             public void onItemClick(AdapterView<?> a, View v, int position, long id) {
                 Intent i = new Intent(getActivity(), AppointmentView.class);
                 i.putExtra("currentUser", currentUser);
+                i.putExtra("appointmentPast", false);
                 if(appointmentItems.get(position).get("isTutoring").equals("F")){ i.putExtra("isTutoring", false); }
                 else{ i.putExtra("isTutoring", true); }
-                i.putExtra("appointmentInfo", appointmentItems.get(position));
+                i.putExtra("appointmentInfo", pendingAppointments.get(position));
                 startActivity(i);
             }
         });
@@ -346,9 +348,10 @@ public class AppointmentManager extends Fragment {
             public void onItemClick(AdapterView<?> a, View v, int position, long id) {
                 Intent i = new Intent(getActivity(), AppointmentView.class);
                 i.putExtra("currentUser", currentUser);
+                i.putExtra("appointmentPast", true);
                 if(appointmentItems.get(position).get("isTutoring").equals("F")){ i.putExtra("isTutoring", false); }
                 else{ i.putExtra("isTutoring", true); }
-                i.putExtra("appointmentInfo", appointmentItems.get(position));
+                i.putExtra("appointmentInfo", pastAppointments.get(position));
                 startActivity(i);
             }
         });

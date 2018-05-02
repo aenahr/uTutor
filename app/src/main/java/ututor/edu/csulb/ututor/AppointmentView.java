@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
 
 /**
  * Created by aenah on 4/30/18.
@@ -20,6 +21,7 @@ public class AppointmentView extends AppCompatActivity {
 
     User currentUser;
     boolean isTutoring;
+    boolean isPast;
     Appointment currentAppointment;
 
     // objects
@@ -43,6 +45,8 @@ public class AppointmentView extends AppCompatActivity {
         currentUser = (User)i.getSerializableExtra("currentUser");
         isTutoring = (boolean)i.getSerializableExtra("isTutoring");
         currentAppointment = (Appointment)i.getSerializableExtra("appointmentInfo");
+        isPast = (boolean)i.getSerializableExtra("appointmentPast");
+
 
         //initialize variables
         tutorEmail = (TextView)findViewById(R.id.tutorInput);
@@ -55,7 +59,14 @@ public class AppointmentView extends AppCompatActivity {
         bDecline = (Button)findViewById(R.id.bDecline);
         bCancel = (Button)findViewById(R.id.bCancel);
 
-        if(isTutoring == false){ // you are not the one tutoring
+
+        if(isPast == true){
+            tutorMessage.setVisibility(View.INVISIBLE);
+            bAccept.setVisibility(View.INVISIBLE);
+            bDecline.setVisibility(View.INVISIBLE);
+            bCancel.setVisibility(View.INVISIBLE);
+        }
+        else if(isTutoring == false){ // you are not the one tutoring
             tutorMessage.setVisibility(View.INVISIBLE);
             bAccept.setVisibility(View.INVISIBLE);
             bDecline.setVisibility(View.INVISIBLE);
