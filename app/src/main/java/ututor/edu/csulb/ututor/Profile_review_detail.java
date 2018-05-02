@@ -14,6 +14,11 @@ public class Profile_review_detail {
         this.name = name;
         this.user_feedback = feedback;
     }
+    public Profile_review_detail(float ratingStar, String name, String feedback) {
+        this.ratingStar = ratingStar;
+        this.name = name;
+        this.user_feedback = feedback;
+    }
 
     public float getRatingStar() {
         return ratingStar;

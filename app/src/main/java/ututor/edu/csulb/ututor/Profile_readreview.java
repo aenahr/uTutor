@@ -15,7 +15,12 @@ import android.widget.ListView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.concurrent.ExecutionException;
 
 /**
  * Created by Henry Tran on 2/12/2018.
@@ -42,8 +47,37 @@ public class Profile_readreview extends AppCompatActivity {
 
         }
         // TODO: LANCE FETCH DA REVIEWS VIA THE EMAIL!
-        // user.getEmail()
-        // when you're done call meh
+        JSONObject response = null;
+        try {
+            response = new ServerRequester().execute("fetchRatings.php", "whatever"
+                    ,"email", user.getEmail()
+            ).get();
+            if (response == null) {//Something went horribly wrong, JSON failed to be formed meaning something happened in the server requester
+
+            } else if (!response.isNull("error")) {//Some incorrect information was sent, but the server and requester still processed it
+                //TODO Handle Server Errors
+                switch (response.get("error").toString()) {
+                    case "2": //TODO Path taken if a user has no reviews/ratings
+
+                        break;
+                    default:    //Some Error Code was printed from the server that isn't handled above
+
+                        break;
+                }
+            } else { //Everything Went Well
+                Iterator<String> keys = response.keys();
+                while(keys.hasNext()){
+                    JSONObject next = (JSONObject) response.get(keys.next());
+                    arrayList.add(new Profile_review_detail(Float.parseFloat(next.getString("rating")),next.getString("firstName") + " " + next.getString("lastName"),response.getString("feedback")));
+                }
+            }
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (JSONException e){
+            e.printStackTrace();
+        }
 
         setLisData();
         adapter = new Review_ListViewAdapter(this, R.layout.profile_review_list, arrayList);
