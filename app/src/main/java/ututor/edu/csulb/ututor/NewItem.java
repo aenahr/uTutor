@@ -39,8 +39,19 @@ public class NewItem
     public String getstatus() { return status;   }
     public String getSubject() { return subject; }
     public String getuniversity() { return university; }
-
     public Float getrating() { return rating;   }
+    public static Comparator<NewItem> UniComparator = new Comparator<NewItem>() {
+        @Override
+        public int compare(NewItem t0, NewItem t1) {
+            return t0.getuniversity().compareTo(t1.getuniversity());
+        }
+    };
+    public static Comparator<NewItem> RateComparator = new Comparator<NewItem>() {
+    @Override
+    public int compare(NewItem t0, NewItem t1) {
+        return t0.getrating().compareTo(t1.getrating());
+    }
+};
 
 
 //    public int compareRating(NewItem jc1, NewItem jc2) {

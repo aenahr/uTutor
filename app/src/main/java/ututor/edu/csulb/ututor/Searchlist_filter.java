@@ -47,8 +47,17 @@ public class Searchlist_filter extends AppCompatActivity{
         bRating = (Button) findViewById(R.id.sRating);
         bUniversity = (Button) findViewById(R.id.sUniversity);
 
+        bRating.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                //TODO Nishant, your sort will be : Collections.sort(name_of_array_list , NewItem.RateComparator)
+//                Toast.makeText(Searchlist_filter.this,searchUniversity.getText().toString() ,Toast.LENGTH_LONG).show();
+            }
+        });
+
         bUniversity.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
+                //TODO Nishant, your sort will be : Collections.sort(name_of_array_list , NewItem.UniComparator)
+
 //                Toast.makeText(Searchlist_filter.this,searchUniversity.getText().toString() ,Toast.LENGTH_LONG).show();
             }
         });

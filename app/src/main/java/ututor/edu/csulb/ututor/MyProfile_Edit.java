@@ -57,9 +57,6 @@ public class MyProfile_Edit extends AppCompatActivity {
         collegeName.setText(currentUser.getUniversity());
         description.setText(currentUser.getDescription());
 
-        // TODO: if newpassword is empty, set currentPassword to newpassword
-
-
         saveChanges.setOnClickListener(new View.OnClickListener(){
             public void onClick(View view) {
                 JSONObject response = null;

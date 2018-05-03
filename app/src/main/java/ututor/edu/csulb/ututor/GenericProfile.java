@@ -131,7 +131,7 @@ public class GenericProfile extends AppCompatActivity {
                         JSONObject response = null;
                         try {
                             response = new ServerRequester().execute("favorite.php", "whatever"
-                                    ,"favoriterEmail", currentUser.getEmail()
+                                    ,"favoritorEmail", currentUser.getEmail()
                                     ,"favoriteeEmail", otherUser.getEmail()
                             ).get();
                             if (response == null) {//Something went horribly wrong, JSON failed to be formed meaning something happened in the server requester
@@ -159,7 +159,7 @@ public class GenericProfile extends AppCompatActivity {
                         JSONObject response = null;
                         try {
                             response = new ServerRequester().execute("unFavorite.php", "whatever"
-                                    ,"favoriterEmail", currentUser.getEmail()
+                                    ,"favoritorEmail", currentUser.getEmail()
                                     ,"favoriteeEmail", otherUser.getEmail()
                             ).get();
                             if (response == null) {//Something went horribly wrong, JSON failed to be formed meaning something happened in the server requester
