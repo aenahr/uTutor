@@ -22,6 +22,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.concurrent.ExecutionException;
 
@@ -35,6 +36,7 @@ public class SearchList extends Fragment {
     private RecyclerView.LayoutManager layoutManager;
     private RecyclerAdapter adapter;
 
+    private Button bRating, bUniversity;
     private Button search;
     private EditText searchText;
 
@@ -122,10 +124,32 @@ public class SearchList extends Fragment {
             }
         });
 
+        //sortby buttons
+        bRating = (Button) rootView.findViewById(R.id.sRating);
+        bUniversity = (Button) rootView.findViewById(R.id.sUniversity);
+
+        bRating.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                //TODO Nishant, your sort will be : Collections.sort(name_of_array_list , NewItem.RateComparator)
+                Collections.sort(filteredList, NewItem.RateComparator);
+                adapter.filterList(filteredList);
+//                Toast.makeText(Searchlist_filter.this,searchUniversity.getText().toString() ,Toast.LENGTH_LONG).show();
+            }
+        });
+
+        bUniversity.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                //TODO Nishant, your sort will be : Collections.sort(name_of_array_list , NewItem.UniComparator)
+                Collections.sort(filteredList , NewItem.UniComparator);
+                adapter.filterList(filteredList);
+//                Toast.makeText(Searchlist_filter.this,searchUniversity.getText().toString() ,Toast.LENGTH_LONG).show();
+            }
+        });
+
+
         return rootView;
     }
 
-    public TextView searchname;
 
     /**
      * This method filters entries

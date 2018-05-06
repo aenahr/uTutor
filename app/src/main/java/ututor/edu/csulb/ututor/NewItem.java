@@ -54,13 +54,4 @@ public class NewItem
 };
 
 
-//    public int compareRating(NewItem jc1, NewItem jc2) {
-//        return (jc2.getrating() < jc1.getrating() ? -1 :
-//                (jc2.getrating() == jc1.getrating() ? 0 : 1));
-//    }
-//
-//    public int compareUni(NewItem jc1, NewItem jc2) {
-//        return (int) (jc1.getuniversity().compareTo(jc2.getuniversity()));
-//    }
-
 }

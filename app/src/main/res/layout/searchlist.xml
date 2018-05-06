@@ -61,10 +61,48 @@
         android:layout_toEndOf="@id/advsearch"
         android:textColor="@color/colorLightPrimary" />
 
+    <TextView
+        android:id="@+id/sortby"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/searchEmail"
+        android:text="Sort by"
+        android:textStyle="bold"
+        android:textColor="@color/colorLightPrimary"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="10dp"/>
+
+    <Button
+        android:id="@+id/sUniversity"
+        style="@style/Widget.AppCompat.Button.Borderless.Colored"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/searchEmail"
+        android:layout_toRightOf="@+id/sortby"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="-10dp"
+        android:text="University" />
+
+    <Button
+        android:id="@+id/sRating"
+        style="@style/Widget.AppCompat.Button.Borderless.Colored"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/searchEmail"
+        android:layout_toRightOf="@+id/sortby"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="-10dp"
+        android:layout_toEndOf="@+id/sUniversity"
+        android:text="Rating" />
+
+
     <FrameLayout
         android:id="@+id/searchframelayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/view" />
+        android:layout_below="@id/view"
+        android:layout_marginTop="40dp"
+        />
+
 
 </RelativeLayout>
