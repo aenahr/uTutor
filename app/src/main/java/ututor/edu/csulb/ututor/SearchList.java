@@ -133,11 +133,7 @@ public class SearchList extends Fragment {
 
         bRating.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
-                //TODO Nishant, your sort will be : Collections.sort(name_of_array_list , NewItem.RateComparator)
-                System.out.println(filteredList.toString());
-                System.out.println(filteredList.size());
                 Collections.sort(filteredList, NewItem.RateComparator);
-                System.out.println(filteredList.toString());
                 adapter.filterList(filteredList);
 //                Toast.makeText(Searchlist_filter.this,searchUniversity.getText().toString() ,Toast.LENGTH_LONG).show();
             }
@@ -145,10 +141,7 @@ public class SearchList extends Fragment {
 
         bUniversity.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
-                //TODO Nishant, your sort will be : Collections.sort(name_of_array_list , NewItem.UniComparator)
-                System.out.println(filteredList.toString());
                 Collections.sort(filteredList , NewItem.UniComparator);
-                System.out.println(filteredList.toString());
                 adapter.filterList(filteredList);
 //                Toast.makeText(Searchlist_filter.this,searchUniversity.getText().toString() ,Toast.LENGTH_LONG).show();
             }
