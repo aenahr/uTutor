@@ -12,11 +12,11 @@ import android.widget.Toast;
 
 public class Searchlist_filter extends AppCompatActivity{
 
-    EditText searchUniversity, searchFname, searchLname;
-    Button bRating, bUniversity, bSearch, bclear;
-    EditText searchSubject, searchEmail;
-    RatingBar rating;
-    User currentUser;
+    private EditText searchUniversity, searchFname, searchLname;
+    private Button  bSearch, bclear;
+    private EditText searchSubject, searchEmail;
+    private RatingBar rating;
+    private User currentUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,12 +46,6 @@ public class Searchlist_filter extends AppCompatActivity{
 
         bSearch.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
-                // learn how to transfer data from one activity to another
-                // when user clicks search on adv panel, it should go back to the search page and
-                // display the results (no need to click search again there)
-                // use Intent to load search_list
-                //Intent i = ...
-                //       .putExtra("university,..");
                 Intent i = new Intent(Searchlist_filter.this,HomePage.class);
                 Bundle data = new Bundle();
                 data.putString("First name",searchFname.getText().toString());
@@ -71,11 +65,33 @@ public class Searchlist_filter extends AppCompatActivity{
         bclear.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                searchFname.setText("");
+                searchLname.setText("");
                 searchUniversity.setText("");
                 searchSubject.setText("");
                 rating.setRating(0);
             }
         });
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putFloat("rating", rating.getRating());
+        outState.putString("searchFname", searchFname.getText().toString());
+        outState.putString("searchLname", searchLname.getText().toString());
+        outState.putString("searchSubject", searchSubject.getText().toString());
+        outState.putString("searchUniversity", searchUniversity.getText().toString());
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        rating.setRating(savedInstanceState.getFloat("rating"));
+        searchFname.setText(savedInstanceState.getString("searchFname"));
+        searchLname.setText(savedInstanceState.getString("searchLname"));
+        searchSubject.setText(savedInstanceState.getString("searchSubject"));
+        searchUniversity.setText(savedInstanceState.getString("searchUniversity"));
     }
 
     }

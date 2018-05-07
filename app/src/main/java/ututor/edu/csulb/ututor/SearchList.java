@@ -45,7 +45,7 @@ public class SearchList extends Fragment {
 
 
     private User currentUser;
-    private String searchEmail, Email, university, subject, firstName, lastName;
+    private String Email, university, subject, firstName, lastName;
     private Float rating;
 
 
@@ -57,6 +57,7 @@ public class SearchList extends Fragment {
 
         search = (Button) rootView.findViewById(R.id.search);
         searchText = (EditText) rootView.findViewById(R.id.searchEmail);
+        searchText.setMaxWidth(searchText.getWidth()); //stops the search box from moving
 
         // get user information
         Intent i = getActivity().getIntent();
@@ -212,4 +213,5 @@ public class SearchList extends Fragment {
         adapter.filterList(filteredList);
 
     }
+
 }
