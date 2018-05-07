@@ -29,9 +29,12 @@ import java.util.concurrent.ExecutionException;
 public class SearchList extends Fragment {
 
     public SearchList() {
+        filteredList = new ArrayList();
     }
 
     private ArrayList<NewItem> DataList;
+    private ArrayList<NewItem> filteredList;
+
     private RecyclerView recyclerView;
     private RecyclerView.LayoutManager layoutManager;
     private RecyclerAdapter adapter;
@@ -44,6 +47,7 @@ public class SearchList extends Fragment {
     private User currentUser;
     private String searchEmail, Email, university, subject, firstName, lastName;
     private Float rating;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -73,7 +77,7 @@ public class SearchList extends Fragment {
         recyclerView = (RecyclerView) rootView.findViewById(R.id.recycler_view);
         layoutManager = new LinearLayoutManager(this.getActivity());
 
-        ArrayList<NewItem> filteredList = new ArrayList<>();
+        //ArrayList<NewItem> filteredList = new ArrayList<>();
         adapter = new RecyclerAdapter(filteredList, currentUser, getActivity());  //initialise adapter with empty array
 
         recyclerView.setLayoutManager(layoutManager);
@@ -95,6 +99,7 @@ public class SearchList extends Fragment {
         }else{
             //objects from adv search
             searchText.setText(Email);
+            filter();
         }
 
 
@@ -106,7 +111,6 @@ public class SearchList extends Fragment {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
             }
 
             @Override
@@ -115,9 +119,8 @@ public class SearchList extends Fragment {
                 // this is where filtering happens
                 search.setOnClickListener(new View.OnClickListener() {
                     public void onClick(View v) {
-                        searchEmail = searchText.getText().toString();
+                        Email = searchText.getText().toString();
                         filter();
-
                     }
                 });
 
@@ -131,7 +134,10 @@ public class SearchList extends Fragment {
         bRating.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 //TODO Nishant, your sort will be : Collections.sort(name_of_array_list , NewItem.RateComparator)
+                System.out.println(filteredList.toString());
+                System.out.println(filteredList.size());
                 Collections.sort(filteredList, NewItem.RateComparator);
+                System.out.println(filteredList.toString());
                 adapter.filterList(filteredList);
 //                Toast.makeText(Searchlist_filter.this,searchUniversity.getText().toString() ,Toast.LENGTH_LONG).show();
             }
@@ -140,7 +146,9 @@ public class SearchList extends Fragment {
         bUniversity.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 //TODO Nishant, your sort will be : Collections.sort(name_of_array_list , NewItem.UniComparator)
+                System.out.println(filteredList.toString());
                 Collections.sort(filteredList , NewItem.UniComparator);
+                System.out.println(filteredList.toString());
                 adapter.filterList(filteredList);
 //                Toast.makeText(Searchlist_filter.this,searchUniversity.getText().toString() ,Toast.LENGTH_LONG).show();
             }
@@ -155,10 +163,9 @@ public class SearchList extends Fragment {
      * This method filters entries
      */
     private void filter() {
-        ArrayList<NewItem> filteredList = new ArrayList<>();
+        filteredList = new ArrayList<>();
         JSONObject response = null;
         try {
-
             response = new ServerRequester().execute("search.php", "whatever"
                     ,"email", Email
                     ,"firstName", firstName
@@ -199,11 +206,6 @@ public class SearchList extends Fragment {
                             next.get("Subjects").toString(),
                             next.get("university").toString(),
                             Float.parseFloat(next.get("averageRating").toString())));
-
-                    System.out.println(next.toString());
-                }
-                for(NewItem e : filteredList){
-                    System.out.println(e.getemail());
                 }
             }
         } catch (InterruptedException e) {

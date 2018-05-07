@@ -43,15 +43,15 @@ public class NewItem
     public static Comparator<NewItem> UniComparator = new Comparator<NewItem>() {
         @Override
         public int compare(NewItem t0, NewItem t1) {
-            return t0.getuniversity().compareTo(t1.getuniversity());
+            return t0.getuniversity().compareToIgnoreCase(t1.getuniversity());
         }
     };
     public static Comparator<NewItem> RateComparator = new Comparator<NewItem>() {
     @Override
-    public int compare(NewItem t0, NewItem t1) {
-        return t0.getrating().compareTo(t1.getrating());
-    }
-};
+        public int compare(NewItem t0, NewItem t1) {
+            return t1.getrating().compareTo(t0.getrating());
+        }
+    };
 
 
 }
