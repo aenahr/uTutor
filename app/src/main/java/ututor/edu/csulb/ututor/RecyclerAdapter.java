@@ -33,7 +33,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
     public static class ViewHolder extends RecyclerView.ViewHolder {
         public ImageView itemImage;
         public TextView itemfirstName, itemlastName;
-        public TextView itemStatus, itemuniversity;
+        public TextView itemStatus, itemuniversity, itemsubject;
         public RatingBar itemrating;
 
         public ViewHolder(View itemView) {
@@ -146,8 +146,8 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
         }
         holder.itemuniversity.setText(currentItem.getuniversity());
         holder.itemrating.setRating((float) currentItem.getrating());
-        //holder.itemsubject.setText(currentItem.getSubject());
-        //add subject field back
+        holder.itemsubject.setText(currentItem.getSubject());
+
     }
 
     @Override
@@ -160,36 +160,6 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
     {
         Data = filteredList;
         notifyDataSetChanged();
-    }
-
-   public void sortList(ArrayList<NewItem> filteredList)
-    {
-        Sorter sort = new Sorter(filteredList);
-        ArrayList<NewItem> SortedList = sort.getSortedByUni();
-//        Data = filteredList;
-//        notifyDataSetChanged();
-    }
-}
-
-class Sorter {
-
-    ArrayList<NewItem> FilteredList = new ArrayList<>();
-
-    public Sorter(ArrayList<NewItem> FilteredList) {
-        this.FilteredList = FilteredList;
-    }
-
-    public ArrayList<NewItem> getSortedByRating() {
-//        for(int i = 0; i < FilteredList.size(); i++) {
-//            FilteredList.sort( (Comparator<NewItem>) FilteredList.get(i).getrating());
-//        }
-        return FilteredList;
-
-    }
-
-    public ArrayList<NewItem> getSortedByUni() {
-//        Collections.sort(FilteredList, FilteredList.get(i));
-          return FilteredList;
     }
 
 }
