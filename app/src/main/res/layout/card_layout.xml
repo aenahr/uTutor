@@ -63,7 +63,7 @@
         android:layout_marginEnd="15dp"/>
     <TextView
         android:id="@+id/subject"
-        android:layout_width="wrap_content"
+        android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:layout_toEndOf="@+id/item_lastname"
         android:text = "Subject"
@@ -89,8 +89,9 @@
         style="@android:style/Widget.Material.Light.RatingBar.Small"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/university"
-        android:layout_toEndOf="@+id/university"
+        android:layout_below="@+id/subject"
+        android:layout_toEndOf="@+id/item_lastname"
+        android:layout_marginTop="3dp"
         android:numStars="5"
         android:rating="3"
         android:stepSize="0.5" />
