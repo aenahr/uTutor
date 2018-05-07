@@ -65,10 +65,22 @@
             android:textStyle="bold" />
 
         <TextView
+            android:id="@+id/gPhoneNumber"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/gbio_email"
+            android:layout_marginTop="5dp"
+            android:hint="phone num"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="25dp"
+            android:layout_centerHorizontal="true"
+            android:textStyle="bold" />
+
+        <TextView
             android:id="@+id/gdescription"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/gbio_email"
+            android:layout_below="@id/gPhoneNumber"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="10dp"
             android:text="Summary:"

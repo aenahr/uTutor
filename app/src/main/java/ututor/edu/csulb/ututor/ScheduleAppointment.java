@@ -79,8 +79,11 @@ public class ScheduleAppointment extends AppCompatActivity implements DatePicker
 
         // set tutee and tutor emails
         tutorEmail.setText(otherUser.getEmail());
-        if(currentUser != null) {
-            tuteeEmail.setText(currentUser.getEmail());
+        if(currentUser != null) { tuteeEmail.setText(currentUser.getEmail());}
+
+        // check if other user has a phone number
+        if(otherUser.getPhoneNumber().equals("NONE") || otherUser.getPhoneNumber() == null){
+
         }
 
 

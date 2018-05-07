@@ -25,6 +25,7 @@ public class GProfile_Bio extends AppCompatActivity {
     TextView mEducation;
     TextView mSubjects;
     TextView mSubjectsTitle;
+    TextView mPhoneNumber;
     Button imgBack;
 
     public void onCreate(Bundle savedInstanceState) {
@@ -46,6 +47,7 @@ public class GProfile_Bio extends AppCompatActivity {
         mSubjects = (TextView) findViewById(R.id.gSubjects);
         mSubjectsTitle = (TextView) findViewById(R.id.gSubjects_Title);
         imgBack = (Button) findViewById(R.id.backButton);
+        mPhoneNumber = (TextView) findViewById(R.id.gPhoneNumber);
 
         imgBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -80,6 +82,7 @@ public class GProfile_Bio extends AppCompatActivity {
         else{ mDescription.setText(otherUser.getDescription()); }
         mDescription.setText(otherUser.getDescription());
         mEducation.setText(otherUser.getUniversity());
+        mPhoneNumber.setText(otherUser.getPhoneNumber());
 
 
     }

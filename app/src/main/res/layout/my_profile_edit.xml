@@ -90,10 +90,34 @@
             android:inputType="textEmailAddress"/>
 
         <TextView
+            android:id="@+id/phoneNumberTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_below="@+id/bio_email"
+            android:text="Phone Number:"
+            android:layout_centerHorizontal="true"
+            android:textSize="30dp"
+            android:fontFamily="sans-serif-light" />
+
+        <EditText
+            android:id="@+id/phoneNumber"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/phoneNumberTitle"
+            android:layout_marginTop="5dp"
+            android:text="phone num"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            android:layout_centerHorizontal="true"
+            android:inputType="textEmailAddress"/>
+
+        <TextView
             android:id="@+id/pro_education"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/bio_email"
+            android:layout_below="@+id/phoneNumber"
             android:layout_marginTop="10dp"
             android:text="University Name:"
             android:layout_centerHorizontal="true"

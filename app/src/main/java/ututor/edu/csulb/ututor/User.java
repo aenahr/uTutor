@@ -21,6 +21,7 @@ public class User implements Serializable{
     public boolean walkIn;
     public float rating;
     public String uDescription;
+    public String phoneNumber;
     public ArrayList<String> favorites = null;
     public ArrayList<Appointment> appointments;
     public ArrayList<String> subjectsTaught;
@@ -37,6 +38,7 @@ public class User implements Serializable{
         workHours = new ArrayList<WorkHour>();
         uUniversity = "NONE";
         uDescription = "NULL";
+        phoneNumber = "NONE";
         
     }
 
@@ -48,6 +50,9 @@ public class User implements Serializable{
             return uDescription;
         }
     }
+
+    public String getPhoneNumber(){return phoneNumber;}
+    public void setPhoneNumber(String s){ phoneNumber = s;}
 
     public void setWorkHours(ArrayList<WorkHour> h){ workHours = h;}
 

@@ -22,33 +22,6 @@
         tools:context=".WorkManager_SetWorkLocation"
         android:name="com.google.android.gms.maps.SupportMapFragment"/>
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="65dp"
-        android:background="#73000000">
-        <TextView
-            android:id="@+id/seekBarValue"
-            android:gravity="center"
-            android:textStyle="bold"
-            android:textSize="20dp"
-            android:text="Value"
-            android:textColor="@color/colorAccent"
-            android:layout_marginTop="5dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/seekBar"/>
-
-        <SeekBar
-            android:id="@+id/seekBar"
-            android:layout_marginTop="10dp"
-            android:max="100"
-            android:min="10"
-            android:progress="50"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-
-    </RelativeLayout>
-
 
 
 </FrameLayout>

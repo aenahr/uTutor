@@ -28,6 +28,7 @@ public class MyProfile_Edit extends AppCompatActivity {
     EditText newPassword;
     boolean emailAlreadyInDatabase = false;
     EditText description;
+    EditText phoneNum;
 
 
 
@@ -48,6 +49,7 @@ public class MyProfile_Edit extends AppCompatActivity {
         currentPassword = (EditText) findViewById(R.id.bio_currentPass);
         newPassword = (EditText) findViewById(R.id.bio_newPass);
         description = (EditText) findViewById(R.id.summaryEdit);
+        phoneNum = (EditText) findViewById(R.id.phoneNumber);
 
 
         // set from User's values
@@ -56,6 +58,7 @@ public class MyProfile_Edit extends AppCompatActivity {
         eEmail.setText(currentUser.getEmail());
         collegeName.setText(currentUser.getUniversity());
         description.setText(currentUser.getDescription());
+        phoneNum.setText(currentUser.getPhoneNumber());
 
         saveChanges.setOnClickListener(new View.OnClickListener(){
             public void onClick(View view) {

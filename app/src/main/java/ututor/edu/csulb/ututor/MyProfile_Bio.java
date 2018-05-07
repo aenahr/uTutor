@@ -24,6 +24,7 @@ public class MyProfile_Bio extends AppCompatActivity {
     TextView mEducation;
     TextView mSubjects;
     TextView mSubjectsTitle;
+    TextView mPhoneNumber;
     Button imgBack;
 
     public void onCreate(Bundle savedInstanceState) {
@@ -43,6 +44,7 @@ public class MyProfile_Bio extends AppCompatActivity {
         mSubjects = (TextView) findViewById(R.id.gSubjects);
         mSubjectsTitle = (TextView) findViewById(R.id.gSubjects_Title);
         imgBack = (Button) findViewById(R.id.backButton);
+        mPhoneNumber = (TextView) findViewById(R.id.gPhoneNumber);
 
         imgBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -75,6 +77,7 @@ public class MyProfile_Bio extends AppCompatActivity {
         mEmail.setText(currentUser.getEmail());
         mDescription.setText(currentUser.getDescription());
         mEducation.setText(currentUser.getUniversity());
+        mPhoneNumber.setText(currentUser.getPhoneNumber());
 
 
 

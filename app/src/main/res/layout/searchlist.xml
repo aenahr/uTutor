@@ -52,12 +52,12 @@
         android:layout_height="wrap_content"
         android:layout_toRightOf="@id/advsearch"
         android:background="@color/colorPrimary"
-        android:minWidth="50dp"
+        android:minWidth="55dp"
         android:paddingTop="8dp"
-        android:paddingLeft="3dp"
         android:text="MAP"
         android:layout_toEndOf="@id/advsearch"
-        android:textColor="@color/colorLightPrimary" />
+        android:textColor="@color/colorLightPrimary"
+        android:onClick="mapView"/>
 
     <TextView
         android:id="@+id/sortby"

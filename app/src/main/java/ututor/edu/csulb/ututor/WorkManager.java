@@ -238,11 +238,12 @@ public class WorkManager extends Fragment implements AdapterView.OnItemSelectedL
             }
         });
 
-        setWorkLocation = (Button) getActivity().findViewById(R.id.setLocation);
+        setWorkLocation = (Button) rootView.findViewById(R.id.setLocation);
         setWorkLocation.setOnClickListener(new View.OnClickListener(){
             public void onClick(View view) {
                 Intent getLoc = new Intent(getActivity(), WorkManager_SetWorkLocation.class);
-                startActivityForResult(getLoc, 1);
+                getLoc.putExtra("currentUser", currentUser);
+                startActivity(getLoc);
 
             }
         });

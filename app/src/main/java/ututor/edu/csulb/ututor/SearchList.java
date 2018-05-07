@@ -47,6 +47,7 @@ public class SearchList extends Fragment {
     private User currentUser;
     private String Email, university, subject, firstName, lastName;
     private Float rating;
+    public ArrayList<String> emailList;
 
 
     @Override
@@ -112,6 +113,7 @@ public class SearchList extends Fragment {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
             }
 
             @Override
@@ -200,6 +202,13 @@ public class SearchList extends Fragment {
                             next.get("Subjects").toString(),
                             next.get("university").toString(),
                             Float.parseFloat(next.get("averageRating").toString())));
+
+//                    System.out.println(next.toString());
+
+                    emailList.add(next.get("email").toString());
+                }
+                for(NewItem e : filteredList){
+                    System.out.println(e.getemail());
                 }
             }
         } catch (InterruptedException e) {
@@ -214,4 +223,7 @@ public class SearchList extends Fragment {
 
     }
 
+    public void mapView(View v){
+
+    }
 }

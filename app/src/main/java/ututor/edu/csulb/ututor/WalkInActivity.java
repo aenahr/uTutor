@@ -1,8 +1,11 @@
 package ututor.edu.csulb.ututor;
 
+import android.*;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -35,6 +38,8 @@ public class WalkInActivity extends AppCompatActivity {
 
         newSession = (Button) findViewById(R.id.addWalkIn);
         endSession = (Button) findViewById(R.id.endWalkIn);
+
+        requestLocationPermission();
 
         // TODO set availability of walk-in to database
         try {
@@ -116,6 +121,16 @@ public class WalkInActivity extends AppCompatActivity {
                 });
         AlertDialog alert = builder.create();
         alert.show();
+    }
+
+    public void requestLocationPermission(){
+        // request permissions
+        if (ActivityCompat.checkSelfPermission(WalkInActivity.this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(WalkInActivity.this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(WalkInActivity.this, new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION}, 1);
+            return;
+        }else{
+            // Write you code here if permission already given.
+        }
     }
 
 }

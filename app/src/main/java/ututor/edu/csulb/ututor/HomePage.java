@@ -193,7 +193,6 @@ public class HomePage extends AppCompatActivity
             }
         }
 
-        requestLocationPermission();
     }
 
     @Override
@@ -338,14 +337,5 @@ public class HomePage extends AppCompatActivity
         mWork.setClickable(true);
     }
 
-    public void requestLocationPermission(){
-        // request permissions
-        if (ActivityCompat.checkSelfPermission(HomePage.this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(HomePage.this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(HomePage.this, new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION}, 1);
-            return;
-        }else{
-            // Write you code here if permission already given.
-        }
-    }
 
 }
