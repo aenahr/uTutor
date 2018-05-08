@@ -41,6 +41,7 @@ public class WorkManager extends Fragment implements AdapterView.OnItemSelectedL
         "Military Science", "Music", "Natural Sciences", "Nursing", "Philosophy", "Physical Science", "Physical Therapy"};
     Spinner mSpinner;
 
+
     /////
     // List View variables for Work Hours
     /////

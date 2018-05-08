@@ -203,9 +203,7 @@ public class SearchList extends Fragment {
                             next.get("university").toString(),
                             Float.parseFloat(next.get("averageRating").toString())));
 
-//                    System.out.println(next.toString());
-
-                    emailList.add(next.get("email").toString());
+//                    emailList.add(next.get("email").toString());
                 }
                 for(NewItem e : filteredList){
                     System.out.println(e.getemail());

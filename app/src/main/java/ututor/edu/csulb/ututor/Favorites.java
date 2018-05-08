@@ -1,5 +1,7 @@
 package ututor.edu.csulb.ututor;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -9,31 +11,23 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ExpandableListView;
 import android.widget.ListView;
 import android.widget.Toast;
-
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Iterator;
-import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 public class Favorites extends Fragment implements AdapterView.OnItemSelectedListener{
 
     public User currentUser;
-    public Button add_fav;
     public Button edit_fav;
     ArrayAdapter<String> adapter;
     ListView listview;
+    boolean editFavorites;
 
     ArrayList<String> names;
     ArrayList<String> emails;
@@ -50,6 +44,18 @@ public class Favorites extends Fragment implements AdapterView.OnItemSelectedLis
         listview =(ListView) rootView .findViewById(R.id.listViewFavorite);
         Intent i = getActivity().getIntent();
         currentUser = (User)i.getSerializableExtra("currentUser");
+        editFavorites = false;
+
+        // initialize list
+        names = new ArrayList();
+        emails = new ArrayList();
+
+        // TODO: dummy data - delete after!
+        names.add("Aenah Ramones");
+        emails.add("aenah.ramones@gmail.com");
+
+        names.add("Annah Ramones");
+        emails.add("annah.ramones@gmail.com");
 
         JSONObject response = null;
         try {
@@ -67,16 +73,11 @@ public class Favorites extends Fragment implements AdapterView.OnItemSelectedLis
                 }
             } else { //Everything Went Well
                 Iterator<String> keys = response.keys();
-                names = new ArrayList();
-                emails = new ArrayList();
                 while(keys.hasNext()){
                     JSONObject next = (JSONObject) response.get(keys.next());
                     names.add(next.getString("firstName") + " " + next.getString("lastName"));
                     emails.add(next.getString("favoriteeEmail"));
                 }
-                adapter =
-                        new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, names);
-                listview.setAdapter(adapter);
 
             }
         } catch (InterruptedException e) {
@@ -86,25 +87,60 @@ public class Favorites extends Fragment implements AdapterView.OnItemSelectedLis
         } catch (JSONException e){
             e.printStackTrace();
         }
+
+        adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, names);
+        listview.setAdapter(adapter);
+
         //EDITED Code
         listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(getActivity(), "Selected " + names.get(position) , Toast.LENGTH_SHORT).show();
-            }
-        });
+                if(editFavorites == true){
+                    // prompt to delete
+                    AlertDialog.Builder adb=new AlertDialog.Builder(getActivity());
+                    adb.setTitle("Delete");
+                    adb.setMessage("Are you sure you want to delete " + names.get(position) + " from your favorites?");
+                    final int positionToRemove = position;
+                    adb.setNegativeButton("Cancel", null);
+                    adb.setPositiveButton("Ok", new AlertDialog.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
 
+                            // TODO: database remove favorite relationship by email
+                            //currentUser.getEmail(); // favoritor
+                            //emails.get(position); // favoritee
+                            names.remove(position);
+                            emails.remove(position);
+                            adapter.notifyDataSetChanged();
+                        }});
+                    adb.show();
 
-        add_fav = (Button)rootView.findViewById(R.id.addFav);
-        add_fav.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View view) {
+                }
+                else{
+                    // TODO: database fetch user by email
+                    // look at the profile
+                    Toast.makeText(getActivity(), names.get(position), Toast.LENGTH_SHORT).show();
 
+//            Intent i = new Intent(getActivity(), GenericProfile.class);
+//            i.putExtra("email", );
+//            startActivity(i);
+
+                }
             }
         });
 
         edit_fav = (Button) rootView.findViewById(R.id.editFav);
         edit_fav.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
+
+                if( editFavorites == false){
+                    //set to true
+                    edit_fav.setText("SAVE");
+                    editFavorites = true;
+                }
+                else{
+                    edit_fav.setText("EDIT");
+                    editFavorites = false;
+                }
 
             }
         });
@@ -115,6 +151,7 @@ public class Favorites extends Fragment implements AdapterView.OnItemSelectedLis
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
 
     }
 
