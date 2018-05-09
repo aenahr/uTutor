@@ -102,6 +102,7 @@ public class MyProfile_Edit extends AppCompatActivity {
                         currentUser.setEmail(eEmail.getText().toString());
                         currentUser.setUniversity(collegeName.getText().toString());
                         currentUser.setDescription(description.getText().toString());
+                        currentUser.setPhoneNumber(phoneNum.getText().toString());
 
                         // go back to profile with saved changes
                         Intent i = new Intent(MyProfile_Edit.this, HomePage.class);

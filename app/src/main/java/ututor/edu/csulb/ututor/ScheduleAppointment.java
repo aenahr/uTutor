@@ -56,6 +56,7 @@ public class ScheduleAppointment extends AppCompatActivity implements DatePicker
     EditText apoint_message;
     String startTime;
     String endTime;
+    ArrayList<Appointment> allAppointments;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,6 +86,9 @@ public class ScheduleAppointment extends AppCompatActivity implements DatePicker
         if(otherUser.getPhoneNumber().equals("NONE") || otherUser.getPhoneNumber() == null){
 
         }
+
+        // TODO: fetch appointments of the other user (otherUser.getEmail())
+        // add all the appointments to allAppointments arraylist (.add())
 
 
         set_appointment.setOnClickListener(new View.OnClickListener() {
@@ -207,6 +211,7 @@ public class ScheduleAppointment extends AppCompatActivity implements DatePicker
             toTime.putExtra("currentUser", currentUser);
             toTime.putExtra("otherUser", otherUser);
             toTime.putExtra("dateChosen", dateSpecified);
+            toTime.putExtra("appointments", allAppointments);
             startActivityForResult(toTime, 1);
         }
 

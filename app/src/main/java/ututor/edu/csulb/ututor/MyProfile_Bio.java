@@ -75,9 +75,13 @@ public class MyProfile_Bio extends AppCompatActivity {
         mFName.setText(currentUser.getFirstName());
         mLName.setText(currentUser.getLastName());
         mEmail.setText(currentUser.getEmail());
-        mDescription.setText(currentUser.getDescription());
+        // check if user description is null
+        if(currentUser.getDescription().equals("null") || currentUser.getDescription() == null){ mDescription.setText("NONE"); }
+        else{ mDescription.setText(currentUser.getDescription()); }
         mEducation.setText(currentUser.getUniversity());
-        mPhoneNumber.setText(currentUser.getPhoneNumber());
+        // check if phone number is bull
+        if(currentUser.getPhoneNumber().equals("null")){ mPhoneNumber.setText("NONE"); }
+        else{mPhoneNumber.setText(currentUser.getPhoneNumber());}
 
 
 

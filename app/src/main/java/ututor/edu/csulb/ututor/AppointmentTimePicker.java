@@ -58,6 +58,7 @@ public class AppointmentTimePicker extends AppCompatActivity implements com.wdul
     Calendar dateEnded;
 
     boolean doIt = false;
+    ArrayList<Appointment> allAppointments;
 
 
     private int indexOfWorkHour;
@@ -73,6 +74,7 @@ public class AppointmentTimePicker extends AppCompatActivity implements com.wdul
         generateStartDate = (TextView) findViewById(R.id.generatedStartDate);
         endDate = (TextView) findViewById(R.id.endDate);
         title = (TextView) findViewById(R.id.currentDate);
+
 
         //initialize start and end times
         startTime = Calendar.getInstance(); // change to calendar date given
@@ -94,6 +96,10 @@ public class AppointmentTimePicker extends AppCompatActivity implements com.wdul
         currentUser = (User)i.getSerializableExtra("currentUser");
         otherUser = (User)i.getSerializableExtra("otherUser");
         dateChosen = (Calendar)i.getSerializableExtra("dateChosen");
+
+        // initialize and get appointments
+        allAppointments = new ArrayList<Appointment>();
+        allAppointments = (ArrayList<Appointment>)i.getSerializableExtra("appointments");
 
         int dayOfWeek = dateChosen.get(Calendar.DAY_OF_WEEK);
 
@@ -158,7 +164,6 @@ public class AppointmentTimePicker extends AppCompatActivity implements com.wdul
         ///////////
         popups = new ArrayList<>();
 
-        // TODO - get ALL of user's appointments from the given day (later: to the date specified in endDate) from DATABASE
         // TODO - TELL ME WHEN YOU'RE WORKING ON THISSS
         // how to get current Calendar date (months are from 0-11)
         // year = dateChosen.get(Calendar.YEAR), month = dateChosen.get(Calendar.MONTH), day = dateChosen.get(DAY_OF_MONTH)
