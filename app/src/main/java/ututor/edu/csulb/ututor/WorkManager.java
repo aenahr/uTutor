@@ -278,6 +278,9 @@ public class WorkManager extends Fragment implements AdapterView.OnItemSelectedL
             public void onClick(View view) {
                 Intent getLoc = new Intent(getActivity(), WorkManager_SetWorkLocation.class);
                 getLoc.putExtra("currentUser", currentUser);
+                Bundle args = new Bundle();
+                args.putParcelable("workLoc", workLocation);
+                getLoc.putExtra("bundle", args);
                 startActivity(getLoc);
             }
         });
