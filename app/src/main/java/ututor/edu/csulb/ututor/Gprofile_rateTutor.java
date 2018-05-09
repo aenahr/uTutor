@@ -58,13 +58,8 @@ public class Gprofile_rateTutor extends AppCompatActivity {
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                // TODO Lance send rating and review feedback
                 JSONObject response = null;
                 try {
-//            String[] name =  userinput.getText().toString().split(" ");
-                    //          String firstname = name[0];
-                    //         String lastname = name[1];
                     response = new ServerRequester().execute("rate.php", "whatever"
                             ,"recipientEmail", otherUser.getEmail()
                             ,"raterEmail", currentUser.getEmail()

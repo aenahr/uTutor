@@ -46,7 +46,6 @@ public class Profile_readreview extends AppCompatActivity {
             user = (User)i.getSerializableExtra("currentUser");
 
         }
-        // TODO: LANCE FETCH DA REVIEWS VIA THE EMAIL!
         JSONObject response = null;
         arrayList = new ArrayList<>();
 
