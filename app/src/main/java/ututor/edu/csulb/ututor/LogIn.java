@@ -127,7 +127,6 @@ public class LogIn extends AppCompatActivity {
                         //user probably doesn't need to know this
                         // -1: Query Failed, -2: Invalid Email, -3: Invalid Password
                         JSONObject response = new ServerRequester().execute("login.php", "whatever", "email", mEmail.getText().toString(), "password", mPassword.getText().toString()).get();
-                        //TODO Implement some error handling. This is a skeleton of what should be done
                         //if (response.isNull("success")) { //Interchangable with response.isNull("isTutor")), use whichever is better
                         if(response.isNull("isTutor")){    //This is what the last query returns, if this is null the Server didn't go through all the queries therefore there is some error
                             if (!response.isNull("error")) {//If the server returned an error code (So the request was at least processed)

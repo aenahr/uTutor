@@ -315,24 +315,6 @@ public class AppointmentTimePicker extends AppCompatActivity implements com.wdul
             }
         }
 
-//        for(int i = 0; i < otherUser.getWorkHours().size(); i++){
-////            Toast.makeText(getApplicationContext(), "Iteration of i = " + i  , Toast.LENGTH_SHORT).show();
-//
-//            if(isInTime(otherUser.getWorkHours().get(i).getStartTime(), otherUser.getWorkHours().get(i).getEndTime()) == true){
-//                for(int j = 0; j < otherUser.getAppointments().size(); j++){
-////                    Toast.makeText(getApplicationContext(), "Iteration of j = " + j  , Toast.LENGTH_SHORT).show();
-//                    String start = String.format("%02d:%02d:00", otherUser.getAppointments().get(i).getStartTime().get(Calendar.HOUR_OF_DAY), otherUser.getAppointments().get(i).getStartTime().get(Calendar.MINUTE));
-//                    String end = String.format("%02d:%02d:00", otherUser.getAppointments().get(i).getEndTime().get(Calendar.HOUR_OF_DAY), otherUser.getAppointments().get(i).getEndTime().get(Calendar.MINUTE));
-//                    if(isInAppointments(start, end) == true){
-//                        // in this case, if it is within the time, then false because it is conflicting.
-//                        Toast.makeText(getApplicationContext(), "Error: Desired times conflict with existing tutor appointments." , Toast.LENGTH_SHORT).show();
-//                        return false;
-//                    }
-//                }
-//            }
-//
-//        }
-
         return true;
     }
 

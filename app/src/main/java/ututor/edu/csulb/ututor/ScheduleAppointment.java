@@ -176,8 +176,6 @@ public class ScheduleAppointment extends AppCompatActivity implements DatePicker
         }
     }
 
-    //TODO need to turn on the permission in the emulator
-
     public void sendSMS(String phoneNo, String msg) {
 
         try {

@@ -71,9 +71,8 @@ public class GenericProfile extends AppCompatActivity {
             if (response == null) {//Something went horribly wrong, JSON failed to be formed meaning something happened in the server requester
 
             } else if (!response.isNull("error")) {//Some incorrect information was sent, but the server and requester still processed it
-                //TODO Handle Server Errors
                 switch (response.get("error").toString()) {
-                    case "-2": //TODO if the user is not a favorite, the flow will land here... so handle this
+                    case "-2": //if the user is not a favorite, the flow will land here... so handle this
                         isFavorite=false;
                         break;
                     default:    //Some Error Code was printed from the server that isn't handled above
@@ -137,7 +136,6 @@ public class GenericProfile extends AppCompatActivity {
                             if (response == null) {//Something went horribly wrong, JSON failed to be formed meaning something happened in the server requester
 
                             } else if (!response.isNull("error")) {//Some incorrect information was sent, but the server and requester still processed it
-                                //TODO Handle Server Errors
                                 switch (response.get("error").toString()) {
                                     default:    //Some Error Code was printed from the server that isn't handled above
 
@@ -165,7 +163,6 @@ public class GenericProfile extends AppCompatActivity {
                             if (response == null) {//Something went horribly wrong, JSON failed to be formed meaning something happened in the server requester
 
                             } else if (!response.isNull("error")) {//Some incorrect information was sent, but the server and requester still processed it
-                                //TODO Handle Server Errors
                                 switch (response.get("error").toString()) {
                                     default:    //Some Error Code was printed from the server that isn't handled above
 
@@ -227,7 +224,6 @@ public class GenericProfile extends AppCompatActivity {
                         if (response == null) {//Something went horribly wrong, JSON failed to be formed meaning something happened in the server requester
 
                         } else if (!response.isNull("error")) {//Some incorrect information was sent, but the server and requester still processed it
-                            //TODO Handle Server Errors
                             switch (response.get("error").toString()) {
                                 default:    //Some Error Code was printed from the server that isn't handled above
 

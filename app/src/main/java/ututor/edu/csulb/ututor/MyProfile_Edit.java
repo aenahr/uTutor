@@ -75,7 +75,6 @@ public class MyProfile_Edit extends AppCompatActivity {
                             "description", description.getText().toString()).get();
                     if (response == null) {//Something went horribly , JSON failed to be formed meaning something happened in the server requester
                     } else if (!response.isNull("error")) {//Some incorrect information was sent, but the server and requester still processed it
-                        //TODO Handle Server Errors
                         switch(response.get("error").toString()) {
                             case "-1": //Email Password Combo not in the Database
                                 Toast.makeText(getApplicationContext(), "Current Password does not match database. Try again." , Toast.LENGTH_SHORT).show();

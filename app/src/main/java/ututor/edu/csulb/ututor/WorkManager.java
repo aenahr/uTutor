@@ -73,10 +73,6 @@ public class WorkManager extends Fragment implements AdapterView.OnItemSelectedL
     LatLng workLocation;
     TextView address;
 
-
-    // TODO find out when to refresh database to update Work Times
-    // TODO find out if ^this TODO is Aenah telling me to fetch user work hours from the database
-
     public WorkManager() {
     }
 
@@ -271,7 +267,6 @@ public class WorkManager extends Fragment implements AdapterView.OnItemSelectedL
         ///////////
         addWorkHour.setOnClickListener(new View.OnClickListener(){
             public void onClick(View view) {
-
                 Intent i = new Intent(getActivity(), WorkHourPicker.class);
                 i.putExtra("currentUser", currentUser);
                 startActivity(i);
@@ -284,7 +279,6 @@ public class WorkManager extends Fragment implements AdapterView.OnItemSelectedL
                 Intent getLoc = new Intent(getActivity(), WorkManager_SetWorkLocation.class);
                 getLoc.putExtra("currentUser", currentUser);
                 startActivity(getLoc);
-
             }
         });
 
@@ -302,13 +296,8 @@ public class WorkManager extends Fragment implements AdapterView.OnItemSelectedL
 
 
     @Override
-    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
-
-    }
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {  }
 
     @Override
-    public void onNothingSelected(AdapterView<?> parent) {
-
-    }
+    public void onNothingSelected(AdapterView<?> parent) {  }
 }

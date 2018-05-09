@@ -73,7 +73,6 @@ public class Gprofile_rateTutor extends AppCompatActivity {
                     ).get();
                     if (response == null) {//Something went horribly wrong, JSON failed to be formed meaning something happened in the server requester
                     } else if (!response.isNull("error")) {//Some incorrect information was sent, but the server and requester still processed it
-                        //TODO Handle Server Errors
                         switch (response.get("error").toString()) {
                             default:    //Some Error Code was printed from the server that isn't handled above
 

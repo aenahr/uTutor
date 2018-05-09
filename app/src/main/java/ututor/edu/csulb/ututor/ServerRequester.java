@@ -159,7 +159,6 @@ public class ServerRequester extends AsyncTask<String, Void, JSONObject> {
         return jsonResponse;
     }
 
-    //TODO Check if necessary
     @Override
     protected void onPostExecute(JSONObject jsonObject) {
         try {

@@ -48,13 +48,10 @@ public class BecomeATutor extends AppCompatActivity {
         apply.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                // TODO: this user is now a tutor tehee
                 try {
                     ServerRequester request = new ServerRequester();
 
                     JSONObject response = request.execute("becomeATutor.php", "whatever", "email", currentUser.getEmail()).get();
-                    //TODO: Handle Server Errors teehee
                     if (response.isNull("success")) { //If the server didn't return a success message
                         if (response.isNull("error")) { //If the server didn't return a success or error message
                             //Something went horribly wrong with the server, contact your local Lance for assistance

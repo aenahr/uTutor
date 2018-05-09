@@ -150,7 +150,6 @@ public class Registration extends AppCompatActivity {
                 e.printStackTrace();
             }
         } else if (validRegistration == false) { //required fields not filled
-            //TODO Figure out if this part is still necessary, might have some use as front-end validation so we don't send a request if something is obviously with the user's input
             mAlertInput.setVisibility(View.VISIBLE);
             Animation shake = AnimationUtils.loadAnimation(Registration.this, R.anim.shake);
             mAlertInput.startAnimation(shake);
