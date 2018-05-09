@@ -22,6 +22,7 @@ import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -88,7 +89,6 @@ public class ScheduleAppointment extends AppCompatActivity implements DatePicker
 
         }
 
-        // TODO: fetch appointments of the other user (otherUser.getEmail())
         JSONObject response = null;
         try {
             response = new ServerRequester().execute("getAppointments.php", "whatever"
@@ -177,14 +177,13 @@ public class ScheduleAppointment extends AppCompatActivity implements DatePicker
 
                 }else if (email.isChecked())
                 {
-                    // TODO put yo stuff here:
                     JSONObject response = null;
                     try {
                         response = new ServerRequester().execute("scheduleAppointment.php", "whatever"
                                 ,"tutorEmail", otherUser.getEmail()
-                                ,"tuteeEmail", otherUser.getEmail()
-                                ,"startAppDateTime", otherUser.getEmail() //Format: "YYYY-MM-DD HH:MM:SS", 1<=MM<=12
-                                ,"endAppDateTime", otherUser.getEmail()     //Format is pretty lenient, So long as you use consistent delimiters, seconds not necessary
+                                ,"tuteeEmail", currentUser.getEmail()
+                                ,"startAppDateTime", formatDate(dateSpecified) + " " + startTime//Format: "YYYY-MM-DD HH:MM:SS", 1<=MM<=12
+                                ,"endAppDateTime", formatDate(dateSpecified) + " " + endTime     //Format is pretty lenient, So long as you use consistent delimiters, seconds not necessary
                         ).get();
                         if (response == null) {//Something went horribly wrong, JSON failed to be formed meaning something happened in the server requester
 
@@ -355,6 +354,10 @@ public class ScheduleAppointment extends AppCompatActivity implements DatePicker
         datePickerDialog.setTitle("Pick Appointment Date");
         datePickerDialog.show(getFragmentManager(), "Pick Appointment Date");
 
+    }
+    public String formatDate(Calendar c){
+        SimpleDateFormat f = new SimpleDateFormat("yyyy-MM-dd");
+        return f.format(c.getTime());
     }
 
     @Override
