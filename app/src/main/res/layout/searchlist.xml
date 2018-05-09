@@ -56,8 +56,7 @@
         android:paddingTop="8dp"
         android:text="MAP"
         android:layout_toEndOf="@id/advsearch"
-        android:textColor="@color/colorLightPrimary"
-        android:onClick="mapView"/>
+        android:textColor="@color/colorLightPrimary"/>
 
     <TextView
         android:id="@+id/sortby"

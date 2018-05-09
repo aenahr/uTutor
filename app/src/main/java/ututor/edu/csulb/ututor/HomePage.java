@@ -68,12 +68,8 @@ public class HomePage extends AppCompatActivity
 
         mWork = (Button) findViewById(R.id.workButton);
         //check if the person is a tutor or not
-        if( !currentUser.isTutor){
-            mWork.setVisibility(View.INVISIBLE);
-        }else{
-            mWork.setVisibility(View.VISIBLE);
-        }
-
+        if( !currentUser.isTutor){ mWork.setVisibility(View.INVISIBLE); }
+        else{ mWork.setVisibility(View.VISIBLE); }
 
         // Navigation Drawer Code
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -82,8 +78,7 @@ public class HomePage extends AppCompatActivity
 
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
@@ -91,8 +86,6 @@ public class HomePage extends AppCompatActivity
         hName = (TextView) findViewById(R.id.hName);
         hEmail = (TextView) findViewById(R.id.hEmail);
         hProfilePic = (ImageView) findViewById(R.id.hProfilePic);
-
-
         navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
@@ -104,7 +97,6 @@ public class HomePage extends AppCompatActivity
         hEmail = (TextView) headerView.findViewById(R.id.hEmail);
         hProfilePic = (ImageView) headerView.findViewById(R.id.hProfilePic);
         if(currentUser.isTutor){
-
             MenuItem menuTutor = menu.findItem(R.id.nav_becomeTutor);
             menuTutor.setVisible(false);
         }
@@ -115,9 +107,6 @@ public class HomePage extends AppCompatActivity
 
         hName.setText(currentUser.getFirstName() +  " " + currentUser.getLastName());
         hEmail.setText(currentUser.getEmail());
-
-//        String bit = currentUser.getProfilePic();
-//        Bitmap b = StringToBitMap(bit);
 
         ProfilePicture p = new ProfilePicture(this);
         p.setColor(currentUser.getuNumProfilePic());
@@ -198,9 +187,8 @@ public class HomePage extends AppCompatActivity
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START);
-        } else {
+        if (drawer.isDrawerOpen(GravityCompat.START)) { drawer.closeDrawer(GravityCompat.START); }
+        else {
             //super.onBackPressed();
             if(isVisible == false){
                 isVisible = true;
@@ -208,9 +196,6 @@ public class HomePage extends AppCompatActivity
                 Intent i = new Intent(HomePage.this, HomePage.class);
                 i.putExtra("currentUser", currentUser);
                 startActivity(i);
-            }
-            else{
-
             }
         }
     }
@@ -222,7 +207,6 @@ public class HomePage extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
         int storedID = 0;
-
         Fragment fragment = null;
 
         if (id == R.id.nav_home) {
@@ -236,10 +220,6 @@ public class HomePage extends AppCompatActivity
                 i.putExtra("veganState", true);
                 startActivity(i);
             }
-            else{
-                //nothing
-            }
-
         } else if (id == R.id.nav_userProfile) {
             setUnclickable();
             isVisible = false;
@@ -288,11 +268,8 @@ public class HomePage extends AppCompatActivity
         }
 
         if (fragment != null) {
-
             FragmentManager fragmentManager = getSupportFragmentManager();
             fragmentManager.beginTransaction().replace(R.id.mainFrame, fragment).commit();
-
-
         } else {
             Log.e("MainActivity", "Error in creating fragment");
         }
@@ -315,25 +292,20 @@ public class HomePage extends AppCompatActivity
     }
 
     public void setUnclickable(){
-
         // set home page buttons as unclickable
         cardSearch.setClickable(false);
         cardProfile.setClickable(false);
         cardFavorites.setClickable(false);
         cardAppointment.setClickable(false);
-
         mWork.setClickable(false);
-
     }
 
     public void setClickable(){
-
         // set home page buttons as unclickable
         cardSearch.setClickable(true);
         cardProfile.setClickable(true);
         cardFavorites.setClickable(true);
         cardAppointment.setClickable(true);
-
         mWork.setClickable(true);
     }
 

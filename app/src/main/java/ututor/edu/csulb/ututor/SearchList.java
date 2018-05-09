@@ -39,8 +39,7 @@ public class SearchList extends Fragment {
     private RecyclerView.LayoutManager layoutManager;
     private RecyclerAdapter adapter;
 
-    private Button bRating, bUniversity;
-    private Button search;
+    private Button bRating, bUniversity, search, mapView;
     private EditText searchText;
 
 
@@ -56,6 +55,7 @@ public class SearchList extends Fragment {
         super.onCreateView(inflater, container, savedInstanceState);
         View rootView = inflater.inflate(R.layout.search_list, container, false);
 
+        mapView = (Button)rootView.findViewById(R.id.view);
         search = (Button) rootView.findViewById(R.id.search);
         searchText = (EditText) rootView.findViewById(R.id.searchEmail);
         searchText.setMaxWidth(searchText.getWidth()); //stops the search box from moving
@@ -98,8 +98,7 @@ public class SearchList extends Fragment {
             subject = "";
             university = "";
             rating = 0f;
-        }else{
-            //objects from adv search
+        }else{ //objects from adv search
             searchText.setText(Email);
             filter();
         }
@@ -138,7 +137,6 @@ public class SearchList extends Fragment {
             public void onClick(View view) {
                 Collections.sort(filteredList, NewItem.RateComparator);
                 adapter.filterList(filteredList);
-//                Toast.makeText(Searchlist_filter.this,searchUniversity.getText().toString() ,Toast.LENGTH_LONG).show();
             }
         });
 
@@ -146,10 +144,16 @@ public class SearchList extends Fragment {
             public void onClick(View view) {
                 Collections.sort(filteredList , NewItem.UniComparator);
                 adapter.filterList(filteredList);
-//                Toast.makeText(Searchlist_filter.this,searchUniversity.getText().toString() ,Toast.LENGTH_LONG).show();
             }
         });
 
+        mapView.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                Intent i = new Intent(getActivity(), Search_MapView.class);
+                i.putExtra("currentUser", currentUser);
+                startActivity(i);
+            }
+        });
 
         return rootView;
     }
@@ -221,7 +225,4 @@ public class SearchList extends Fragment {
 
     }
 
-    public void mapView(View v){
-
-    }
 }

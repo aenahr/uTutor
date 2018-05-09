@@ -2,6 +2,8 @@ package ututor.edu.csulb.ututor;
 
 
 import android.content.Intent;
+import android.location.Address;
+import android.location.Geocoder;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -15,16 +17,19 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.maps.model.LatLng;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.Locale;
 import java.util.concurrent.ExecutionException;
 
 public class WorkManager extends Fragment implements AdapterView.OnItemSelectedListener {
@@ -40,7 +45,6 @@ public class WorkManager extends Fragment implements AdapterView.OnItemSelectedL
         "Italian", "Journalism", "Korean", "Latin", "Liberal Arts", "Management", "Marketing", "Mechanical Engineering",
         "Military Science", "Music", "Natural Sciences", "Nursing", "Philosophy", "Physical Science", "Physical Therapy"};
     Spinner mSpinner;
-
 
     /////
     // List View variables for Work Hours
@@ -62,10 +66,12 @@ public class WorkManager extends Fragment implements AdapterView.OnItemSelectedL
     ArrayList<String> mSubjectItems;
     //DEFINING A STRING ADAPTER WHICH WILL HANDLE THE DATA OF THE LISTVIEW
     ArrayAdapter<String> mSubjectAdapter;
-    //RECORDING HOW MANY TIMES THE BUTTON HAS BEEN CLICKED
+
     Button addSubjectItem;
     Button addWorkHour;
     Button setWorkLocation;
+    LatLng workLocation;
+    TextView address;
 
 
     // TODO find out when to refresh database to update Work Times
@@ -81,12 +87,14 @@ public class WorkManager extends Fragment implements AdapterView.OnItemSelectedL
 
         Intent i = getActivity().getIntent();
         currentUser = (User)i.getSerializableExtra("currentUser");
+        Bundle bundle = getActivity().getIntent().getParcelableExtra("bundle");
+
+        address = (TextView)rootView.findViewById(R.id.address);
+
         //Toast.makeText(getActivity(), currentUser.getFirstName(), Toast.LENGTH_SHORT).show();
         JSONObject response = null;
         try {
-            response = new ServerRequester().execute("fetchWorkHours.php", "whatever",
-                    "email", currentUser.getEmail()
-            ).get();
+            response = new ServerRequester().execute("fetchWorkHours.php", "whatever", "email", currentUser.getEmail()).get();
             if (response == null) {//Something went horribly wrong, JSON failed to be formed meaning something happened in the server requester
 
             } else if (!response.isNull("error")) {//Some incorrect information was sent, but the server and requester still processed it
@@ -97,10 +105,38 @@ public class WorkManager extends Fragment implements AdapterView.OnItemSelectedL
                         break;
                 }
             } else { //Everything Went Well
+                ////////////////////////////
+                ////// WORK HOURS
+                ////////////////////////////
                 Gson gson = new Gson();
                 TypeToken<List<WorkHour>> token = new TypeToken<List<WorkHour>>() {};
                 System.out.println("JSON to be SET: " + response.get("workHours").toString());
                 currentUser.setWorkHours( gson.fromJson(response.get("workHours").toString(), token.getType()));
+
+                ////////////////////////////
+                ////// WORK LOCATION
+                ////////////////////////////
+                if(getActivity().getIntent().getParcelableExtra("bundle") == null){ }
+                else{ workLocation = bundle.getParcelable("workLocation"); }
+
+                // check work location
+                // TODO: database fetch we need to check if they have a work location
+                if(workLocation != null){
+                    Geocoder geocoder;
+                    List<Address> addresses;
+                    geocoder = new Geocoder(getActivity(), Locale.getDefault());
+                    try {
+                        addresses = geocoder.getFromLocation(workLocation.latitude, workLocation.longitude, 1); // Here 1 represent max location result to returned, by documents it recommended 1 to 5
+                        String city = addresses.get(0).getLocality();
+                        String state = addresses.get(0).getAdminArea();
+                        address.setText(city+", "+state);
+
+                    }
+                    catch (IOException e) {
+                        e.printStackTrace();
+                    }
+
+                }
             }
         } catch (InterruptedException e) {
             e.printStackTrace();

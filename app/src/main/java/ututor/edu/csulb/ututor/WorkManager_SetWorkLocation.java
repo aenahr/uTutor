@@ -72,6 +72,7 @@ public class WorkManager_SetWorkLocation extends AppCompatActivity implements On
     Marker mCurrLocationMarker;
     FusedLocationProviderClient mFusedLocationClient;
     Button setTutorLocation;
+    LatLng workLocation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,8 +83,8 @@ public class WorkManager_SetWorkLocation extends AppCompatActivity implements On
         Intent i = getIntent();
         currentUser = (User)i.getSerializableExtra("currentUser");
 
+        // initialize map
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
-
         mapFrag = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         mapFrag.getMapAsync(this);
 
@@ -95,11 +96,14 @@ public class WorkManager_SetWorkLocation extends AppCompatActivity implements On
                 double lng = mCurrLocationMarker.getPosition().longitude;
                 double lat = mCurrLocationMarker.getPosition().latitude;
 
+                Bundle args = new Bundle();
+                args.putParcelable("workLocation", workLocation);
+
                 Intent i = new Intent(WorkManager_SetWorkLocation.this, HomePage.class);
                 i.putExtra("currentUser", currentUser);
                 i.putExtra("uploadPage", "workManager");
+                i.putExtra("bundle", args);
                 startActivity(i);
-
             }
         });
 
@@ -301,16 +305,15 @@ public class WorkManager_SetWorkLocation extends AppCompatActivity implements On
 
     @Override
     public void onMapClick(LatLng latLng) {
-        if(mCurrLocationMarker != null){
-            mCurrLocationMarker.remove();
-        }
+        workLocation = latLng;
+        if(mCurrLocationMarker != null){ mCurrLocationMarker.remove(); }
+        Toast.makeText(this, "(" + latLng.latitude + ", " + latLng.longitude + ")", Toast.LENGTH_LONG).show();
         MarkerOptions markerOptions = new MarkerOptions();
         markerOptions.position(latLng);
         markerOptions.title("Selected Region");
         markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_YELLOW));
         mCurrLocationMarker = mGoogleMap.addMarker(markerOptions);
         mGoogleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 14));
-
     }
 
 }
