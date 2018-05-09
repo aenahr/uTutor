@@ -264,7 +264,7 @@ public class ScheduleAppointment extends AppCompatActivity implements DatePicker
             Toast.makeText(getApplicationContext(), "Message Sent",
                     Toast.LENGTH_LONG).show();
         } catch (Exception ex) {
-            Toast.makeText(getApplicationContext(),"SMS faild, please try again later!",
+            Toast.makeText(getApplicationContext(),"SMS failed, please try again later!",
                     Toast.LENGTH_LONG).show();
             ex.printStackTrace();
         }

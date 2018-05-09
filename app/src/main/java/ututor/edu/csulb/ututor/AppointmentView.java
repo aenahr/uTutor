@@ -4,14 +4,15 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.ListView;
 import android.widget.TextView;
 
-import java.util.ArrayList;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.HashMap;
+import java.util.concurrent.ExecutionException;
 
 /**
  * Created by aenah on 4/30/18.
@@ -87,21 +88,21 @@ public class AppointmentView extends AppCompatActivity {
 
         bAccept.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
-                //TODO: database - set to 1 in database
+                setAppointmentStatus(1);
             }
         });
 
         bDecline.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 // remove appointment from database
-                removeAppointment();
+                setAppointmentStatus(-1);
             }
         });
 
         bCancel.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 // remove appointment from database
-                removeAppointment();
+                setAppointmentStatus(-1);
             }
         });
     }
@@ -109,7 +110,41 @@ public class AppointmentView extends AppCompatActivity {
     /**
      * Remove appointment from database
      */
-    public void removeAppointment(){
+    public void setAppointmentStatus(int status){
         //TODO: database - remove appointment pls
+        JSONObject response = null;
+        try {
+            response = new ServerRequester().execute("scheduleAppointment.php", "whatever"
+                    ,"tutorEmail", currentAppointment.getTutorEmail()
+                    ,"tuteeEmail", currentAppointment.getTuteeEmail()
+                    ,"startAppDateTime", formatDateTime(currentAppointment.getDate(), currentAppointment.getStartTime())//Format: "YYYY-MM-DD HH:MM:SS", 1<=MM<=12
+                    ,"endAppDateTime", formatDateTime(currentAppointment.getDate(), currentAppointment.getEndTime())    //Format is pretty lenient, So long as you use consistent delimiters, seconds not necessary
+            ).get();
+            if (response == null) {//Something went horribly wrong, JSON failed to be formed meaning something happened in the server requester
+
+            } else if (!response.isNull("error")) {//Some incorrect information was sent, but the server and requester still processed it
+                //TODO Handle Server Errors
+                switch (response.get("error").toString()) {
+                    default:    //Some Error Code was printed from the server that isn't handled above
+
+                        break;
+                }
+            } else { //Everything Went Well
+
+            }
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (JSONException e){
+            e.printStackTrace();
+        }
+    }
+    public String formatDate(Calendar c){
+        SimpleDateFormat f = new SimpleDateFormat("yyyy-MM-dd");
+        return f.format(c.getTime());
+    }
+    public String formatDateTime(Calendar date, Calendar time){
+        return formatDate(date) + " " + time.get(Calendar.HOUR) + ":" + time.get(Calendar.MINUTE);
     }
 }
