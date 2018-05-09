@@ -173,7 +173,6 @@
                 android:text="SMS"
                 android:textSize="25dp"
                 android:textColor="@color/colorPrimaryDark"
-                android:enabled="false"
                 />
 
             <RadioButton

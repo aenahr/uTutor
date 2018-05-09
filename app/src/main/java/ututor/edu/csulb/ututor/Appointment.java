@@ -21,7 +21,7 @@ public class Appointment implements Serializable{
     String tutor; // email format
     String tutee; //email format
     long lengthOfAppointment; // this is in seconds...convert as needed
-    boolean isAccepted;
+    int isAccepted;
     Context context;
     // PENDING: needs confirmation from tutor
     // UPCOMING: confirmed by tutor and awaiting time
@@ -34,11 +34,14 @@ public class Appointment implements Serializable{
         tutorEmail = "NULL";
         tuteeEmail = "NULL";
         context = c;
-        isAccepted = false;
+        // 0 = not accepted or rejected
+        // 1 = accepted
+        // -1 = rejected
+        isAccepted = 0;
     }
 
     public Appointment(){
-        isAccepted = false;
+        isAccepted = 0;
     }
 
     public void setTutorFName(String s){ tutorFName = s;}
@@ -54,10 +57,10 @@ public class Appointment implements Serializable{
 
     public void setTutorEmail(String s){ tutorEmail = s;}
 
-    public boolean getAccepted(){ return isAccepted;}
+    public int getAccepted(){ return isAccepted;}
 
-    public void setAccepted(boolean b){
-        isAccepted = b;
+    public void setAccepted(int i){
+        isAccepted = i;
     }
 
     public String getTuteeEmail(){return tuteeEmail;}

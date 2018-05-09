@@ -84,15 +84,15 @@ public class ScheduleAppointment extends AppCompatActivity implements DatePicker
         tutorEmail.setText(otherUser.getEmail());
         if(currentUser != null) { tuteeEmail.setText(currentUser.getEmail());}
 
-        // check if other user has a phone number
-        if(otherUser.getPhoneNumber().equals("NONE") || otherUser.getPhoneNumber() == null){
-
+        // check if other user has a phone number, if not they cannot message them
+        if(otherUser.getPhoneNumber().equals("NONE") || otherUser.getPhoneNumber() == null || otherUser.getPhoneNumber().equals("null")){
+            sms.setEnabled(false);
         }
 
+        // GETS ALL APPOINTMENTS
         JSONObject response = null;
         try {
-            response = new ServerRequester().execute("getAppointments.php", "whatever"
-                    ,"email", otherUser.getEmail()
+            response = new ServerRequester().execute("getAppointments.php", "whatever","email", otherUser.getEmail()
             ).get();
             if (response == null) {//Something went horribly wrong, JSON failed to be formed meaning something happened in the server requester
 
@@ -131,7 +131,6 @@ public class ScheduleAppointment extends AppCompatActivity implements DatePicker
                     endTime.set(Calendar.HOUR, Integer.parseInt(actualTime[0]));
                     endTime.set(Calendar.MINUTE, Integer.parseInt(actualTime[1]));
                     endTime.set(Calendar.SECOND, 0);
-//                    Toast.makeText(getActivity(), "Adding: " + startTime.get(Calendar.MONTH) + "/" + startTime.get(Calendar.DAY_OF_MONTH) + "/" + startTime.get(Calendar.YEAR), Toast.LENGTH_SHORT).show();
 
 
                     // set Calendar classes
@@ -140,8 +139,10 @@ public class ScheduleAppointment extends AppCompatActivity implements DatePicker
                     newAppointment.setEndTime(endTime);
 
                     // set if accepted or not by tutor
-                    if(Integer.parseInt(next.getString("is_accepted")) == 0){ newAppointment.setAccepted(false); }
-                    else{ newAppointment.setAccepted(true); }
+                    if(Integer.parseInt(next.getString("is_accepted")) == 0){ newAppointment.setAccepted(0); }
+                    else if(Integer.parseInt(next.getString("is_accepted")) == -1){newAppointment.setAccepted(-1); }
+                    else{ newAppointment.setAccepted(1); }
+
 
                     newAppointment.setTutorEmail(next.getString("tutorEmail"));
                     newAppointment.setTuteeEmail(next.getString("tuteeEmail"));
@@ -173,7 +174,7 @@ public class ScheduleAppointment extends AppCompatActivity implements DatePicker
             public void onClick(View view) {
                 if(sms.isChecked())
                 {
-                    sendSMS("800-233-5555",""+apoint_message.getText().toString()); //TODO this is temporary phone number and get text user enter
+                    sendSMS(otherUser.getPhoneNumber(),""+apoint_message.getText().toString()); //TODO this is temporary phone number and get text user enter
 
                 }else if (email.isChecked())
                 {
@@ -261,13 +262,17 @@ public class ScheduleAppointment extends AppCompatActivity implements DatePicker
         try {
             SmsManager smsManager = SmsManager.getDefault();
             smsManager.sendTextMessage(phoneNo, null, msg, null, null);
-            Toast.makeText(getApplicationContext(), "Message Sent",
+            Toast.makeText(getApplicationContext(), "Message Sent!",
                     Toast.LENGTH_LONG).show();
         } catch (Exception ex) {
             Toast.makeText(getApplicationContext(),"SMS failed, please try again later!",
                     Toast.LENGTH_LONG).show();
             ex.printStackTrace();
         }
+
+//        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("sms:" + phoneNo));
+//        intent.putExtra("sms_body", msg);
+//        startActivity(intent);
     }
 
     /**

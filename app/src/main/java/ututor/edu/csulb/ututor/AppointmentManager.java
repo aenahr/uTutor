@@ -129,8 +129,9 @@ public class AppointmentManager extends Fragment {
                     newAppointment.setEndTime(endTime);
 
                     // set if accepted or not by tutor
-                    if(Integer.parseInt(next.getString("is_accepted")) == 0){ newAppointment.setAccepted(false); }
-                    else{ newAppointment.setAccepted(true); }
+                    if(Integer.parseInt(next.getString("is_accepted")) == 0){ newAppointment.setAccepted(0); }
+                    else if(Integer.parseInt(next.getString("is_accepted")) == -1){newAppointment.setAccepted(-1); }
+                    else{ newAppointment.setAccepted(1); }
 
                     newAppointment.setTutorEmail(next.getString("tutorEmail"));
                     newAppointment.setTuteeEmail(next.getString("tuteeEmail"));
@@ -159,7 +160,7 @@ public class AppointmentManager extends Fragment {
         // SORTING ALL THE APPOINTMENTS
         Calendar today = Calendar.getInstance();
         for(int x =0; x < currentUser.getAppointments().size(); x++){
-            if(currentUser.getAppointments().get(x).isAccepted == true){ //either upcoming or past
+            if(currentUser.getAppointments().get(x).isAccepted == 0){ //either upcoming or past
                 if(currentUser.getAppointments().get(x).getStartTime().compareTo(today) > 0){ //upcoming
                     upcomingAppointments.add(currentUser.getAppointments().get(x));
                 }else{ // past
