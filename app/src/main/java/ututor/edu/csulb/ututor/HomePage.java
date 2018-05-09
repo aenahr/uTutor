@@ -1,12 +1,8 @@
 package ututor.edu.csulb.ututor;
 
-import android.*;
-import android.Manifest;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
@@ -27,12 +23,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.google.gson.Gson;
-
-import org.json.JSONObject;
-
-import java.util.concurrent.ExecutionException;
 
 public class HomePage extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -120,17 +110,6 @@ public class HomePage extends AppCompatActivity
                 finish();
             }
         });
-
-        // Work Hour: get from database
-        // TODO FOR LANCE: DO THE CONVERSION THINGY AND DATABASE STUFF HERE
-        // you need to convert the sendToDatabaseHours variable, change it to gson, and then convert to json
-        //ArrayList<WorkHour> sendToDatabaseHours = currentUser.getWorkHours();
-        // then get the json string
-        // String json;
-        // then :from database to app
-        /**Gson gson = new Gson();
-         TypeToken<List<WorkHour>> token = new TypeToken<List<WorkHour>>() {};
-         currentUser.setWorkHours( gson.fromJson(json, token.getType()));**/
 
         // make card layouts clickable
         cardSearch = (LinearLayout) findViewById(R.id.cardSearch);

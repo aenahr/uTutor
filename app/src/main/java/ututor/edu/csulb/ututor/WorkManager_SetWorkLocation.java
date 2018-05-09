@@ -93,17 +93,23 @@ public class WorkManager_SetWorkLocation extends AppCompatActivity implements On
             public void onClick(View view) {
 
                 // TODO: database stuff: set the lat lng!
-                double lng = mCurrLocationMarker.getPosition().longitude;
-                double lat = mCurrLocationMarker.getPosition().latitude;
-
-                Bundle args = new Bundle();
-                args.putParcelable("workLocation", workLocation);
+                double lng = workLocation.longitude;
+                double lat = workLocation.latitude;
 
                 Intent i = new Intent(WorkManager_SetWorkLocation.this, HomePage.class);
+
+                // TODO: when you're done with the database stuff comment below code
+                // comment from here
+                Bundle args = new Bundle();
+                args.putParcelable("workLocation", workLocation);
+                i.putExtra("bundle", args);
+                // to here
+
+                // DONT COMMENT THIS
                 i.putExtra("currentUser", currentUser);
                 i.putExtra("uploadPage", "workManager");
-                i.putExtra("bundle", args);
                 startActivity(i);
+
             }
         });
 
@@ -112,11 +118,8 @@ public class WorkManager_SetWorkLocation extends AppCompatActivity implements On
     @Override
     public void onPause() {
         super.onPause();
-
         //stop location updates when Activity is no longer active
-        if (mFusedLocationClient != null) {
-            mFusedLocationClient.removeLocationUpdates(mLocationCallback);
-        }
+        if (mFusedLocationClient != null) { mFusedLocationClient.removeLocationUpdates(mLocationCallback); }
     }
 
     @Override

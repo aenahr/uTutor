@@ -116,11 +116,15 @@ public class WorkManager extends Fragment implements AdapterView.OnItemSelectedL
                 ////////////////////////////
                 ////// WORK LOCATION
                 ////////////////////////////
+                // TODO: database fetch  work location
+                // check if null first in database (they havent set a work location yet)
+                // set values: workLocation.latitude =
+                // set values: workLocation.longtitude =
+
+                // TODO: when you're done comment the below code pls
+                // comment from here
                 if(getActivity().getIntent().getParcelableExtra("bundle") == null){ }
                 else{ workLocation = bundle.getParcelable("workLocation"); }
-
-                // check work location
-                // TODO: database fetch we need to check if they have a work location
                 if(workLocation != null){
                     Geocoder geocoder;
                     List<Address> addresses;
@@ -133,10 +137,9 @@ public class WorkManager extends Fragment implements AdapterView.OnItemSelectedL
 
                     }
                     catch (IOException e) {
-                        e.printStackTrace();
-                    }
+                        e.printStackTrace();}}
+                // to here
 
-                }
             }
         } catch (InterruptedException e) {
             e.printStackTrace();
