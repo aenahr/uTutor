@@ -117,7 +117,7 @@ public class ScheduleAppointment extends AppCompatActivity implements DatePicker
                     startTime.set(Calendar.YEAR, Integer.parseInt(actualDate[0]));
                     startTime.set(Calendar.MONTH, Integer.parseInt(actualDate[1])-1); // it's a 0-11 month
                     startTime.set(Calendar.DAY_OF_MONTH, Integer.parseInt(actualDate[2]));
-                    startTime.set(Calendar.HOUR, Integer.parseInt(actualTime[0]));
+                    startTime.set(Calendar.HOUR_OF_DAY, Integer.parseInt(actualTime[0]));
                     startTime.set(Calendar.MINUTE, Integer.parseInt(actualTime[1]));
                     startTime.set(Calendar.SECOND, 0);
                     fullString = next.getString("endAppDateTime");
@@ -128,7 +128,7 @@ public class ScheduleAppointment extends AppCompatActivity implements DatePicker
                     endTime.set(Calendar.YEAR, Integer.parseInt(actualDate[0]));
                     endTime.set(Calendar.MONTH, Integer.parseInt(actualDate[1])-1);// it's a 0-11 month
                     endTime.set(Calendar.DAY_OF_MONTH, Integer.parseInt(actualDate[2]));
-                    endTime.set(Calendar.HOUR, Integer.parseInt(actualTime[0]));
+                    endTime.set(Calendar.HOUR_OF_DAY, Integer.parseInt(actualTime[0]));
                     endTime.set(Calendar.MINUTE, Integer.parseInt(actualTime[1]));
                     endTime.set(Calendar.SECOND, 0);
 
@@ -178,35 +178,6 @@ public class ScheduleAppointment extends AppCompatActivity implements DatePicker
 
                 }else if (email.isChecked())
                 {
-                    JSONObject response = null;
-                    try {
-                        response = new ServerRequester().execute("scheduleAppointment.php", "whatever"
-                                ,"tutorEmail", otherUser.getEmail()
-                                ,"tuteeEmail", currentUser.getEmail()
-                                ,"startAppDateTime", formatDate(dateSpecified) + " " + startTime//Format: "YYYY-MM-DD HH:MM:SS", 1<=MM<=12
-                                ,"endAppDateTime", formatDate(dateSpecified) + " " + endTime     //Format is pretty lenient, So long as you use consistent delimiters, seconds not necessary
-                        ).get();
-                        if (response == null) {//Something went horribly wrong, JSON failed to be formed meaning something happened in the server requester
-
-                        } else if (!response.isNull("error")) {//Some incorrect information was sent, but the server and requester still processed it
-                            //TODO Handle Server Errors
-                            switch (response.get("error").toString()) {
-                                default:    //Some Error Code was printed from the server that isn't handled above
-
-                                    break;
-                            }
-                        } else { //Everything Went Well
-
-                        }
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    } catch (ExecutionException e) {
-                        e.printStackTrace();
-                    } catch (JSONException e){
-                        e.printStackTrace();
-                    }
-                    //
-
                     // sending email intent
                     Log.i("Send email", "");
                     String[] TO = {otherUser.getEmail()};
@@ -222,12 +193,6 @@ public class ScheduleAppointment extends AppCompatActivity implements DatePicker
                     emailIntent.putExtra(Intent.EXTRA_TEXT, " " + apoint_message.getText().toString());
                     startActivity(emailIntent);
 
-                    Toast.makeText(ScheduleAppointment.this, "Appointment scheduled!", Toast.LENGTH_SHORT).show();
-                    Intent i = new Intent(ScheduleAppointment.this, GenericProfile.class);
-                    i.putExtra("currentUser",currentUser);
-                    i.putExtra("otherUser",otherUser);
-                    startActivity(i);
-
                     try {
                         startActivity(Intent.createChooser(emailIntent, "Send mail..."));
                         Log.i("Finished sending email", "");
@@ -236,6 +201,42 @@ public class ScheduleAppointment extends AppCompatActivity implements DatePicker
                     }
 
                 }
+
+                JSONObject response = null;
+                try {
+                    response = new ServerRequester().execute("scheduleAppointment.php", "whatever"
+                            ,"tutorEmail", otherUser.getEmail()
+                            ,"tuteeEmail", currentUser.getEmail()
+                            ,"startAppDateTime", formatDate(dateSpecified) + " " + startTime//Format: "YYYY-MM-DD HH:MM:SS", 1<=MM<=12
+                            ,"endAppDateTime", formatDate(dateSpecified) + " " + endTime     //Format is pretty lenient, So long as you use consistent delimiters, seconds not necessary
+                    ).get();
+                    if (response == null) {//Something went horribly wrong, JSON failed to be formed meaning something happened in the server requester
+
+                    } else if (!response.isNull("error")) {//Some incorrect information was sent, but the server and requester still processed it
+                        //TODO Handle Server Errors
+                        switch (response.get("error").toString()) {
+                            default:    //Some Error Code was printed from the server that isn't handled above
+
+                                break;
+                        }
+                    } else { //Everything Went Well
+
+                    }
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                } catch (ExecutionException e) {
+                    e.printStackTrace();
+                } catch (JSONException e){
+                    e.printStackTrace();
+                }
+
+                // go back to the tutor's page
+//                Toast.makeText(ScheduleAppointment.this, "Appointment scheduled!", Toast.LENGTH_SHORT).show();
+//                Intent i = new Intent(ScheduleAppointment.this, GenericProfile.class);
+//                i.putExtra("currentUser",currentUser);
+//                i.putExtra("otherUser",otherUser);
+//                startActivity(i);
+                finish();
             }
         });
 

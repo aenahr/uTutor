@@ -106,7 +106,7 @@ public class AppointmentManager extends Fragment {
                     startTime.set(Calendar.YEAR, Integer.parseInt(actualDate[0]));
                     startTime.set(Calendar.MONTH, Integer.parseInt(actualDate[1])-1); // it's a 0-11 month
                     startTime.set(Calendar.DAY_OF_MONTH, Integer.parseInt(actualDate[2]));
-                    startTime.set(Calendar.HOUR, Integer.parseInt(actualTime[0]));
+                    startTime.set(Calendar.HOUR_OF_DAY, Integer.parseInt(actualTime[0]));
                     startTime.set(Calendar.MINUTE, Integer.parseInt(actualTime[1]));
                     startTime.set(Calendar.SECOND, 0);
                     fullString = next.getString("endAppDateTime");
@@ -117,7 +117,7 @@ public class AppointmentManager extends Fragment {
                     endTime.set(Calendar.YEAR, Integer.parseInt(actualDate[0]));
                     endTime.set(Calendar.MONTH, Integer.parseInt(actualDate[1])-1);// it's a 0-11 month
                     endTime.set(Calendar.DAY_OF_MONTH, Integer.parseInt(actualDate[2]));
-                    endTime.set(Calendar.HOUR, Integer.parseInt(actualTime[0]));
+                    endTime.set(Calendar.HOUR_OF_DAY, Integer.parseInt(actualTime[0]));
                     endTime.set(Calendar.MINUTE, Integer.parseInt(actualTime[1]));
                     endTime.set(Calendar.SECOND, 0);
 //                    Toast.makeText(getActivity(), "Adding: " + startTime.get(Calendar.MONTH) + "/" + startTime.get(Calendar.DAY_OF_MONTH) + "/" + startTime.get(Calendar.YEAR), Toast.LENGTH_SHORT).show();

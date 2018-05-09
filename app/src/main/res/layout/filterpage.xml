@@ -5,7 +5,6 @@
     android:layout_height="match_parent"
     android:background="@color/colorPrimaryDark">
 
-
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -15,17 +14,6 @@
         <RelativeLayout android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical" >
-
-            <TextView
-                android:id="@+id/textview"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="110dp"
-                android:layout_toLeftOf="@+id/clearall"
-                android:text="Preferences"
-                android:textColor="@color/colorLightPrimary"
-                android:textSize="18sp"
-                android:textStyle="bold" />
 
             <Button
                 android:id="@+id/clearall"
@@ -49,7 +37,7 @@
                 android:text="Ratings"
                 android:textStyle="bold"
                 android:textColor="@color/colorLightPrimary"
-                android:layout_marginTop="12dp"
+                android:layout_marginTop="18dp"
                 android:layout_marginLeft="3dp"/>
 
             <RatingBar
@@ -61,25 +49,31 @@
                 android:numStars="5" />
 
             <EditText
-            android:id="@+id/firstname"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/ratingtext"
-            android:ems="10"
-            android:inputType="text"
-            android:hint="First name"
-            android:background="@color/colorLightPrimary"
-            android:layout_marginTop="20dp"
-            android:layout_marginLeft="5dp"/>
+                android:id="@+id/firstname"
+                android:layout_width="match_parent"
+                android:gravity="center"
+                android:layout_height="40dp"
+                android:textSize="25dp"
+                android:textStyle="italic"
+                android:layout_below="@+id/ratingtext"
+                android:ems="10"
+                android:inputType="text"
+                android:hint="enter first name"
+                android:background="@color/colorLightPrimary"
+                android:layout_marginTop="25dp"
+                android:layout_marginLeft="5dp"/>
 
             <EditText
                 android:id="@+id/lastname"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_height="40dp"
+                android:textSize="25dp"
+                android:textStyle="italic"
                 android:layout_below="@+id/firstname"
                 android:ems="10"
                 android:inputType="text"
-                android:hint="Last name"
+                android:hint="enter last name"
                 android:background="@color/colorLightPrimary"
                 android:layout_marginTop="20dp"
                 android:layout_marginLeft="5dp"/>
@@ -87,11 +81,14 @@
             <EditText
                 android:id="@+id/searchsubject"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_height="40dp"
+                android:textSize="25dp"
+                android:textStyle="italic"
                 android:layout_below="@+id/lastname"
                 android:ems="10"
                 android:inputType="text"
-                android:hint="Subject"
+                android:hint="enter subject"
                 android:background="@color/colorLightPrimary"
                 android:layout_marginTop="20dp"
                 android:layout_marginLeft="5dp"/>
@@ -99,11 +96,14 @@
             <EditText
                 android:id="@+id/searchUni"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_height="40dp"
+                android:textSize="25dp"
+                android:textStyle="italic"
                 android:layout_below="@+id/searchsubject"
                 android:ems="10"
                 android:inputType="text"
-                android:hint="University"
+                android:hint="enter unversity name"
                 android:background="@color/colorLightPrimary"
                 android:layout_marginTop="20dp"
                 android:layout_marginLeft="5dp"/>
