@@ -23,6 +23,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.Calendar;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.ArrayList;
@@ -88,6 +89,82 @@ public class ScheduleAppointment extends AppCompatActivity implements DatePicker
         }
 
         // TODO: fetch appointments of the other user (otherUser.getEmail())
+        JSONObject response = null;
+        try {
+            response = new ServerRequester().execute("getAppointments.php", "whatever"
+                    ,"email", otherUser.getEmail()
+            ).get();
+            if (response == null) {//Something went horribly wrong, JSON failed to be formed meaning something happened in the server requester
+
+            } else if (!response.isNull("error")) {//Some incorrect information was sent, but the server and requester still processed it
+                //TODO Handle Server Errors
+                switch (response.get("error").toString()) {
+                    default:    //Some Error Code was printed from the server that isn't handled above
+
+                        break;
+                }
+            } else {//Everything went like cream gravy (good)
+                Iterator<String> keys = response.keys(); //Iterator to go through each appointment returned
+                while(keys.hasNext()){ //For each key in the entire response
+                    JSONObject next = (JSONObject) response.get(keys.next()); //next now has a single appointment
+                    Appointment newAppointment = new Appointment();
+
+                    String fullString = next.getString("startAppDateTime"); //Gets the Start Time and Date in format "YYYY-MM-DD HH:MM:SS"
+                    String[] datetime = fullString.split(" ");
+                    String[] actualDate = datetime[0].split("-");
+                    String[] actualTime = datetime[1].split(":");
+                    Calendar startTime = Calendar.getInstance();
+                    startTime.set(Calendar.YEAR, Integer.parseInt(actualDate[0]));
+                    startTime.set(Calendar.MONTH, Integer.parseInt(actualDate[1])-1); // it's a 0-11 month
+                    startTime.set(Calendar.DAY_OF_MONTH, Integer.parseInt(actualDate[2]));
+                    startTime.set(Calendar.HOUR, Integer.parseInt(actualTime[0]));
+                    startTime.set(Calendar.MINUTE, Integer.parseInt(actualTime[1]));
+                    startTime.set(Calendar.SECOND, 0);
+                    fullString = next.getString("endAppDateTime");
+                    datetime = fullString.split(" ");
+                    actualDate = datetime[0].split("-");
+                    actualTime = datetime[1].split(":");
+                    Calendar endTime = Calendar.getInstance();
+                    endTime.set(Calendar.YEAR, Integer.parseInt(actualDate[0]));
+                    endTime.set(Calendar.MONTH, Integer.parseInt(actualDate[1])-1);// it's a 0-11 month
+                    endTime.set(Calendar.DAY_OF_MONTH, Integer.parseInt(actualDate[2]));
+                    endTime.set(Calendar.HOUR, Integer.parseInt(actualTime[0]));
+                    endTime.set(Calendar.MINUTE, Integer.parseInt(actualTime[1]));
+                    endTime.set(Calendar.SECOND, 0);
+//                    Toast.makeText(getActivity(), "Adding: " + startTime.get(Calendar.MONTH) + "/" + startTime.get(Calendar.DAY_OF_MONTH) + "/" + startTime.get(Calendar.YEAR), Toast.LENGTH_SHORT).show();
+
+
+                    // set Calendar classes
+                    newAppointment.setStartTime(startTime);
+                    newAppointment.setDateOfAppointment(startTime);
+                    newAppointment.setEndTime(endTime);
+
+                    // set if accepted or not by tutor
+                    if(Integer.parseInt(next.getString("is_accepted")) == 0){ newAppointment.setAccepted(false); }
+                    else{ newAppointment.setAccepted(true); }
+
+                    newAppointment.setTutorEmail(next.getString("tutorEmail"));
+                    newAppointment.setTuteeEmail(next.getString("tuteeEmail"));
+
+                    // Setting the first and last names of the tutor and tutee
+                    newAppointment.setTutorFName(next.getString("tutorFirstName"));
+                    newAppointment.setTutorLName(next.getString("tutorLastName"));
+
+                    newAppointment.setTuteeFName(next.getString("tuteeFirstName"));
+                    newAppointment.setTuteeLName(next.getString("tuteeLastName"));
+
+
+                    // add apointment to the user class
+                    currentUser.addNewAppointment(newAppointment);
+                }
+            }
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
         // add all the appointments to allAppointments arraylist (.add())
 
 
