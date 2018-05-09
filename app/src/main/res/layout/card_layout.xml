@@ -26,46 +26,52 @@
         android:padding="4dp"
         android:layout_marginEnd="15dp" />
 
-    <TextView
-        android:id="@+id/item_firstname"
-        android:layout_width="wrap_content"
+    <RelativeLayout
+        android:id="@+id/nameLayout"
+        android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:layout_toEndOf="@+id/item_image"
-        android:text = "First name"
-        android:textColor="@android:color/black"
-        android:textSize="10sp"
-        android:textStyle="bold"
         android:layout_marginTop="15dp"
-        android:layout_marginEnd="5dp"/>
+        android:layout_marginEnd="5dp"
+        >
+        <TextView
+            android:id="@+id/item_firstname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text = "First name"
+            android:textColor="@android:color/black"
+            android:textSize="10sp"
+            android:textStyle="bold"
+            android:layout_marginRight="5dp"/>
 
-    <TextView
-        android:id="@+id/item_lastname"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_toEndOf="@+id/item_firstname"
-        android:text = "Last name"
-        android:textColor="@android:color/black"
-        android:textSize="10sp"
-        android:textStyle="bold"
-        android:layout_marginTop="15dp"
-        android:layout_marginEnd="15dp"/>
+        <TextView
+            android:id="@+id/item_lastname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@+id/item_firstname"
+            android:text = "Last name"
+            android:textColor="@android:color/black"
+            android:textSize="10sp"
+            android:textStyle="bold"/>
+
+    </RelativeLayout>
+
     <TextView
         android:id="@+id/WalkinStatus"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/item_lastname"
-        android:layout_alignStart="@+id/item_firstname"
-        android:text = "@string/card_walkin"
+        android:layout_alignStart="@+id/nameLayout"
+        android:layout_below="@+id/nameLayout"
+        android:text = "Walk-In Unavailable"
         android:textColor="@android:color/black"
         android:textSize="10sp"
         android:textStyle="bold"
-        android:layout_marginTop="15dp"
         android:layout_marginEnd="15dp"/>
     <TextView
         android:id="@+id/subject"
         android:layout_width="100dp"
-        android:layout_height="wrap_content"
-        android:layout_toEndOf="@+id/item_lastname"
+        android:layout_height="12dp"
+        android:layout_toEndOf="@+id/nameLayout"
         android:text = "Subject"
         android:textColor="@android:color/black"
         android:textSize="10sp"
@@ -74,7 +80,7 @@
         android:layout_marginEnd="15dp"/>
     <TextView
         android:id="@+id/university"
-        android:layout_width="wrap_content"
+        android:layout_width="75dp"
         android:layout_height="wrap_content"
         android:layout_toEndOf="@+id/subject"
         android:text = "University"
@@ -90,7 +96,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/subject"
-        android:layout_toEndOf="@+id/item_lastname"
+        android:layout_toEndOf="@+id/nameLayout"
         android:layout_marginTop="3dp"
         android:numStars="5"
         android:rating="3"

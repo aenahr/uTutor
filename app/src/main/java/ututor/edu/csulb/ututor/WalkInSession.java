@@ -133,6 +133,8 @@ public class WalkInSession extends AppCompatActivity implements OnMapReadyCallba
             public void onClick(View view) {
                 if(begin == false){ // walk in session started
 
+                    // TODO: walk-in status is 0, latlng is 0
+
                     //set boolean to true now
                     begin = true;
 
@@ -182,6 +184,8 @@ public class WalkInSession extends AppCompatActivity implements OnMapReadyCallba
                             "Yes",
                             new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int id) {
+
+                                    // TODO: schedule appoint here!
                                     // create new Appointment to store in User
                                     Appointment wiAppointment = new Appointment();
                                     wiAppointment.setDateOfAppointment(dayDate);
