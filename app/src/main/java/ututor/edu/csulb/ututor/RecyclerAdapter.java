@@ -83,7 +83,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
                             otherUser.setRating(Float.parseFloat(response.get("averageRating").toString()));
                             otherUser.setDescription(response.get("userDescription").toString());
                             otherUser.setNumProfilePic(Integer.parseInt(response.get("profilePic").toString()));
-                            // delete up to here ^
+                            otherUser.setPhoneNumber(response.get("phoneNumber").toString());
 
                             Intent i = new Intent(searchContext, GenericProfile.class);
                             i.putExtra("currentUser", currentUser);

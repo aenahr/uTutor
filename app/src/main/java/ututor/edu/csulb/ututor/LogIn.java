@@ -191,6 +191,7 @@ public class LogIn extends AppCompatActivity {
                             }else{
                                 cUser.setNumProfilePic(response.getInt("profilePic"));
                             }
+                            cUser.setPhoneNumber(response.get("phoneNumber").toString());
 //                            Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.ututorlogo); // drawable to bitmap
 //                            cUser.setProfilePic(bitmap);
 
