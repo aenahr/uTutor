@@ -72,7 +72,8 @@ public class MyProfile_Edit extends AppCompatActivity {
                             "firstName", firstName.getText().toString(),
                             "lastName", lastName.getText().toString(),
                             "university", collegeName.getText().toString(),
-                            "description", description.getText().toString()).get();
+                            "description", description.getText().toString(),
+                            "phoneNumber", phoneNum.getText().toString()).get();
                     if (response == null) {//Something went horribly , JSON failed to be formed meaning something happened in the server requester
                     } else if (!response.isNull("error")) {//Some incorrect information was sent, but the server and requester still processed it
                         switch(response.get("error").toString()) {
