@@ -44,6 +44,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
             itemStatus = (TextView) itemView.findViewById(R.id.WalkinStatus);
             itemuniversity = (TextView) itemView.findViewById(R.id.university);
             itemrating = (RatingBar) itemView.findViewById(R.id.searchrating);
+            itemsubject = (TextView) itemView.findViewById(R.id.subject);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override public void onClick(View v) {
@@ -147,7 +148,6 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
         holder.itemuniversity.setText(currentItem.getuniversity());
         holder.itemrating.setRating((float) currentItem.getrating());
         holder.itemsubject.setText(currentItem.getSubject());
-
     }
 
     @Override
