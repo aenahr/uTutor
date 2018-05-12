@@ -119,6 +119,7 @@ public class WalkInSession extends AppCompatActivity implements OnMapReadyCallba
             public void onClick(View view) {
                 if(begin == false){ // walk in session started
 
+
                     //set boolean to true now
                     begin = true;
 
