@@ -108,14 +108,10 @@ public class WorkManager extends Fragment implements AdapterView.OnItemSelectedL
                 TypeToken<List<WorkHour>> token = new TypeToken<List<WorkHour>>() {};
                 System.out.println("JSON to be SET: " + response.get("workHours").toString());
                 currentUser.setWorkHours( gson.fromJson(response.get("workHours").toString(), token.getType()));
-
                 ////////////////////////////
                 ////// WORK LOCATION
                 ////////////////////////////
-                // TODO: database fetch  work location
-                // check if null first in database (they havent set a work location yet)
-                // set values: workLocation.latitude =
-                // set values: workLocation.longtitude =
+                workLocation= new LatLng(response.getDouble("workLat"),response.getDouble("workLong"));
 
                 // TODO: when you're done comment the below code pls
                 // comment from here

@@ -79,6 +79,7 @@ public class WorkManager_SetWorkLocation extends AppCompatActivity implements On
             public void onClick(View view) {
 
                 // TODO: database stuff: set the lat lng!
+                
                 double lng = workLocation.longitude;
                 double lat = workLocation.latitude;
 
