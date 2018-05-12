@@ -108,15 +108,12 @@ public class WorkManager extends Fragment implements AdapterView.OnItemSelectedL
                 TypeToken<List<WorkHour>> token = new TypeToken<List<WorkHour>>() {};
                 System.out.println("JSON to be SET: " + response.get("workHours").toString());
                 currentUser.setWorkHours( gson.fromJson(response.get("workHours").toString(), token.getType()));
+
                 ////////////////////////////
                 ////// WORK LOCATION
                 ////////////////////////////
                 workLocation= new LatLng(response.getDouble("workLat"),response.getDouble("workLong"));
 
-                // TODO: when you're done comment the below code pls
-                // comment from here
-                if(getActivity().getIntent().getParcelableExtra("bundle") == null){ }
-                else{ workLocation = bundle.getParcelable("workLocation"); }
                 if(workLocation != null){
                     Geocoder geocoder;
                     List<Address> addresses;
@@ -130,7 +127,6 @@ public class WorkManager extends Fragment implements AdapterView.OnItemSelectedL
                     }
                     catch (IOException e) {
                         e.printStackTrace();}}
-                // to here
 
             }
         } catch (InterruptedException e) {
