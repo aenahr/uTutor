@@ -38,6 +38,8 @@ import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -64,6 +66,9 @@ public class Search_MapView extends AppCompatActivity implements OnMapReadyCallb
     TextView seekBarValue;
     int mProgress;
 
+    ArrayList<NewItem> appointmentTutors;
+    ArrayList<NewItem> walkInTutors;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -73,6 +78,8 @@ public class Search_MapView extends AppCompatActivity implements OnMapReadyCallb
         // initialize all the map stuff
         Intent i = getIntent();
         currentUser = (User)i.getSerializableExtra("currentUser");
+        appointmentTutors = new ArrayList<NewItem>();
+        walkInTutors = new ArrayList<NewItem>();
 
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
         mapFrag = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
