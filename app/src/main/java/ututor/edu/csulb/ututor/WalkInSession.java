@@ -43,6 +43,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
+import java.util.concurrent.ExecutionException;
 
 import javax.net.ssl.HttpsURLConnection;
 
@@ -117,24 +118,61 @@ public class WalkInSession extends AppCompatActivity implements OnMapReadyCallba
 
         buttonTime.setOnClickListener(new View.OnClickListener(){
             public void onClick(View view) {
+                String startDateTime="-1";
+                String endDateTime;
+                Boolean isUser=false;
                 if(begin == false){ // walk in session started
+                    //VERIFY THE TUEEEGEARSGAEIOAUWEAPEHGNB HRTR
+                    JSONObject response = null;
+                    try {
+                        response = new ServerRequester().execute("fetchUser.php", "whatever",
+                                "email", inputTutee.getText().toString()
+                        ).get();
+                        if (response == null) {//Something went horribly wrong, JSON failed to be formed meaning something happened in the server requester
+                        } else if (!response.isNull("error")) {//Some incorrect information was sent, but the server and requester still processed it
+                            //TODO Handle Server Errors
+                            switch (response.get("error").toString()) {
+                                case "-1": //Email Password Combo not in the Database
+                                    break;
+                                case "-2":  //Select Query failed due to something dumb
+                                    // Print out response.get("errormessage"), it'll have the mysql error with it
 
+                                    break;
+                                case "-3": //Update Query Failed Due to New Email is already associated with another account
+                                    break;
+                                case "-4":  //Update Query Failed Due to Something Else Dumb that I haven't handled yet,
+                                    // Print out response.get("errormessage"), it'll have the mysql error with it
+                                    break;
+                                default:    //Some Error Code was printed from the server that isn't handled above
 
-                    //set boolean to true now
-                    begin = true;
+                                    break;
+                            }
+                        } else { //Everything Went Well
+                            begin = true;
+                            isUser=true;
 
-                    //set text of button to "end time"
-                    buttonTime.setText("End Time");
+                            //set text of button to "end time"
+                            buttonTime.setText("End Time");
 
-                    // start tutoring time
-                    start = Calendar.getInstance();
-                    int year = start.get(Calendar.YEAR);
-                    int month = start.get(Calendar.MONTH) + 1; // Note: zero based!
-                    int day = start.get(Calendar.DAY_OF_MONTH);
-                    int hour = start.get(Calendar.HOUR_OF_DAY);
-                    int minute = start.get(Calendar.MINUTE);
-                    int second = start.get(Calendar.SECOND);
+                            // start tutoring time
+                            start = Calendar.getInstance();
+                            int year = start.get(Calendar.YEAR);
+                            int month = start.get(Calendar.MONTH) + 1; // Note: zero based!
+                            int day = start.get(Calendar.DAY_OF_MONTH);
+                            int hour = start.get(Calendar.HOUR_OF_DAY);
+                            int minute = start.get(Calendar.MINUTE);
+                            //int second = start.get(Calendar.SECOND);
+                            startDateTime = year + "-" + month + "-" + day + " " + hour + ":" + minute;
 
+                        }
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    } catch (ExecutionException e) {
+                        e.printStackTrace();
+                    } catch (JSONException e){
+                        e.printStackTrace();
+                    }
+                //TODO If isUser=false, do the thing
                 }
                 else{ // walk in session ended
                     // end tutoring time
@@ -145,6 +183,35 @@ public class WalkInSession extends AppCompatActivity implements OnMapReadyCallba
                     int hour = end.get(Calendar.HOUR_OF_DAY);
                     int minute = end.get(Calendar.MINUTE);
                     int second = end.get(Calendar.SECOND);
+                    endDateTime = year + "-" + month + "-" + day + " " + hour + ":" + minute;
+                    JSONObject response = null;
+                    try {
+                        response = new ServerRequester().execute("scheduleAppointment.php", "whatever"
+                                ,"tutorEmail", currentUser.getEmail()
+                                ,"tuteeEmail", inputTutee.getText().toString()
+                                ,"startAppDateTime", startDateTime //Format: "YYYY-MM-DD HH:MM:SS", 1<=MM<=12
+                                ,"endAppDateTime", endDateTime     //Format is pretty lenient, So long as you use consistent delimiters, seconds not necessary
+                        ).get();
+                        if (response == null) {//Something went horribly wrong, JSON failed to be formed meaning something happened in the server requester
+
+                        } else if (!response.isNull("error")) {//Some incorrect information was sent, but the server and requester still processed it
+                            //TODO Handle Server Errors
+                            switch (response.get("error").toString()) {
+                                default:    //Some Error Code was printed from the server that isn't handled above
+
+                                    break;
+                            }
+                        } else { //Everything Went Well
+
+
+                        }
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    } catch (ExecutionException e) {
+                        e.printStackTrace();
+                    } catch (JSONException e){
+                        e.printStackTrace();
+                    }
 
                     // length of time that has passed
                     seconds = (end.getTimeInMillis() - start.getTimeInMillis()) / 1000;
