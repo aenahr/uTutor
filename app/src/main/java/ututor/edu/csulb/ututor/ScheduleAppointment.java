@@ -143,7 +143,6 @@ public class ScheduleAppointment extends AppCompatActivity implements DatePicker
                     else if(Integer.parseInt(next.getString("is_accepted")) == -1){newAppointment.setAccepted(-1); }
                     else{ newAppointment.setAccepted(1); }
 
-
                     newAppointment.setTutorEmail(next.getString("tutorEmail"));
                     newAppointment.setTuteeEmail(next.getString("tuteeEmail"));
 
@@ -156,7 +155,7 @@ public class ScheduleAppointment extends AppCompatActivity implements DatePicker
 
 
                     // add apointment to the user class
-                    currentUser.addNewAppointment(newAppointment);
+                    otherUser.addNewAppointment(newAppointment);
                 }
             }
         } catch (InterruptedException e) {
@@ -221,6 +220,7 @@ public class ScheduleAppointment extends AppCompatActivity implements DatePicker
                         }
                     } else { //Everything Went Well
 
+
                     }
                 } catch (InterruptedException e) {
                     e.printStackTrace();
@@ -230,12 +230,6 @@ public class ScheduleAppointment extends AppCompatActivity implements DatePicker
                     e.printStackTrace();
                 }
 
-                // go back to the tutor's page
-//                Toast.makeText(ScheduleAppointment.this, "Appointment scheduled!", Toast.LENGTH_SHORT).show();
-//                Intent i = new Intent(ScheduleAppointment.this, GenericProfile.class);
-//                i.putExtra("currentUser",currentUser);
-//                i.putExtra("otherUser",otherUser);
-//                startActivity(i);
                 finish();
             }
         });
@@ -293,7 +287,6 @@ public class ScheduleAppointment extends AppCompatActivity implements DatePicker
             toTime.putExtra("currentUser", currentUser);
             toTime.putExtra("otherUser", otherUser);
             toTime.putExtra("dateChosen", dateSpecified);
-            toTime.putExtra("appointments", allAppointments);
             startActivityForResult(toTime, 1);
         }
 

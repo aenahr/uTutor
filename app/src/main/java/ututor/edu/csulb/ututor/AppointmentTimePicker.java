@@ -58,7 +58,8 @@ public class AppointmentTimePicker extends AppCompatActivity implements com.wdul
     Calendar dateEnded;
 
     boolean doIt = false;
-    ArrayList<Appointment> allAppointments;
+
+    ArrayList<Appointment> currentDayAppointments;
 
 
     private int indexOfWorkHour;
@@ -96,10 +97,6 @@ public class AppointmentTimePicker extends AppCompatActivity implements com.wdul
         currentUser = (User)i.getSerializableExtra("currentUser");
         otherUser = (User)i.getSerializableExtra("otherUser");
         dateChosen = (Calendar)i.getSerializableExtra("dateChosen");
-
-        // initialize and get appointments
-        allAppointments = new ArrayList<Appointment>();
-        allAppointments = (ArrayList<Appointment>)i.getSerializableExtra("appointments");
 
         int dayOfWeek = dateChosen.get(Calendar.DAY_OF_WEEK);
 
@@ -163,39 +160,30 @@ public class AppointmentTimePicker extends AppCompatActivity implements com.wdul
         /// Below is the code that displays the tutor's appointments from date chosen
         ///////////
         popups = new ArrayList<>();
+        currentDayAppointments = new ArrayList<Appointment>();
 
-        // TODO - TELL ME WHEN YOU'RE WORKING ON THISSS
-        // how to get current Calendar date (months are from 0-11)
-        // year = dateChosen.get(Calendar.YEAR), month = dateChosen.get(Calendar.MONTH), day = dateChosen.get(DAY_OF_MONTH)
-        // currentUser = tutor, so getting tutor's email: currentUser.getEmail()
-        // I made some phony appointments TEHEE
-        Calendar s = Calendar.getInstance();
-        Calendar e = (Calendar) s.clone();
-        otherUser.getAppointments().clear();
-        Appointment one = new Appointment();
-        s.set(Calendar.HOUR_OF_DAY, 17);
-        s.set(Calendar.MINUTE, 0);
-        e.set(Calendar.HOUR_OF_DAY, 18);
-        e.set(Calendar.MINUTE, 30);
-        one.setStartTime(s);
-        one.setEndTime(e);
-        otherUser.addNewAppointment(one);
+        //iterate through all the otherUser's appointments to check the date chosen
+        for(int x = 0; x < otherUser.getAppointments().size(); x++){
+            // add to currentDayAppointments arraylist if same day appointment
+            if(dateChosen.get(Calendar.YEAR) == otherUser.getAppointments().get(x).getStartTime().get(Calendar.YEAR) && dateChosen.get(Calendar.MONTH) == otherUser.getAppointments().get(x).getStartTime().get(Calendar.MONTH) && dateChosen.get(Calendar.DAY_OF_MONTH) == otherUser.getAppointments().get(x).getStartTime().get(Calendar.DAY_OF_MONTH)){
+                currentDayAppointments.add(otherUser.getAppointments().get(x));
+            }
+        }
 
-
-        for(int k = 0; k < otherUser.getAppointments().size(); k++){
+        for(int k = 0; k < currentDayAppointments.size(); k++){
             Calendar timeStart = Calendar.getInstance();
-            timeStart.set(Calendar.HOUR_OF_DAY, otherUser.getAppointments().get(k).getStartTime().get(Calendar.HOUR_OF_DAY));
-            timeStart.set(Calendar.MINUTE, otherUser.getAppointments().get(k).getStartTime().get(Calendar.MINUTE));
+            timeStart.set(Calendar.HOUR_OF_DAY, currentDayAppointments.get(k).getStartTime().get(Calendar.HOUR_OF_DAY));
+            timeStart.set(Calendar.MINUTE, currentDayAppointments.get(k).getStartTime().get(Calendar.MINUTE));
             Calendar timeEnd = (Calendar) timeStart.clone();
-            timeEnd.set(Calendar.HOUR_OF_DAY, otherUser.getAppointments().get(k).getEndTime().get(Calendar.HOUR_OF_DAY));
-            timeEnd.set(Calendar.MINUTE, otherUser.getAppointments().get(k).getEndTime().get(Calendar.MINUTE));
+            timeEnd.set(Calendar.HOUR_OF_DAY, currentDayAppointments.get(k).getEndTime().get(Calendar.HOUR_OF_DAY));
+            timeEnd.set(Calendar.MINUTE, currentDayAppointments.get(k).getEndTime().get(Calendar.MINUTE));
 
             PopUp popup = new PopUp();
             popup.setStartTime(timeStart);
             popup.setEndTime(timeEnd);
             popup.setImageStart("");
             popup.setTitle("Appointment Scheduled");
-            popup.setDescription(String.format("%02d:%02d to %02d:%02d", otherUser.getAppointments().get(k).getStartTime().get(Calendar.HOUR_OF_DAY), otherUser.getAppointments().get(k).getStartTime().get(Calendar.MINUTE), otherUser.getAppointments().get(k).getEndTime().get(Calendar.HOUR_OF_DAY), otherUser.getAppointments().get(k).getEndTime().get(Calendar.MINUTE)));
+            popup.setDescription(String.format("%02d:%02d to %02d:%02d", currentDayAppointments.get(k).getStartTime().get(Calendar.HOUR_OF_DAY), currentDayAppointments.get(k).getStartTime().get(Calendar.MINUTE), currentDayAppointments.get(k).getEndTime().get(Calendar.HOUR_OF_DAY), currentDayAppointments.get(k).getEndTime().get(Calendar.MINUTE)));
             popup.isAutohide();
             popups.add(popup);
         }

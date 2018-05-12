@@ -5,6 +5,8 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.util.Base64;
 
+import com.google.android.gms.maps.model.LatLng;
+
 import java.io.ByteArrayOutputStream;
 import java.io.Serializable;
 import java.lang.reflect.Array;
@@ -22,6 +24,8 @@ public class User implements Serializable{
     public float rating;
     public String uDescription;
     public String phoneNumber;
+    public LatLng workLocation;
+    public LatLng walkInLocation;
     public ArrayList<String> favorites = null;
     public ArrayList<Appointment> appointments;
     public ArrayList<String> subjectsTaught;
@@ -39,8 +43,15 @@ public class User implements Serializable{
         uUniversity = "NONE";
         uDescription = "NULL";
         phoneNumber = "NONE";
-        
+        workLocation = null;
+        walkInLocation = null;
     }
+
+    public LatLng getWorkLocation() {return workLocation;}
+    public LatLng getWalkInLocation() {return walkInLocation;}
+
+    public void setWorkLocation(LatLng w){ workLocation =w;}
+    public void setWalkInLocation(LatLng w){ walkInLocation =w;}
 
     public String getDescription(){
         if(uDescription.equals("NULL")){
