@@ -172,7 +172,7 @@ public class WalkInSession extends AppCompatActivity implements OnMapReadyCallba
                     } catch (JSONException e){
                         e.printStackTrace();
                     }
-                //TODO If isUser=false, do the thing
+                //TODO AENAH If isUser=false, do the thing
                 }
                 else{ // walk in session ended
                     // end tutoring time
@@ -359,7 +359,7 @@ public class WalkInSession extends AppCompatActivity implements OnMapReadyCallba
                     double latitude = location.getLatitude();
                     double longitude = location.getLongitude();
                     currentPosition = new LatLng(latitude, longitude);
-                    // TODO: DATABASE set walk-in status to 1 and set tutor's walk-in location to currentPosition
+                    // TODO: LANCE DATABASE set walk-in status to 1 and set tutor's walk-in location to currentPosition
 
                     addressName = getAddressName(currentPosition);
                     tvLocation.setText(addressName);

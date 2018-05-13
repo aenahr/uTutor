@@ -13,8 +13,10 @@ public class NewItem
     private String status,subject, university;
     private String email;
     private Float rating;
+    private double lat, lng;
+    boolean isWalkIn;
 
-    public NewItem(int image, String firstname, String lastname, String ema, String status1,String subj, String uni, Float rat) {
+    public NewItem(int image, String firstname, String lastname, String ema, String status1,String subj, String uni, Float rat,double lattitude, double longitude, boolean walkin) {
         mImage = image;
         fname = firstname;
         lname = lastname;
@@ -23,6 +25,9 @@ public class NewItem
         subject = subj;
         university = uni;
         rating = rat;
+        lat = lattitude;
+        lng = longitude;
+        isWalkIn = walkin;
     }
 
     public int getImage() {

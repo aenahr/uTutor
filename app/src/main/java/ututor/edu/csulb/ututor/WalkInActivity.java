@@ -40,37 +40,6 @@ public class WalkInActivity extends AppCompatActivity {
         endSession = (Button) findViewById(R.id.endWalkIn);
 
         requestLocationPermission();
-
-        // TODO set availability of walk-in to database
-        try {
-            JSONObject response = new ServerRequester().execute("walkIn.php", "whatever", "email", currentUser.getEmail()).get();
-            if(response.isNull("success")){//If no success message was returned
-                if(response.isNull("error")){//If no error message was returned
-                    //Something went horribly wrong with connecting to the server
-                }else{//Error Code was returned
-                    switch(response.get("error").toString()){
-                        case "-1": //Email sent was not in the Tutor Database
-
-                            break;
-                        case "-2": //Query Failed, server error
-
-                            break;
-                        case "-3": //Catastrophe, also server error
-
-                            break;
-                    }
-                }
-            }else{//Everything is cream gravy
-
-            }
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        } catch (JSONException e){
-            e.printStackTrace();
-        }
-
         currentUser.setWalkIn(true); // is available for walk-in
 
         // get new number of Appointments

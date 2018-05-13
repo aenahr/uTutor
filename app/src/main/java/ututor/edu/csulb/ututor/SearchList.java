@@ -10,9 +10,12 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.media.Rating;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Looper;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
@@ -26,7 +29,9 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -36,6 +41,8 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
+
+import static android.content.Context.LOCATION_SERVICE;
 
 public class SearchList extends Fragment {
 
@@ -240,7 +247,11 @@ public class SearchList extends Fragment {
                             next.get("walkinStatus").toString(),
                             next.get("Subjects").toString(),
                             next.get("university").toString(),
-                            Float.parseFloat(next.get("averageRating").toString())));
+                            Float.parseFloat(next.get("averageRating").toString()),
+                            Double.parseDouble(next.get("workLat").toString()),
+                            Double.parseDouble(next.get("workLong").toString()),
+                            false
+                            ));
 
 //                    emailList.add(next.get("email").toString());
                 }
@@ -255,7 +266,68 @@ public class SearchList extends Fragment {
         } catch (JSONException e) {
             e.printStackTrace();
         }
+        response = null;
+        try {
+            response = new ServerRequester().execute("searchWalkIn.php", "whatever"
+                    ,"email", Email
+                    ,"firstName", firstName
+                    ,"lastName",  lastName
+                    ,"subject", subject
+                    ,"university", university
+                    ,"distance", Integer.toString(miles)
+                    ,"lat", Double.toString(currentLocation.latitude) //IF Distance is zero, this must be zero as well
+                    ,"long", Double.toString(currentLocation.longitude) //If Distance is zero, ^^
+                    ,"rating",  rating.toString()
+            ).get();
+            if (response == null) {//Something went horribly wrong, JSON failed to be formed meaning something happened in the server requester
+            } else if (!response.isNull("error")) {//Some incorrect information was sent, but the server and requester still processed it
+                //TODO Handle Server Errors
+                switch (response.get("error").toString()) {
+                    case "-1": //Email Password Combo not in the Database
+                        break;
+                    case "-2":  //Select Query failed due to something dumb
+                        // Print out response.get("errormessage"), it'll have the mysql error with it
 
+                        break;
+                    case "-3": //Update Query Failed Due to New Email is already associated with another account
+                        break;
+                    case "-4":  //Update Query Failed Due to Something Else Dumb that I haven't handled yet,
+                        // Print out response.get("errormessage"), it'll have the mysql error with it
+                        Toast.makeText(getActivity(), "'"+Email+"' not found.", Toast.LENGTH_SHORT).show();
+                        break;
+                    default:    //Some Error Code was printed from the server that isn't handled above
+
+                        break;
+                }
+            } else {//Everything went well
+                Iterator<String> keys = response.keys();
+                while (keys.hasNext()) {
+                    JSONObject next = (JSONObject) response.get(keys.next());
+                    filteredList.add(new NewItem(Integer.parseInt(next.get("profilePic").toString()),
+                            next.get("firstName").toString(),
+                            next.get("lastName").toString(),
+                            next.get("email").toString(),
+                            next.get("walkinStatus").toString(),
+                            next.get("Subjects").toString(),
+                            next.get("university").toString(),
+                            Float.parseFloat(next.get("averageRating").toString()),
+                            Double.parseDouble(next.get("workLat").toString()),
+                            Double.parseDouble(next.get("workLong").toString()),
+                            true
+                    ));
+                }
+                for(NewItem e : filteredList){
+                    System.out.println(e.getemail());
+                }
+            }
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        //TODO: Aenah Filter Through Work and Walk-In on filteredList
         adapter.filterList(filteredList);
 
     }
@@ -293,7 +365,6 @@ public class SearchList extends Fragment {
                     double longitude = location.getLongitude();
                     currentLocation = new LatLng(latitude, longitude);
                     Toast.makeText(getActivity(), currentLocation.latitude + ", " + currentLocation.longitude, Toast.LENGTH_SHORT).show();
-
                 }
             }
         }
