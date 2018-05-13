@@ -209,70 +209,8 @@ public class SearchList extends Fragment {
         // check if the user does not want to search by distance
         // set user's lat lng to zero
         if(miles == 0){ currentLocation = new LatLng(0,0); }
+        // search walk-ins first
         JSONObject response = null;
-        try {
-            response = new ServerRequester().execute("search.php", "whatever"
-                    ,"email", Email
-                    ,"firstName", firstName
-                    ,"lastName",  lastName
-                    ,"subject", subject
-                    ,"university", university
-                    ,"distance", Integer.toString(miles)
-                    ,"workLat", Double.toString(currentLocation.latitude) //IF Distance is zero, this must be zero as well
-                    ,"workLong", Double.toString(currentLocation.longitude) //If Distance is zero, ^^
-                    ,"rating",  rating.toString()
-            ).get();
-            if (response == null) {//Something went horribly wrong, JSON failed to be formed meaning something happened in the server requester
-            } else if (!response.isNull("error")) {//Some incorrect information was sent, but the server and requester still processed it
-                //TODO Handle Server Errors
-                switch (response.get("error").toString()) {
-                    case "-1": //Email Password Combo not in the Database
-                        break;
-                    case "-2":  //Select Query failed due to something dumb
-                        // Print out response.get("errormessage"), it'll have the mysql error with it
-
-                        break;
-                    case "-3": //Update Query Failed Due to New Email is already associated with another account
-                        break;
-                    case "-4":  //Update Query Failed Due to Something Else Dumb that I haven't handled yet,
-                        // Print out response.get("errormessage"), it'll have the mysql error with it
-                        Toast.makeText(getActivity(), "'"+Email+"' not found.", Toast.LENGTH_SHORT).show();
-                        break;
-                    default:    //Some Error Code was printed from the server that isn't handled above
-
-                        break;
-                }
-            } else {//Everything went well
-                Iterator<String> keys = response.keys();
-                while (keys.hasNext()) {
-                    JSONObject next = (JSONObject) response.get(keys.next());
-                    filteredList.add(new NewItem(Integer.parseInt(next.get("profilePic").toString()),
-                            next.get("firstName").toString(),
-                            next.get("lastName").toString(),
-                            next.get("email").toString(),
-                            next.get("walkinStatus").toString(),
-                            next.get("Subjects").toString(),
-                            next.get("university").toString(),
-                            Float.parseFloat(next.get("averageRating").toString()),
-                            Double.parseDouble(next.get("workLat").toString()),
-                            Double.parseDouble(next.get("workLong").toString()),
-                            false
-                            ));
-
-//                    emailList.add(next.get("email").toString());
-                }
-                for(NewItem e : filteredList){
-                    System.out.println(e.getemail());
-                }
-            }
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        response = null;
         try {
             response = new ServerRequester().execute("searchWalkIn.php", "whatever"
                     ,"email", Email
@@ -319,11 +257,8 @@ public class SearchList extends Fragment {
                             Float.parseFloat(next.get("averageRating").toString()),
                             Double.parseDouble(next.get("walkInLat").toString()),
                             Double.parseDouble(next.get("walkInLong").toString()),
-                            true
-                    ));
-                }
-                for(NewItem e : filteredList){
-                    System.out.println(e.getemail());
+                            false
+                            ));
                 }
             }
         } catch (InterruptedException e) {
@@ -333,8 +268,74 @@ public class SearchList extends Fragment {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        //TODO: Aenah filter through Work and Walk-In on filteredList, Good Luck Friendo
+        response = null;
+        try {
+            response = new ServerRequester().execute("search.php", "whatever"
+                    ,"email", Email
+                    ,"firstName", firstName
+                    ,"lastName",  lastName
+                    ,"subject", subject
+                    ,"university", university
+                    ,"distance", Integer.toString(miles)
+                    ,"workLat", Double.toString(currentLocation.latitude) //IF Distance is zero, this must be zero as well
+                    ,"workLong", Double.toString(currentLocation.longitude) //If Distance is zero, ^^
+                    ,"rating",  rating.toString()
+            ).get();
+            if (response == null) {//Something went horribly wrong, JSON failed to be formed meaning something happened in the server requester
+            } else if (!response.isNull("error")) {//Some incorrect information was sent, but the server and requester still processed it
+                //TODO Handle Server Errors
+                switch (response.get("error").toString()) {
+                    case "-1": //Email Password Combo not in the Database
+                        break;
+                    case "-2":  //Select Query failed due to something dumb
+                        // Print out response.get("errormessage"), it'll have the mysql error with it
+
+                        break;
+                    case "-3": //Update Query Failed Due to New Email is already associated with another account
+                        break;
+                    case "-4":  //Update Query Failed Due to Something Else Dumb that I haven't handled yet,
+                        // Print out response.get("errormessage"), it'll have the mysql error with it
+                        Toast.makeText(getActivity(), "'"+Email+"' not found.", Toast.LENGTH_SHORT).show();
+                        break;
+                    default:    //Some Error Code was printed from the server that isn't handled above
+
+                        break;
+                }
+            } else {//Everything went well
+                Iterator<String> keys = response.keys();
+                while (keys.hasNext()) {
+                    // check if walk in exists first
+                    JSONObject next = (JSONObject) response.get(keys.next());
+                    if(filteredList.contains(next.get("email").toString())){
+                        // do nothing, do not add
+                    }else{
+                        filteredList.add(new NewItem(Integer.parseInt(next.get("profilePic").toString()),
+                                next.get("firstName").toString(),
+                                next.get("lastName").toString(),
+                                next.get("email").toString(),
+                                next.get("walkinStatus").toString(),
+                                next.get("Subjects").toString(),
+                                next.get("university").toString(),
+                                Float.parseFloat(next.get("averageRating").toString()),
+                                Double.parseDouble(next.get("workLat").toString()),
+                                Double.parseDouble(next.get("workLong").toString()),
+                                true
+                        ));
+                    }
+                }
+            }
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
         adapter.filterList(filteredList);
+
+        if(filteredList.size() == 0){
+            Toast.makeText(getActivity(), "No results found.", Toast.LENGTH_SHORT).show();
+        }
 
     }
 
