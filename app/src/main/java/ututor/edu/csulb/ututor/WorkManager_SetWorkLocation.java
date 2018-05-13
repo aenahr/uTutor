@@ -74,6 +74,10 @@ public class WorkManager_SetWorkLocation extends AppCompatActivity implements On
         Intent i = getIntent();
         currentUser = (User)i.getSerializableExtra("currentUser");
 
+        // check for existing work location
+        Bundle b = getIntent().getExtras().getBundle("bundle");
+        currentUser.setWorkLocation(b.getParcelable("workLoc"));
+
         // initialize map
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
         mapFrag = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
@@ -83,7 +87,6 @@ public class WorkManager_SetWorkLocation extends AppCompatActivity implements On
         setTutorLocation.setOnClickListener(new View.OnClickListener(){
             public void onClick(View view) {
 
-                // TODO: database stuff: set the lat lng!
                 JSONObject response = null;
                 try {
                     response = new ServerRequester().execute("setTutorLocation.php", "whatever",
@@ -94,14 +97,17 @@ public class WorkManager_SetWorkLocation extends AppCompatActivity implements On
                     if (response == null) {//Something went horribly wrong, JSON failed to be formed meaning something happened in the server requester
 
                     } else if (!response.isNull("error")) {//Some incorrect information was sent, but the server and requester still processed it
-                        //TODO Handle Server Errors
                         switch (response.get("error").toString()) {
                             default:    //Some Error Code was printed from the server that isn't handled above
 
                                 break;
                         }
                     } else { //Everything Went Well
-
+                        currentUser.setWorkLocation(null);
+                        Intent i = new Intent(WorkManager_SetWorkLocation.this, HomePage.class);
+                        i.putExtra("currentUser", currentUser);
+                        i.putExtra("uploadPage", "workManager");
+                        startActivity(i);
                     }
                 } catch (InterruptedException e) {
                     e.printStackTrace();
@@ -110,22 +116,6 @@ public class WorkManager_SetWorkLocation extends AppCompatActivity implements On
                 } catch (JSONException e){
                     e.printStackTrace();
                 }
-                double lng = workLocation.longitude;
-                double lat = workLocation.latitude;
-
-                Intent i = new Intent(WorkManager_SetWorkLocation.this, HomePage.class);
-
-                // TODO: when you're done with the database stuff comment below code
-                // comment from here
-                Bundle args = new Bundle();
-                args.putParcelable("workLocation", workLocation);
-                i.putExtra("bundle", args);
-                // to here
-
-                // DONT COMMENT THIS
-                i.putExtra("currentUser", currentUser);
-                i.putExtra("uploadPage", "workManager");
-                startActivity(i);
 
             }
         });
@@ -158,22 +148,37 @@ public class WorkManager_SetWorkLocation extends AppCompatActivity implements On
                     android.Manifest.permission.ACCESS_FINE_LOCATION)
                     == PackageManager.PERMISSION_GRANTED) {
                 //Location Permission already granted
-                // first time finding location
-                LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
-                Criteria criteria = new Criteria();
-                String bestProvider = locationManager.getBestProvider(criteria, true);
-                Location location = locationManager.getLastKnownLocation(bestProvider);
-                if (location != null) {
-                    currentLocation = location;
-                    userLocation = new LatLng(location.getLatitude(), location.getLongitude());
+
+                //check if user has a working location already
+                if(currentUser.getWorkLocation().longitude != 0 && currentUser.getWorkLocation().latitude != 0){
+                    // if they already have, set a marker
                     MarkerOptions markerOptions = new MarkerOptions();
-                    markerOptions.position(userLocation);
+                    markerOptions.position(currentUser.getWorkLocation());
                     markerOptions.title("Current Position");
                     markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_YELLOW));
                     mCurrLocationMarker = mGoogleMap.addMarker(markerOptions);
                     //move map camera
-                    mGoogleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(userLocation, 14));
+                    mGoogleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(currentUser.getWorkLocation(), 14));
+                } else{ // they don't have one yet, so set it to default their location
+                    // first time finding location
+                    LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
+                    Criteria criteria = new Criteria();
+                    String bestProvider = locationManager.getBestProvider(criteria, true);
+                    Location location = locationManager.getLastKnownLocation(bestProvider);
+                    if (location != null) {
+                        currentLocation = location;
+                        userLocation = new LatLng(location.getLatitude(), location.getLongitude());
+                        MarkerOptions markerOptions = new MarkerOptions();
+                        markerOptions.position(userLocation);
+                        markerOptions.title("Current Position");
+                        markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_YELLOW));
+                        mCurrLocationMarker = mGoogleMap.addMarker(markerOptions);
+                        //move map camera
+                        mGoogleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(userLocation, 14));
+                    }
+
                 }
+
 
                 mFusedLocationClient.requestLocationUpdates(mLocationRequest, mLocationCallback, Looper.myLooper());
             } else {
@@ -193,7 +198,6 @@ public class WorkManager_SetWorkLocation extends AppCompatActivity implements On
             if (locationList.size() > 0) {
                 //The last location in the list is the newest
                 Location location = locationList.get(locationList.size() - 1);
-//                Log.i("MapsActivity", "Location: " + location.getLatitude() + " " + location.getLongitude());
                 mLastLocation = location;
                 if (mCurrLocationMarker != null) {
                     mCurrLocationMarker.remove();
@@ -201,9 +205,13 @@ public class WorkManager_SetWorkLocation extends AppCompatActivity implements On
 
                 //Place current location marker
                 userLocation = new LatLng(location.getLatitude(), location.getLongitude());
+                MarkerOptions markerOptions = new MarkerOptions();
+                markerOptions.position(userLocation);
+                markerOptions.title("Current Position");
+                markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_YELLOW));
+                mCurrLocationMarker = mGoogleMap.addMarker(markerOptions);
                 //move map camera
-                mGoogleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(userLocation, 14));
-//                mGoogleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(userLocation, 14));
+                mGoogleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(userLocation, 14));
 
             }
         }

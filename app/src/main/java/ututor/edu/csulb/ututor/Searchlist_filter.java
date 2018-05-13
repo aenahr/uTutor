@@ -8,6 +8,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RatingBar;
+import android.widget.SeekBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class Searchlist_filter extends AppCompatActivity{
@@ -17,6 +19,9 @@ public class Searchlist_filter extends AppCompatActivity{
     private EditText searchSubject, searchEmail;
     private RatingBar rating;
     private User currentUser;
+    private SeekBar seekBar;
+    private TextView mMilesIndicator;
+    private int mMiles;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +48,30 @@ public class Searchlist_filter extends AppCompatActivity{
         //clear all
         bclear = (Button) findViewById(R.id.clearall);
 
+        seekBar = (SeekBar) findViewById(R.id.seekBar);
+        seekBar.incrementProgressBy(5);
+        seekBar.setProgress(50);
+        mMiles = 50; // starting value
+        seekBar.setMax(50);
+        mMilesIndicator = (TextView)findViewById(R.id.seekBarValue);
+        mMilesIndicator.setText(String.valueOf(seekBar.getProgress()) + " miles");
+        seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener(){
+
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                progress = progress / 5;
+                progress = progress * 5;
+                mMiles = progress;
+                mMilesIndicator.setText(String.valueOf(progress) + " miles");
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) { }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) { }
+        });
+
 
         bSearch.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
@@ -54,6 +83,7 @@ public class Searchlist_filter extends AppCompatActivity{
                 data.putString("email",searchEmail.getText().toString());
                 data.putString("Subject",searchSubject.getText().toString());
                 data.putFloat("rating",rating.getRating());
+                data.putInt("distance", mMiles);
                 i.putExtras(data);
                 i.putExtra("uploadPage", "searchPage");
                 i.putExtra("currentUser", currentUser);

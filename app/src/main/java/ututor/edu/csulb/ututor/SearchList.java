@@ -1,9 +1,17 @@
 package ututor.edu.csulb.ututor;
 
 
+import android.*;
+import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.location.Criteria;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.media.Rating;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -18,12 +26,15 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.maps.model.LatLng;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
+import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 public class SearchList extends Fragment {
@@ -46,8 +57,14 @@ public class SearchList extends Fragment {
     private User currentUser;
     private String Email, university, subject, firstName, lastName;
     private Float rating;
+    // variables for current location and distane
+    private int miles;
+    private LatLng currentLocation;
+    private LocationManager locationManager;
+    private String provider;
+    private SearchList.MyLocationListener mylistener;
+    private Criteria criteria;
     public ArrayList<String> emailList;
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -59,6 +76,11 @@ public class SearchList extends Fragment {
         search = (Button) rootView.findViewById(R.id.search);
         searchText = (EditText) rootView.findViewById(R.id.searchEmail);
         searchText.setMaxWidth(searchText.getWidth()); //stops the search box from moving
+
+        // get user's location
+        requestLocationPermission();
+
+
 
         // get user information
         Intent i = getActivity().getIntent();
@@ -91,13 +113,19 @@ public class SearchList extends Fragment {
         university = (String) i.getSerializableExtra("University");
         rating = (Float) i.getSerializableExtra("rating");
         Email = (String) i.getSerializableExtra("email");
-        if(firstName == null && lastName == null && Email == null && subject == null && university == null && rating == null) {
+        if(i.getSerializableExtra("distance") == null){
+            miles = 999;
+        }else{
+            miles = (Integer) i.getSerializableExtra("distance");
+        }
+        if(firstName == null && lastName == null && Email == null && subject == null && university == null && rating == null && miles == 999) {
             firstName = "";
             lastName = "";
             Email = "";
             subject = "";
             university = "";
             rating = 0f;
+            miles = 50;
         }else{ //objects from adv search
             searchText.setText(Email);
             filter();
@@ -164,6 +192,10 @@ public class SearchList extends Fragment {
      */
     private void filter() {
         filteredList = new ArrayList<>();
+
+        // check if the user does not want to search by distance
+        // set user's lat lng to zero
+        if(miles == 0){ currentLocation = new LatLng(0,0); }
         JSONObject response = null;
         try {
             response = new ServerRequester().execute("search.php", "whatever"
@@ -172,6 +204,9 @@ public class SearchList extends Fragment {
                     ,"lastName",  lastName
                     ,"subject", subject
                     ,"university", university
+                    ,"distance", Integer.toString(miles)
+                    ,"lat", Double.toString(currentLocation.latitude) //IF Distance is zero, this must be zero as well
+                    ,"long", Double.toString(currentLocation.longitude) //If Distance is zero, ^^
                     ,"rating",  rating.toString()
             ).get();
             if (response == null) {//Something went horribly wrong, JSON failed to be formed meaning something happened in the server requester
@@ -223,6 +258,76 @@ public class SearchList extends Fragment {
 
         adapter.filterList(filteredList);
 
+    }
+
+
+    /**
+     * Asks for permission AND if given, gets current user's position
+     */
+    public void requestLocationPermission(){
+        // request permissions
+        if (ActivityCompat.checkSelfPermission(getActivity(), android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getActivity(), android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(getActivity(), new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION}, 1);
+            return;
+        }else{
+
+            String location_context = Context.LOCATION_SERVICE;
+            locationManager = (LocationManager) getActivity().getSystemService(location_context);
+            List<String> providers = locationManager.getProviders(true);
+            for (String provider : providers) {
+                locationManager.requestLocationUpdates(provider, 1000, 0,
+                        new LocationListener() {
+
+                            public void onLocationChanged(Location location) {}
+
+                            public void onProviderDisabled(String provider) {}
+
+                            public void onProviderEnabled(String provider) {}
+
+                            public void onStatusChanged(String provider, int status,
+                                                        Bundle extras) {}
+                        });
+                Location location = locationManager.getLastKnownLocation(provider);
+                if (location != null) {
+                    double latitude = location.getLatitude();
+                    double longitude = location.getLongitude();
+                    currentLocation = new LatLng(latitude, longitude);
+                    Toast.makeText(getActivity(), currentLocation.latitude + ", " + currentLocation.longitude, Toast.LENGTH_SHORT).show();
+
+                }
+            }
+        }
+    }
+
+    /**
+     * For the location listener and updating the location of user should they move
+     */
+    private class MyLocationListener implements LocationListener {
+
+        @Override
+        public void onLocationChanged(Location location) {
+            // Initialize the location fields
+            currentLocation = new LatLng(location.getLatitude(), location.getLongitude());
+        }
+
+        @Override
+        public void onStatusChanged(String provider, int status, Bundle extras) {
+            Toast.makeText(getActivity(), provider + "'s status changed to "+status +"!",
+                    Toast.LENGTH_SHORT).show();
+        }
+
+        @Override
+        public void onProviderEnabled(String provider) {
+            Toast.makeText(getActivity(), "Provider " + provider + " enabled!",
+                    Toast.LENGTH_SHORT).show();
+
+        }
+
+        @Override
+        public void onProviderDisabled(String provider) {
+            Toast.makeText(getActivity(), "Provider " + provider + " disabled!",
+                    Toast.LENGTH_SHORT).show();
+        }
     }
 
 }

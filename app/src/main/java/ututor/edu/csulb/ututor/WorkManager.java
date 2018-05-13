@@ -114,7 +114,8 @@ public class WorkManager extends Fragment implements AdapterView.OnItemSelectedL
                 ////////////////////////////
                 workLocation= new LatLng(response.getDouble("workLat"),response.getDouble("workLong"));
 
-                if(workLocation != null){
+                // print city of the lat lng coordinates
+                if(workLocation.longitude != 0 && workLocation.latitude != 0){
                     Geocoder geocoder;
                     List<Address> addresses;
                     geocoder = new Geocoder(getActivity(), Locale.getDefault());
