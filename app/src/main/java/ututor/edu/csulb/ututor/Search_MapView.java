@@ -96,16 +96,17 @@ public class Search_MapView extends AppCompatActivity implements OnMapReadyCallb
         mapFrag.getMapAsync(this);
 
         seekBar = (SeekBar) findViewById(R.id.seekBar);
+        seekBar.incrementProgressBy(5);
+        seekBar.setMax(50);
         if((boolean)i.getSerializableExtra("fromBasic") == true){
             seekBar.setProgress(10);
+            mProgress = 10; // starting value
         }
-        else{
-            seekBar.setProgress((int)i.getSerializableExtra("setDistance"));
+        else{ // from advanced search - keep constant miles value
+            mProgress = (int)i.getSerializableExtra("setDistance"); // starting value
+            seekBar.setProgress(mProgress);
             seekBar.setEnabled(false);
         }
-        seekBar.incrementProgressBy(5);
-        mProgress = 10; // starting value
-        seekBar.setMax(50);
         seekBarValue = (TextView)findViewById(R.id.seekBarValue);
         seekBarValue.setText(String.valueOf(seekBar.getProgress()) + " miles");
         seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener(){

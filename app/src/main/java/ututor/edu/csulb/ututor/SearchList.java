@@ -138,6 +138,7 @@ public class SearchList extends Fragment {
         }else{ //objects from adv search
             searchText.setText(Email);
             fromBasic = false;
+            Toast.makeText(getActivity(), ""+miles, Toast.LENGTH_SHORT).show();
             filter();
         }
 
@@ -306,9 +307,13 @@ public class SearchList extends Fragment {
                 while (keys.hasNext()) {
                     // check if walk in exists first
                     JSONObject next = (JSONObject) response.get(keys.next());
-                    if(filteredList.contains(next.get("email").toString())){
-                        // do nothing, do not add
-                    }else{
+                    // do nothing, do not add
+                    boolean flag = false;
+                    for(NewItem e : filteredList){
+                        if(e.getemail().equals(next.get("email").toString())){flag = true;}
+                    }
+                    if(flag == true){}
+                    else{ // add to filtered list
                         filteredList.add(new NewItem(Integer.parseInt(next.get("profilePic").toString()),
                                 next.get("firstName").toString(),
                                 next.get("lastName").toString(),
@@ -366,6 +371,9 @@ public class SearchList extends Fragment {
                     double longitude = location.getLongitude();
                     currentLocation = new LatLng(latitude, longitude);
 //                    Toast.makeText(getActivity(), currentLocation.latitude + ", " + currentLocation.longitude, Toast.LENGTH_SHORT).show();
+                }else{
+                    Toast.makeText(getActivity(), "location is null", Toast.LENGTH_SHORT).show();
+
                 }
             }
         }

@@ -167,19 +167,17 @@ public class WorkManager_SetWorkLocation extends AppCompatActivity implements On
                     Location location = locationManager.getLastKnownLocation(bestProvider);
                     if (location != null) {
                         currentLocation = location;
-                        userLocation = new LatLng(location.getLatitude(), location.getLongitude());
+                        workLocation = new LatLng(location.getLatitude(), location.getLongitude());
                         MarkerOptions markerOptions = new MarkerOptions();
-                        markerOptions.position(userLocation);
+                        markerOptions.position(workLocation);
                         markerOptions.title("Current Position");
                         markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_YELLOW));
                         mCurrLocationMarker = mGoogleMap.addMarker(markerOptions);
                         //move map camera
-                        mGoogleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(userLocation, 14));
+                        mGoogleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(workLocation, 14));
                     }
 
                 }
-
-
                 mFusedLocationClient.requestLocationUpdates(mLocationRequest, mLocationCallback, Looper.myLooper());
             } else {
                 //Request Location Permission
@@ -222,7 +220,6 @@ public class WorkManager_SetWorkLocation extends AppCompatActivity implements On
         if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED) {
 
-            // Should we show an explanation?
             if (ActivityCompat.shouldShowRequestPermissionRationale(this,
                     android.Manifest.permission.ACCESS_FINE_LOCATION)) {
 
