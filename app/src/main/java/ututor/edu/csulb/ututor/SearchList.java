@@ -212,8 +212,8 @@ public class SearchList extends Fragment {
                     ,"subject", subject
                     ,"university", university
                     ,"distance", Integer.toString(miles)
-                    ,"lat", Double.toString(currentLocation.latitude) //IF Distance is zero, this must be zero as well
-                    ,"long", Double.toString(currentLocation.longitude) //If Distance is zero, ^^
+                    ,"workLat", Double.toString(currentLocation.latitude) //IF Distance is zero, this must be zero as well
+                    ,"workLong", Double.toString(currentLocation.longitude) //If Distance is zero, ^^
                     ,"rating",  rating.toString()
             ).get();
             if (response == null) {//Something went horribly wrong, JSON failed to be formed meaning something happened in the server requester
@@ -275,8 +275,8 @@ public class SearchList extends Fragment {
                     ,"subject", subject
                     ,"university", university
                     ,"distance", Integer.toString(miles)
-                    ,"lat", Double.toString(currentLocation.latitude) //IF Distance is zero, this must be zero as well
-                    ,"long", Double.toString(currentLocation.longitude) //If Distance is zero, ^^
+                    ,"walkInLat", Double.toString(currentLocation.latitude) //IF Distance is zero, this must be zero as well
+                    ,"walkInLong", Double.toString(currentLocation.longitude) //If Distance is zero, ^^
                     ,"rating",  rating.toString()
             ).get();
             if (response == null) {//Something went horribly wrong, JSON failed to be formed meaning something happened in the server requester
