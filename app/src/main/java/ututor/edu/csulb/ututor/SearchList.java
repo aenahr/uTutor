@@ -66,6 +66,7 @@ public class SearchList extends Fragment {
     private Float rating;
     // variables for current location and distane
     private int miles;
+    private boolean fromBasic;
     private LatLng currentLocation;
     private LocationManager locationManager;
     private String provider;
@@ -92,6 +93,7 @@ public class SearchList extends Fragment {
         // get user information
         Intent i = getActivity().getIntent();
         currentUser = (User)i.getSerializableExtra("currentUser");
+        fromBasic = true;
 
         Button advsearch = (Button) rootView.findViewById(R.id.advsearch);
         advsearch.setOnClickListener(new View.OnClickListener() {
@@ -135,6 +137,7 @@ public class SearchList extends Fragment {
             miles = 50;
         }else{ //objects from adv search
             searchText.setText(Email);
+            fromBasic = false;
             filter();
         }
 
@@ -186,6 +189,9 @@ public class SearchList extends Fragment {
             public void onClick(View view) {
                 Intent i = new Intent(getActivity(), Search_MapView.class);
                 i.putExtra("currentUser", currentUser);
+                i.putExtra("listOfAppointments", filteredList);
+                i.putExtra("fromBasic", fromBasic);
+                i.putExtra("setDistance", miles);
                 startActivity(i);
             }
         });
@@ -342,22 +348,16 @@ public class SearchList extends Fragment {
             ActivityCompat.requestPermissions(getActivity(), new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION}, 1);
             return;
         }else{
-
             String location_context = Context.LOCATION_SERVICE;
             locationManager = (LocationManager) getActivity().getSystemService(location_context);
             List<String> providers = locationManager.getProviders(true);
             for (String provider : providers) {
                 locationManager.requestLocationUpdates(provider, 1000, 0,
                         new LocationListener() {
-
                             public void onLocationChanged(Location location) {}
-
                             public void onProviderDisabled(String provider) {}
-
                             public void onProviderEnabled(String provider) {}
-
-                            public void onStatusChanged(String provider, int status,
-                                                        Bundle extras) {}
+                            public void onStatusChanged(String provider, int status, Bundle extras) {}
                         });
                 Location location = locationManager.getLastKnownLocation(provider);
                 if (location != null) {
@@ -383,14 +383,12 @@ public class SearchList extends Fragment {
 
         @Override
         public void onStatusChanged(String provider, int status, Bundle extras) {
-            Toast.makeText(getActivity(), provider + "'s status changed to "+status +"!",
-                    Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), provider + "'s status changed to "+status +"!", Toast.LENGTH_SHORT).show();
         }
 
         @Override
         public void onProviderEnabled(String provider) {
-            Toast.makeText(getActivity(), "Provider " + provider + " enabled!",
-                    Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), "Provider " + provider + " enabled!", Toast.LENGTH_SHORT).show();
 
         }
 

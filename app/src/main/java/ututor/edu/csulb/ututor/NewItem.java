@@ -1,12 +1,13 @@
 package ututor.edu.csulb.ututor;
 
+import java.io.Serializable;
 import java.util.Comparator;
 
 /**
  * Created by Nishant on 2/17/2018.
  */
 
-public class NewItem
+public class NewItem implements Serializable
 {
     private int mImage;
     private String fname, lname;
@@ -33,7 +34,9 @@ public class NewItem
     public int getImage() {
         return mImage;
     }
-
+    public boolean getWalkInStatus() {
+        return isWalkIn;
+    }
     public String getfirstname() {
         return fname;
     }

@@ -68,6 +68,7 @@ public class Search_MapView extends AppCompatActivity implements OnMapReadyCallb
 
     ArrayList<NewItem> appointmentTutors;
     ArrayList<NewItem> walkInTutors;
+    ArrayList<NewItem> allAppointments;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,16 +79,31 @@ public class Search_MapView extends AppCompatActivity implements OnMapReadyCallb
         // initialize all the map stuff
         Intent i = getIntent();
         currentUser = (User)i.getSerializableExtra("currentUser");
+        allAppointments = (ArrayList<NewItem>) i.getSerializableExtra("listOfAppointments");
         appointmentTutors = new ArrayList<NewItem>();
         walkInTutors = new ArrayList<NewItem>();
+
+        // sort appointments
+        for(int x = 0; x < allAppointments.size(); x++){
+            if(allAppointments.get(x).getWalkInStatus() == true)
+                walkInTutors.add(allAppointments.get(x));
+            else
+                appointmentTutors.add(allAppointments.get(x));
+        }
 
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
         mapFrag = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         mapFrag.getMapAsync(this);
 
         seekBar = (SeekBar) findViewById(R.id.seekBar);
+        if((boolean)i.getSerializableExtra("fromBasic") == true){
+            seekBar.setProgress(10);
+        }
+        else{
+            seekBar.setProgress((int)i.getSerializableExtra("setDistance"));
+            seekBar.setEnabled(false);
+        }
         seekBar.incrementProgressBy(5);
-        seekBar.setProgress(10);
         mProgress = 10; // starting value
         seekBar.setMax(50);
         seekBarValue = (TextView)findViewById(R.id.seekBarValue);
