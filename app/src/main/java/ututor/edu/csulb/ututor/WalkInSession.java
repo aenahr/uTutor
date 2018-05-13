@@ -62,7 +62,8 @@ public class WalkInSession extends AppCompatActivity implements OnMapReadyCallba
     TextView currentDate; // gets the date when tutor pressed new walk in
     TextView inputTutee; // tutee must type in his/her email
     TextView tvLocation;
-
+    String startDateTime="-1";
+    String endDateTime = "-1";
     // objects needed for location
     Geocoder geocoder;
     private final LatLng LOCATION_UNIV = new LatLng(33.783768, -118.114336);
@@ -114,15 +115,14 @@ public class WalkInSession extends AppCompatActivity implements OnMapReadyCallba
 
         // get current date and present it to user
         final String formatDate = String.format("%d-%02d-%02d", year, month, day);
+
         currentDate.setText(formatDate);
 
         buttonTime.setOnClickListener(new View.OnClickListener(){
+
             public void onClick(View view) {
-                String startDateTime="-1";
-                String endDateTime;
                 Boolean isUser=false;
                 if(begin == false){ // walk in session started
-                    //VERIFY THE TUEEEGEARSGAEIOAUWEAPEHGNB HRTR
                     JSONObject response = null;
                     try {
                         response = new ServerRequester().execute("fetchUser.php", "whatever",
@@ -163,6 +163,7 @@ public class WalkInSession extends AppCompatActivity implements OnMapReadyCallba
                             int minute = start.get(Calendar.MINUTE);
                             //int second = start.get(Calendar.SECOND);
                             startDateTime = year + "-" + month + "-" + day + " " + hour + ":" + minute;
+
                         }
                     } catch (InterruptedException e) {
                         e.printStackTrace();
@@ -171,10 +172,11 @@ public class WalkInSession extends AppCompatActivity implements OnMapReadyCallba
                     } catch (JSONException e){
                         e.printStackTrace();
                     }
-                //TODO AENAH: If isUser=false, do the thing
+                //TODO AENAH If isUser==false, do the thing
                 }
                 else{ // walk in session ended
                     // end tutoring time
+
                     end = Calendar.getInstance();
                     int year = end.get(Calendar.YEAR);
                     int month = end.get(Calendar.MONTH) + 1; // Note: zero based!
@@ -183,35 +185,6 @@ public class WalkInSession extends AppCompatActivity implements OnMapReadyCallba
                     int minute = end.get(Calendar.MINUTE);
                     int second = end.get(Calendar.SECOND);
                     endDateTime = year + "-" + month + "-" + day + " " + hour + ":" + minute;
-                    JSONObject response = null;
-                    try {
-                        response = new ServerRequester().execute("scheduleAppointment.php", "whatever"
-                                ,"tutorEmail", currentUser.getEmail()
-                                ,"tuteeEmail", inputTutee.getText().toString()
-                                ,"startAppDateTime", startDateTime //Format: "YYYY-MM-DD HH:MM:SS", 1<=MM<=12
-                                ,"endAppDateTime", endDateTime     //Format is pretty lenient, So long as you use consistent delimiters, seconds not necessary
-                        ).get();
-                        if (response == null) {//Something went horribly wrong, JSON failed to be formed meaning something happened in the server requester
-
-                        } else if (!response.isNull("error")) {//Some incorrect information was sent, but the server and requester still processed it
-                            //TODO Handle Server Errors
-                            switch (response.get("error").toString()) {
-                                default:    //Some Error Code was printed from the server that isn't handled above
-
-                                    break;
-                            }
-                        } else { //Everything Went Well
-
-
-                        }
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    } catch (ExecutionException e) {
-                        e.printStackTrace();
-                    } catch (JSONException e){
-                        e.printStackTrace();
-                    }
-
                     // length of time that has passed
                     seconds = (end.getTimeInMillis() - start.getTimeInMillis()) / 1000;
 
@@ -235,9 +208,62 @@ public class WalkInSession extends AppCompatActivity implements OnMapReadyCallba
                             "Yes",
                             new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int id) {
+                                    //Schedules the Appointment with the Tutee
+                                    JSONObject response = null;
+                                    try {
+                                        response = new ServerRequester().execute("scheduleAppointment.php", "whatever"
+                                                ,"tutorEmail", currentUser.getEmail()
+                                                ,"tuteeEmail", inputTutee.getText().toString()
+                                                ,"startAppDateTime", startDateTime //Format: "YYYY-MM-DD HH:MM:SS", 1<=MM<=12
+                                                ,"endAppDateTime", endDateTime     //Format is pretty lenient, So long as you use consistent delimiters, seconds not necessary
+                                        ).get();
+                                        if (response == null) {//Something went horribly wrong, JSON failed to be formed meaning something happened in the server requester
 
-                                    // TODO: schedule appoint here!
-                                    // TODO:  change walk-in status is 0, latlng is 0 so the tutor will not have a walkInLatLng
+                                        } else if (!response.isNull("error")) {//Some incorrect information was sent, but the server and requester still processed it
+                                            //TODO Handle Server Errors
+                                            switch (response.get("error").toString()) {
+                                                default:    //Some Error Code was printed from the server that isn't handled above
+
+                                                    break;
+                                            }
+                                        } else { //Everything Went Well
+
+
+                                        }
+                                    } catch (InterruptedException e) {
+                                        e.printStackTrace();
+                                    } catch (ExecutionException e) {
+                                        e.printStackTrace();
+                                    } catch (JSONException e){
+                                        e.printStackTrace();
+                                    }
+                                    try {
+                                        response = new ServerRequester().execute("walkOut.php", "whatever"
+                                                ,"tutorEmail", currentUser.getEmail()
+                                                ,"tuteeEmail", inputTutee.getText().toString()
+                                                ,"startAppDateTime", startDateTime //Format: "YYYY-MM-DD HH:MM:SS", 1<=MM<=12
+                                                ,"endAppDateTime", endDateTime     //Format is pretty lenient, So long as you use consistent delimiters, seconds not necessary
+                                        ).get();
+                                        if (response == null) {//Something went horribly wrong, JSON failed to be formed meaning something happened in the server requester
+
+                                        } else if (!response.isNull("error")) {//Some incorrect information was sent, but the server and requester still processed it
+                                            //TODO Handle Server Errors
+                                            switch (response.get("error").toString()) {
+                                                default:    //Some Error Code was printed from the server that isn't handled above
+
+                                                    break;
+                                            }
+                                        } else { //Everything Went Well
+
+
+                                        }
+                                    } catch (InterruptedException e) {
+                                        e.printStackTrace();
+                                    } catch (ExecutionException e) {
+                                        e.printStackTrace();
+                                    } catch (JSONException e){
+                                        e.printStackTrace();
+                                    }
                                     // create new Appointment to store in User
                                     Appointment wiAppointment = new Appointment();
                                     wiAppointment.setDateOfAppointment(dayDate);
@@ -260,7 +286,7 @@ public class WalkInSession extends AppCompatActivity implements OnMapReadyCallba
                                 }
                             });
 
-                    confirmAdd.setNegativeButton(
+                        confirmAdd.setNegativeButton(
                             "No",
                             new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int id) {
@@ -358,8 +384,33 @@ public class WalkInSession extends AppCompatActivity implements OnMapReadyCallba
                     double latitude = location.getLatitude();
                     double longitude = location.getLongitude();
                     currentPosition = new LatLng(latitude, longitude);
-                    // TODO: DATABASE set walk-in status to 1 and set tutor's walk-in location to currentPosition
+                    JSONObject response = null;
+                    try {
+                        response = new ServerRequester().execute("walkIn.php", "whatever"
+                                ,"email", currentUser.getEmail()
+                                ,"lat", Double.toString(currentPosition.latitude)
+                                ,"long", Double.toString(currentPosition.longitude)
+                        ).get();
+                        if (response == null) {//Something went horribly wrong, JSON failed to be formed meaning something happened in the server requester
 
+                        } else if (!response.isNull("error")) {//Some incorrect information was sent, but the server and requester still processed it
+                            //TODO Handle Server Errors
+                            switch (response.get("error").toString()) {
+                                default:    //Some Error Code was printed from the server that isn't handled above
+
+                                    break;
+                            }
+                        } else { //Everything Went Well
+
+
+                        }
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    } catch (ExecutionException e) {
+                        e.printStackTrace();
+                    } catch (JSONException e){
+                        e.printStackTrace();
+                    }
                     addressName = getAddressName(currentPosition);
                     tvLocation.setText(addressName);
                 }

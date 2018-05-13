@@ -311,8 +311,8 @@ public class SearchList extends Fragment {
                             next.get("Subjects").toString(),
                             next.get("university").toString(),
                             Float.parseFloat(next.get("averageRating").toString()),
-                            Double.parseDouble(next.get("workLat").toString()),
-                            Double.parseDouble(next.get("workLong").toString()),
+                            Double.parseDouble(next.get("walkInLat").toString()),
+                            Double.parseDouble(next.get("walkInLong").toString()),
                             true
                     ));
                 }
@@ -327,7 +327,7 @@ public class SearchList extends Fragment {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        //TODO: Aenah Filter Through Work and Walk-In on filteredList
+        //TODO: Aenah filter through Work and Walk-In on filteredList, Good Luck Friendo
         adapter.filterList(filteredList);
 
     }
