@@ -335,10 +335,10 @@ public class WorkManager_SetWorkLocation extends AppCompatActivity implements On
     public void onMapClick(LatLng latLng) {
         workLocation = latLng;
         if(mCurrLocationMarker != null){ mCurrLocationMarker.remove(); }
-        Toast.makeText(this, "(" + latLng.latitude + ", " + latLng.longitude + ")", Toast.LENGTH_LONG).show();
+//        Toast.makeText(this, "(" + latLng.latitude + ", " + latLng.longitude + ")", Toast.LENGTH_LONG).show();
         MarkerOptions markerOptions = new MarkerOptions();
         markerOptions.position(latLng);
-        markerOptions.title("Selected Region");
+        markerOptions.title("Selected Work Position");
         markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_YELLOW));
         mCurrLocationMarker = mGoogleMap.addMarker(markerOptions);
         mGoogleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 14));

@@ -54,7 +54,7 @@ public class Searchlist_filter extends AppCompatActivity{
         mMiles = 50; // starting value
         seekBar.setMax(50);
         mMilesIndicator = (TextView)findViewById(R.id.seekBarValue);
-        mMilesIndicator.setText(String.valueOf(seekBar.getProgress()) + " miles");
+        mMilesIndicator.setText(mMiles + " miles");
         seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener(){
 
             @Override
@@ -62,7 +62,7 @@ public class Searchlist_filter extends AppCompatActivity{
                 progress = progress / 5;
                 progress = progress * 5;
                 mMiles = progress;
-                mMilesIndicator.setText(String.valueOf(progress) + " miles");
+                mMilesIndicator.setText(mMiles + " miles");
             }
 
             @Override
