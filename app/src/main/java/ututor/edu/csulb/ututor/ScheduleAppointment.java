@@ -173,7 +173,7 @@ public class ScheduleAppointment extends AppCompatActivity implements DatePicker
             public void onClick(View view) {
                 if(sms.isChecked())
                 {
-                    sendSMS(otherUser.getPhoneNumber(),""+apoint_message.getText().toString()); //TODO this is temporary phone number and get text user enter
+                    sendSMS(otherUser.getPhoneNumber(),""+apoint_message.getText().toString());
 
                 }else if (email.isChecked())
                 {
@@ -310,7 +310,6 @@ public class ScheduleAppointment extends AppCompatActivity implements DatePicker
         datePickerDialog.showYearPickerFirst(false);
 
         // IMPORTANT - single out the days the actual user tutors
-        // TODO temporary other user - erase later
         // get other users available days
 
         // gets other user's work hour

@@ -59,7 +59,6 @@ public class MyProfile extends Fragment {
         linearBio = (LinearLayout) rootView.findViewById(R.id.linearBio);
         linearReadReviews = (LinearLayout) rootView.findViewById(R.id.linearReadReviews);
 
-        // TODO load average rating from database
         JSONObject response = null;
         try {
             response = new ServerRequester().execute("fetchUser.php", "whatever",

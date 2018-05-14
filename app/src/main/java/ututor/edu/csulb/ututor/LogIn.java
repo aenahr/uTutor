@@ -151,9 +151,6 @@ public class LogIn extends AppCompatActivity {
                             }
                         } else {//Server Responded with a "Success", So everything is hunky dory
 
-                            //TODO Delete These Next 2 Lines when you are done debugging
-                            System.out.println("Received Login Response");
-                            System.out.println(response.toString());
                             // if remember me is selected
                             if (mRemember.isChecked()) {
                                 String sEmail = mEmail.getText().toString();

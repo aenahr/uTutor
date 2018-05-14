@@ -50,13 +50,6 @@ public class Favorites extends Fragment implements AdapterView.OnItemSelectedLis
         names = new ArrayList();
         emails = new ArrayList();
 
-        // TODO: dummy data - delete after!
-        names.add("Aenah Ramones");
-        emails.add("aenah.ramones@gmail.com");
-
-        names.add("Annah Ramones");
-        emails.add("annah.ramones@gmail.com");
-
         JSONObject response = null;
         try {
             response = new ServerRequester().execute("fetchFavorites.php", "whatever",
@@ -105,7 +98,6 @@ public class Favorites extends Fragment implements AdapterView.OnItemSelectedLis
                     adb.setPositiveButton("Ok", new AlertDialog.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {
 
-                            // TODO: database remove favorite relationship by email
                             JSONObject response = null;
                             try {
                                 response = new ServerRequester().execute("unFavorite.php", "whatever"
@@ -137,7 +129,6 @@ public class Favorites extends Fragment implements AdapterView.OnItemSelectedLis
 
                 }
                 else{
-                    // TODO: database fetch user by email
                     JSONObject response = null;
                     try {
                         response = new ServerRequester().execute("fetchUser.php", "whatever",

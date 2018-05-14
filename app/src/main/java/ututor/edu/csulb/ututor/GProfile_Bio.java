@@ -1,6 +1,7 @@
 package ututor.edu.csulb.ututor;
 
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -36,7 +37,7 @@ public class GProfile_Bio extends AppCompatActivity {
 
         // get user's data
         Intent i = getIntent();
-        otherUser = (User)i.getSerializableExtra("otherUser"); // TODO temporary keyword it will replace by keyword with Nissant keyword
+        otherUser = (User)i.getSerializableExtra("otherUser");
 
 
         mFName = (TextView) findViewById(R.id.gbio_firstname);
@@ -82,7 +83,13 @@ public class GProfile_Bio extends AppCompatActivity {
         else{ mDescription.setText(otherUser.getDescription()); }
         mDescription.setText(otherUser.getDescription());
         mEducation.setText(otherUser.getUniversity());
-        mPhoneNumber.setText(otherUser.getPhoneNumber());
+        if(otherUser.getPhoneNumber().equals("null") || otherUser.getPhoneNumber().equals("NONE") || otherUser.getPhoneNumber() == null){
+            mPhoneNumber.setText("NONE");
+        }
+        else{
+            mPhoneNumber.setText(otherUser.getPhoneNumber());
+            mPhoneNumber.setTypeface(null, Typeface.ITALIC);
+        }
 
 
     }

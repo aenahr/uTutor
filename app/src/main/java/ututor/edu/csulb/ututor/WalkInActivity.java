@@ -60,9 +60,6 @@ public class WalkInActivity extends AppCompatActivity {
                 // exiting walk-in availability section
                 currentUser.setWalkIn(false);
 
-                // TODO update database with all new appointments made
-
-
                 // redirect to homepage
                 Intent i = new Intent(WalkInActivity.this, HomePage.class);
                 i.putExtra("currentUser", currentUser);

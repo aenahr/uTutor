@@ -9,13 +9,9 @@ import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
-import android.media.Rating;
-import android.os.Build;
 import android.os.Bundle;
-import android.os.Looper;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
@@ -25,13 +21,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.RatingBar;
-import android.widget.TextView;
 import android.widget.Toast;
-
-import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.MarkerOptions;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -41,8 +32,6 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
-
-import static android.content.Context.LOCATION_SERVICE;
 
 public class SearchList extends Fragment {
 
@@ -86,8 +75,6 @@ public class SearchList extends Fragment {
 
         // get user's location
         requestLocationPermission();
-
-
 
         // get user information
         Intent i = getActivity().getIntent();

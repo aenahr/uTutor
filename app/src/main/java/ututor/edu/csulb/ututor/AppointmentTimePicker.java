@@ -18,11 +18,8 @@ import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 import com.wdullaer.materialdatetimepicker.time.TimePickerDialog;
 
 import android.widget.TimePicker;
-
-
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -316,7 +313,6 @@ public class AppointmentTimePicker extends AppCompatActivity implements com.wdul
      * @return
      */
     public boolean isWithinTutorHours(){
-        // TODO - DATABASE FETCH: get other user's work hours within a specified day(s)
         for(int i = 0; i < otherUser.getWorkHours().size(); i++){
             if(isInTime(otherUser.getWorkHours().get(i).getStartTime(), otherUser.getWorkHours().get(i).getEndTime()) == true){
                 indexOfWorkHour = i;

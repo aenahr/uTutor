@@ -1,6 +1,7 @@
 package ututor.edu.csulb.ututor;
 
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -79,9 +80,12 @@ public class MyProfile_Bio extends AppCompatActivity {
         if(currentUser.getDescription().equals("null") || currentUser.getDescription() == null){ mDescription.setText("NONE"); }
         else{ mDescription.setText(currentUser.getDescription()); }
         mEducation.setText(currentUser.getUniversity());
-        // check if phone number is bull
-        if(currentUser.getPhoneNumber().equals("null")){ mPhoneNumber.setText("NONE"); }
-        else{mPhoneNumber.setText(currentUser.getPhoneNumber());}
+        // check if phone number is null
+        if(currentUser.getPhoneNumber().equals("null") || currentUser.getPhoneNumber().equals("NONE") || currentUser.getPhoneNumber() == null){ mPhoneNumber.setText("NONE"); }
+        else{
+            mPhoneNumber.setText(currentUser.getPhoneNumber());
+            mPhoneNumber.setTypeface(null, Typeface.ITALIC);
+        }
 
 
 

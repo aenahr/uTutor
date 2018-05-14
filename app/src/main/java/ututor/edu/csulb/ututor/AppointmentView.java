@@ -111,7 +111,7 @@ public class AppointmentView extends AppCompatActivity {
      * Remove appointment from database
      */
     public void setAppointmentStatus(int status){
-        //TODO: database - remove appointment pls
+        //TODO: database : set the isAccepted variable!
         JSONObject response = null;
         try {
             response = new ServerRequester().execute("scheduleAppointment.php", "whatever"
