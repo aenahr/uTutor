@@ -64,7 +64,7 @@ public class SearchList extends Fragment {
     private User currentUser;
     private String Email, university, subject, firstName, lastName;
     private Float rating;
-    // variables for current location and distane
+    // variables for current location and distance
     private int miles;
     private boolean fromBasic;
     private LatLng currentLocation;
@@ -72,7 +72,6 @@ public class SearchList extends Fragment {
     private String provider;
     private SearchList.MyLocationListener mylistener;
     private Criteria criteria;
-    public ArrayList<String> emailList;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -138,7 +137,6 @@ public class SearchList extends Fragment {
         }else{ //objects from adv search
             searchText.setText(Email);
             fromBasic = false;
-            Toast.makeText(getActivity(), ""+miles, Toast.LENGTH_SHORT).show();
             filter();
         }
 
@@ -194,6 +192,9 @@ public class SearchList extends Fragment {
                 i.putExtra("fromBasic", fromBasic);
                 i.putExtra("setDistance", miles);
                 startActivity(i);
+
+                // the next search will be from the basic search button
+                if (fromBasic == false) { fromBasic = true;}
             }
         });
 
@@ -248,18 +249,23 @@ public class SearchList extends Fragment {
                 Iterator<String> keys = response.keys();
                 while (keys.hasNext()) {
                     JSONObject next = (JSONObject) response.get(keys.next());
-                    filteredList.add(new NewItem(Integer.parseInt(next.get("profilePic").toString()),
-                            next.get("firstName").toString(),
-                            next.get("lastName").toString(),
-                            next.get("email").toString(),
-                            next.get("walkinStatus").toString(),
-                            next.get("Subjects").toString(),
-                            next.get("university").toString(),
-                            Float.parseFloat(next.get("averageRating").toString()),
-                            Double.parseDouble(next.get("walkInLat").toString()),
-                            Double.parseDouble(next.get("walkInLong").toString()),
-                            false
-                            ));
+                    // check if lat and lng are zero
+                    if(Double.parseDouble(next.get("walkInLat").toString()) == 0 && Double.parseDouble(next.get("walkInLong").toString()) == 0){
+                        //dont add it
+                    }else {
+                        filteredList.add(new NewItem(Integer.parseInt(next.get("profilePic").toString()),
+                                next.get("firstName").toString(),
+                                next.get("lastName").toString(),
+                                next.get("email").toString(),
+                                next.get("walkinStatus").toString(),
+                                next.get("Subjects").toString(),
+                                next.get("university").toString(),
+                                Float.parseFloat(next.get("averageRating").toString()),
+                                Double.parseDouble(next.get("walkInLat").toString()),
+                                Double.parseDouble(next.get("walkInLong").toString()),
+                                true
+                        ));
+                    }
                 }
             }
         } catch (InterruptedException e) {
@@ -324,7 +330,7 @@ public class SearchList extends Fragment {
                                 Float.parseFloat(next.get("averageRating").toString()),
                                 Double.parseDouble(next.get("workLat").toString()),
                                 Double.parseDouble(next.get("workLong").toString()),
-                                true
+                                false
                         ));
                     }
                 }
@@ -370,10 +376,7 @@ public class SearchList extends Fragment {
                     double latitude = location.getLatitude();
                     double longitude = location.getLongitude();
                     currentLocation = new LatLng(latitude, longitude);
-//                    Toast.makeText(getActivity(), currentLocation.latitude + ", " + currentLocation.longitude, Toast.LENGTH_SHORT).show();
-                }else{
-                    Toast.makeText(getActivity(), "location is null", Toast.LENGTH_SHORT).show();
-
+                    Toast.makeText(getActivity(), currentLocation.latitude + ", " + currentLocation.longitude, Toast.LENGTH_SHORT).show();
                 }
             }
         }

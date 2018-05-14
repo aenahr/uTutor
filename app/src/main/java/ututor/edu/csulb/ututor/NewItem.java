@@ -31,12 +31,13 @@ public class NewItem implements Serializable
         isWalkIn = walkin;
     }
 
+    public double getLat(){ return lat;}
+    public double getLng(){ return lng;}
+
     public int getImage() {
         return mImage;
     }
-    public boolean getWalkInStatus() {
-        return isWalkIn;
-    }
+    public boolean getWalkInStatus() { return isWalkIn;}
     public String getfirstname() {
         return fname;
     }

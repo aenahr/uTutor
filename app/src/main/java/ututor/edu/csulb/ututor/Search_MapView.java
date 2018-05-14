@@ -39,14 +39,19 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 /**
  * Created by aenah on 5/5/18.
  */
 
-public class Search_MapView extends AppCompatActivity implements OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener{
+public class Search_MapView extends AppCompatActivity implements OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, GoogleMap.OnInfoWindowClickListener{
 
     private final LatLng LOCATION_UNIV = new LatLng(33.783768, -118.114336);
     public LatLng userLocation;
@@ -69,6 +74,7 @@ public class Search_MapView extends AppCompatActivity implements OnMapReadyCallb
     ArrayList<NewItem> appointmentTutors;
     ArrayList<NewItem> walkInTutors;
     ArrayList<NewItem> allAppointments;
+    ArrayList<MapTutor> allMarkers;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,13 +89,16 @@ public class Search_MapView extends AppCompatActivity implements OnMapReadyCallb
         appointmentTutors = new ArrayList<NewItem>();
         walkInTutors = new ArrayList<NewItem>();
 
-        // sort appointments
+        // sort tutors
         for(int x = 0; x < allAppointments.size(); x++){
+            System.out.println(allAppointments.get(x).getImage());
             if(allAppointments.get(x).getWalkInStatus() == true)
                 walkInTutors.add(allAppointments.get(x));
             else
                 appointmentTutors.add(allAppointments.get(x));
         }
+
+        allMarkers = new ArrayList<MapTutor>();
 
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
         mapFrag = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
@@ -130,6 +139,7 @@ public class Search_MapView extends AppCompatActivity implements OnMapReadyCallb
 
     private void drawCircle(LatLng point, int radius){
         if(currentMapCircle != null){ currentMapCircle.remove(); }
+        mGoogleMap.clear();
 
         // Instantiating CircleOptions to draw a circle around the marker
         CircleOptions circleOptions = new CircleOptions();
@@ -150,9 +160,22 @@ public class Search_MapView extends AppCompatActivity implements OnMapReadyCallb
         // Border width of the circle
         circleOptions.strokeWidth(2);
 
+        // sets only within circle to be visible
+        for (int i = 0; i< allMarkers.size(); i++){
+            if(distanceBetween(allMarkers.get(i).getMarker().getPosition(), userLocation) > radius){ }
+            else{
+                MarkerOptions markerOptions = allMarkers.get(i).getMarkerOptions();
+                InfoWindowData info = allMarkers.get(i).getInfoWindowData();
+                Marker m = mGoogleMap.addMarker(markerOptions);
+                m.setTag(info);
+                m.showInfoWindow();
+            }
+        }
+
         // Adding the circle to the GoogleMap
         currentMapCircle = mGoogleMap.addCircle(circleOptions);
         mGoogleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(circleOptions.getCenter(), getZoomLevel(currentMapCircle)));
+
     }
 
     @Override
@@ -174,10 +197,16 @@ public class Search_MapView extends AppCompatActivity implements OnMapReadyCallb
         mLocationRequest.setFastestInterval(12000);
         mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
 
+        addWalkInLocations();
+        addWorkLocations();
+        mGoogleMap.setOnInfoWindowClickListener(this);
+
+
         if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
                 //Location Permission already granted
                 // first time finding location
+                mGoogleMap.setMyLocationEnabled(true);
                 LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
                 Criteria criteria = new Criteria();
                 String bestProvider = locationManager.getBestProvider(criteria, true);
@@ -185,11 +214,7 @@ public class Search_MapView extends AppCompatActivity implements OnMapReadyCallb
                 if (location != null) {
                     currentLocation = location;
                     userLocation = new LatLng(location.getLatitude(), location.getLongitude());
-                    MarkerOptions markerOptions = new MarkerOptions();
-                    markerOptions.position(userLocation);
-                    markerOptions.title("Current Position");
-                    markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_YELLOW));
-                    mCurrLocationMarker = mGoogleMap.addMarker(markerOptions);
+                    Toast.makeText(this, userLocation.latitude + ", " + userLocation.longitude, Toast.LENGTH_SHORT).show();
                     // create starting circle
                     drawCircle(userLocation, mProgress);
                 }
@@ -214,6 +239,8 @@ public class Search_MapView extends AppCompatActivity implements OnMapReadyCallb
                 if (mCurrLocationMarker != null) { mCurrLocationMarker.remove(); }
                 //Place current location marker
                 userLocation = new LatLng(location.getLatitude(), location.getLongitude());
+                // create starting circle
+                drawCircle(userLocation, mProgress);
             }
         }
     };
@@ -294,4 +321,128 @@ public class Search_MapView extends AppCompatActivity implements OnMapReadyCallb
         return zoomLevel;
     }
 
+    public void addWorkLocations(){
+        for(int i = 0; i < appointmentTutors.size(); i++){
+
+            MarkerOptions markerOptions = new MarkerOptions();
+            markerOptions.position(new LatLng(appointmentTutors.get(i).getLat(), appointmentTutors.get(i).getLng()))
+                    .title(appointmentTutors.get(i).getemail())
+                    .icon(BitmapDescriptorFactory.defaultMarker( BitmapDescriptorFactory.HUE_RED));
+
+            // add to custom info window
+            InfoWindowData info = new InfoWindowData();
+            info.setEmail(appointmentTutors.get(i).getemail());
+            info.setName(appointmentTutors.get(i).getfirstname() + " " + appointmentTutors.get(i).getlastname());
+            info.setProfilePic(appointmentTutors.get(i).getImage());
+            info.setRating(appointmentTutors.get(i).getrating());
+            if(appointmentTutors.get(i).getstatus().equals("0")) info.setStatus("Walk-In Unavailable");
+            else info.setStatus("Walk-In Available");
+
+            // incorporate google map custom window
+            CustomInfoWindowGoogleMap customInfoWindow = new CustomInfoWindowGoogleMap(this);
+            mGoogleMap.setInfoWindowAdapter(customInfoWindow);
+
+            Marker m = mGoogleMap.addMarker(markerOptions);
+            m.setTag(info);
+            m.showInfoWindow();
+            MapTutor mapTutor = new MapTutor(markerOptions, m, info);
+            allMarkers.add(mapTutor);        }
+    }
+
+    public void addWalkInLocations(){
+        for(int i = 0; i < walkInTutors.size(); i++){
+            MarkerOptions markerOptions = new MarkerOptions();
+            markerOptions.position(new LatLng(walkInTutors.get(i).getLat(), walkInTutors.get(i).getLng()))
+                    .title(walkInTutors.get(i).getemail())
+                    .icon(BitmapDescriptorFactory.defaultMarker( BitmapDescriptorFactory.HUE_CYAN));
+
+            // add to custom info window
+            InfoWindowData info = new InfoWindowData();
+            info.setEmail(walkInTutors.get(i).getemail());
+            info.setName(walkInTutors.get(i).getfirstname() + " " + walkInTutors.get(i).getlastname());
+            info.setProfilePic(walkInTutors.get(i).getImage());
+            info.setRating(walkInTutors.get(i).getrating());
+            if(walkInTutors.get(i).getstatus().equals("0")) info.setStatus("Walk-In Unavailable");
+            else info.setStatus("Walk-In Available");
+
+            // incorporate google map custom window
+            CustomInfoWindowGoogleMap customInfoWindow = new CustomInfoWindowGoogleMap(this);
+            mGoogleMap.setInfoWindowAdapter(customInfoWindow);
+
+            Marker m = mGoogleMap.addMarker(markerOptions);
+            m.setTag(info);
+            m.showInfoWindow();
+            MapTutor mapTutor = new MapTutor(markerOptions, m, info);
+            allMarkers.add(mapTutor);
+        }
+    }
+
+    @Override
+    public void onInfoWindowClick(Marker marker) {
+//        Toast.makeText(this, "distance between " + marker.getTitle() + " and myLocation is " + distanceBetween(marker.getPosition(), userLocation), Toast.LENGTH_SHORT).show();
+        JSONObject response = null;
+        try {
+            response = new ServerRequester().execute("fetchUser.php", "whatever",
+                    "email", marker.getTitle()
+            ).get();
+            if (response == null) {//Something went horribly wrong, JSON failed to be formed meaning something happened in the server requester
+            } else if (!response.isNull("error")) {//Some incorrect information was sent, but the server and requester still processed it
+                //TODO Handle Server Errors
+                switch (response.get("error").toString()) {
+                    case "-1": //Email Password Combo not in the Database
+                        break;
+                    case "-2":  //Select Query failed due to something dumb
+                        // Print out response.get("errormessage"), it'll have the mysql error with it
+
+                        break;
+                    case "-3": //Update Query Failed Due to New Email is already associated with another account
+                        break;
+                    case "-4":  //Update Query Failed Due to Something Else Dumb that I haven't handled yet,
+                        // Print out response.get("errormessage"), it'll have the mysql error with it
+                        break;
+                    default:    //Some Error Code was printed from the server that isn't handled above
+
+                        break;
+                }
+            } else { //Everything Went Well
+                User otherUser = new User();
+                otherUser.setFirstName(response.get("firstName").toString());
+                otherUser.setLastName(response.get("lastName").toString());
+                otherUser.setEmail(response.get("email").toString());
+                otherUser.setUniversity(response.get("university").toString());
+                otherUser.setRating(Float.parseFloat(response.get("averageRating").toString()));
+                otherUser.setDescription(response.get("userDescription").toString());
+                otherUser.setNumProfilePic(Integer.parseInt(response.get("profilePic").toString()));
+                otherUser.setPhoneNumber(response.get("phoneNumber").toString());
+
+                Intent i = new Intent(this, GenericProfile.class);
+                i.putExtra("currentUser", currentUser);
+                i.putExtra("otherUser", otherUser);
+                startActivity(i);
+            }
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (JSONException e){
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Gets distance between in miles
+     * @param a location 1
+     * @param b location 2
+     * @return
+     */
+    public double distanceBetween(LatLng a, LatLng b){
+        Location aLocation =new Location("locationA");
+        aLocation.setLatitude(a.latitude);
+        aLocation.setLongitude(a.longitude);
+        Location bLocation=new Location("locationB");
+        bLocation.setLatitude(b.latitude);
+        bLocation.setLongitude(b.longitude);
+        double distance=bLocation.distanceTo(aLocation);
+        return distance / 1609.34;
+    }
 }
