@@ -161,12 +161,14 @@ public class WorkManager extends Fragment implements AdapterView.OnItemSelectedL
         mWorkAdapter = new ArrayAdapter<String>(getActivity().getBaseContext(), android.R.layout.simple_list_item_1, mWorkItems);
         mWorkListView.setAdapter(mWorkAdapter);
 
+        // TODO: database fetch all subjects based on currentUser.getEmail()
+        // with each subject, call --> currentUser.addNewSubject(subjectNAME);
+
         // link local arraylist to currentUser's arraylist
         mSubjectItems = currentUser.getSubjectsTaught();
 
         // sort subjects array
         Arrays.sort(subjects);
-
 
 //      String uniqueTitle = currentUser.getFirstName().toUpperCase() + "'s WORK MANAGER";
 //      mTitle.setText(uniqueTitle);
@@ -197,6 +199,8 @@ public class WorkManager extends Fragment implements AdapterView.OnItemSelectedL
                     Toast.makeText(getActivity(), inputSubject + " added to subjects!", Toast.LENGTH_SHORT).show();
                     mSubjectItems.add(inputSubject);
                     mSubjectAdapter.notifyDataSetChanged();
+
+                    // TODO: database - add new subject to databse
                 }
             }
         });

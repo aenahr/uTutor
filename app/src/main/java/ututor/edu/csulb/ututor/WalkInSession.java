@@ -121,6 +121,7 @@ public class WalkInSession extends AppCompatActivity implements OnMapReadyCallba
         buttonTime.setOnClickListener(new View.OnClickListener(){
 
             public void onClick(View view) {
+
                 Boolean isUser=false;
                 if(begin == false){ // walk in session started
                     JSONObject response = null;
@@ -132,11 +133,7 @@ public class WalkInSession extends AppCompatActivity implements OnMapReadyCallba
                         } else if (!response.isNull("error")) {//Some incorrect information was sent, but the server and requester still processed it
                             //TODO Handle Server Errors
                             switch (response.get("error").toString()) {
-                                case "-1": //Email Password Combo not in the Database
-                                    break;
                                 case "-2":  //Select Query failed due to something dumb
-                                    // Print out response.get("errormessage"), it'll have the mysql error with it
-
                                     break;
                                 case "-3": //Update Query Failed Due to New Email is already associated with another account
                                     break;
@@ -161,7 +158,6 @@ public class WalkInSession extends AppCompatActivity implements OnMapReadyCallba
                             int day = start.get(Calendar.DAY_OF_MONTH);
                             int hour = start.get(Calendar.HOUR_OF_DAY);
                             int minute = start.get(Calendar.MINUTE);
-                            //int second = start.get(Calendar.SECOND);
                             startDateTime = year + "-" + month + "-" + day + " " + hour + ":" + minute;
 
                         }
@@ -172,7 +168,8 @@ public class WalkInSession extends AppCompatActivity implements OnMapReadyCallba
                     } catch (JSONException e){
                         e.printStackTrace();
                     }
-                //TODO AENAH If isUser==false, do the thing
+                    // notify tutor to input a valid tutee email
+                    if(isUser == false){ Toast.makeText(WalkInSession.this,  "User not found in database.", Toast.LENGTH_SHORT).show(); }
                 }
                 else{ // walk in session ended
                     // end tutoring time
@@ -238,12 +235,10 @@ public class WalkInSession extends AppCompatActivity implements OnMapReadyCallba
                                     } catch (JSONException e){
                                         e.printStackTrace();
                                     }
+                                    response = null;
                                     try {
-                                        response = new ServerRequester().execute("walkOut.php", "whatever"
-                                                ,"email"
-                                        ).get();
+                                        response = new ServerRequester().execute("walkOut.php", "whatever","email").get();
                                         if (response == null) {//Something went horribly wrong, JSON failed to be formed meaning something happened in the server requester
-
                                         } else if (!response.isNull("error")) {//Some incorrect information was sent, but the server and requester still processed it
                                             //TODO Handle Server Errors
                                             switch (response.get("error").toString()) {
@@ -253,7 +248,12 @@ public class WalkInSession extends AppCompatActivity implements OnMapReadyCallba
                                             }
                                         } else { //Everything Went Well
 
-
+                                            // Go back to main activity
+                                            Intent i = new Intent(WalkInSession.this, WalkInActivity.class);
+                                            i.putExtra("currentUser", currentUser);
+                                            i.putExtra("session", 1);
+                                            startActivity(i);
+                                            finish();
                                         }
                                     } catch (InterruptedException e) {
                                         e.printStackTrace();
@@ -262,25 +262,6 @@ public class WalkInSession extends AppCompatActivity implements OnMapReadyCallba
                                     } catch (JSONException e){
                                         e.printStackTrace();
                                     }
-                                    // create new Appointment to store in User
-                                    Appointment wiAppointment = new Appointment();
-                                    wiAppointment.setDateOfAppointment(dayDate);
-                                    wiAppointment.setStartTime(start);
-                                    wiAppointment.setEndTime(end);
-                                    wiAppointment.setLengthOfAppointment(seconds);
-                                    wiAppointment.setTutee(inputTutee.getText().toString());
-                                    wiAppointment.setTutor(currentUser.getEmail());
-                                    //wiAppointment.setLocation("herp");
-
-                                    // adding appointment to user class
-                                    currentUser.addNewAppointment(wiAppointment);
-
-                                    // Go back to main activity
-                                    Intent i = new Intent(WalkInSession.this, WalkInActivity.class);
-                                    i.putExtra("currentUser", currentUser);
-                                    i.putExtra("session", 1);
-                                    startActivity(i);
-                                    finish();
                                 }
                             });
 

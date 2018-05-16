@@ -47,6 +47,8 @@ public class User implements Serializable{
         walkInLocation = null;
     }
 
+    public void addNewSubject(String s){ subjectsTaught.add(s); }
+
     public LatLng getWorkLocation() {return workLocation;}
     public LatLng getWalkInLocation() {return walkInLocation;}
 
