@@ -215,7 +215,8 @@ public class WalkInSession extends AppCompatActivity implements OnMapReadyCallba
                                                 ,"tutorEmail", currentUser.getEmail()
                                                 ,"tuteeEmail", inputTutee.getText().toString()
                                                 ,"startAppDateTime", startDateTime //Format: "YYYY-MM-DD HH:MM:SS", 1<=MM<=12
-                                                ,"endAppDateTime", endDateTime     //Format is pretty lenient, So long as you use consistent delimiters, seconds not necessary
+                                                ,"endAppDateTime", endDateTime     //Format is pretty lenient, So long as you use consistent delimiters, seconds not necessary                                                ,"tutorEmail", currentUser.getEmail()
+                                                ,"status", "1"
                                         ).get();
                                         if (response == null) {//Something went horribly wrong, JSON failed to be formed meaning something happened in the server requester
 
