@@ -79,7 +79,7 @@ public class GProfile_Bio extends AppCompatActivity {
         mFName.setText(otherUser.getFirstName());
         mLName.setText(otherUser.getLastName());
         mEmail.setText(otherUser.getEmail());
-        if(otherUser.getDescription().equals("NULL") || otherUser.getDescription().equals("null")){mDescription.setText("None");}
+        if(otherUser.getDescription().equals("NULL") || otherUser.getDescription().equals("null")){mDescription.setText("NONE");}
         else{ mDescription.setText(otherUser.getDescription()); }
         mDescription.setText(otherUser.getDescription());
         mEducation.setText(otherUser.getUniversity());

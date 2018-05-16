@@ -57,8 +57,10 @@ public class MyProfile_Edit extends AppCompatActivity {
         lastName.setText(currentUser.getLastName());
         eEmail.setText(currentUser.getEmail());
         collegeName.setText(currentUser.getUniversity());
-        description.setText(currentUser.getDescription());
-        phoneNum.setText(currentUser.getPhoneNumber());
+        if(currentUser.getDescription().equals("null")){ description.setHint("NONE"); }
+        else{ description.setText(currentUser.getDescription());}
+        if(currentUser.getPhoneNumber().equals("null")){description.setHint("NONE"); }
+        else{ phoneNum.setText(currentUser.getPhoneNumber()); }
 
         saveChanges.setOnClickListener(new View.OnClickListener(){
             public void onClick(View view) {

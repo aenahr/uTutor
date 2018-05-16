@@ -161,10 +161,11 @@ public class WorkManager extends Fragment implements AdapterView.OnItemSelectedL
         mWorkAdapter = new ArrayAdapter<String>(getActivity().getBaseContext(), android.R.layout.simple_list_item_1, mWorkItems);
         mWorkListView.setAdapter(mWorkAdapter);
 
-        // TODO: database fetch all subjects based on currentUser.getEmail()
-        // with each subject, call --> currentUser.addNewSubject(subjectNAME);
 
         // link local arraylist to currentUser's arraylist
+        if(currentUser.getSubjectsTaught().contains("null")){
+            currentUser.getSubjectsTaught().remove("null");
+        }
         mSubjectItems = currentUser.getSubjectsTaught();
 
         // sort subjects array
