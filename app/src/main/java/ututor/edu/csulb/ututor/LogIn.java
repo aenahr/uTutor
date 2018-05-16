@@ -27,6 +27,8 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.concurrent.ExecutionException;
 
 
@@ -122,13 +124,10 @@ public class LogIn extends AppCompatActivity {
                     try {
                         Animation shake = AnimationUtils.loadAnimation(LogIn.this, R.anim.shake);
                         System.out.println("Sending Login Request");
-                        //response.get("error") will give you the error code
-                        //response.get("errormessage") will print out what exactly happened, should be used for debugging,
-                        //user probably doesn't need to know this
-                        // -1: Query Failed, -2: Invalid Email, -3: Invalid Password
+
                         JSONObject response = new ServerRequester().execute("login.php", "whatever", "email", mEmail.getText().toString(), "password", mPassword.getText().toString()).get();
                         //if (response.isNull("success")) { //Interchangable with response.isNull("isTutor")), use whichever is better
-                        if(response.isNull("isTutor")){    //This is what the last query returns, if this is null the Server didn't go through all the queries therefore there is some error
+                        if (response.isNull("isTutor")) {    //This is what the last query returns, if this is null the Server didn't go through all the queries therefore there is some error
                             if (!response.isNull("error")) {//If the server returned an error code (So the request was at least processed)
                                 switch (response.get("error").toString()) {
                                     case "-1": //Some query failed, Server error
@@ -180,23 +179,47 @@ public class LogIn extends AppCompatActivity {
                             if (response.get("isTutor").toString().equals("false")) {
                                 cUser.setTutor(false);
                             }
-                            cUser.setFirstName(response.get("firstName").toString());
-                            cUser.setLastName(response.get("lastName").toString());
-                            cUser.setDescription(response.get("userDescription").toString());
-                            if(response.isNull("profilePic")) {
-                                cUser.setNumProfilePic(0);
-                            }else{
-                                cUser.setNumProfilePic(response.getInt("profilePic"));
-                            }
-                            cUser.setPhoneNumber(response.get("phoneNumber").toString());
+                            response = new ServerRequester().execute("fetchUser.php", "whatever",
+                                    "email", cUser.getEmail()
+                            ).get();
+                            if (response == null) {//Something went horribly wrong, JSON failed to be formed meaning something happened in the server requester
+                            } else if (!response.isNull("error")) {//Some incorrect information was sent, but the server and requester still processed it
+                                //TODO Handle Server Errors
+                                switch (response.get("error").toString()) {
+                                    case "-1": //Email Password Combo not in the Database
+                                        break;
+                                    case "-2":  //Select Query failed due to something dumb
+                                        // Print out response.get("errormessage"), it'll have the mysql error with it
+
+                                        break;
+                                    case "-3": //Update Query Failed Due to New Email is already associated with another account
+                                        break;
+                                    case "-4":  //Update Query Failed Due to Something Else Dumb that I haven't handled yet,
+                                        // Print out response.get("errormessage"), it'll have the mysql error with it
+                                        break;
+                                    default:    //Some Error Code was printed from the server that isn't handled above
+
+                                        break;
+                                }
+                            } else { //Everything Went Well
+                                cUser.setFirstName(response.get("firstName").toString());
+                                cUser.setLastName(response.get("lastName").toString());
+                                cUser.setEmail(response.get("email").toString());
+                                cUser.setUniversity(response.get("university").toString());
+                                cUser.setRating(Float.parseFloat(response.get("averageRating").toString()));
+                                cUser.setDescription(response.get("userDescription").toString());
+                                cUser.setNumProfilePic(Integer.parseInt(response.get("profilePic").toString()));
+                                cUser.setPhoneNumber(response.get("phoneNumber").toString());
+                                cUser.setSubjectsTaught(new ArrayList(Arrays.asList(response.getString("Subjects").split(","))));
 //                            Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.ututorlogo); // drawable to bitmap
 //                            cUser.setProfilePic(bitmap);
 
-                            // send user info to HomePage
-                            Intent i = new Intent(LogIn.this, HomePage.class);
-                            i.putExtra("currentUser", cUser);
-                            startActivity(i);
-                            finish();
+                                // send user info to HomePage
+                                Intent i = new Intent(LogIn.this, HomePage.class);
+                                i.putExtra("currentUser", cUser);
+                                startActivity(i);
+                                finish();
+                            }
                         }
                     } catch (InterruptedException e) {
                         e.printStackTrace();
@@ -205,7 +228,6 @@ public class LogIn extends AppCompatActivity {
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
-
                 }
             }
         });

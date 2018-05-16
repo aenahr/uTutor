@@ -43,6 +43,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
@@ -414,6 +415,7 @@ public class Search_MapView extends AppCompatActivity implements OnMapReadyCallb
                 otherUser.setDescription(response.get("userDescription").toString());
                 otherUser.setNumProfilePic(Integer.parseInt(response.get("profilePic").toString()));
                 otherUser.setPhoneNumber(response.get("phoneNumber").toString());
+                otherUser.setSubjectsTaught(new ArrayList(Arrays.asList(response.getString("Subjects").split(","))));
 
                 Intent i = new Intent(this, GenericProfile.class);
                 i.putExtra("currentUser", currentUser);

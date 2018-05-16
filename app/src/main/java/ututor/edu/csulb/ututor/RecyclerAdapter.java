@@ -17,6 +17,7 @@ import org.json.JSONObject;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.concurrent.ExecutionException;
@@ -84,6 +85,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
                             otherUser.setDescription(response.get("userDescription").toString());
                             otherUser.setNumProfilePic(Integer.parseInt(response.get("profilePic").toString()));
                             otherUser.setPhoneNumber(response.get("phoneNumber").toString());
+                            otherUser.setSubjectsTaught(new ArrayList(Arrays.asList(response.getString("Subjects").split(","))));
 
                             Intent i = new Intent(searchContext, GenericProfile.class);
                             i.putExtra("currentUser", currentUser);

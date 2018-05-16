@@ -18,6 +18,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.concurrent.ExecutionException;
 
@@ -163,6 +164,8 @@ public class Favorites extends Fragment implements AdapterView.OnItemSelectedLis
                             otherUser.setDescription(response.get("userDescription").toString());
                             otherUser.setNumProfilePic(Integer.parseInt(response.get("profilePic").toString()));
                             otherUser.setPhoneNumber(response.get("phoneNumber").toString());
+                            otherUser.setSubjectsTaught(new ArrayList(Arrays.asList(response.getString("Subjects").split(","))));
+
                             Intent i = new Intent(getActivity(), GenericProfile.class);
                             i.putExtra("currentUser", currentUser);
                             i.putExtra("otherUser", otherUser);

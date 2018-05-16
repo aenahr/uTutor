@@ -18,6 +18,8 @@ import android.widget.TextView;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.concurrent.ExecutionException;
 
 
@@ -79,6 +81,7 @@ public class MyProfile extends Fragment {
                 currentUser.setRating(Float.parseFloat(response.get("averageRating").toString()));
                 currentUser.setDescription(response.get("userDescription").toString());
                 currentUser.setNumProfilePic(Integer.parseInt(response.get("profilePic").toString()));
+                currentUser.setSubjectsTaught(new ArrayList(Arrays.asList(response.getString("Subjects").split(","))));
             }
         } catch (InterruptedException e) {
             e.printStackTrace();
