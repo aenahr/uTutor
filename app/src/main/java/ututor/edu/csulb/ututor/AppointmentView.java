@@ -114,11 +114,12 @@ public class AppointmentView extends AppCompatActivity {
         //TODO: database : set the isAccepted variable!
         JSONObject response = null;
         try {
-            response = new ServerRequester().execute("scheduleAppointment.php", "whatever"
+            response = new ServerRequester().execute("setAppointmentStatus.php", "whatever"
                     ,"tutorEmail", currentAppointment.getTutorEmail()
                     ,"tuteeEmail", currentAppointment.getTuteeEmail()
                     ,"startAppDateTime", formatDateTime(currentAppointment.getDate(), currentAppointment.getStartTime())//Format: "YYYY-MM-DD HH:MM:SS", 1<=MM<=12
                     ,"endAppDateTime", formatDateTime(currentAppointment.getDate(), currentAppointment.getEndTime())    //Format is pretty lenient, So long as you use consistent delimiters, seconds not necessary
+                    ,"status", Integer.toString(status)
             ).get();
             if (response == null) {//Something went horribly wrong, JSON failed to be formed meaning something happened in the server requester
 
@@ -145,6 +146,6 @@ public class AppointmentView extends AppCompatActivity {
         return f.format(c.getTime());
     }
     public String formatDateTime(Calendar date, Calendar time){
-        return formatDate(date) + " " + time.get(Calendar.HOUR) + ":" + time.get(Calendar.MINUTE);
+        return formatDate(date) + " " + time.get(Calendar.HOUR_OF_DAY) + ":" + time.get(Calendar.MINUTE);
     }
 }
