@@ -200,7 +200,29 @@ public class WorkManager extends Fragment implements AdapterView.OnItemSelectedL
                     mSubjectItems.add(inputSubject);
                     mSubjectAdapter.notifyDataSetChanged();
 
-                    // TODO: database - add new subject to databse
+                    JSONObject response = null;
+                    try {
+                        response = new ServerRequester().execute("addSubject.php", "whatever"
+                                ,"SubjectName", inputSubject
+                                ,"tutorEmail", currentUser.getEmail()
+                        ).get();
+                        if (response == null) {//Something went horribly wrong, JSON failed to be formed meaning something happened in the server requester
+                        } else if (!response.isNull("error")) {//Some incorrect information was sent, but the server and requester still processed it
+                            switch (response.get("error").toString()) {
+                                default:    //Some Error Code was printed from the server that isn't handled above
+
+                                    break;
+                            }
+                        } else { //Everything Went Well
+
+                        }
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    } catch (ExecutionException e) {
+                        e.printStackTrace();
+                    } catch (JSONException e){
+                        e.printStackTrace();
+                    }
                 }
             }
         });
@@ -209,11 +231,31 @@ public class WorkManager extends Fragment implements AdapterView.OnItemSelectedL
             @Override
             public void onItemClick(AdapterView<?> a, View v, int position,
                                     long id) {
-                // remove from list
+                JSONObject response = null;
+                try {
+                    response = new ServerRequester().execute("removeSubject.php", "whatever"
+                            ,"SubjectName", mSubjectItems.get(position)
+                            ,"tutorEmail", currentUser.getEmail()
+                    ).get();
+                    if (response == null) {//Something went horribly wrong, JSON failed to be formed meaning something happened in the server requester
+                    } else if (!response.isNull("error")) {//Some incorrect information was sent, but the server and requester still processed it
+                        switch (response.get("error").toString()) {
+                            default:    //Some Error Code was printed from the server that isn't handled above
 
-                Toast.makeText(getActivity(), mSubjectItems.get(position) + " deleted.", Toast.LENGTH_SHORT).show();
-                mSubjectItems.remove(position);
-                mSubjectAdapter.notifyDataSetChanged();
+                                break;
+                        }
+                    } else { //Everything Went Well
+                        Toast.makeText(getActivity(), mSubjectItems.get(position) + " deleted.", Toast.LENGTH_SHORT).show();
+                        mSubjectItems.remove(position);
+                        mSubjectAdapter.notifyDataSetChanged();
+                    }
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                } catch (ExecutionException e) {
+                    e.printStackTrace();
+                } catch (JSONException e){
+                    e.printStackTrace();
+                }
             }
         });
 
