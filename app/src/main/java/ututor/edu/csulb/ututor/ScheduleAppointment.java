@@ -85,6 +85,7 @@ public class ScheduleAppointment extends AppCompatActivity implements DatePicker
         if(currentUser != null) { tuteeEmail.setText(currentUser.getEmail());}
 
         // check if other user has a phone number, if not they cannot message them
+//        Toast.makeText(this, otherUser.getPhoneNumber()+"", Toast.LENGTH_LONG).show();
         if(otherUser.getPhoneNumber().equals("NONE") || otherUser.getPhoneNumber() == null || otherUser.getPhoneNumber().equals("null")){
             sms.setEnabled(false);
         }

@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -88,21 +89,21 @@ public class AppointmentView extends AppCompatActivity {
 
         bAccept.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
-                setAppointmentStatus(1);
+                setAppointmentStatus(1, true);
             }
         });
 
         bDecline.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 // remove appointment from database
-                setAppointmentStatus(-1);
+                setAppointmentStatus(-1, false);
             }
         });
 
         bCancel.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 // remove appointment from database
-                setAppointmentStatus(-1);
+                setAppointmentStatus(-1, true);
             }
         });
     }
@@ -110,7 +111,7 @@ public class AppointmentView extends AppCompatActivity {
     /**
      * Remove appointment from database
      */
-    public void setAppointmentStatus(int status){
+    public void setAppointmentStatus(int status, boolean state){
         //TODO: database : set the isAccepted variable!
         JSONObject response = null;
         try {
@@ -131,6 +132,15 @@ public class AppointmentView extends AppCompatActivity {
                         break;
                 }
             } else { //Everything Went Well
+                if( status == 1){
+                    Toast.makeText(this, "Appointment accepted.", Toast.LENGTH_LONG).show();
+                }else if(status == -1 && state == false){
+                    Toast.makeText(this, "Appointment rejected.", Toast.LENGTH_LONG).show();
+                } else if(status == -1 && state == true){
+                    Toast.makeText(this, "Appointment canceled.", Toast.LENGTH_LONG).show();
+
+                }
+                finish();
 
             }
         } catch (InterruptedException e) {

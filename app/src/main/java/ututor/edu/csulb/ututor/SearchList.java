@@ -363,7 +363,7 @@ public class SearchList extends Fragment {
                     double latitude = location.getLatitude();
                     double longitude = location.getLongitude();
                     currentLocation = new LatLng(latitude, longitude);
-                    Toast.makeText(getActivity(), currentLocation.latitude + ", " + currentLocation.longitude, Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(getActivity(), currentLocation.latitude + ", " + currentLocation.longitude, Toast.LENGTH_SHORT).show();
                 }
             }
         }
